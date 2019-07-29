@@ -95,7 +95,7 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/card_main_word"
+                android:id="@+id/card_search_word"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
@@ -162,7 +162,7 @@
                     </LinearLayout>
 
                     <EditText
-                        android:id="@+id/edtMainWord"
+                        android:id="@+id/edtHomeWord"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"

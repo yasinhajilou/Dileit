@@ -17,4 +17,8 @@
     <string name="related_idioms">اصطلاحات مرتبط</string>
     <string name="Trans_to_Eng">معنی به انگلیسی</string>
     <string name="transition_edt_fragment">transitionForFragmentEditText</string>
+    <string name="transition_card_fragment">transitionCardview</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

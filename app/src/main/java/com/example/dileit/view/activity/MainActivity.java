@@ -11,14 +11,10 @@ import com.example.dileit.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText edtMainWord;
-    CardView cardMainWord;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        edtMainWord = findViewById(R.id.edtMainWord);
-        cardMainWord = findViewById(R.id.card_main_word);
     }
 }

@@ -71,7 +71,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:fontFamily="@font/productsansregular"
-                android:text="@string/mock_item_liet"
+                android:text="@string/mock_item_leit"
                 android:id="@+id/txtShowLieItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

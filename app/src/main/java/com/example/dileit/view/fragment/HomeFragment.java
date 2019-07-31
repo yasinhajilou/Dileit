@@ -14,10 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,27 +51,28 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        FloatingActionButton fab = view.findViewById(R.id.fabAddWord);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showSearchFragment();
-            }
-        });
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        CardView cardView = view.findViewById(R.id.card_search_home);
+        TextView textView = view.findViewById(R.id.tvHomeWord);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showSearchFragment(cardView);
+            }
+        });
     }
 
-    private void showSearchFragment() {
+    private void showSearchFragment(CardView cardView) {
         getFragmentManager()
                 .beginTransaction()
-                //view compat helps you to access view feature
                 .addToBackStack(TAG)
-//                .addSharedElement(editText, ViewCompat.getTransitionName(editText))
+                //view compat helps you to access view feature
+                .addSharedElement(cardView, ViewCompat.getTransitionName(cardView))
                 .replace(R.id.fragment_container_main_activity, WordSearchFragment.newInstance(), WordSearchFragment.class.getSimpleName())
                 .commit();
 

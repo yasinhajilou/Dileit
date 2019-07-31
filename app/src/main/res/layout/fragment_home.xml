@@ -95,7 +95,7 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/card_search_word"
+                android:id="@+id/card_search_home"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
@@ -162,12 +162,12 @@
                     </LinearLayout>
 
                     <EditText
+                        android:inputType="none"
                         android:id="@+id/edtHomeWord"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:background="@android:color/transparent"
-                        android:enabled="false"
                         android:fontFamily="@font/productsansregular"
                         android:paddingTop="20dp"
                         android:paddingBottom="20dp"
@@ -304,4 +304,5 @@
         android:elevation="8dp"
         android:src="@drawable/ic_add_black_24dp"
         app:backgroundTint="@color/colorPrimary" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -12,9 +12,6 @@
     <string name="mock_item_leit"><u>24 Items</u></string>
     <string name="type_your_word">Type Your Word</string>
     <string name="words">Words</string>
-    <string name="Trans_to_persian">معنی به فارسی</string>
-    <string name="related_idioms">اصطلاحات مرتبط</string>
-    <string name="Trans_to_Eng">معنی به انگلیسی</string>
     <string name="transition_edt_fragment">transitionForFragmentEditText</string>
     <string name="transition_card_fragment">transitionCardview</string>
 

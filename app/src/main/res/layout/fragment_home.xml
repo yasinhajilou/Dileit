@@ -175,7 +175,6 @@
                         android:text="@string/input_word"
                         android:textColor="@color/colorPrimary"
                         android:textSize="18sp"
-                        android:transitionName="@string/transition_edt_fragment"
                         tools:ignore="UnusedAttribute" />
 
                     <LinearLayout

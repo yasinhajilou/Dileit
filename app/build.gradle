@@ -39,4 +39,13 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment:2.0.0"
     implementation "androidx.navigation:navigation-ui:2.0.0"
 
+    // Room components
+    implementation "android.arch.persistence.room:runtime:2.0.0"
+    annotationProcessor "android.arch.persistence.room:compiler:2.0.0"
+    androidTestImplementation "android.arch.persistence.room:testing:2.0.0"
+
+    // Lifecycle components
+    implementation "android.arch.lifecycle:extensions:2.0.0"
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.0.0"
+
 }

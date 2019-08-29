@@ -12,9 +12,6 @@
     <string name="mock_item_leit"><u>24 Items</u></string>
     <string name="type_your_word">Type Your Word</string>
     <string name="words">Words</string>
-    <string name="transition_edt_fragment">transitionForFragmentEditText</string>
-    <string name="transition_card_fragment">transitionCardview</string>
+    <string name="transition_card_fragment">transitionCardView</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

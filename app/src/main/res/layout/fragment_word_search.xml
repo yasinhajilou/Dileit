@@ -16,13 +16,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="match_parent"
         android:layout_height="58dp"
-        android:transitionName="@string/transition_card_fragment">
+        android:transitionName="@string/transition_card_fragment"
+        tools:ignore="UnusedAttribute">
         <LinearLayout
             android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <EditText
-                android:transitionName="@string/transition_edt_fragment"
                 android:hint="@string/type_your_word"
                 android:background="@android:color/transparent"
                 android:id="@+id/edtSearchWord"

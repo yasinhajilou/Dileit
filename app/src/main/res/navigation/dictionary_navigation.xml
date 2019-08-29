@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dictionary_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/wordSearchFragment"
+        android:name="com.example.dileit.view.fragment.WordSearchFragment"
+        android:label="fragment_word_search"
+        tools:layout="@layout/fragment_word_search" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.dileit.view.fragment.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_wordSearchFragment"
+            app:destination="@id/wordSearchFragment" />
+    </fragment>
+</navigation>

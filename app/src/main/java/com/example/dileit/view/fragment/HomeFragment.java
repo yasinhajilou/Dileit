@@ -6,21 +6,16 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
-import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.dileit.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,19 +27,6 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-    public static HomeFragment newInstance() {
-
-        Bundle args = new Bundle();
-
-        HomeFragment fragment = new HomeFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-
-    EditText edtHomeWord;
-    private static final String TAG = HomeFragment.class.getSimpleName();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,24 +41,9 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         CardView cardView = view.findViewById(R.id.card_search_home);
         TextView textView = view.findViewById(R.id.tvHomeWord);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showSearchFragment(cardView);
-            }
+        textView.setOnClickListener(view1 -> {
+            Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_wordSearchFragment);
         });
-    }
-
-    private void showSearchFragment(CardView cardView) {
-        getFragmentManager()
-                .beginTransaction()
-                .addToBackStack(TAG)
-                //view compat helps you to access view feature
-                .addSharedElement(cardView, ViewCompat.getTransitionName(cardView))
-                .replace(R.id.fragment_container_main_activity, WordSearchFragment.newInstance(), WordSearchFragment.class.getSimpleName())
-                .commit();
-
-
     }
 
 

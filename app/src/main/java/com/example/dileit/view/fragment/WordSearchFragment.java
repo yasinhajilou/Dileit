@@ -20,22 +20,7 @@ public class WordSearchFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static WordSearchFragment newInstance() {
 
-        Bundle args = new Bundle();
-
-        WordSearchFragment fragment = new WordSearchFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

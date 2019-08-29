@@ -20,26 +20,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setUpHomeFragment();
     }
 
-    private void setUpHomeFragment() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentByTag(HomeFragment.class.getSimpleName());
-        if (fragment==null){
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.fragment_container_main_activity,  HomeFragment.newInstance()
-                            , HomeFragment.class.getSimpleName())
-                    .commit();
-        }
-    }
 
     @Override
     public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() > 1)
-            getFragmentManager().popBackStack();
-        else
-            super.onBackPressed();
+        super.onBackPressed();
     }
 }

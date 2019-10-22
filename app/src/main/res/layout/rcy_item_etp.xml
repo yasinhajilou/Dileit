@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:maxLines="1"
             android:id="@+id/tv_eng_word_item"
             android:fontFamily="@font/productsansregular"
             android:textDirection="ltr"
@@ -21,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:maxLines="1"
             android:id="@+id/tv_per_def_item"
             android:textSize="16sp"
             android:fontFamily="@font/productsansregular"

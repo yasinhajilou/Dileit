@@ -7,9 +7,13 @@
 
     <fragment
         android:id="@+id/wordSearchFragment"
-        android:name="com.example.dileit.view.fragment.WordSearchFragment"
+        android:name="com.example.dileit.view.fragment.SearchFragment"
         android:label="fragment_word_search"
-        tools:layout="@layout/fragment_word_search" />
+        tools:layout="@layout/fragment_word_search" >
+        <action
+            android:id="@+id/action_wordSearchFragment_to_wordInformationFragment"
+            app:destination="@id/wordInformationFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.dileit.view.fragment.HomeFragment"
@@ -18,4 +22,9 @@
             android:id="@+id/action_homeFragment_to_wordSearchFragment"
             app:destination="@id/wordSearchFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/wordInformationFragment"
+        android:name="com.example.dileit.view.fragment.WordInformationFragment"
+        android:label="fragment_word_information"
+        tools:layout="@layout/fragment_word_information" />
 </navigation>

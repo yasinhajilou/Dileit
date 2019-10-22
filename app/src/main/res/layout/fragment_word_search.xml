@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.dileit.view.fragment.WordSearchFragment">
+    tools:context="com.example.dileit.view.fragment.SearchFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:elevation="8dp"

@@ -1,9 +1,10 @@
-package com.example.dileit.viewModel;
+package com.example.dileit.viewmodel;
 
 import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.dileit.model.Dictionary;
@@ -13,23 +14,35 @@ import java.util.List;
 
 public class DictionaryViewModel extends AndroidViewModel implements DictionaryInterface {
     private DictionaryRepository mRepository;
-    private MutableLiveData<List<Dictionary>> mData;
+    private MutableLiveData<List<Dictionary>> mDataEng;
 
     public DictionaryViewModel(@NonNull Application application) {
         super(application);
-        mData = new MutableLiveData<>();
+        mDataEng = new MutableLiveData<>();
         mRepository = new DictionaryRepository(application,this);
     }
 
-    public void setData(){
+    public void getAllEngWords(){
         mRepository.getAllEngWords();
     }
 
-    public MutableLiveData<List<Dictionary>> getData(){
-        return mData;
+    public void getEngToPer(String word){
+        mRepository.getEngToPer(word);
     }
+
+    public LiveData<List<Dictionary>> getData(){
+        return mDataEng;
+    }
+
+
     @Override
     public void allEngWords(List<Dictionary> dictionaryList) {
-        mData.setValue(dictionaryList);
+        mDataEng.setValue(dictionaryList);
     }
+
+    @Override
+    public void allEngToPer(List<Dictionary> dictionaryList) {
+        mDataEng.setValue(dictionaryList);
+    }
+
 }

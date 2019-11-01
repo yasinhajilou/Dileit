@@ -85,7 +85,7 @@ public class DictionaryRepository {
         protected List<Dictionary> doInBackground(Void... voids) {
             databaseAccess.openDatabase();
             List<Dictionary> wordsList = new ArrayList<>();
-            Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def FROM dictionary WHERE word LIKE ? LIMIT 10", new String[]{word+"%"});
+            Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def FROM dictionary WHERE word LIKE ?  LIMIT 100", new String[]{word+"%"});
             while (cursor.moveToNext()) {
                 String word = cursor.getString(0);
                 String def = cursor.getString(1);

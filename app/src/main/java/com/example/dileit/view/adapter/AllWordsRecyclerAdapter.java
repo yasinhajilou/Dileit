@@ -1,5 +1,6 @@
 package com.example.dileit.view.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dileit.R;
 import com.example.dileit.model.Dictionary;
+import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
+
 import java.util.List;
 
 public class AllWordsRecyclerAdapter extends RecyclerView.Adapter<AllWordsRecyclerAdapter.ViewHolder> {
 
+    private String TAG = AllWordsRecyclerAdapter.class.getSimpleName();
     private List<Dictionary> mList;
+    private WordsRecyclerViewInterface mInterface;
+
+    public AllWordsRecyclerAdapter(WordsRecyclerViewInterface anInterface) {
+        mInterface = anInterface;
+    }
 
     public void setData(List<Dictionary> data) {
         mList = data;
@@ -25,7 +34,7 @@ public class AllWordsRecyclerAdapter extends RecyclerView.Adapter<AllWordsRecycl
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rcy_item_etp, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view , mInterface);
     }
 
     @Override
@@ -38,17 +47,26 @@ public class AllWordsRecyclerAdapter extends RecyclerView.Adapter<AllWordsRecycl
         return mList != null ? mList.size() : 0;
     }
 
-     class ViewHolder extends RecyclerView.ViewHolder {
-         TextView tvEng,tvPer;
-         ViewHolder(@NonNull View itemView) {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView tvEng, tvPer;
+        WordsRecyclerViewInterface mInterface;
+
+        ViewHolder(@NonNull View itemView, WordsRecyclerViewInterface anInterface) {
             super(itemView);
+            mInterface = anInterface;
             tvEng = itemView.findViewById(R.id.tv_eng_word_item);
             tvPer = itemView.findViewById(R.id.tv_per_def_item);
-         }
+            itemView.setOnClickListener(this::onClick);
+        }
 
-        public void onBindData(Dictionary dictionary){
-             tvEng.setText(dictionary.getEngWord());
-             tvPer.setText(dictionary.getPerDefinition());
+        void onBindData(Dictionary dictionary) {
+            tvEng.setText(dictionary.getEngWord());
+            tvPer.setText(dictionary.getPerDefinition());
+        }
+
+        @Override
+        public void onClick(View view) {
+            mInterface.onItemClicked(mList.get(getAdapterPosition()).getPerDefinition());
         }
     }
 }

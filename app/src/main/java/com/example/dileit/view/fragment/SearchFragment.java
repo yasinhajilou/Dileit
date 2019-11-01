@@ -18,13 +18,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.dileit.R;
+import com.example.dileit.model.TranslatedInfo;
 import com.example.dileit.view.adapter.AllWordsRecyclerAdapter;
+import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
 import com.example.dileit.viewmodel.DictionaryViewModel;
+import com.google.gson.Gson;
 
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements WordsRecyclerViewInterface {
     private EditText edtSearch;
     private DictionaryViewModel mViewModel;
     private RecyclerView rvWords;
@@ -76,10 +80,16 @@ public class SearchFragment extends Fragment {
 
     private void setUpRecyclerView(View view) {
         rvWords = view.findViewById(R.id.rv_search_ragment);
-        mAdapter = new AllWordsRecyclerAdapter();
+        mAdapter = new AllWordsRecyclerAdapter(this::onItemClicked);
         rvWords.setLayoutManager(new LinearLayoutManager(getContext()));
         rvWords.setAdapter(mAdapter);
     }
 
 
+    @Override
+    public void onItemClicked(String data) {
+        Gson gson = new Gson();
+        TranslatedInfo[] info = gson.fromJson(data , TranslatedInfo[].class);
+        Toast.makeText(getContext(), info[0].getPronunciation(), Toast.LENGTH_SHORT).show();
+    }
 }

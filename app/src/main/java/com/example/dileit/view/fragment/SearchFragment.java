@@ -1,7 +1,6 @@
 package com.example.dileit.view.fragment;
 
 
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -12,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.transition.Transition;
-import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +18,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.dileit.R;
-import com.example.dileit.model.TranslatedInfo;
+import com.example.dileit.model.WordDefinition;
 import com.example.dileit.view.adapter.AllWordsRecyclerAdapter;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
 import com.example.dileit.viewmodel.DictionaryViewModel;
@@ -37,7 +34,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel.getData().observe(getViewLifecycleOwner(), dictionaries -> mAdapter.setData(dictionaries));
+        mViewModel = ViewModelProviders.of(this).get(DictionaryViewModel.class);
 
     }
 
@@ -49,8 +46,9 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         edtSearch = view.findViewById(R.id.edtSearchWord);
 
         setUpRecyclerView(view);
-        mViewModel = ViewModelProviders.of(this).get(DictionaryViewModel.class);
         mViewModel.getAllEngWords();
+
+        mViewModel.getData().observe(getViewLifecycleOwner(), dictionaries -> mAdapter.setData(dictionaries));
 
         edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -85,7 +83,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     @Override
     public void onItemClicked(String data) {
         Gson gson = new Gson();
-        TranslatedInfo[] info = gson.fromJson(data , TranslatedInfo[].class);
+        WordDefinition[] info = gson.fromJson(data , WordDefinition[].class);
         Toast.makeText(getContext(), info[0].getPronunciation(), Toast.LENGTH_SHORT).show();
     }
 }

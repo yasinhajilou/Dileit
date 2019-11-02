@@ -23,6 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <EditText
+                android:maxLines="1"
+                android:imeOptions="actionDone"
                 android:inputType="textFilter"
                 android:hint="@string/type_your_word"
                 android:background="@android:color/transparent"

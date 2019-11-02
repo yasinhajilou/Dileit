@@ -4,18 +4,18 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class TranslatedInfo {
+public class WordDefinition {
     @SerializedName("g")
     private String type;
     @SerializedName("ss")
-    private List<Object> translationWords;
+    private List<TranslationWord> translationWords;
     @SerializedName("p")
     private String pronunciation;
     @SerializedName("is")
     private List<Object> idioms;
 
 
-    public TranslatedInfo(String type, List<Object> translationWords, String pronunciation, List<Object> idioms) {
+    public WordDefinition(String type, List<TranslationWord> translationWords, String pronunciation, List<Object> idioms) {
         this.type = type;
         this.translationWords = translationWords;
         this.pronunciation = pronunciation;
@@ -26,7 +26,7 @@ public class TranslatedInfo {
         return type;
     }
 
-    public List<Object> getTranslationWords() {
+    public List<TranslationWord> getTranslationWords() {
         return translationWords;
     }
 

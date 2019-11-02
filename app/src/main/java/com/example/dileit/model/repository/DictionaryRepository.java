@@ -97,7 +97,7 @@ public class DictionaryRepository {
 //            Cursor cursor = queryBuilder.query(databaseAccess.getDatabase() , new String[]{"word" , "def"} ,
 //                   selection , new String[]{word+"*"} , null , null , null );
 
-            Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def FROM dictionary WHERE word MATCH ?  LIMIT 20", new String[]{word+"%"});
+            Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def FROM dictionary WHERE word LIKE ?  LIMIT 20", new String[]{word+"%"});
             while (cursor.moveToNext()) {
                 String word = cursor.getString(0);
                 String def = cursor.getString(1);

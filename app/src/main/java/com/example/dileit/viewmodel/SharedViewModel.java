@@ -15,6 +15,9 @@ public class SharedViewModel extends AndroidViewModel {
         mData = new MutableLiveData<>();
     }
 
+    public void setData(WordDefinition data){
+        mData.setValue(data);
+    }
     public MutableLiveData<WordDefinition> getData() {
         return mData;
     }

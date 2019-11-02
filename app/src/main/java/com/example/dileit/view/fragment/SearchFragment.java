@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +23,7 @@ import com.example.dileit.model.WordDefinition;
 import com.example.dileit.view.adapter.AllWordsRecyclerAdapter;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
 import com.example.dileit.viewmodel.DictionaryViewModel;
+import com.example.dileit.viewmodel.SharedViewModel;
 import com.google.gson.Gson;
 
 
@@ -30,12 +32,12 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     private DictionaryViewModel mViewModel;
     private RecyclerView rvWords;
     private AllWordsRecyclerAdapter mAdapter;
-
+    private SharedViewModel mSharedViewModel;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(DictionaryViewModel.class);
-
+        mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
     }
 
     @Override
@@ -84,6 +86,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     public void onItemClicked(String data) {
         Gson gson = new Gson();
         WordDefinition[] info = gson.fromJson(data , WordDefinition[].class);
-
+        mSharedViewModel.setData(info[0]);
+        Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment);
     }
 }

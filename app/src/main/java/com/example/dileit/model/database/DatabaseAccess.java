@@ -24,7 +24,6 @@ public class DatabaseAccess {
         return INSTANCE;
     }
 
-
     public void openDatabase() {
         this.mDatabase = mHelper.getReadableDatabase();
     }

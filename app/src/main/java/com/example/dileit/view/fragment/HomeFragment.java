@@ -21,34 +21,18 @@ import com.example.dileit.R;
 public class HomeFragment extends Fragment {
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        CardView cardView = view.findViewById(R.id.card_search_home);
         TextView textView = view.findViewById(R.id.tvHomeWord);
 
         textView.setOnClickListener(view1 -> {
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-
-                FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
-                        .addSharedElement(cardView, getContext().getResources().getString(R.string.transition_card_fragment))
-                        .build();
-
-                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_wordSearchFragment
-                        , null
-                        , null
-                        , extras);
-
-            } else {
-                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_wordSearchFragment);
-            }
+            Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_wordSearchFragment);
         });
         return view;
     }
-
 
 
 }

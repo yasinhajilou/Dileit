@@ -2,12 +2,15 @@ package com.example.dileit.model.repository;
 
 import android.app.Application;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.Log;
 
 
 import com.example.dileit.model.Dictionary;
 import com.example.dileit.model.database.DatabaseAccess;
+import com.example.dileit.model.database.DatabaseOpenHelper;
 import com.example.dileit.viewmodel.DictionaryInterface;
 
 import java.util.ArrayList;
@@ -85,7 +88,16 @@ public class DictionaryRepository {
         protected List<Dictionary> doInBackground(Void... voids) {
             databaseAccess.openDatabase();
             List<Dictionary> wordsList = new ArrayList<>();
-            Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def FROM dictionary WHERE word LIKE ?  LIMIT 100", new String[]{word+"%"});
+
+//
+//            SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+//            queryBuilder.setTables(DatabaseOpenHelper.DICTIONARY_ENG_TO_PERSION_TABLE_NAME);
+//
+//            String selection = "word" + " MATCH ?";
+//            Cursor cursor = queryBuilder.query(databaseAccess.getDatabase() , new String[]{"word" , "def"} ,
+//                   selection , new String[]{word+"*"} , null , null , null );
+
+            Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def FROM dictionary WHERE word MATCH ?  LIMIT 20", new String[]{word+"%"});
             while (cursor.moveToNext()) {
                 String word = cursor.getString(0);
                 String def = cursor.getString(1);

@@ -37,10 +37,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Transition inflater = TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move);
-            setSharedElementEnterTransition(inflater);
-        }
+        mViewModel.getData().observe(getViewLifecycleOwner(), dictionaries -> mAdapter.setData(dictionaries));
 
     }
 
@@ -54,7 +51,6 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         setUpRecyclerView(view);
         mViewModel = ViewModelProviders.of(this).get(DictionaryViewModel.class);
         mViewModel.getAllEngWords();
-        mViewModel.getData().observe(getViewLifecycleOwner(), dictionaries -> mAdapter.setData(dictionaries));
 
         edtSearch.addTextChangedListener(new TextWatcher() {
             @Override

@@ -1,10 +1,10 @@
 package com.example.dileit.model;
 
-public class Dictionary {
+public class Word {
     private String engWord;
     private String perDefinition;
 
-    public Dictionary(String engWord, String perDefinition) {
+    public Word(String engWord, String perDefinition) {
         this.engWord = engWord;
         this.perDefinition = perDefinition;
     }

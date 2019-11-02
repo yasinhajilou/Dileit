@@ -84,6 +84,6 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     public void onItemClicked(String data) {
         Gson gson = new Gson();
         WordDefinition[] info = gson.fromJson(data , WordDefinition[].class);
-        Toast.makeText(getContext(), info[0].getPronunciation(), Toast.LENGTH_SHORT).show();
+
     }
 }

@@ -1,6 +1,5 @@
 package com.example.dileit.view.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dileit.R;
-import com.example.dileit.model.Dictionary;
+import com.example.dileit.model.Word;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
 
 import java.util.List;
@@ -18,14 +17,14 @@ import java.util.List;
 public class AllWordsRecyclerAdapter extends RecyclerView.Adapter<AllWordsRecyclerAdapter.ViewHolder> {
 
     private String TAG = AllWordsRecyclerAdapter.class.getSimpleName();
-    private List<Dictionary> mList;
+    private List<Word> mList;
     private WordsRecyclerViewInterface mInterface;
 
     public AllWordsRecyclerAdapter(WordsRecyclerViewInterface anInterface) {
         mInterface = anInterface;
     }
 
-    public void setData(List<Dictionary> data) {
+    public void setData(List<Word> data) {
         mList = data;
         notifyDataSetChanged();
     }
@@ -59,9 +58,9 @@ public class AllWordsRecyclerAdapter extends RecyclerView.Adapter<AllWordsRecycl
             itemView.setOnClickListener(this::onClick);
         }
 
-        void onBindData(Dictionary dictionary) {
-            tvEng.setText(dictionary.getEngWord());
-            tvPer.setText(dictionary.getPerDefinition());
+        void onBindData(Word word) {
+            tvEng.setText(word.getEngWord());
+            tvPer.setText(word.getPerDefinition());
         }
 
         @Override

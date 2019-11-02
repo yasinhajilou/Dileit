@@ -2,16 +2,15 @@ package com.example.dileit.model.repository;
 
 import android.app.Application;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteQueryBuilder;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.util.Log;
 
 
-import com.example.dileit.model.Dictionary;
+import com.example.dileit.model.Word;
+import com.example.dileit.model.WordDefinition;
 import com.example.dileit.model.database.DatabaseAccess;
-import com.example.dileit.model.database.DatabaseOpenHelper;
 import com.example.dileit.viewmodel.DictionaryInterface;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +34,7 @@ public class DictionaryRepository {
         new AsyncGetEngToPer(databaseAccess, mInterface, word).execute();
     }
 
-    private class AsyncGetAllEngWords extends AsyncTask<Void, Void, List<Dictionary>> {
+    private class AsyncGetAllEngWords extends AsyncTask<Void, Void, List<Word>> {
         DatabaseAccess databaseAccess;
         DictionaryInterface mInterface;
 
@@ -45,13 +44,13 @@ public class DictionaryRepository {
         }
 
         @Override
-        protected List<Dictionary> doInBackground(Void... voids) {
-            List<Dictionary> wordsList = new ArrayList<>();
+        protected List<Word> doInBackground(Void... voids) {
+            List<Word> wordsList = new ArrayList<>();
             Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def FROM dictionary LIMIT 500", new String[]{});
             while (cursor.moveToNext()) {
                 String word = cursor.getString(0);
                 String def = cursor.getString(1);
-                Dictionary dictionary = new Dictionary(word, def);
+                Word dictionary = new Word(word, def);
                 wordsList.add(dictionary);
             }
             Log.d(TAG, String.valueOf(wordsList.size()));
@@ -60,9 +59,9 @@ public class DictionaryRepository {
         }
 
         @Override
-        protected void onPostExecute(List<Dictionary> dictionary) {
-            super.onPostExecute(dictionary);
-            mInterface.allEngWords(dictionary);
+        protected void onPostExecute(List<Word> word) {
+            super.onPostExecute(word);
+            mInterface.allEngWords(word);
             databaseAccess.closeDatabase();
         }
 
@@ -73,7 +72,7 @@ public class DictionaryRepository {
         }
     }
 
-    private class AsyncGetEngToPer extends AsyncTask<Void, Void, List<Dictionary>> {
+    private class AsyncGetEngToPer extends AsyncTask<Void, Void, List<Word>> {
         String word;
         DatabaseAccess databaseAccess;
         DictionaryInterface mInterface;
@@ -85,24 +84,15 @@ public class DictionaryRepository {
         }
 
         @Override
-        protected List<Dictionary> doInBackground(Void... voids) {
+        protected List<Word> doInBackground(Void... voids) {
             databaseAccess.openDatabase();
-            List<Dictionary> wordsList = new ArrayList<>();
-
-//
-//            SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-//            queryBuilder.setTables(DatabaseOpenHelper.DICTIONARY_ENG_TO_PERSION_TABLE_NAME);
-//
-//            String selection = "word" + " MATCH ?";
-//            Cursor cursor = queryBuilder.query(databaseAccess.getDatabase() , new String[]{"word" , "def"} ,
-//                   selection , new String[]{word+"*"} , null , null , null );
-
+            List<Word> wordsList = new ArrayList<>();
             Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def FROM dictionary WHERE word LIKE ?  LIMIT 20", new String[]{word+"%"});
             while (cursor.moveToNext()) {
-                String word = cursor.getString(0);
+                String actualWord = cursor.getString(0);
                 String def = cursor.getString(1);
-                Dictionary dictionary = new Dictionary(word, def);
-                wordsList.add(dictionary);
+                Word word = new Word(actualWord , def);
+                wordsList.add(word);
             }
             Log.d(TAG, String.valueOf(wordsList.size()));
             cursor.close();
@@ -112,9 +102,9 @@ public class DictionaryRepository {
 
 
         @Override
-        protected void onPostExecute(List<Dictionary> dictionary) {
-            super.onPostExecute(dictionary);
-            mInterface.allEngToPer(dictionary);
+        protected void onPostExecute(List<Word> word) {
+            super.onPostExecute(word);
+            mInterface.allEngToPer(word);
         }
 
         @Override

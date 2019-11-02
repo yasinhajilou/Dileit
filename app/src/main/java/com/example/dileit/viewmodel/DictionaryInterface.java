@@ -1,10 +1,10 @@
 package com.example.dileit.viewmodel;
 
-import com.example.dileit.model.Dictionary;
+import com.example.dileit.model.Word;
 
 import java.util.List;
 
 public interface DictionaryInterface {
-    void allEngWords(List<Dictionary> dictionaryList);
-    void allEngToPer(List<Dictionary> dictionaryList);
+    void allEngWords(List<Word> wordList);
+    void allEngToPer(List<Word> wordList);
 }

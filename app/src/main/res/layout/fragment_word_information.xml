@@ -25,23 +25,66 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize">
 
-                <LinearLayout
-                    android:orientation="horizontal"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:padding="6dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-
                     <TextView
-                        android:fontFamily="@font/productsansregular"
-                        android:textSize="20sp"
-                        android:gravity="center"
+                        app:layout_constraintVertical_weight="1"
                         android:textColor="@android:color/white"
-                        tools:text="hello"
-                        android:id="@+id/tv_word_header"
+                        android:textSize="20sp"
+                        android:text="hello"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_word_pronunciation"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:id="@+id/tv_word_header_tool_bar"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
+                        android:layout_height="0dp"/>
+                    <TextView
+                        android:textColor="@android:color/white"
+                        app:layout_constraintVertical_weight="1"
+                        android:text="pronunciation"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_word_header_tool_bar"
+                        android:id="@+id/tv_word_pronunciation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"/>
+                    <ImageView
+                        android:id="@+id/img_uk_pronunciation"
+                        app:layout_constraintHorizontal_bias="0.3"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:src="@drawable/unitedkingdom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <ImageView
+                        android:id="@+id/img_us_pronunciation"
+                        android:layout_marginLeft="12dp"
+                        android:src="@drawable/unitedstates"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/img_uk_pronunciation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <ImageView
+                        android:id="@+id/img_close_tool_bar"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:layout_marginRight="8dp"
+                        android:src="@drawable/ic_close_black_24dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
+
         <TextView
             android:id="@+id/tv_word_info"
             app:layout_constraintBottom_toBottomOf="parent"

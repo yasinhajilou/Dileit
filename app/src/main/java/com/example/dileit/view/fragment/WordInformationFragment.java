@@ -22,7 +22,7 @@ import com.example.dileit.viewmodel.SharedViewModel;
 public class WordInformationFragment extends Fragment {
 
     private SharedViewModel mSharedViewModel;
-    FragmentWordInformationBinding  mBinding;
+    private FragmentWordInformationBinding  mBinding;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

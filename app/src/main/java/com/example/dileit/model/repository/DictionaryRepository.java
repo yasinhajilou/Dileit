@@ -7,17 +7,15 @@ import android.util.Log;
 
 
 import com.example.dileit.model.Word;
-import com.example.dileit.model.WordDefinition;
 import com.example.dileit.model.database.DatabaseAccess;
+import com.example.dileit.model.database.DatabaseOpenHelper;
 import com.example.dileit.viewmodel.DictionaryInterface;
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class DictionaryRepository {
 
-    private static final String TAG = DictionaryRepository.class.getSimpleName() + "debugging";
+    private static final String TAG = DictionaryRepository.class.getSimpleName();
     private DatabaseAccess databaseAccess;
     private DictionaryInterface mInterface;
 
@@ -46,6 +44,7 @@ public class DictionaryRepository {
         @Override
         protected List<Word> doInBackground(Void... voids) {
             List<Word> wordsList = new ArrayList<>();
+            databaseAccess.openDatabase();
             Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def FROM dictionary LIMIT 500", new String[]{});
             while (cursor.moveToNext()) {
                 String word = cursor.getString(0);
@@ -55,6 +54,8 @@ public class DictionaryRepository {
             }
             Log.d(TAG, String.valueOf(wordsList.size()));
             cursor.close();
+            databaseAccess.closeDatabase();
+
             return wordsList;
         }
 
@@ -62,13 +63,11 @@ public class DictionaryRepository {
         protected void onPostExecute(List<Word> word) {
             super.onPostExecute(word);
             mInterface.allEngWords(word);
-            databaseAccess.closeDatabase();
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            databaseAccess.openDatabase();
         }
     }
 
@@ -87,7 +86,7 @@ public class DictionaryRepository {
         protected List<Word> doInBackground(Void... voids) {
             databaseAccess.openDatabase();
             List<Word> wordsList = new ArrayList<>();
-            Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def FROM dictionary WHERE word like 'سلام %' ORDER BY word DESC  LIMIT 200  " , null);
+            Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def from dictionary WHERE word LIKE ? ORDER BY word COLLATE NOCASE ASC" , new String[]{word+"%"});
             while (cursor.moveToNext()) {
                 String actualWord = cursor.getString(0);
                 String def = cursor.getString(1);

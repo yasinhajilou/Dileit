@@ -65,7 +65,7 @@ public class AllWordsRecyclerAdapter extends RecyclerView.Adapter<AllWordsRecycl
 
         @Override
         public void onClick(View view) {
-            mInterface.onItemClicked(mList.get(getAdapterPosition()).getPerDefinition());
+            mInterface.onItemClicked(mList.get(getAdapterPosition()).getPerDefinition() , mList.get(getAdapterPosition()).getEngWord());
         }
     }
 }

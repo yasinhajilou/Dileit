@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     private RecyclerView rvWords;
     private AllWordsRecyclerAdapter mAdapter;
     private SharedViewModel mSharedViewModel;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,10 +85,17 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
 
 
     @Override
-    public void onItemClicked(String data) {
+    public void onItemClicked(String data, String actualWord) {
         Gson gson = new Gson();
-        WordDefinition[] info = gson.fromJson(data , WordDefinition[].class);
-        mSharedViewModel.setData(info[0]);
-        Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment);
+        WordDefinition[] info = gson.fromJson(data, WordDefinition[].class);
+//        mSharedViewModel.setData(info[0]);
+//        Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment);
+        char[] chars = actualWord.toCharArray();
+        int[] asciis = new int[chars.length];
+        for (int i = 0; i <chars.length ; i++) {
+            asciis[i] = chars[i];
+            Log.d("searchfragmentyas", "onItemClicked char: " + chars[i]);
+            Log.d("searchfragmentyas", "onItemClicked asci: " + asciis[i]);
+        }
     }
 }

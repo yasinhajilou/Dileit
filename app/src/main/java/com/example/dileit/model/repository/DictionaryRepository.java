@@ -45,7 +45,7 @@ public class DictionaryRepository {
         protected List<Word> doInBackground(Void... voids) {
             List<Word> wordsList = new ArrayList<>();
             databaseAccess.openDatabase();
-            Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def FROM dictionary LIMIT 500", new String[]{});
+            Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def FROM dictionary LIMIT 100", null);
             while (cursor.moveToNext()) {
                 String word = cursor.getString(0);
                 String def = cursor.getString(1);
@@ -86,7 +86,7 @@ public class DictionaryRepository {
         protected List<Word> doInBackground(Void... voids) {
             databaseAccess.openDatabase();
             List<Word> wordsList = new ArrayList<>();
-            Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def from dictionary WHERE word LIKE ? ORDER BY word COLLATE NOCASE ASC" , new String[]{word+"%"});
+            Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def from dictionary WHERE word LIKE ? ORDER BY word COLLATE NOCASE ASC LIMIT 100" , new String[]{word+"%"});
             while (cursor.moveToNext()) {
                 String actualWord = cursor.getString(0);
                 String def = cursor.getString(1);

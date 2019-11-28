@@ -88,7 +88,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     public void onItemClicked(String data, String actualWord) {
         Gson gson = new Gson();
         WordDefinition[] info = gson.fromJson(data, WordDefinition[].class);
-//        mSharedViewModel.setData(info[0]);
-//        Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment);پ
+        mSharedViewModel.setData(info[0]);
+        Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment);
     }
 }

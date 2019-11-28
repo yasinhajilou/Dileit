@@ -15,14 +15,20 @@ import android.view.ViewGroup;
 
 import com.example.dileit.R;
 import com.example.dileit.databinding.FragmentWordInformationBinding;
+import com.example.dileit.model.TranslationExample;
+import com.example.dileit.model.TranslationWord;
 import com.example.dileit.model.WordDefinition;
 import com.example.dileit.viewmodel.SharedViewModel;
+import com.google.gson.Gson;
+
+import java.util.List;
 
 
 public class WordInformationFragment extends Fragment {
 
     private SharedViewModel mSharedViewModel;
-    private FragmentWordInformationBinding  mBinding;
+    private FragmentWordInformationBinding mBinding;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,18 +39,29 @@ public class WordInformationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding = DataBindingUtil.inflate(inflater , R.layout.fragment_word_information , container , false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_word_information, container, false);
         return mBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mSharedViewModel.getData().observe(getViewLifecycleOwner(), new Observer<WordDefinition>() {
-            @Override
-            public void onChanged(WordDefinition wordDefinition) {
-                mBinding.tvWordInfo.setText(wordDefinition.getTranslationWords().get(0).getTranslatedWord());
+        mSharedViewModel.getData().observe(getViewLifecycleOwner(), wordDefinition -> {
+            StringBuilder stringBuffer = new StringBuilder();
+            List<TranslationWord> wordList = wordDefinition.getTranslationWords();
+            for (int i = 0; i < wordDefinition.getTranslationWords().size(); i++) {
+                stringBuffer.append(wordList.get(i).getTranslatedWord()).append("\n");
+                if (wordList.get(i).getTranslationExamples() != null){
+                    List<TranslationExample> examples = wordList.get(i).getTranslationExamples();
+                    for (int j = 0; j < examples.size() ; j++) {
+                        stringBuffer.append("مثال:").append(examples.get(j).getSentence()).append("\n");
+                        stringBuffer.append("معنیش:").append(examples.get(j).getTranslation()).append("\n");
+
+                    }
+                }
             }
+
+            mBinding.tvWordInfo.setText(stringBuffer);
         });
     }
 }

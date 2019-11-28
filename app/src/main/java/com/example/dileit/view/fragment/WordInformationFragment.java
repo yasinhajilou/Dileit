@@ -51,17 +51,14 @@ public class WordInformationFragment extends Fragment {
             List<TranslationWord> wordList = wordDefinition.getTranslationWords();
             for (int i = 0; i < wordDefinition.getTranslationWords().size(); i++) {
                 stringBuffer.append(wordList.get(i).getTranslatedWord()).append("\n");
-                if (wordList.get(i).getTranslationExamples() != null){
+                if (wordList.get(i).getTranslationExamples() != null) {
                     List<TranslationExample> examples = wordList.get(i).getTranslationExamples();
-                    for (int j = 0; j < examples.size() ; j++) {
+                    for (int j = 0; j < examples.size(); j++) {
                         stringBuffer.append("مثال:").append(examples.get(j).getSentence()).append("\n");
                         stringBuffer.append("معنیش:").append(examples.get(j).getTranslation()).append("\n");
-
                     }
                 }
             }
-
-            mBinding.tvWordInfo.setText(stringBuffer);
         });
     }
 }

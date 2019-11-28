@@ -89,13 +89,6 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         Gson gson = new Gson();
         WordDefinition[] info = gson.fromJson(data, WordDefinition[].class);
 //        mSharedViewModel.setData(info[0]);
-//        Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment);
-        char[] chars = actualWord.toCharArray();
-        int[] asciis = new int[chars.length];
-        for (int i = 0; i <chars.length ; i++) {
-            asciis[i] = chars[i];
-            Log.d("searchfragmentyas", "onItemClicked char: " + chars[i]);
-            Log.d("searchfragmentyas", "onItemClicked asci: " + asciis[i]);
-        }
+//        Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment);پ
     }
 }

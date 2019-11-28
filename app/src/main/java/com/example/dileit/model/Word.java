@@ -1,19 +1,19 @@
 package com.example.dileit.model;
 
 public class Word {
-    private String engWord;
-    private String perDefinition;
+    private String word;
+    private String definition;
 
-    public Word(String engWord, String perDefinition) {
-        this.engWord = engWord;
-        this.perDefinition = perDefinition;
+    public Word(String word, String definition) {
+        this.word = word;
+        this.definition = definition;
     }
 
-    public String getEngWord() {
-        return engWord;
+    public String getWord() {
+        return word;
     }
 
-    public String getPerDefinition() {
-        return perDefinition;
+    public String getDefinition() {
+        return definition;
     }
 }

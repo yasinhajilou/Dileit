@@ -59,13 +59,13 @@ public class AllWordsRecyclerAdapter extends RecyclerView.Adapter<AllWordsRecycl
         }
 
         void onBindData(Word word) {
-            tvEng.setText(word.getEngWord());
-            tvPer.setText(word.getPerDefinition());
+            tvEng.setText(word.getWord());
+            tvPer.setText(word.getDefinition());
         }
 
         @Override
         public void onClick(View view) {
-            mInterface.onItemClicked(mList.get(getAdapterPosition()).getPerDefinition() , mList.get(getAdapterPosition()).getEngWord());
+            mInterface.onItemClicked(mList.get(getAdapterPosition()).getDefinition() , mList.get(getAdapterPosition()).getWord());
         }
     }
 }

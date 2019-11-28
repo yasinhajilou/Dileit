@@ -2,19 +2,19 @@ package com.example.dileit.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Example {
+public class TranslationExample {
     @SerializedName("e")
-    private String title;
+    private String sentence;
     @SerializedName("t")
     private String translation;
 
-    public Example(String title, String translation) {
-        this.title = title;
+    public TranslationExample(String sentence, String translation) {
+        this.sentence = sentence;
         this.translation = translation;
     }
 
-    public String getTitle() {
-        return title;
+    public String getSentence() {
+        return sentence;
     }
 
     public String getTranslation() {

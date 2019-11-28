@@ -9,18 +9,18 @@ public class TranslationWord {
     @SerializedName("s")
     private String translatedWord;
     @SerializedName("es")
-    private List<Example> examples;
+    private List<TranslationExample> mTranslationExamples;
 
-    public TranslationWord(String translatedWord, List<Example> examples) {
+    public TranslationWord(String translatedWord, List<TranslationExample> translationExamples) {
         this.translatedWord = translatedWord;
-        this.examples = examples;
+        this.mTranslationExamples = translationExamples;
     }
 
     public String getTranslatedWord() {
         return translatedWord;
     }
 
-    public List<Example> getExamples() {
-        return examples;
+    public List<TranslationExample> getTranslationExamples() {
+        return mTranslationExamples;
     }
 }

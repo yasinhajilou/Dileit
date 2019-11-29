@@ -1,4 +1,4 @@
-package com.example.dileit;
+package com.example.dileit.view.fragment.wordinfo;
 
 
 import android.os.Bundle;

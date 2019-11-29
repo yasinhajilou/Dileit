@@ -1,4 +1,4 @@
-package com.example.dileit;
+package com.example.dileit.view.fragment.wordinfo;
 
 
 import android.os.Bundle;
@@ -11,13 +11,11 @@ import android.view.ViewGroup;
 
 import com.example.dileit.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class RelatedIdiomsFragment extends Fragment {
+
+public class EnglishTranslatedFragment extends Fragment {
 
 
-    public RelatedIdiomsFragment() {
+    public EnglishTranslatedFragment() {
         // Required empty public constructor
     }
 
@@ -26,7 +24,7 @@ public class RelatedIdiomsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_related_idioms, container, false);
+        return inflater.inflate(R.layout.fragment_english_translated, container, false);
     }
 
 }

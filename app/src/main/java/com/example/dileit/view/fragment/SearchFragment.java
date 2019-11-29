@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.dileit.R;
+import com.example.dileit.Utils.JsonUtils;
 import com.example.dileit.model.WordDefinition;
 import com.example.dileit.view.adapter.AllWordsRecyclerAdapter;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
@@ -86,9 +87,8 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
 
     @Override
     public void onItemClicked(String data, String actualWord) {
-        Gson gson = new Gson();
-        WordDefinition[] info = gson.fromJson(data, WordDefinition[].class);
-        mSharedViewModel.setData(info[0]);
+        JsonUtils jsonUtils = new JsonUtils();
+        mSharedViewModel.setData(jsonUtils.getWordDefinition(data));
         Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment);
     }
 }

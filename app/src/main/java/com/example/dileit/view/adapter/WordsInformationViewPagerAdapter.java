@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class WordsInformationViewPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private ArrayList<String> mTitles = new ArrayList<>();
+
     public WordsInformationViewPagerAdapter(@NonNull FragmentManager fm) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
     }
@@ -32,7 +33,7 @@ public class WordsInformationViewPagerAdapter extends FragmentPagerAdapter {
         return mTitles.get(position);
     }
 
-    public void addPage(Fragment fragment , String title){
+    public void addPage(Fragment fragment, String title) {
         mFragments.add(fragment);
         mTitles.add(title);
         notifyDataSetChanged();

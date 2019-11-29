@@ -128,8 +128,12 @@
                     android:layout_height="wrap_content"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
+
         <LinearLayout
-            android:padding="8dp"
+            android:id="@+id/linear_layout_tabs_chip"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="20dp"
+            android:layoutDirection="rtl"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/card_word_info_header"
@@ -137,10 +141,44 @@
             android:layout_width="0dp"
             android:layout_height="50dp">
             <com.google.android.material.chip.Chip
-                style="@style/Widget.MaterialComponents.Chip.Entry"
-                android:text="معنی "
+                android:textColor="@android:color/white"
+                android:id="@+id/chips_translated_only"
+                android:layout_gravity="center"
+                app:chipBackgroundColor="@color/colorSecondary"
+                style="@style/Widget.MaterialComponents.Chip.Action"
+                android:text=" فارسی "
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"/>
+                android:layout_height="30dp"/>
+            <com.google.android.material.chip.Chip
+                android:elevation="8dp"
+                android:layout_marginRight="12dp"
+                android:id="@+id/chips_idioms_only"
+                android:layout_gravity="center"
+                app:chipBackgroundColor="@android:color/white"
+                style="@style/Widget.MaterialComponents.Chip.Action"
+                android:text="اصطلاحات مرتبط"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"/>
+            <com.google.android.material.chip.Chip
+                android:elevation="8dp"
+                android:layout_marginRight="12dp"
+                android:id="@+id/chips_translated_english"
+                android:layout_gravity="center"
+                app:chipBackgroundColor="@android:color/white"
+                style="@style/Widget.MaterialComponents.Chip.Action"
+                android:text=" English "
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"/>
         </LinearLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linear_layout_tabs_chip"
+            android:id="@+id/view_pager_word_info"
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

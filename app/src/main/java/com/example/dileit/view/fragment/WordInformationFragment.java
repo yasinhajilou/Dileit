@@ -48,10 +48,12 @@ public class WordInformationFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mSharedViewModel.getData().observe(getViewLifecycleOwner(), wordInformation -> {
+        mSharedViewModel.getWordInformation().observe(getViewLifecycleOwner(), wordInformation -> {
 
             StringBuilder stringBuffer = new StringBuilder();
             List<TranslationWord> wordList = wordInformation.getTranslationWords();
+
+            mSharedViewModel.setTranslationWord(wordInformation.getTranslationWords());
 
             for (int i = 0; i < wordInformation.getTranslationWords().size(); i++) {
                 stringBuffer.append(wordList.get(i).getTranslatedWord()).append("\n");

@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,9 @@ public class PersianTranslatedFragment extends Fragment {
 
     FragmentPersianTranslatedBinding mBinding;
     SharedViewModel mSharedViewModel;
+    private String TAG = PersianTranslatedFragment.class.getSimpleName();
+    TranslationWordRecyclerAdapter adapter;
+
     public PersianTranslatedFragment() {
         // Required empty public constructor
     }
@@ -52,10 +56,13 @@ public class PersianTranslatedFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TranslationWordRecyclerAdapter adapter = new TranslationWordRecyclerAdapter();
+        adapter = new TranslationWordRecyclerAdapter();
         mBinding.rvPersianTranslationWord.setAdapter(adapter);
         mBinding.rvPersianTranslationWord.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        mSharedViewModel.getTranslationWord().observe(getViewLifecycleOwner(), adapter::setData);
+        mSharedViewModel.getTranslationWord().observe(getViewLifecycleOwner(), translationWords -> {
+            adapter.setData(translationWords);
+            Log.d(TAG, "onChanged: " + translationWords.toString());
+        });
     }
 }

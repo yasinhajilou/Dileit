@@ -16,6 +16,8 @@ import com.example.dileit.R;
 import com.example.dileit.databinding.FragmentWordInformationBinding;
 import com.example.dileit.model.TranslationExample;
 import com.example.dileit.model.TranslationWord;
+import com.example.dileit.view.adapter.WordsInformationViewPagerAdapter;
+import com.example.dileit.view.fragment.wordinfo.PersianTranslatedFragment;
 import com.example.dileit.viewmodel.SharedViewModel;
 import com.google.android.material.chip.Chip;
 
@@ -27,6 +29,7 @@ public class WordInformationFragment extends Fragment {
     private SharedViewModel mSharedViewModel;
     private FragmentWordInformationBinding mBinding;
     private Chip chipPersian , chipEnglish , chipIdioms;
+    WordsInformationViewPagerAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,12 +45,17 @@ public class WordInformationFragment extends Fragment {
         chipPersian = mBinding.chipsTranslatedOnly;
         chipEnglish = mBinding.chipsTranslatedEnglish;
         chipIdioms = mBinding.chipsIdiomsOnly;
+        mAdapter = new WordsInformationViewPagerAdapter(getActivity().getSupportFragmentManager());
         return mBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mAdapter.addPage(new PersianTranslatedFragment() );
+        mBinding.viewPagerWordInfo.setAdapter(mAdapter);
+        mBinding.viewPagerWordInfo.setCurrentItem(0);
+
         mSharedViewModel.getWordInformation().observe(getViewLifecycleOwner(), wordInformation -> {
 
             StringBuilder stringBuffer = new StringBuilder();

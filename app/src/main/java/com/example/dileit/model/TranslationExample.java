@@ -20,4 +20,12 @@ public class TranslationExample {
     public String getTranslation() {
         return translation;
     }
+
+    @Override
+    public String toString() {
+        return "TranslationExample{" +
+                "sentence='" + sentence + '\'' +
+                ", translation='" + translation + '\'' +
+                '}';
+    }
 }

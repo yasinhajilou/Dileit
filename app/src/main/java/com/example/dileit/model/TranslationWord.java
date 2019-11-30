@@ -23,4 +23,12 @@ public class TranslationWord {
     public List<TranslationExample> getTranslationExamples() {
         return mTranslationExamples;
     }
+
+    @Override
+    public String toString() {
+        return "TranslationWord{" +
+                "translatedWord='" + translatedWord + '\'' +
+                ", mTranslationExamples=" + mTranslationExamples  +
+                '}';
+    }
 }

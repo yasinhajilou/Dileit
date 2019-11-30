@@ -19,6 +19,7 @@ public class TranslationWordRecyclerAdapter extends RecyclerView.Adapter<Transla
 
     public void setData(List<TranslationWord> data){
         mList = data;
+        notifyDataSetChanged();
     }
     @NonNull
     @Override

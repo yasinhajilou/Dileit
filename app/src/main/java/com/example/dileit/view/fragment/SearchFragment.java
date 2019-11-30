@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,11 +32,11 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     private RecyclerView rvWords;
     private AllWordsRecyclerAdapter mAdapter;
     private SharedViewModel mSharedViewModel;
-
+    private String TAG = SearchFragment.class.getSimpleName();
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(DictionaryViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(DictionaryViewModel.class);
         mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
     }
 
@@ -85,6 +86,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     public void onItemClicked(String data, String actualWord) {
         JsonUtils jsonUtils = new JsonUtils();
         mSharedViewModel.setWordInformation(jsonUtils.getWordDefinition(data));
+        Log.d(TAG, "onItemClicked: " + jsonUtils.getWordDefinition(data));
         Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment);
     }
 }

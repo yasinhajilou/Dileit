@@ -1,19 +1,22 @@
 package com.example.dileit.view.adapter;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 
-public class WordsInformationViewPagerAdapter extends FragmentPagerAdapter {
+public class WordsInformationViewPagerAdapter extends FragmentStatePagerAdapter {
     private ArrayList<Fragment> mFragments = new ArrayList<>();
-    private ArrayList<String> mTitles = new ArrayList<>();
+    private String TAG = WordsInformationViewPagerAdapter.class.getSimpleName();
 
     public WordsInformationViewPagerAdapter(@NonNull FragmentManager fm) {
-        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        super(fm,BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT );
     }
 
     @NonNull
@@ -24,18 +27,12 @@ public class WordsInformationViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
+        Log.d(TAG, "WordsInformationViewPagerAdapter: " + mFragments.size());
         return mFragments.size();
     }
 
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return mTitles.get(position);
-    }
-
-    public void addPage(Fragment fragment, String title) {
+    public void addPage(Fragment fragment) {
         mFragments.add(fragment);
-        mTitles.add(title);
         notifyDataSetChanged();
     }
 }

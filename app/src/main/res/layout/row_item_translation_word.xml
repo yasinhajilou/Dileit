@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
-    android:layout_margin="8dp"
+    android:layout_margin="2dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,7 +15,7 @@
             android:textColor="@android:color/black"
             android:layout_margin="4dp"
             tools:text="check check"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:id="@+id/tv_translation_word_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

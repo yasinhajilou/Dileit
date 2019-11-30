@@ -9,7 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dileit.R;
+import com.example.dileit.Utils.JsonUtils;
 import com.example.dileit.model.Word;
+import com.example.dileit.model.WordInformation;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
 
 import java.util.List;
@@ -60,7 +62,15 @@ public class AllWordsRecyclerAdapter extends RecyclerView.Adapter<AllWordsRecycl
 
         void onBindData(Word word) {
             tvEng.setText(word.getWord());
-            tvPer.setText(word.getDefinition());
+
+            //convert json data to reader string
+            JsonUtils  jsonUtils = new JsonUtils();
+            WordInformation wordInformation = jsonUtils.getWordDefinition(word.getDefinition());
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < wordInformation.getTranslationWords().size() ; i++) {
+                stringBuilder.append(wordInformation.getTranslationWords().get(i).getTranslatedWord()).append(".");
+            }
+            tvPer.setText(stringBuilder);
         }
 
         @Override

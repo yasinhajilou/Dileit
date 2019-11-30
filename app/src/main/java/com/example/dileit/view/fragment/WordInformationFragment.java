@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
@@ -56,8 +57,18 @@ public class WordInformationFragment extends Fragment {
         mBinding.viewPagerWordInfo.setAdapter(mAdapter);
         mBinding.viewPagerWordInfo.setCurrentItem(0);
 
+
+
+        mSharedViewModel.getActualWord().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                mBinding.tvWordTitle.setText(s);
+            }
+        });
+
         mSharedViewModel.getWordInformation().observe(getViewLifecycleOwner(), wordInformation -> {
 
+            mBinding.tvPronounceTitle.setText(wordInformation.getPronunciation());
             StringBuilder stringBuffer = new StringBuilder();
             List<TranslationWord> wordList = wordInformation.getTranslationWords();
 

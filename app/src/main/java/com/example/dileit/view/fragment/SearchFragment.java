@@ -27,6 +27,7 @@ import com.example.dileit.viewmodel.SharedViewModel;
 
 
 public class SearchFragment extends Fragment implements WordsRecyclerViewInterface {
+
     private EditText edtSearch;
     private DictionaryViewModel mViewModel;
     private RecyclerView rvWords;
@@ -60,7 +61,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String word = edtSearch.getText().toString();
+                 String word = edtSearch.getText().toString();
                 if (!word.equals(""))
                     mViewModel.getEngToPer(word);
                 else
@@ -86,6 +87,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     public void onItemClicked(String data, String actualWord) {
         JsonUtils jsonUtils = new JsonUtils();
         mSharedViewModel.setWordInformation(jsonUtils.getWordDefinition(data));
+        mSharedViewModel.setActualWord(actualWord);
         Log.d(TAG, "onItemClicked: " + jsonUtils.getWordDefinition(data));
         Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment);
     }

@@ -12,12 +12,14 @@ import com.example.dileit.model.WordInformation;
 import java.util.List;
 
 public class SharedViewModel extends AndroidViewModel {
+    private MutableLiveData<String> mActualWord;
     private MutableLiveData<WordInformation> mWordInformation;
     private MutableLiveData<List<TranslationWord>> mTranslationWord;
     public SharedViewModel(@NonNull Application application) {
         super(application);
         mWordInformation = new MutableLiveData<>();
         mTranslationWord = new MutableLiveData<>();
+        mActualWord = new MutableLiveData<>();
     }
 
     public void setWordInformation(WordInformation wordInformation){
@@ -33,5 +35,13 @@ public class SharedViewModel extends AndroidViewModel {
 
     public void setTranslationWord(List<TranslationWord> translationWord) {
         mTranslationWord.setValue(translationWord);
+    }
+
+    public MutableLiveData<String> getActualWord() {
+        return mActualWord;
+    }
+
+    public void setActualWord(String actualWord) {
+        mActualWord.setValue(actualWord);
     }
 }

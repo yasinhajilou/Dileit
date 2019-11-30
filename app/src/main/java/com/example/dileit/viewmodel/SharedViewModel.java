@@ -6,19 +6,19 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.dileit.model.WordDefinition;
+import com.example.dileit.model.WordInformation;
 
 public class SharedViewModel extends AndroidViewModel {
-    private MutableLiveData<WordDefinition> mData;
+    private MutableLiveData<WordInformation> mData;
     public SharedViewModel(@NonNull Application application) {
         super(application);
         mData = new MutableLiveData<>();
     }
 
-    public void setData(WordDefinition data){
+    public void setData(WordInformation data){
         mData.setValue(data);
     }
-    public MutableLiveData<WordDefinition> getData() {
+    public MutableLiveData<WordInformation> getData() {
         return mData;
     }
 }

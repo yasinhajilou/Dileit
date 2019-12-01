@@ -8,7 +8,6 @@ import android.util.Log;
 
 import com.example.dileit.model.Word;
 import com.example.dileit.model.database.DatabaseAccess;
-import com.example.dileit.model.database.DatabaseOpenHelper;
 import com.example.dileit.viewmodel.DictionaryInterface;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,18 +24,18 @@ public class DictionaryRepository {
     }
 
     public void getAllEngWords() {
-        new AsyncGetAllEngWords(databaseAccess, mInterface).execute();
+        new AsyncGetAllWords(databaseAccess, mInterface).execute();
     }
 
     public void getEngToPer(String word) {
-        new AsyncGetEngToPer(databaseAccess, mInterface, word).execute();
+        new AsyncGetSpecificWord(databaseAccess, mInterface, word).execute();
     }
 
-    private class AsyncGetAllEngWords extends AsyncTask<Void, Void, List<Word>> {
+    private class AsyncGetAllWords extends AsyncTask<Void, Void, List<Word>> {
         DatabaseAccess databaseAccess;
         DictionaryInterface mInterface;
 
-         AsyncGetAllEngWords(DatabaseAccess databaseAccess, DictionaryInterface anInterface) {
+         AsyncGetAllWords(DatabaseAccess databaseAccess, DictionaryInterface anInterface) {
             this.databaseAccess = databaseAccess;
             mInterface = anInterface;
         }
@@ -45,7 +44,7 @@ public class DictionaryRepository {
         protected List<Word> doInBackground(Void... voids) {
             List<Word> wordsList = new ArrayList<>();
             databaseAccess.openDatabase();
-            Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def FROM dictionary LIMIT 100", null);
+            Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def FROM dictionary LIMIT 50", null);
             while (cursor.moveToNext()) {
                 String word = cursor.getString(0);
                 String def = cursor.getString(1);
@@ -71,12 +70,12 @@ public class DictionaryRepository {
         }
     }
 
-    private class AsyncGetEngToPer extends AsyncTask<Void, Void, List<Word>> {
+    private class AsyncGetSpecificWord extends AsyncTask<Void, Void, List<Word>> {
         String word;
         DatabaseAccess databaseAccess;
         DictionaryInterface mInterface;
 
-         AsyncGetEngToPer(DatabaseAccess databaseAccess, DictionaryInterface anInterface, String word) {
+         AsyncGetSpecificWord(DatabaseAccess databaseAccess, DictionaryInterface anInterface, String word) {
             this.databaseAccess = databaseAccess;
             mInterface = anInterface;
             this.word = word;
@@ -86,7 +85,7 @@ public class DictionaryRepository {
         protected List<Word> doInBackground(Void... voids) {
             databaseAccess.openDatabase();
             List<Word> wordsList = new ArrayList<>();
-            Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def from dictionary WHERE word LIKE ? ORDER BY word COLLATE NOCASE ASC LIMIT 100" , new String[]{word+"%"});
+            Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def from dictionary WHERE word LIKE ? ORDER BY word COLLATE NOCASE ASC LIMIT 15" , new String[]{word+"%"});
             while (cursor.moveToNext()) {
                 String actualWord = cursor.getString(0);
                 String def = cursor.getString(1);

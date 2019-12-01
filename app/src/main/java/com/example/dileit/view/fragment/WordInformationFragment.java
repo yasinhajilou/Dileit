@@ -81,7 +81,6 @@ public class WordInformationFragment extends Fragment {
                     for (int j = 0; j < examples.size(); j++) {
                         stringBuffer.append("مثال:").append(examples.get(j).getSentence()).append("\n");
                         stringBuffer.append("معنیش:").append(examples.get(j).getTranslation()).append("\n");
-
                     }
                 }
             }

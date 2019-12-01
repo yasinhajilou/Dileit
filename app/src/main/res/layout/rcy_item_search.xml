@@ -24,7 +24,6 @@
             android:maxLines="1"
             android:id="@+id/tv_per_def_item"
             android:textSize="16sp"
-            android:fontFamily="@font/productsansregular"
             android:text="@string/words"
             android:layout_gravity="right"
             android:layout_width="match_parent"

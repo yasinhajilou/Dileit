@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dileit.R;
@@ -16,6 +17,7 @@ import java.util.List;
 public class TranslationWordRecyclerAdapter extends RecyclerView.Adapter<TranslationWordRecyclerAdapter.ViewHolder> {
 
     List<TranslationWord> mList;
+    RecyclerView.RecycledViewPool mPool = new RecyclerView.RecycledViewPool();
 
     public void setData(List<TranslationWord> data){
         mList = data;
@@ -41,14 +43,20 @@ public class TranslationWordRecyclerAdapter extends RecyclerView.Adapter<Transla
      class ViewHolder extends RecyclerView.ViewHolder {
         TextView mTextView;
         RecyclerView mRecyclerView;
+        ExamplesRecyclerAdapter mAdapter;
          ViewHolder(@NonNull View itemView) {
             super(itemView);
             mTextView = itemView.findViewById(R.id.tv_translation_word_item);
             mRecyclerView = itemView.findViewById(R.id.rv_nested_example_words);
-        }
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
+            mAdapter = new ExamplesRecyclerAdapter();
+            mRecyclerView.setAdapter(mAdapter);
+         }
 
         void bindData(TranslationWord word){
              mTextView.setText(word.getTranslatedWord());
+             mAdapter.setData(word.getTranslationExamples());
+             mRecyclerView.setRecycledViewPool(mPool);
         }
     }
 }

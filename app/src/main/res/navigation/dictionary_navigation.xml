@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_wordSearchFragment_to_wordInformationFragment"
             app:destination="@id/wordInformationFragment" />
+        <action
+            android:id="@+id/action_wordSearchFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -26,5 +29,9 @@
         android:id="@+id/wordInformationFragment"
         android:name="com.example.dileit.view.fragment.WordInformationFragment"
         android:label="fragment_word_information"
-        tools:layout="@layout/fragment_word_information" />
+        tools:layout="@layout/fragment_word_information" >
+        <action
+            android:id="@+id/action_wordInformationFragment_to_wordSearchFragment"
+            app:destination="@id/wordSearchFragment" />
+    </fragment>
 </navigation>

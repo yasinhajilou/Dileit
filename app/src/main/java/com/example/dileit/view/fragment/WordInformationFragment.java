@@ -2,6 +2,7 @@ package com.example.dileit.view.fragment;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -58,6 +59,13 @@ public class WordInformationFragment extends Fragment {
         mBinding.viewPagerWordInfo.setCurrentItem(0);
 
 
+        mBinding.imgCloseToolBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requireActivity().getOnBackPressedDispatcher().onBackPressed();
+
+            }
+        });
 
         mSharedViewModel.getActualWord().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -86,4 +94,6 @@ public class WordInformationFragment extends Fragment {
             }
         });
     }
+
+
 }

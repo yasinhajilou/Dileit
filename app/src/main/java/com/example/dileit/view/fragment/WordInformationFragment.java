@@ -2,14 +2,14 @@ package com.example.dileit.view.fragment;
 
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,19 +24,26 @@ import com.example.dileit.viewmodel.SharedViewModel;
 import com.google.android.material.chip.Chip;
 
 import java.util.List;
+import java.util.Locale;
 
 
 public class WordInformationFragment extends Fragment {
 
+    private TextToSpeech mTextToSpeechUS;
+    private TextToSpeech mTextToSpeechUK;
+
+    private String TAG = WordInformationFragment.class.getSimpleName();
     private SharedViewModel mSharedViewModel;
     private FragmentWordInformationBinding mBinding;
-    private Chip chipPersian , chipEnglish , chipIdioms;
+    private Chip chipPersian, chipEnglish, chipIdioms;
     WordsInformationViewPagerAdapter mAdapter;
+    int a = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+
     }
 
     @Override
@@ -54,25 +61,62 @@ public class WordInformationFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mAdapter.addPage(new PersianTranslatedFragment() );
+        mAdapter.addPage(new PersianTranslatedFragment());
         mBinding.viewPagerWordInfo.setAdapter(mAdapter);
         mBinding.viewPagerWordInfo.setCurrentItem(0);
 
 
-        mBinding.imgCloseToolBar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                requireActivity().getOnBackPressedDispatcher().onBackPressed();
-
+        mTextToSpeechUK = new TextToSpeech(view.getContext(), i -> {
+            if (i == TextToSpeech.SUCCESS) {
+                int res = mTextToSpeechUS.setLanguage(Locale.UK);
+                if (res == TextToSpeech.LANG_MISSING_DATA
+                        || res == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Log.e("TTS", "Language not supported");
+                } else {
+                    // prepare ui
+                    speakUK(mBinding.tvWordTitle.getText().toString());
+                }
+            } else {
+                Log.d(TAG, "onViewCreated: " + "TTS init failed...");
             }
         });
 
-        mSharedViewModel.getActualWord().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                mBinding.tvWordTitle.setText(s);
+        mTextToSpeechUS = new TextToSpeech(view.getContext(), i -> {
+            if (i == TextToSpeech.SUCCESS) {
+                int res = mTextToSpeechUS.setLanguage(Locale.ENGLISH);
+                if (res == TextToSpeech.LANG_MISSING_DATA
+                        || res == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Log.e("TTS", "Language not supported");
+                } else {
+                    speakUS(mBinding.tvWordTitle.getText().toString());
+
+                }
+            } else {
+                Log.d(TAG, "onViewCreated: " + "TTS init failed...");
             }
         });
+
+
+
+        mBinding.imgBritishPronounce.setOnClickListener(view1 -> {
+            speakUK(mBinding.tvWordTitle.getText().toString());
+        });
+        mBinding.tvBritishPronounce.setOnClickListener(view1 -> {
+            speakUK(mBinding.tvWordTitle.getText().toString());
+        });
+
+
+
+        mBinding.imgAmericanPronounce.setOnClickListener(view1 -> {
+            speakUS(mBinding.tvWordTitle.getText().toString());
+        });
+        mBinding.tvAmericanPronounce.setOnClickListener(view1 -> {
+            speakUS(mBinding.tvWordTitle.getText().toString());
+        });
+
+        mBinding.imgCloseToolBar.setOnClickListener(view12 -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
+
+        mSharedViewModel.getActualWord().observe(getViewLifecycleOwner(), s -> mBinding.tvWordTitle.setText(s));
 
         mSharedViewModel.getWordInformation().observe(getViewLifecycleOwner(), wordInformation -> {
 
@@ -96,4 +140,28 @@ public class WordInformationFragment extends Fragment {
     }
 
 
+    private void speakUS(String text) {
+        a++;
+        if (a % 2 == 0) {
+            mTextToSpeechUS.setSpeechRate(0.4f);
+        } else {
+            mTextToSpeechUS.setSpeechRate(0.9f);
+        }
+        mTextToSpeechUS.setPitch(0f);
+        mTextToSpeechUS.setLanguage(Locale.US);
+
+        mTextToSpeechUS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+    }
+
+    private void speakUK(String text) {
+        a++;
+        if (a % 2 == 0) {
+            mTextToSpeechUK.setSpeechRate(0.4f);
+        } else {
+            mTextToSpeechUK.setSpeechRate(0.9f);
+        }
+        mTextToSpeechUK.setPitch(0f);
+        mTextToSpeechUK.setLanguage(Locale.UK);
+        mTextToSpeechUK.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+    }
 }

@@ -16,8 +16,8 @@ import java.util.List;
 
 public class TranslationWordRecyclerAdapter extends RecyclerView.Adapter<TranslationWordRecyclerAdapter.ViewHolder> {
 
-    List<TranslationWord> mList;
-    RecyclerView.RecycledViewPool mPool = new RecyclerView.RecycledViewPool();
+    private List<TranslationWord> mList;
+    private RecyclerView.RecycledViewPool mPool = new RecyclerView.RecycledViewPool();
 
     public void setData(List<TranslationWord> data){
         mList = data;

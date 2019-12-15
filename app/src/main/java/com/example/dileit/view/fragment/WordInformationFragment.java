@@ -74,7 +74,6 @@ public class WordInformationFragment extends Fragment {
                     Log.e("TTS", "Language not supported");
                 } else {
                     // prepare ui
-                    speakUK(mBinding.tvWordTitle.getText().toString());
                 }
             } else {
                 Log.d(TAG, "onViewCreated: " + "TTS init failed...");
@@ -88,7 +87,6 @@ public class WordInformationFragment extends Fragment {
                         || res == TextToSpeech.LANG_NOT_SUPPORTED) {
                     Log.e("TTS", "Language not supported");
                 } else {
-                    speakUS(mBinding.tvWordTitle.getText().toString());
 
                 }
             } else {
@@ -142,10 +140,10 @@ public class WordInformationFragment extends Fragment {
 
     private void speakUS(String text) {
         a++;
-        if (a % 2 == 0) {
-            mTextToSpeechUS.setSpeechRate(0.4f);
+        if (a % 2 != 0) {
+            mTextToSpeechUS.setSpeechRate(0.0f);
         } else {
-            mTextToSpeechUS.setSpeechRate(0.9f);
+            mTextToSpeechUS.setSpeechRate(1f);
         }
         mTextToSpeechUS.setPitch(0f);
         mTextToSpeechUS.setLanguage(Locale.US);
@@ -155,10 +153,10 @@ public class WordInformationFragment extends Fragment {
 
     private void speakUK(String text) {
         a++;
-        if (a % 2 == 0) {
-            mTextToSpeechUK.setSpeechRate(0.4f);
+        if (a % 2 != 0) {
+            mTextToSpeechUK.setSpeechRate(0.0f);
         } else {
-            mTextToSpeechUK.setSpeechRate(0.9f);
+            mTextToSpeechUK.setSpeechRate(1f);
         }
         mTextToSpeechUK.setPitch(0f);
         mTextToSpeechUK.setLanguage(Locale.UK);

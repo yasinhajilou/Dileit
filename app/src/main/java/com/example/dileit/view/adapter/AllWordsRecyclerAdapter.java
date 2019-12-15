@@ -13,13 +13,12 @@ import com.example.dileit.Utils.JsonUtils;
 import com.example.dileit.model.Word;
 import com.example.dileit.model.WordInformation;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
-
 import java.util.List;
 
 public class AllWordsRecyclerAdapter extends RecyclerView.Adapter<AllWordsRecyclerAdapter.ViewHolder> {
 
     private String TAG = AllWordsRecyclerAdapter.class.getSimpleName();
-    private List<Word> mList;
+    private List<Word> mList ;
     private WordsRecyclerViewInterface mInterface;
 
     public AllWordsRecyclerAdapter(WordsRecyclerViewInterface anInterface) {

@@ -61,15 +61,16 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                 String word = edtSearch.getText().toString();
-                if (!word.equals(""))
-                    mViewModel.getEngToPer(word);
-                else
-                    mViewModel.getAllEngWords();
+
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+                String word = edtSearch.getText().toString();
+                if (!word.equals(""))
+                    mViewModel.getEngToPer(word);
+                else
+                    mViewModel.getAllEngWords();
             }
         });
         return view;

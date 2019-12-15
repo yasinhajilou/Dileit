@@ -10,6 +10,7 @@ import com.example.dileit.model.Word;
 import com.example.dileit.model.database.DatabaseAccess;
 import com.example.dileit.viewmodel.DictionaryInterface;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DictionaryRepository {
@@ -23,11 +24,11 @@ public class DictionaryRepository {
         mInterface = anInterface;
     }
 
-    public void getAllEngWords() {
+    public void getAllWords() {
         new AsyncGetAllWords(databaseAccess, mInterface).execute();
     }
 
-    public void getEngToPer(String word) {
+    public void getSpecificWord(String word) {
         new AsyncGetSpecificWord(databaseAccess, mInterface, word).execute();
     }
 
@@ -83,9 +84,10 @@ public class DictionaryRepository {
 
         @Override
         protected List<Word> doInBackground(Void... voids) {
+             // ORDER BY word COLLATE NOCASE ASC
             databaseAccess.openDatabase();
             List<Word> wordsList = new ArrayList<>();
-            Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def from dictionary WHERE word LIKE ? ORDER BY word COLLATE NOCASE ASC LIMIT 15" , new String[]{word+"%"});
+            Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def from dictionary WHERE word LIKE ? ORDER BY LOWER(word) LIMIT 50 ", new String[]{word+"%"});
             while (cursor.moveToNext()) {
                 String actualWord = cursor.getString(0);
                 String def = cursor.getString(1);
@@ -95,6 +97,7 @@ public class DictionaryRepository {
             Log.d(TAG, String.valueOf(wordsList.size()));
             cursor.close();
             databaseAccess.closeDatabase();
+
             return wordsList;
         }
 
@@ -110,4 +113,7 @@ public class DictionaryRepository {
             super.onPreExecute();
         }
     }
+
+
+
 }

@@ -23,11 +23,11 @@ public class DictionaryViewModel extends AndroidViewModel implements DictionaryI
     }
 
     public void getAllEngWords(){
-        mRepository.getAllEngWords();
+        mRepository.getAllWords();
     }
 
     public void getEngToPer(String word){
-        mRepository.getEngToPer(word);
+        mRepository.getSpecificWord(word);
     }
 
     public LiveData<List<Word>> getData(){

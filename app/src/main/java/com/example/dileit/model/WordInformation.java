@@ -12,10 +12,10 @@ public class WordInformation {
     @SerializedName("p")
     private String pronunciation;
     @SerializedName("is")
-    private List<Object> idioms;
+    private List<Idiom> idioms;
 
 
-    public WordInformation(String type, List<TranslationWord> translationWords, String pronunciation, List<Object> idioms) {
+    public WordInformation(String type, List<TranslationWord> translationWords, String pronunciation, List<Idiom> idioms) {
         this.type = type;
         this.translationWords = translationWords;
         this.pronunciation = pronunciation;
@@ -34,7 +34,7 @@ public class WordInformation {
         return pronunciation;
     }
 
-    public List<Object> getIdioms() {
+    public List<Idiom> getIdioms() {
         return idioms;
     }
 }

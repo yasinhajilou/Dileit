@@ -119,21 +119,21 @@ public class WordInformationFragment extends Fragment {
         mSharedViewModel.getWordInformation().observe(getViewLifecycleOwner(), wordInformation -> {
 
             mBinding.tvPronounceTitle.setText(wordInformation.getPronunciation());
-            StringBuilder stringBuffer = new StringBuilder();
-            List<TranslationWord> wordList = wordInformation.getTranslationWords();
-
             mSharedViewModel.setTranslationWord(wordInformation.getTranslationWords());
 
-            for (int i = 0; i < wordInformation.getTranslationWords().size(); i++) {
-                stringBuffer.append(wordList.get(i).getTranslatedWord()).append("\n");
-                if (wordList.get(i).getTranslationExamples() != null) {
-                    List<TranslationExample> examples = wordList.get(i).getTranslationExamples();
-                    for (int j = 0; j < examples.size(); j++) {
-                        stringBuffer.append("مثال:").append(examples.get(j).getSentence()).append("\n");
-                        stringBuffer.append("معنیش:").append(examples.get(j).getTranslation()).append("\n");
-                    }
-                }
-            }
+
+//            for (int i = 0; i < wordInformation.getTranslationWords().size(); i++) {
+//                stringBuffer.append(wordList.get(i).getTranslatedWord()).append("\n");
+//                if (wordList.get(i).getTranslationExamples() != null) {
+//                    List<TranslationExample> examples = wordList.get(i).getTranslationExamples();
+//                    for (int j = 0; j < examples.size(); j++) {
+//                        stringBuffer.append("مثال:").append(examples.get(j).getSentence()).append("\n");
+//                        stringBuffer.append("معنیش:").append(examples.get(j).getTranslation()).append("\n");
+//                    }
+//                }
+//            }
+
+
         });
     }
 

@@ -33,7 +33,7 @@ public class AllWordsRecyclerAdapter extends RecyclerView.Adapter<AllWordsRecycl
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rcy_item_search, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_item_search, parent, false);
         return new ViewHolder(view , mInterface);
     }
 

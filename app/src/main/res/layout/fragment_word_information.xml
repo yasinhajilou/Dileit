@@ -154,6 +154,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"/>
             <com.google.android.material.chip.Chip
+                android:visibility="gone"
                 android:elevation="8dp"
                 android:layout_marginRight="12dp"
                 android:id="@+id/chips_idioms_only"
@@ -176,6 +177,7 @@
         </LinearLayout>
 
         <androidx.viewpager.widget.ViewPager
+            android:layoutDirection="rtl"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

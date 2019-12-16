@@ -1,5 +1,7 @@
 package com.example.dileit.view.fragment;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.databinding.FragmentWordInformationBinding;
@@ -20,6 +23,7 @@ import com.example.dileit.model.TranslationExample;
 import com.example.dileit.model.TranslationWord;
 import com.example.dileit.view.adapter.WordsInformationViewPagerAdapter;
 import com.example.dileit.view.fragment.wordinfo.PersianTranslatedFragment;
+import com.example.dileit.view.fragment.wordinfo.RelatedIdiomsFragment;
 import com.example.dileit.viewmodel.SharedViewModel;
 import com.google.android.material.chip.Chip;
 
@@ -95,14 +99,12 @@ public class WordInformationFragment extends Fragment {
         });
 
 
-
         mBinding.imgBritishPronounce.setOnClickListener(view1 -> {
             speakUK(mBinding.tvWordTitle.getText().toString());
         });
         mBinding.tvBritishPronounce.setOnClickListener(view1 -> {
             speakUK(mBinding.tvWordTitle.getText().toString());
         });
-
 
 
         mBinding.imgAmericanPronounce.setOnClickListener(view1 -> {
@@ -121,7 +123,10 @@ public class WordInformationFragment extends Fragment {
             mBinding.tvPronounceTitle.setText(wordInformation.getPronunciation());
             mSharedViewModel.setTranslationWord(wordInformation.getTranslationWords());
 
-
+            if (wordInformation.getIdioms()!= null){
+                chipIdioms.setVisibility(View.VISIBLE);
+                mAdapter.addPage(new RelatedIdiomsFragment());
+            }
 //            for (int i = 0; i < wordInformation.getTranslationWords().size(); i++) {
 //                stringBuffer.append(wordList.get(i).getTranslatedWord()).append("\n");
 //                if (wordList.get(i).getTranslationExamples() != null) {
@@ -134,6 +139,29 @@ public class WordInformationFragment extends Fragment {
 //            }
 
 
+        });
+
+        chipIdioms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chipPersian.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
+                chipPersian.setTextColor(Color.BLACK);
+                chipIdioms.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorSecondary)));
+                chipIdioms.setTextColor(Color.WHITE);
+                mBinding.viewPagerWordInfo.setCurrentItem(1);
+            }
+        });
+
+        chipPersian.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chipPersian.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorSecondary)));
+                chipPersian.setTextColor(Color.WHITE);
+                chipIdioms.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
+                chipIdioms.setTextColor(Color.BLACK);
+                mBinding.viewPagerWordInfo.setCurrentItem(0);
+
+            }
         });
     }
 

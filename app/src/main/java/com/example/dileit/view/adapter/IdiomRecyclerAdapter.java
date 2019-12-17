@@ -33,7 +33,7 @@ public class IdiomRecyclerAdapter extends RecyclerView.Adapter<IdiomRecyclerAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+        holder.bindData(mIdiomInformation.get(position));
     }
 
     @Override

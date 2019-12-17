@@ -3,21 +3,23 @@ package com.example.dileit.view.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dileit.R;
+import com.example.dileit.model.Idiom;
 import com.example.dileit.model.IdiomInformation;
 
 import java.util.List;
 
-public class IdiomInformationRecyclerAdapter extends RecyclerView.Adapter<IdiomInformationRecyclerAdapter.ViewHolder> {
+public class IdiomRecyclerAdapter extends RecyclerView.Adapter<IdiomRecyclerAdapter.ViewHolder> {
 
     RecyclerView.RecycledViewPool mRecycledViewPool = new RecyclerView.RecycledViewPool();
-    List<IdiomInformation> mIdiomInformation;
+    List<Idiom> mIdiomInformation;
 
-    public void setData(List<IdiomInformation> data) {
+    public void setData(List<Idiom> data) {
         mIdiomInformation = data;
         notifyDataSetChanged();
     }
@@ -40,8 +42,19 @@ public class IdiomInformationRecyclerAdapter extends RecyclerView.Adapter<IdiomI
     }
 
      class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tvTitle , tvTranslation;
+        RecyclerView mRecyclerView;
          ViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvTitle = itemView.findViewById(R.id.tv_idiom_title);
+            tvTranslation = itemView.findViewById(R.id.tv_idiom_translation);
+            mRecyclerView = itemView.findViewById(R.id.rv_nested_example_idiom);
+            mRecyclerView.setRecycledViewPool(mRecycledViewPool);
+
+        }
+
+        public void bindData(Idiom idiom){
+             tvTitle.setText(idiom.getTitle());
         }
     }
 }

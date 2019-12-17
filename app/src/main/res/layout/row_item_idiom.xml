@@ -22,6 +22,14 @@
             android:textSize="18sp"
             tools:text="check check" />
 
+        <TextView
+            android:layout_margin="4dp"
+            tools:text="سلام و احوال "
+            android:id="@+id/tv_idiom_translation"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_nested_example_idiom"
             android:layout_width="match_parent"

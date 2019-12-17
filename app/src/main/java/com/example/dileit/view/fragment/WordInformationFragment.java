@@ -126,42 +126,26 @@ public class WordInformationFragment extends Fragment {
             if (wordInformation.getIdioms()!= null){
                 chipIdioms.setVisibility(View.VISIBLE);
                 mAdapter.addPage(new RelatedIdiomsFragment());
+                mSharedViewModel.setIdiom(wordInformation.getIdioms());
             }
-//            for (int i = 0; i < wordInformation.getTranslationWords().size(); i++) {
-//                stringBuffer.append(wordList.get(i).getTranslatedWord()).append("\n");
-//                if (wordList.get(i).getTranslationExamples() != null) {
-//                    List<TranslationExample> examples = wordList.get(i).getTranslationExamples();
-//                    for (int j = 0; j < examples.size(); j++) {
-//                        stringBuffer.append("مثال:").append(examples.get(j).getSentence()).append("\n");
-//                        stringBuffer.append("معنیش:").append(examples.get(j).getTranslation()).append("\n");
-//                    }
-//                }
-//            }
-
 
         });
 
-        chipIdioms.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                chipPersian.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
-                chipPersian.setTextColor(Color.BLACK);
-                chipIdioms.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorSecondary)));
-                chipIdioms.setTextColor(Color.WHITE);
-                mBinding.viewPagerWordInfo.setCurrentItem(1);
-            }
+        chipIdioms.setOnClickListener(view13 -> {
+            chipPersian.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
+            chipPersian.setTextColor(Color.BLACK);
+            chipIdioms.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorSecondary)));
+            chipIdioms.setTextColor(Color.WHITE);
+            mBinding.viewPagerWordInfo.setCurrentItem(1);
         });
 
-        chipPersian.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                chipPersian.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorSecondary)));
-                chipPersian.setTextColor(Color.WHITE);
-                chipIdioms.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
-                chipIdioms.setTextColor(Color.BLACK);
-                mBinding.viewPagerWordInfo.setCurrentItem(0);
+        chipPersian.setOnClickListener(view14 -> {
+            chipPersian.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorSecondary)));
+            chipPersian.setTextColor(Color.WHITE);
+            chipIdioms.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
+            chipIdioms.setTextColor(Color.BLACK);
+            mBinding.viewPagerWordInfo.setCurrentItem(0);
 
-            }
         });
     }
 

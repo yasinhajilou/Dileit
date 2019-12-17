@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +17,8 @@ import android.view.ViewGroup;
 
 import com.example.dileit.R;
 import com.example.dileit.databinding.FragmentRelatedIdiomsBinding;
+import com.example.dileit.model.Idiom;
+import com.example.dileit.view.adapter.TranslationWordRecyclerAdapter;
 import com.example.dileit.viewmodel.SharedViewModel;
 
 
@@ -35,6 +38,7 @@ public class RelatedIdiomsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater , R.layout.fragment_related_idioms , container, false);
+        mRecyclerView = mBinding.rvIdioms;
         return mBinding.getRoot();
     }
 
@@ -43,5 +47,8 @@ public class RelatedIdiomsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mSharedViewModel.getIdiom().observe(getViewLifecycleOwner(), idiom -> {
+
+        });
     }
 }

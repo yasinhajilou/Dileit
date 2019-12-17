@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -18,12 +17,8 @@ import android.view.ViewGroup;
 
 import com.example.dileit.R;
 import com.example.dileit.databinding.FragmentPersianTranslatedBinding;
-import com.example.dileit.model.TranslationWord;
-import com.example.dileit.model.WordInformation;
 import com.example.dileit.view.adapter.TranslationWordRecyclerAdapter;
 import com.example.dileit.viewmodel.SharedViewModel;
-
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.

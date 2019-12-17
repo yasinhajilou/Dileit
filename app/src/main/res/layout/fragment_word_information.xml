@@ -6,11 +6,13 @@
 
    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layoutDirection="rtl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.example.dileit.view.fragment.WordInformationFragment">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:layoutDirection="ltr"
             android:elevation="8dp"
             android:id="@+id/app_bar_word_info"
             app:layout_constraintTop_toTopOf="parent"

@@ -12,13 +12,16 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.databinding.FragmentRelatedIdiomsBinding;
 import com.example.dileit.model.Idiom;
+import com.example.dileit.model.IdiomInformation;
 import com.example.dileit.view.adapter.IdiomRecyclerAdapter;
 import com.example.dileit.view.adapter.TranslationWordRecyclerAdapter;
 import com.example.dileit.viewmodel.SharedViewModel;
@@ -26,10 +29,12 @@ import com.example.dileit.viewmodel.SharedViewModel;
 
 public class RelatedIdiomsFragment extends Fragment {
 
-    SharedViewModel mSharedViewModel;
-    FragmentRelatedIdiomsBinding mBinding;
-    RecyclerView mRecyclerView;
-    IdiomRecyclerAdapter mAdapter;
+    private SharedViewModel mSharedViewModel;
+    private FragmentRelatedIdiomsBinding mBinding;
+    private RecyclerView mRecyclerView;
+    private IdiomRecyclerAdapter mAdapter;
+    private String TAG = RelatedIdiomsFragment.class.getSimpleName();
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +45,7 @@ public class RelatedIdiomsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding = DataBindingUtil.inflate(inflater , R.layout.fragment_related_idioms , container, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_related_idioms, container, false);
         mRecyclerView = mBinding.rvIdioms;
         mAdapter = new IdiomRecyclerAdapter();
         return mBinding.getRoot();
@@ -55,6 +60,11 @@ public class RelatedIdiomsFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
         mSharedViewModel.getIdiom().observe(getViewLifecycleOwner(), idioms -> {
             mAdapter.setData(idioms);
+            if (idioms.get(0).getIdiomInformation().get(0).getIdiomExamples() == null)
+                Log.d(TAG, "onViewCreated: " + " is null");
+            else
+                Log.d(TAG, "onViewCreated: " + " is not null");
+
         });
     }
 }

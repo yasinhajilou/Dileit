@@ -23,14 +23,14 @@ import com.example.dileit.viewmodel.SharedViewModel;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PersianTranslatedFragment extends Fragment {
+public class TranslationFragment extends Fragment {
 
     FragmentPersianTranslatedBinding mBinding;
     SharedViewModel mSharedViewModel;
-    private String TAG = PersianTranslatedFragment.class.getSimpleName();
+    private String TAG = TranslationFragment.class.getSimpleName();
     TranslationWordRecyclerAdapter adapter;
 
-    public PersianTranslatedFragment() {
+    public TranslationFragment() {
         // Required empty public constructor
     }
 
@@ -57,7 +57,6 @@ public class PersianTranslatedFragment extends Fragment {
 
         mSharedViewModel.getTranslationWord().observe(getViewLifecycleOwner(), translationWords -> {
             adapter.setData(translationWords);
-            Log.d(TAG, "onChanged: " + translationWords.toString());
         });
     }
 }

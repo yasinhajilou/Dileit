@@ -64,10 +64,10 @@ public class AllWordsRecyclerAdapter extends RecyclerView.Adapter<AllWordsRecycl
 
             //convert json data to reader string
             JsonUtils  jsonUtils = new JsonUtils();
-            WordInformation wordInformation = jsonUtils.getWordDefinition(word.getDefinition());
+            WordInformation[] wordInformation = jsonUtils.getWordDefinition(word.getDefinition());
             StringBuilder stringBuilder = new StringBuilder();
-            for (int i = 0; i < wordInformation.getTranslationWords().size() ; i++) {
-                stringBuilder.append(wordInformation.getTranslationWords().get(i).getTranslatedWord()).append(".");
+            for (int i = 0; i < wordInformation[0].getTranslationWords().size() ; i++) {
+                stringBuilder.append(wordInformation[0].getTranslationWords().get(i).getTranslatedWord()).append(".");
             }
             tvPer.setText(stringBuilder);
         }

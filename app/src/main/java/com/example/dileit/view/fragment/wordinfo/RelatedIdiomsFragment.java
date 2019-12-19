@@ -60,10 +60,6 @@ public class RelatedIdiomsFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
         mSharedViewModel.getIdiom().observe(getViewLifecycleOwner(), idioms -> {
             mAdapter.setData(idioms);
-            if (idioms.get(0).getIdiomInformation().get(0).getIdiomExamples() == null)
-                Log.d(TAG, "onViewCreated: " + " is null");
-            else
-                Log.d(TAG, "onViewCreated: " + " is not null");
 
         });
     }

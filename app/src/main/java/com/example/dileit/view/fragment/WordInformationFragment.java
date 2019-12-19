@@ -15,18 +15,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.databinding.FragmentWordInformationBinding;
-import com.example.dileit.model.TranslationExample;
+import com.example.dileit.model.Idiom;
 import com.example.dileit.model.TranslationWord;
+import com.example.dileit.model.WordInformation;
 import com.example.dileit.view.adapter.WordsInformationViewPagerAdapter;
-import com.example.dileit.view.fragment.wordinfo.PersianTranslatedFragment;
+import com.example.dileit.view.fragment.wordinfo.TranslationFragment;
 import com.example.dileit.view.fragment.wordinfo.RelatedIdiomsFragment;
 import com.example.dileit.viewmodel.SharedViewModel;
 import com.google.android.material.chip.Chip;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -40,8 +41,11 @@ public class WordInformationFragment extends Fragment {
     private SharedViewModel mSharedViewModel;
     private FragmentWordInformationBinding mBinding;
     private Chip chipPersian, chipEnglish, chipIdioms;
-    WordsInformationViewPagerAdapter mAdapter;
-    int a = 0;
+    private WordsInformationViewPagerAdapter mAdapter;
+    private List<TranslationWord> wordList = new ArrayList<>();
+    private List<Idiom> mIdioms = new ArrayList<>();
+
+    private int a = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,7 +69,7 @@ public class WordInformationFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mAdapter.addPage(new PersianTranslatedFragment());
+        mAdapter.addPage(new TranslationFragment());
         mBinding.viewPagerWordInfo.setAdapter(mAdapter);
         mBinding.viewPagerWordInfo.setCurrentItem(0);
 
@@ -120,13 +124,19 @@ public class WordInformationFragment extends Fragment {
 
         mSharedViewModel.getWordInformation().observe(getViewLifecycleOwner(), wordInformation -> {
 
-            mBinding.tvPronounceTitle.setText(wordInformation.getPronunciation());
-            mSharedViewModel.setTranslationWord(wordInformation.getTranslationWords());
+            mBinding.tvPronounceTitle.setText(wordInformation[0].getPronunciation());
+            for (int i = 0; i < wordInformation.length; i++) {
+                wordList.addAll(wordInformation[i].getTranslationWords());
+                if (wordInformation[i].getIdioms() != null)
+                    mIdioms.addAll(wordInformation[i].getIdioms());
+            }
 
-            if (wordInformation.getIdioms()!= null){
+            mSharedViewModel.setTranslationWord(wordList);
+
+            if (mIdioms != null) {
                 chipIdioms.setVisibility(View.VISIBLE);
                 mAdapter.addPage(new RelatedIdiomsFragment());
-                mSharedViewModel.setIdiom(wordInformation.getIdioms());
+                mSharedViewModel.setIdiom(mIdioms);
             }
 
         });

@@ -15,10 +15,10 @@ public class JsonUtils {
 
     //Convert word data to wordDefinition class
     // wordDefinition : whole information of a word(idioms,means...)
-    public WordInformation getWordDefinition(String data){
+    public WordInformation[] getWordDefinition(String data){
         WordInformation[] info = mGson.fromJson(data, WordInformation[].class);
         Log.d(TAG, "getWordDefinition: " + info.length);
-        return info[0];
+        return info;
     }
 
 }

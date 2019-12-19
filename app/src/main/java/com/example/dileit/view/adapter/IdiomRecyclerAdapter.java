@@ -21,7 +21,6 @@ import java.util.List;
 public class IdiomRecyclerAdapter extends RecyclerView.Adapter<IdiomRecyclerAdapter.ViewHolder> {
 
     private static final String TAG = IdiomRecyclerAdapter.class.getSimpleName();
-    private List<IdiomExample> mIdiomExamples = new ArrayList<>();
     private RecyclerView.RecycledViewPool mRecycledViewPool = new RecyclerView.RecycledViewPool();
     private List<Idiom> mList;
 
@@ -65,6 +64,7 @@ public class IdiomRecyclerAdapter extends RecyclerView.Adapter<IdiomRecyclerAdap
         }
 
         void bindData(Idiom idiom) {
+             List<IdiomExample> mIdiomExamples = new ArrayList<>();
             tvTitle.setText(idiom.getTitle());
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i < idiom.getIdiomInformation().size(); i++) {

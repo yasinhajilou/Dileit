@@ -14,7 +14,7 @@ import java.util.List;
 
 public class SharedViewModel extends AndroidViewModel {
     private MutableLiveData<String> mActualWord;
-    private MutableLiveData<WordInformation> mWordInformation;
+    private MutableLiveData<WordInformation[]> mWordInformation;
     private MutableLiveData<List<TranslationWord>> mTranslationWord;
     private MutableLiveData<List<Idiom>> mIdiom;
 
@@ -36,10 +36,10 @@ public class SharedViewModel extends AndroidViewModel {
         mIdiom.setValue(idiom);
     }
 
-    public void setWordInformation(WordInformation wordInformation){
+    public void setWordInformation(WordInformation[] wordInformation){
         this.mWordInformation.setValue(wordInformation);
     }
-    public MutableLiveData<WordInformation> getWordInformation() {
+    public MutableLiveData<WordInformation[]> getWordInformation() {
         return mWordInformation;
     }
 

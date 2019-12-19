@@ -89,7 +89,6 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         JsonUtils jsonUtils = new JsonUtils();
         mSharedViewModel.setWordInformation(jsonUtils.getWordDefinition(data));
         mSharedViewModel.setActualWord(actualWord);
-        Log.d(TAG, "onItemClicked: " + jsonUtils.getWordDefinition(data));
         Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment);
     }
 }

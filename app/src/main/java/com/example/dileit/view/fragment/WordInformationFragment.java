@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,7 +45,6 @@ public class WordInformationFragment extends Fragment {
     private List<TranslationWord> wordList = new ArrayList<>();
     private List<Idiom> mIdioms = new ArrayList<>();
     private boolean isIdiomAvailable = false;
-    private int a = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -159,15 +159,58 @@ public class WordInformationFragment extends Fragment {
             selectIdiomChip();
             undoPersianChip();
             undoEnglishChip();
+            mBinding.viewPagerWordInfo.setCurrentItem(1);
+
         });
 
         chipPersian.setOnClickListener(view14 -> {
             selectPersianChip();
             undoIdiomChip();
             undoEnglishChip();
+            mBinding.viewPagerWordInfo.setCurrentItem(0);
+
         });
 
 
+        mBinding.viewPagerWordInfo.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position){
+                    case 0:
+                        selectPersianChip();
+                        undoIdiomChip();
+                        undoEnglishChip();
+                        break;
+                    case 1:
+                        if (isIdiomAvailable){
+                            selectIdiomChip();
+                            undoPersianChip();
+                            undoEnglishChip();
+                        }else {
+                            selectEnglishChip();
+                            undoIdiomChip();
+                            undoPersianChip();
+                        }
+
+                        break;
+                    case 2:
+                        selectEnglishChip();
+                        undoIdiomChip();
+                        undoPersianChip();
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
 

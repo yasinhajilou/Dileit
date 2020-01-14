@@ -18,6 +18,7 @@ public class EnglishTranslationWordRecyclerAdapter extends RecyclerView.Adapter<
 
     public void setData(List<WordEnglishDic> data){
         mList = data;
+        notifyDataSetChanged();
     }
     @NonNull
     @Override
@@ -33,12 +34,12 @@ public class EnglishTranslationWordRecyclerAdapter extends RecyclerView.Adapter<
 
     @Override
     public int getItemCount() {
-        return mList!= null ? mList.size() : 0;
+        return mList != null ? mList.size() : 0;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+     class ViewHolder extends RecyclerView.ViewHolder {
         TextView mTextView;
-        public ViewHolder(@NonNull View itemView) {
+         ViewHolder(@NonNull View itemView) {
             super(itemView);
             mTextView = itemView.findViewById(R.id.tv_english_translation);
         }

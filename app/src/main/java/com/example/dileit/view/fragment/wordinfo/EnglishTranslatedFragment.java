@@ -57,6 +57,9 @@ public class EnglishTranslatedFragment extends Fragment {
 
         mSharedViewModel.getActualWord().observe(getViewLifecycleOwner(), s -> mViewModel.doSearch(s.trim()));
 
-        mViewModel.getLiveList().observe(getViewLifecycleOwner(), wordEnglishDics -> mAdapter.setData(wordEnglishDics));
+        mViewModel.getLiveList().observe(getViewLifecycleOwner(), wordEnglishDics -> {
+            mAdapter.setData(wordEnglishDics);
+            Toast.makeText(getContext(), ""+wordEnglishDics.size(), Toast.LENGTH_SHORT).show();
+        });
     }
 }

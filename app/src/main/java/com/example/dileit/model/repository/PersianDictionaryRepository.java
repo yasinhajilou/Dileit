@@ -12,13 +12,13 @@ import com.example.dileit.viewmodel.DictionaryInterface;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DictionaryRepository {
+public class PersianDictionaryRepository {
 
-    private static final String TAG = DictionaryRepository.class.getSimpleName();
+    private static final String TAG = PersianDictionaryRepository.class.getSimpleName();
     private PersianDatabaseAccess mPersianDatabaseAccess;
     private DictionaryInterface mInterface;
 
-    public DictionaryRepository(Application application, DictionaryInterface anInterface) {
+    public PersianDictionaryRepository(Application application, DictionaryInterface anInterface) {
         mPersianDatabaseAccess = PersianDatabaseAccess.getINSTANCE(application);
         mInterface = anInterface;
     }
@@ -51,7 +51,6 @@ public class DictionaryRepository {
                 Word dictionary = new Word(word, def);
                 wordsList.add(dictionary);
             }
-            Log.d(TAG, String.valueOf(wordsList.size()));
             cursor.close();
             mPersianDatabaseAccess.closeDatabase();
 

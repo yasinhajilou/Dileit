@@ -8,18 +8,18 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.dileit.model.Word;
-import com.example.dileit.model.repository.DictionaryRepository;
+import com.example.dileit.model.repository.PersianDictionaryRepository;
 
 import java.util.List;
 
 public class DictionaryViewModel extends AndroidViewModel implements DictionaryInterface {
-    private DictionaryRepository mRepository;
+    private PersianDictionaryRepository mRepository;
     private MutableLiveData<List<Word>> mDataEng;
 
     public DictionaryViewModel(@NonNull Application application) {
         super(application);
         mDataEng = new MutableLiveData<>();
-        mRepository = new DictionaryRepository(application,this);
+        mRepository = new PersianDictionaryRepository(application,this);
     }
 
     public void getAllEngWords(){

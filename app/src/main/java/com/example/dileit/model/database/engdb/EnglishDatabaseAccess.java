@@ -7,13 +7,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class EnglishDatabaseAccess {
     private SQLiteOpenHelper mHelper;
     private SQLiteDatabase mDatabase;
-    private EnglishDatabaseAccess INSTANCE;
+    private static EnglishDatabaseAccess INSTANCE;
 
     EnglishDatabaseAccess(Context context) {
         mHelper = new EnglishDatabaseOpenHelper(context);
     }
 
-    private EnglishDatabaseAccess getINSTANCE(Context context) {
+    public static EnglishDatabaseAccess getINSTANCE(Context context) {
         if (INSTANCE == null) {
             synchronized (EnglishDatabaseAccess.class) {
                 if (INSTANCE == null) {

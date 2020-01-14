@@ -1,6 +1,7 @@
 package com.example.dileit.viewmodel;
 
 import com.example.dileit.model.Word;
+import com.example.dileit.model.WordEnglishDic;
 
 import java.util.List;
 

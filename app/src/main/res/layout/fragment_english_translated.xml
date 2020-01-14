@@ -11,8 +11,8 @@
         android:layout_height="match_parent"
         tools:context="com.example.dileit.view.fragment.wordinfo.EnglishTranslatedFragment">
 
-        <TextView
-            android:id="@+id/tvEng"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_english_translation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/hello_blank_fragment"

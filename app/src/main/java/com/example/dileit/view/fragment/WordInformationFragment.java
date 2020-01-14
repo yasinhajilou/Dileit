@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +29,6 @@ import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 
 public class WordInformationFragment extends Fragment {
@@ -45,7 +43,7 @@ public class WordInformationFragment extends Fragment {
     private WordsInformationViewPagerAdapter mAdapter;
     private List<TranslationWord> wordList = new ArrayList<>();
     private List<Idiom> mIdioms = new ArrayList<>();
-    private boolean isIdiomAvailabel = false;
+    private boolean isIdiomAvailable = false;
     private int a = 0;
 
     @Override
@@ -139,7 +137,7 @@ public class WordInformationFragment extends Fragment {
                 if (mIdioms.size() > 0) {
                     chipIdioms.setVisibility(View.VISIBLE);
                     mAdapter.addPage(new RelatedIdiomsFragment());
-                    isIdiomAvailabel = true;
+                    isIdiomAvailable = true;
                     mSharedViewModel.setIdiom(mIdioms);
                 }
             }
@@ -148,40 +146,25 @@ public class WordInformationFragment extends Fragment {
         });
 
         chipEnglish.setOnClickListener(view15 -> {
-            chipPersian.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
-            chipEnglish.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
-            chipPersian.setTextColor(Color.BLACK);
-            chipIdioms.setTextColor(Color.BLACK);
-
-            chipEnglish.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorSecondary)));
-            chipEnglish.setTextColor(Color.WHITE);
-            if (isIdiomAvailabel)
+            selectEnglishChip();
+            undoIdiomChip();
+            undoPersianChip();
+            if (isIdiomAvailable)
                 mBinding.viewPagerWordInfo.setCurrentItem(2);
             else
                 mBinding.viewPagerWordInfo.setCurrentItem(1);
 
-
-
         });
         chipIdioms.setOnClickListener(view13 -> {
-            chipPersian.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
-            chipEnglish.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
-            chipPersian.setTextColor(Color.BLACK);
-            chipEnglish.setTextColor(Color.BLACK);
-            chipIdioms.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorSecondary)));
-            chipIdioms.setTextColor(Color.WHITE);
-            mBinding.viewPagerWordInfo.setCurrentItem(1);
+            selectIdiomChip();
+            undoPersianChip();
+            undoEnglishChip();
         });
 
         chipPersian.setOnClickListener(view14 -> {
-            chipPersian.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorSecondary)));
-            chipPersian.setTextColor(Color.WHITE);
-            chipIdioms.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
-            chipEnglish.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
-            chipIdioms.setTextColor(Color.BLACK);
-            chipEnglish.setTextColor(Color.BLACK);
-            mBinding.viewPagerWordInfo.setCurrentItem(0);
-
+            selectPersianChip();
+            undoIdiomChip();
+            undoEnglishChip();
         });
 
 
@@ -213,6 +196,33 @@ public class WordInformationFragment extends Fragment {
 //        mTextToSpeechUK.speak(text, TextToSpeech.QUEUE_FLUSH, null);
 //    }
 
+
+    private void selectIdiomChip(){
+        chipIdioms.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorSecondary)));
+        chipIdioms.setTextColor(Color.WHITE);
+    }
+    private void selectPersianChip(){
+        chipPersian.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorSecondary)));
+        chipPersian.setTextColor(Color.WHITE);
+    }
+    private void selectEnglishChip(){
+        chipEnglish.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorSecondary)));
+        chipEnglish.setTextColor(Color.WHITE);
+
+    }
+
+    private void undoIdiomChip(){
+        chipIdioms.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
+        chipIdioms.setTextColor(Color.BLACK);
+    }
+    private void undoPersianChip(){
+        chipPersian.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
+        chipPersian.setTextColor(Color.BLACK);
+    }
+    private void undoEnglishChip(){
+        chipEnglish.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
+        chipEnglish.setTextColor(Color.BLACK);
+    }
 
     @Override
     public void onStop() {

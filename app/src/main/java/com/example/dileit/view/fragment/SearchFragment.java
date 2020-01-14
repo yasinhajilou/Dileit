@@ -21,14 +21,14 @@ import com.example.dileit.R;
 import com.example.dileit.utils.JsonUtils;
 import com.example.dileit.view.adapter.AllWordsRecyclerAdapter;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
-import com.example.dileit.viewmodel.DictionaryViewModel;
+import com.example.dileit.viewmodel.PersianDictionaryViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
 
 
 public class SearchFragment extends Fragment implements WordsRecyclerViewInterface {
 
     private EditText edtSearch;
-    private DictionaryViewModel mViewModel;
+    private PersianDictionaryViewModel mViewModel;
     private RecyclerView rvWords;
     private AllWordsRecyclerAdapter mAdapter;
     private SharedViewModel mSharedViewModel;
@@ -36,7 +36,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = ViewModelProviders.of(getActivity()).get(DictionaryViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(PersianDictionaryViewModel.class);
         mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
     }
 

@@ -20,19 +20,13 @@ import com.example.dileit.databinding.FragmentPersianTranslatedBinding;
 import com.example.dileit.view.adapter.TranslationWordRecyclerAdapter;
 import com.example.dileit.viewmodel.SharedViewModel;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class TranslationFragment extends Fragment {
 
     FragmentPersianTranslatedBinding mBinding;
     SharedViewModel mSharedViewModel;
     private String TAG = TranslationFragment.class.getSimpleName();
     TranslationWordRecyclerAdapter adapter;
-
-    public TranslationFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

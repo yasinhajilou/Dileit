@@ -165,7 +165,7 @@ public class WordInformationFragment extends Fragment {
         if (a % 2 != 0) {
             mTextToSpeechUS.setSpeechRate(0.0f);
         } else {
-            mTextToSpeechUS.setSpeechRate(1f);
+            mTextToSpeechUS.setSpeechRate(0.6f);
         }
         mTextToSpeechUS.setPitch(0f);
         mTextToSpeechUS.setLanguage(Locale.US);
@@ -178,7 +178,7 @@ public class WordInformationFragment extends Fragment {
         if (a % 2 != 0) {
             mTextToSpeechUK.setSpeechRate(0.0f);
         } else {
-            mTextToSpeechUK.setSpeechRate(1f);
+            mTextToSpeechUK.setSpeechRate(0.6f);
         }
         mTextToSpeechUK.setPitch(0f);
         mTextToSpeechUK.setLanguage(Locale.UK);

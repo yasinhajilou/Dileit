@@ -21,7 +21,7 @@ public class EnglishDictionaryRepository {
     }
 
 
-    public void getEngTrans(String word){
+    public void doSearch(String word){
         new AsyncGetEngWord(mDatabaseAccess, mInterface , word).execute();
     }
 

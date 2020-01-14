@@ -12,11 +12,11 @@ import com.example.dileit.model.repository.PersianDictionaryRepository;
 
 import java.util.List;
 
-public class DictionaryViewModel extends AndroidViewModel implements DictionaryInterface {
+public class PersianDictionaryViewModel extends AndroidViewModel implements DictionaryInterface {
     private PersianDictionaryRepository mRepository;
     private MutableLiveData<List<Word>> mDataEng;
 
-    public DictionaryViewModel(@NonNull Application application) {
+    public PersianDictionaryViewModel(@NonNull Application application) {
         super(application);
         mDataEng = new MutableLiveData<>();
         mRepository = new PersianDictionaryRepository(application,this);

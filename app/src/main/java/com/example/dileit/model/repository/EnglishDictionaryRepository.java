@@ -41,7 +41,7 @@ public class EnglishDictionaryRepository {
             mDatabaseAccess.openDatabase();
             List<WordEnglishDic> wordEnglishDics = new ArrayList<>();
 
-            Cursor cursor = mDatabaseAccess.getDatabase().rawQuery("SELECT word,type,defn FROM word WHERE word like ?", new String[]{word});
+            Cursor cursor = mDatabaseAccess.getDatabase().rawQuery("SELECT word,type,defn FROM words WHERE word like ?", new String[]{word});
             if (cursor != null) {
                 while (cursor.moveToNext()) {
                     String actualWord = cursor.getString(0);

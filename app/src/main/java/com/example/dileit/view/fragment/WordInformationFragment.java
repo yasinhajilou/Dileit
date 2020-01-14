@@ -22,6 +22,7 @@ import com.example.dileit.model.Idiom;
 import com.example.dileit.model.TranslationWord;
 import com.example.dileit.model.WordInformation;
 import com.example.dileit.view.adapter.WordsInformationViewPagerAdapter;
+import com.example.dileit.view.fragment.wordinfo.EnglishTranslatedFragment;
 import com.example.dileit.view.fragment.wordinfo.TranslationFragment;
 import com.example.dileit.view.fragment.wordinfo.RelatedIdiomsFragment;
 import com.example.dileit.viewmodel.SharedViewModel;
@@ -34,8 +35,8 @@ import java.util.Locale;
 
 public class WordInformationFragment extends Fragment {
 
-    private TextToSpeech mTextToSpeechUS;
-    private TextToSpeech mTextToSpeechUK;
+//    private TextToSpeech mTextToSpeechUS;
+//    private TextToSpeech mTextToSpeechUK;
 
     private String TAG = WordInformationFragment.class.getSimpleName();
     private SharedViewModel mSharedViewModel;
@@ -44,7 +45,7 @@ public class WordInformationFragment extends Fragment {
     private WordsInformationViewPagerAdapter mAdapter;
     private List<TranslationWord> wordList = new ArrayList<>();
     private List<Idiom> mIdioms = new ArrayList<>();
-
+    private boolean isIdiomAvailabel = false;
     private int a = 0;
 
     @Override
@@ -62,61 +63,62 @@ public class WordInformationFragment extends Fragment {
         chipPersian = mBinding.chipsTranslatedOnly;
         chipEnglish = mBinding.chipsTranslatedEnglish;
         chipIdioms = mBinding.chipsIdiomsOnly;
-        mAdapter = new WordsInformationViewPagerAdapter(getActivity().getSupportFragmentManager());
+        mAdapter = new WordsInformationViewPagerAdapter(getChildFragmentManager());
         return mBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d(TAG, "onViewCreated: ");
         mAdapter.addPage(new TranslationFragment());
         mBinding.viewPagerWordInfo.setAdapter(mAdapter);
         mBinding.viewPagerWordInfo.setCurrentItem(0);
 
 
-        mTextToSpeechUK = new TextToSpeech(view.getContext(), i -> {
-            if (i == TextToSpeech.SUCCESS) {
-                int res = mTextToSpeechUS.setLanguage(Locale.UK);
-                if (res == TextToSpeech.LANG_MISSING_DATA
-                        || res == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Log.e("TTS", "Language not supported");
-                } else {
-                    // prepare ui
-                }
-            } else {
-                Log.d(TAG, "onViewCreated: " + "TTS init failed...");
-            }
-        });
+//        mTextToSpeechUK = new TextToSpeech(view.getContext(), i -> {
+//            if (i == TextToSpeech.SUCCESS) {
+//                int res = mTextToSpeechUS.setLanguage(Locale.UK);
+//                if (res == TextToSpeech.LANG_MISSING_DATA
+//                        || res == TextToSpeech.LANG_NOT_SUPPORTED) {
+//                    Log.e("TTS", "Language not supported");
+//                } else {
+//                    // prepare ui
+//                }
+//            } else {
+//                Log.d(TAG, "onViewCreated: " + "TTS init failed...");
+//            }
+//        });
 
-        mTextToSpeechUS = new TextToSpeech(view.getContext(), i -> {
-            if (i == TextToSpeech.SUCCESS) {
-                int res = mTextToSpeechUS.setLanguage(Locale.ENGLISH);
-                if (res == TextToSpeech.LANG_MISSING_DATA
-                        || res == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Log.e("TTS", "Language not supported");
-                } else {
-
-                }
-            } else {
-                Log.d(TAG, "onViewCreated: " + "TTS init failed...");
-            }
-        });
-
-
-        mBinding.imgBritishPronounce.setOnClickListener(view1 -> {
-            speakUK(mBinding.tvWordTitle.getText().toString());
-        });
-        mBinding.tvBritishPronounce.setOnClickListener(view1 -> {
-            speakUK(mBinding.tvWordTitle.getText().toString());
-        });
+//        mTextToSpeechUS = new TextToSpeech(view.getContext(), i -> {
+//            if (i == TextToSpeech.SUCCESS) {
+//                int res = mTextToSpeechUS.setLanguage(Locale.ENGLISH);
+//                if (res == TextToSpeech.LANG_MISSING_DATA
+//                        || res == TextToSpeech.LANG_NOT_SUPPORTED) {
+//                    Log.e("TTS", "Language not supported");
+//                } else {
+//
+//                }
+//            } else {
+//                Log.d(TAG, "onViewCreated: " + "TTS init failed...");
+//            }
+//        });
 
 
-        mBinding.imgAmericanPronounce.setOnClickListener(view1 -> {
-            speakUS(mBinding.tvWordTitle.getText().toString());
-        });
-        mBinding.tvAmericanPronounce.setOnClickListener(view1 -> {
-            speakUS(mBinding.tvWordTitle.getText().toString());
-        });
+//        mBinding.imgBritishPronounce.setOnClickListener(view1 -> {
+//            speakUK(mBinding.tvWordTitle.getText().toString());
+//        });
+//        mBinding.tvBritishPronounce.setOnClickListener(view1 -> {
+//            speakUK(mBinding.tvWordTitle.getText().toString());
+//        });
+//
+//
+//        mBinding.imgAmericanPronounce.setOnClickListener(view1 -> {
+//            speakUS(mBinding.tvWordTitle.getText().toString());
+//        });
+//        mBinding.tvAmericanPronounce.setOnClickListener(view1 -> {
+//            speakUS(mBinding.tvWordTitle.getText().toString());
+//        });
 
         mBinding.imgCloseToolBar.setOnClickListener(view12 -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
 
@@ -125,25 +127,47 @@ public class WordInformationFragment extends Fragment {
         mSharedViewModel.getWordInformation().observe(getViewLifecycleOwner(), wordInformation -> {
 
             mBinding.tvPronounceTitle.setText(wordInformation[0].getPronunciation());
-            for (int i = 0; i < wordInformation.length; i++) {
-                wordList.addAll(wordInformation[i].getTranslationWords());
-                if (wordInformation[i].getIdioms() != null)
-                    mIdioms.addAll(wordInformation[i].getIdioms());
+
+            for (WordInformation information : wordInformation) {
+                wordList.addAll(information.getTranslationWords());
+                if (information.getIdioms() != null)
+                    mIdioms.addAll(information.getIdioms());
             }
 
             mSharedViewModel.setTranslationWord(wordList);
-
             if (mIdioms != null) {
-                chipIdioms.setVisibility(View.VISIBLE);
-                mAdapter.addPage(new RelatedIdiomsFragment());
-                mSharedViewModel.setIdiom(mIdioms);
+                if (mIdioms.size() > 0) {
+                    chipIdioms.setVisibility(View.VISIBLE);
+                    mAdapter.addPage(new RelatedIdiomsFragment());
+                    isIdiomAvailabel = true;
+                    mSharedViewModel.setIdiom(mIdioms);
+                }
             }
 
+            mAdapter.addPage(new EnglishTranslatedFragment());
         });
 
+        chipEnglish.setOnClickListener(view15 -> {
+            chipPersian.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
+            chipEnglish.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
+            chipPersian.setTextColor(Color.BLACK);
+            chipIdioms.setTextColor(Color.BLACK);
+
+            chipEnglish.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorSecondary)));
+            chipEnglish.setTextColor(Color.WHITE);
+            if (isIdiomAvailabel)
+                mBinding.viewPagerWordInfo.setCurrentItem(2);
+            else
+                mBinding.viewPagerWordInfo.setCurrentItem(1);
+
+
+
+        });
         chipIdioms.setOnClickListener(view13 -> {
             chipPersian.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
+            chipEnglish.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
             chipPersian.setTextColor(Color.BLACK);
+            chipEnglish.setTextColor(Color.BLACK);
             chipIdioms.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorSecondary)));
             chipIdioms.setTextColor(Color.WHITE);
             mBinding.viewPagerWordInfo.setCurrentItem(1);
@@ -153,35 +177,64 @@ public class WordInformationFragment extends Fragment {
             chipPersian.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorSecondary)));
             chipPersian.setTextColor(Color.WHITE);
             chipIdioms.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
+            chipEnglish.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
             chipIdioms.setTextColor(Color.BLACK);
+            chipEnglish.setTextColor(Color.BLACK);
             mBinding.viewPagerWordInfo.setCurrentItem(0);
 
         });
+
+
     }
 
 
-    private void speakUS(String text) {
-        a++;
-        if (a % 2 != 0) {
-            mTextToSpeechUS.setSpeechRate(0.0f);
-        } else {
-            mTextToSpeechUS.setSpeechRate(0.6f);
-        }
-        mTextToSpeechUS.setPitch(0f);
-        mTextToSpeechUS.setLanguage(Locale.US);
+//    private void speakUS(String text) {
+//        a++;
+//        if (a % 2 != 0) {
+//            mTextToSpeechUS.setSpeechRate(0.0f);
+//        } else {
+//            mTextToSpeechUS.setSpeechRate(0.6f);
+//        }
+//        mTextToSpeechUS.setPitch(0f);
+//        mTextToSpeechUS.setLanguage(Locale.US);
+//
+//        mTextToSpeechUS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+//    }
+//
+//    private void speakUK(String text) {
+//        a++;
+//        if (a % 2 != 0) {
+//            mTextToSpeechUK.setSpeechRate(0.0f);
+//        } else {
+//            mTextToSpeechUK.setSpeechRate(0.6f);
+//        }
+//        mTextToSpeechUK.setPitch(0f);
+//        mTextToSpeechUK.setLanguage(Locale.UK);
+//        mTextToSpeechUK.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+//    }
 
-        mTextToSpeechUS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: ");
     }
 
-    private void speakUK(String text) {
-        a++;
-        if (a % 2 != 0) {
-            mTextToSpeechUK.setSpeechRate(0.0f);
-        } else {
-            mTextToSpeechUK.setSpeechRate(0.6f);
-        }
-        mTextToSpeechUK.setPitch(0f);
-        mTextToSpeechUK.setLanguage(Locale.UK);
-        mTextToSpeechUK.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: ");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: ");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d(TAG, "onDestroyView: ");
     }
 }

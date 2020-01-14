@@ -30,6 +30,6 @@ public class EnglishDictionaryViewModel extends AndroidViewModel implements Engl
 
     @Override
     public void getEngWord(List<WordEnglishDic> wordEnglishDics) {
-        mListMutableLiveData.setValue(wordEnglishDics);
+        mListMutableLiveData.postValue(wordEnglishDics);
     }
 }

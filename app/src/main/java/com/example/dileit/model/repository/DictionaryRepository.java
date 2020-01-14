@@ -7,45 +7,44 @@ import android.util.Log;
 
 
 import com.example.dileit.model.Word;
-import com.example.dileit.model.database.DatabaseAccess;
+import com.example.dileit.model.database.persiandb.PersianDatabaseAccess;
 import com.example.dileit.viewmodel.DictionaryInterface;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class DictionaryRepository {
 
     private static final String TAG = DictionaryRepository.class.getSimpleName();
-    private DatabaseAccess databaseAccess;
+    private PersianDatabaseAccess mPersianDatabaseAccess;
     private DictionaryInterface mInterface;
 
     public DictionaryRepository(Application application, DictionaryInterface anInterface) {
-        databaseAccess = DatabaseAccess.getINSTANCE(application);
+        mPersianDatabaseAccess = PersianDatabaseAccess.getINSTANCE(application);
         mInterface = anInterface;
     }
 
     public void getAllWords() {
-        new AsyncGetAllWords(databaseAccess, mInterface).execute();
+        new AsyncGetAllWords(mPersianDatabaseAccess, mInterface).execute();
     }
 
     public void getSpecificWord(String word) {
-        new AsyncGetSpecificWord(databaseAccess, mInterface, word).execute();
+        new AsyncGetSpecificWord(mPersianDatabaseAccess, mInterface, word).execute();
     }
 
     private class AsyncGetAllWords extends AsyncTask<Void, Void, List<Word>> {
-        DatabaseAccess databaseAccess;
+        PersianDatabaseAccess mPersianDatabaseAccess;
         DictionaryInterface mInterface;
 
-         AsyncGetAllWords(DatabaseAccess databaseAccess, DictionaryInterface anInterface) {
-            this.databaseAccess = databaseAccess;
+         AsyncGetAllWords(PersianDatabaseAccess persianDatabaseAccess, DictionaryInterface anInterface) {
+            this.mPersianDatabaseAccess = persianDatabaseAccess;
             mInterface = anInterface;
         }
 
         @Override
         protected List<Word> doInBackground(Void... voids) {
             List<Word> wordsList = new ArrayList<>();
-            databaseAccess.openDatabase();
-            Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def FROM dictionary LIMIT 50", null);
+            mPersianDatabaseAccess.openDatabase();
+            Cursor cursor = mPersianDatabaseAccess.getDatabase().rawQuery("SELECT word,def FROM dictionary LIMIT 50", null);
             while (cursor.moveToNext()) {
                 String word = cursor.getString(0);
                 String def = cursor.getString(1);
@@ -54,7 +53,7 @@ public class DictionaryRepository {
             }
             Log.d(TAG, String.valueOf(wordsList.size()));
             cursor.close();
-            databaseAccess.closeDatabase();
+            mPersianDatabaseAccess.closeDatabase();
 
             return wordsList;
         }
@@ -73,11 +72,11 @@ public class DictionaryRepository {
 
     private class AsyncGetSpecificWord extends AsyncTask<Void, Void, List<Word>> {
         String word;
-        DatabaseAccess databaseAccess;
+        PersianDatabaseAccess mPersianDatabaseAccess;
         DictionaryInterface mInterface;
 
-         AsyncGetSpecificWord(DatabaseAccess databaseAccess, DictionaryInterface anInterface, String word) {
-            this.databaseAccess = databaseAccess;
+         AsyncGetSpecificWord(PersianDatabaseAccess persianDatabaseAccess, DictionaryInterface anInterface, String word) {
+            this.mPersianDatabaseAccess = persianDatabaseAccess;
             mInterface = anInterface;
             this.word = word;
         }
@@ -85,9 +84,9 @@ public class DictionaryRepository {
         @Override
         protected List<Word> doInBackground(Void... voids) {
              // ORDER BY word COLLATE NOCASE ASC
-            databaseAccess.openDatabase();
+            mPersianDatabaseAccess.openDatabase();
             List<Word> wordsList = new ArrayList<>();
-            Cursor cursor = databaseAccess.getDatabase().rawQuery("SELECT word,def from dictionary WHERE word LIKE ? ORDER BY LOWER(word) LIMIT 50 ", new String[]{word+"%"});
+            Cursor cursor = mPersianDatabaseAccess.getDatabase().rawQuery("SELECT word,def from dictionary WHERE word LIKE ? ORDER BY LOWER(word) LIMIT 50 ", new String[]{word+"%"});
             while (cursor.moveToNext()) {
                 String actualWord = cursor.getString(0);
                 String def = cursor.getString(1);
@@ -96,7 +95,7 @@ public class DictionaryRepository {
             }
             Log.d(TAG, String.valueOf(wordsList.size()));
             cursor.close();
-            databaseAccess.closeDatabase();
+            mPersianDatabaseAccess.closeDatabase();
 
             return wordsList;
         }

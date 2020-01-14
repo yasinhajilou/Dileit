@@ -7,17 +7,13 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.FragmentNavigator;
-
 import android.speech.RecognizerIntent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dileit.R;
@@ -57,7 +53,7 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-        mBinding.txtShowLieItem.setOnClickListener(view1 -> {
+        mBinding.tvHomeWord.setOnClickListener(view1 -> {
             Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_wordSearchFragment);
         });
     }
@@ -65,19 +61,16 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case REQ_CODE_SPEECH_TO_TEXT:
-                if (data != null) {
-                    ArrayList res = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    if (res != null) {
-                        Toast.makeText(getContext(), res.get(0).toString(), Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getContext(), "is null", Toast.LENGTH_SHORT).show();
+        if (requestCode == REQ_CODE_SPEECH_TO_TEXT) {
+            if (data != null) {
+                ArrayList res = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                if (res != null) {
+                    Toast.makeText(getContext(), res.get(0).toString(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "is null", Toast.LENGTH_SHORT).show();
 
-                    }
                 }
-                break;
-
+            }
         }
     }
 }

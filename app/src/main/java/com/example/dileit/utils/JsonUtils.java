@@ -1,4 +1,4 @@
-package com.example.dileit.Utils;
+package com.example.dileit.utils;
 
 import android.util.Log;
 

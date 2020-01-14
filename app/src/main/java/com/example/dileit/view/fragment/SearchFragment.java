@@ -12,14 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.example.dileit.R;
-import com.example.dileit.Utils.JsonUtils;
+import com.example.dileit.utils.JsonUtils;
 import com.example.dileit.view.adapter.AllWordsRecyclerAdapter;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
 import com.example.dileit.viewmodel.DictionaryViewModel;

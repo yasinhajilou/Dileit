@@ -9,7 +9,7 @@ public class RetrofitClientInstance {
     private static Retrofit sRetrofit;
     private static final String BASE_URL = "https://api.vajehyab.com/v3";
 
-    private static Retrofit getRetrofit() {
+    public static Retrofit getRetrofit() {
         if (sRetrofit == null) {
             synchronized (RetrofitClientInstance.class) {
                 if (sRetrofit == null) {

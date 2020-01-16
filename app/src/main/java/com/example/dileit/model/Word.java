@@ -3,7 +3,6 @@ package com.example.dileit.model;
 public class Word {
     private String word;
     private String definition;
-
     public Word(String word, String definition) {
         this.word = word;
         this.definition = definition;

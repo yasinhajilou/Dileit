@@ -59,6 +59,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
 
 
+
     // Room components
     implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
     annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomVersion"
@@ -70,4 +71,7 @@ dependencies {
 
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:2.7.1"
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
+
+
 }

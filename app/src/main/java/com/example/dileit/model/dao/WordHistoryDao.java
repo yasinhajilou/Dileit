@@ -1,6 +1,7 @@
 package com.example.dileit.model.dao;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -11,6 +12,7 @@ import com.example.dileit.model.entity.WordHistory;
 
 import java.util.List;
 
+@Dao
 public interface WordHistoryDao {
 
     @Insert

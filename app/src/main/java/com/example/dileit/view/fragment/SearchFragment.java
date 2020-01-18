@@ -24,6 +24,7 @@ import com.example.dileit.utils.JsonUtils;
 import com.example.dileit.view.adapter.AllWordsRecyclerAdapter;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
 import com.example.dileit.viewmodel.AdvancedDictionaryViewModel;
+import com.example.dileit.viewmodel.InternalViewModel;
 import com.example.dileit.viewmodel.PersianDictionaryViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
 import com.google.android.material.snackbar.Snackbar;
@@ -38,12 +39,14 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     private SharedViewModel mSharedViewModel;
     private AdvancedDictionaryViewModel mAdvancedDictionaryViewModel;
     private String TAG = SearchFragment.class.getSimpleName();
+    private InternalViewModel mInternalViewModel;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = ViewModelProviders.of(getActivity()).get(PersianDictionaryViewModel.class);
         mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         mAdvancedDictionaryViewModel = ViewModelProviders.of(this).get(AdvancedDictionaryViewModel.class);
+        mInternalViewModel = ViewModelProviders.of(getActivity()).get(InternalViewModel.class);
     }
 
     @Override
@@ -119,5 +122,6 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         mSharedViewModel.setWordInformation(jsonUtils.getWordDefinition(data));
         mSharedViewModel.setActualWord(actualWord);
         Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment);
+        mInternalViewModel.insertWordHistory(0,0, System.currentTimeMillis() , actualWord , data);
     }
 }

@@ -290,6 +290,7 @@
                     android:textSize="18sp" />
 
                 <TextView
+                    android:id="@+id/tv_word_history_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/productsansregular"
@@ -298,6 +299,11 @@
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
                     android:textSize="22sp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:visibility="gone"
+                    android:id="@+id/rv_word_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

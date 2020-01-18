@@ -25,6 +25,7 @@ import com.example.dileit.view.adapter.WordsInformationViewPagerAdapter;
 import com.example.dileit.view.fragment.wordinfo.EnglishTranslatedFragment;
 import com.example.dileit.view.fragment.wordinfo.TranslationFragment;
 import com.example.dileit.view.fragment.wordinfo.RelatedIdiomsFragment;
+import com.example.dileit.viewmodel.EnglishDictionaryViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
 import com.google.android.material.chip.Chip;
 
@@ -45,11 +46,13 @@ public class WordInformationFragment extends Fragment {
     private List<TranslationWord> wordList = new ArrayList<>();
     private List<Idiom> mIdioms = new ArrayList<>();
     private boolean isIdiomAvailable = false;
+    private EnglishDictionaryViewModel mEnglishDictionaryViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        mEnglishDictionaryViewModel = ViewModelProviders.of(getActivity()).get(EnglishDictionaryViewModel.class);
 
     }
 
@@ -143,6 +146,12 @@ public class WordInformationFragment extends Fragment {
             }
 
             mAdapter.addPage(new EnglishTranslatedFragment());
+        });
+
+        mEnglishDictionaryViewModel.getLiveList().observe(getViewLifecycleOwner() , wordEnglishDics -> {
+            if (wordEnglishDics.size()==0){
+                chipEnglish.setVisibility(View.GONE);
+            }
         });
 
         chipEnglish.setOnClickListener(view15 -> {

@@ -35,7 +35,7 @@ public class EnglishTranslatedFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(EnglishDictionaryViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(EnglishDictionaryViewModel.class);
         mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         mAdapter = new EnglishTranslationWordRecyclerAdapter();
     }
@@ -59,7 +59,6 @@ public class EnglishTranslatedFragment extends Fragment {
 
         mViewModel.getLiveList().observe(getViewLifecycleOwner(), wordEnglishDics -> {
             mAdapter.setData(wordEnglishDics);
-            Toast.makeText(getContext(), ""+wordEnglishDics.size(), Toast.LENGTH_SHORT).show();
         });
     }
 }

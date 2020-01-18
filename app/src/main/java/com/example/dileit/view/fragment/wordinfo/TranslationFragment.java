@@ -18,15 +18,16 @@ import android.view.ViewGroup;
 import com.example.dileit.R;
 import com.example.dileit.databinding.FragmentPersianTranslatedBinding;
 import com.example.dileit.view.adapter.TranslationWordRecyclerAdapter;
+import com.example.dileit.viewmodel.EnglishDictionaryViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
 
 
 public class TranslationFragment extends Fragment {
-
-    FragmentPersianTranslatedBinding mBinding;
-    SharedViewModel mSharedViewModel;
+    private EnglishDictionaryViewModel mEnglishDictionaryViewModel;
+    private FragmentPersianTranslatedBinding mBinding;
+    private SharedViewModel mSharedViewModel;
     private String TAG = TranslationFragment.class.getSimpleName();
-    TranslationWordRecyclerAdapter adapter;
+    private TranslationWordRecyclerAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

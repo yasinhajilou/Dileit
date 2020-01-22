@@ -47,7 +47,6 @@ public class AdvancedDicItemsRecyclerAdapter extends RecyclerView.Adapter<Advanc
             tvTitle = itemView.findViewById(R.id.tv_advanced_dic_title);
             tvTranslation = itemView.findViewById(R.id.tv_advanced_dic_translation);
         }
-
         void bindData(WordSearch wordSearch){
              if (!wordSearch.getEnglishTitle().equals("")){
                  tvTitle.setText(wordSearch.getEnglishTitle());

@@ -1,9 +1,8 @@
 package com.example.dileit.model.repository;
 
 import android.util.Log;
-import android.widget.Toast;
 
-import com.example.dileit.model.SearchResponse;
+import com.example.dileit.model.ResponseObject;
 import com.example.dileit.model.network.ApiCalls;
 import com.example.dileit.model.network.RetrofitClientInstance;
 import com.example.dileit.viewmodel.AdvancedDictionaryInterface;
@@ -23,11 +22,12 @@ public class AdvancedDictionaryRepository {
     }
 
     public void searchForWord(String token, String query, String type, String filter) {
-        mApiCalls.SEARCH_CALL(token, query, type, filter).enqueue(new Callback<SearchResponse>() {
+        mApiCalls.SEARCH_CALL(token, query, type, filter).enqueue(new Callback<ResponseObject>() {
             @Override
-            public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
+            public void onResponse(Call<ResponseObject> call, Response<ResponseObject> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
+                        Log.d(TAG, "onResponse: " + response.body().getListData().getWordSearches().size());
                         mInterface.onSuccessfully(response.body().getListData().getWordSearches());
                     } else
                         Log.d(TAG, "onResponse: response body is null");
@@ -36,7 +36,7 @@ public class AdvancedDictionaryRepository {
             }
 
             @Override
-            public void onFailure(Call<SearchResponse> call, Throwable t) {
+            public void onFailure(Call<ResponseObject> call, Throwable t) {
                 Log.d(TAG, "onFailure: " + t.getMessage());
             }
         });

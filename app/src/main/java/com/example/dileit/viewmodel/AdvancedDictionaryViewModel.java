@@ -34,7 +34,7 @@ public class AdvancedDictionaryViewModel extends AndroidViewModel implements Adv
 
     @Override
     public void onSuccessfully(List<WordSearch> wordSearches) {
-        mListSearchWords.setValue(wordSearches);
+        mListSearchWords.postValue(wordSearches);
     }
 
     @Override

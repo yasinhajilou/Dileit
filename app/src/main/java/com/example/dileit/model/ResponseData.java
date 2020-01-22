@@ -4,14 +4,14 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class ListData {
+public class ResponseData {
     @SerializedName("num_found")
     private int listSize;
 
     @SerializedName("results")
     private List<WordSearch> mWordSearches;
 
-    public ListData(int listSize, List<WordSearch> wordSearches) {
+    public ResponseData(int listSize, List<WordSearch> wordSearches) {
         this.listSize = listSize;
         mWordSearches = wordSearches;
     }

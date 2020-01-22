@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/advancedSearchResultFragment"
-        android:name="com.example.dileit.AdvancedSearchResultFragment"
+        android:name="com.example.dileit.view.fragment.AdvancedSearchResultFragment"
         android:label="fragment_advanced_search_result"
         tools:layout="@layout/fragment_advanced_search_result" />
 </navigation>

@@ -1,11 +1,13 @@
 package com.example.dileit.model;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 public class WordSearch {
 
     @SerializedName("id")
-    private int id;
+    private String id;
 
     @SerializedName("title")
     private String persianTitle;
@@ -25,7 +27,7 @@ public class WordSearch {
     @SerializedName("num")
     private String num;
 
-    public WordSearch(int id, String persianTitle, String englishTitle, String translation, String source, String db, String num) {
+    public WordSearch(String id, String persianTitle, String englishTitle, String translation, String source, String db, String num) {
         this.id = id;
         this.persianTitle = persianTitle;
         this.englishTitle = englishTitle;
@@ -36,7 +38,7 @@ public class WordSearch {
     }
 
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -62,5 +64,12 @@ public class WordSearch {
 
     public String getNum() {
         return num;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return getEnglishTitle()+"\n"+
+                getTranslation()+"\n";
     }
 }

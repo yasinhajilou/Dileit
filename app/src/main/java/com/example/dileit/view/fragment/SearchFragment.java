@@ -80,14 +80,14 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
                 Snackbar.make(view, "Couldn't find ?", Snackbar.LENGTH_INDEFINITE)
                         .setAction("Advanced Dictionary", view1 -> {
                             mAdvancedDictionaryViewModel.getListOfWords("72630.a019NtO4OL3oXPgGW4SzeG3eVq8uHw1Sx21lwQpk"
-                                    , mBinding.edtSearchWord.getText().toString().trim(), "like", "fa2en , en2fa");
+                                    , mBinding.edtSearchWord.getText().toString().trim(), "like", "fa2en,en2fa");
 
                         })
                         .show();
             }
         });
 
-        mAdvancedDictionaryViewModel.getLiveDataListOfWord().observe(getViewLifecycleOwner(), wordSearches -> {
+        mAdvancedDictionaryViewModel.getLiveDataListOfWord().observe(getViewLifecycleOwner(), (List<WordSearch> wordSearches) -> {
             if (wordSearches.size()>0){
                 setUpAdvancedDic(wordSearches);
             }

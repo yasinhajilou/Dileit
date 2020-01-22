@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,8 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     private AdvancedDictionaryViewModel mAdvancedDictionaryViewModel;
     private String TAG = SearchFragment.class.getSimpleName();
     private InternalViewModel mInternalViewModel;
+    private boolean isTypedYet = false;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,27 +66,21 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         super.onViewCreated(view, savedInstanceState);
 
 
-
         setUpRecyclerView(view);
         mViewModel.getAllEngWords();
 
-        mViewModel.getData().observe(getViewLifecycleOwner() , words -> {
+        mViewModel.getData().observe(getViewLifecycleOwner(), words -> {
             mAdapter.setData(words);
-            if (words.size()<4){
-                Snackbar.make(view , "Didn't find your word?" , Snackbar.LENGTH_INDEFINITE)
-                        .setAction("Search in Advanced Dictionary", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                mAdvancedDictionaryViewModel.getListOfWords("72630.a019NtO4OL3oXPgGW4SzeG3eVq8uHw1Sx21lwQpk"
-                                 , "optimistic" , "like" , "fa2en,en2fa");
-                            }
-                        })
+            if (words.size() < 4 && isTypedYet) {
+                Snackbar.make(view, "Couldn't find ?", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Advanced Dictionary", view1 -> mAdvancedDictionaryViewModel.getListOfWords("72630.a019NtO4OL3oXPgGW4SzeG3eVq8uHw1Sx21lwQpk"
+                                , edtSearch.getText().toString().trim(), "like", "fa2en , en2fa"))
                         .show();
             }
         });
 
-        mAdvancedDictionaryViewModel.getLiveDataListOfWord().observe(getViewLifecycleOwner() , wordSearches -> {
-            Toast.makeText(getContext(), ""+wordSearches.size(), Toast.LENGTH_SHORT).show();
+        mAdvancedDictionaryViewModel.getLiveDataListOfWord().observe(getViewLifecycleOwner(), wordSearches -> {
+            Log.d(TAG, "onViewCreated: " + wordSearches.size());
         });
         edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -99,10 +96,15 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
             @Override
             public void afterTextChanged(Editable editable) {
                 String word = edtSearch.getText().toString();
+                if (!isTypedYet) {
+                    isTypedYet = true;
+                }
                 if (!word.equals(""))
                     mViewModel.getEngToPer(word);
-                else
+                else{
                     mViewModel.getAllEngWords();
+                    isTypedYet = false;
+                }
             }
         });
 
@@ -122,6 +124,6 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         mSharedViewModel.setWordInformation(jsonUtils.getWordDefinition(data));
         mSharedViewModel.setActualWord(actualWord);
         Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment);
-        mInternalViewModel.insertWordHistory(0,0, System.currentTimeMillis() , actualWord , data);
+        mInternalViewModel.insertWordHistory(0, 0, System.currentTimeMillis(), actualWord, data);
     }
 }

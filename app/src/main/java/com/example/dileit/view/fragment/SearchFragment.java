@@ -54,7 +54,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         super.onCreate(savedInstanceState);
         mViewModel = ViewModelProviders.of(getActivity()).get(PersianDictionaryViewModel.class);
         mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
-        mAdvancedDictionaryViewModel = ViewModelProviders.of(this).get(AdvancedDictionaryViewModel.class);
+        mAdvancedDictionaryViewModel = ViewModelProviders.of(getActivity()).get(AdvancedDictionaryViewModel.class);
         mInternalViewModel = ViewModelProviders.of(getActivity()).get(InternalViewModel.class);
     }
 
@@ -81,7 +81,6 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
                         .setAction("Advanced Dictionary", view1 -> {
                             mAdvancedDictionaryViewModel.getListOfWords("72630.a019NtO4OL3oXPgGW4SzeG3eVq8uHw1Sx21lwQpk"
                                     , mBinding.edtSearchWord.getText().toString().trim(), "like", "fa2en,en2fa");
-
                         })
                         .show();
             }
@@ -130,6 +129,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     private void setUpAdvancedDic(List<WordSearch> list){
         Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_advancedSearchResultFragment);
         mSharedViewModel.setAdvancedResult(list);
+        mBinding.edtSearchWord.setText("");
     }
     @Override
     public void onItemClicked(String data, String actualWord) {

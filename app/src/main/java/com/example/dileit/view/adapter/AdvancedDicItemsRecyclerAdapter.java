@@ -49,10 +49,10 @@ public class AdvancedDicItemsRecyclerAdapter extends RecyclerView.Adapter<Advanc
         }
 
         void bindData(WordSearch wordSearch){
-             if (wordSearch.getEnglishTitle() != null){
+             if (!wordSearch.getEnglishTitle().equals("")){
                  tvTitle.setText(wordSearch.getEnglishTitle());
              }
-             if (wordSearch.getPersianTitle() != null){
+             if (!wordSearch.getPersianTitle().equals("")){
                  tvTitle.setText(wordSearch.getPersianTitle());
              }
 

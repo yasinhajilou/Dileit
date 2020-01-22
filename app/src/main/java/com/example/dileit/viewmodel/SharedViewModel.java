@@ -28,6 +28,7 @@ public class SharedViewModel extends AndroidViewModel {
         mTranslationWord = new MutableLiveData<>();
         mActualWord = new MutableLiveData<>();
         mIdiom = new MutableLiveData<>();
+        mAdvancedResult = new MutableLiveData<>();
     }
 
 

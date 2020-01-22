@@ -27,8 +27,8 @@ public class AdvancedDictionaryRepository {
             public void onResponse(Call<ResponseObject> call, Response<ResponseObject> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
-                        Log.d(TAG, "onResponse: " + response.body().getListData().getWordSearches().size());
-                        mInterface.onSuccessfully(response.body().getListData().getWordSearches());
+                        Log.d(TAG, "onResponse: " + response.body().getData().getWordSearches().size());
+                        mInterface.onSuccessfully(response.body().getData().getWordSearches());
                     } else
                         Log.d(TAG, "onResponse: response body is null");
                 } else

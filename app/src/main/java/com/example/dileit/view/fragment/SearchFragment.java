@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -21,6 +22,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.dileit.R;
+import com.example.dileit.databinding.FragmentAdvancedSearchResultBinding;
+import com.example.dileit.databinding.FragmentWordSearchBinding;
+import com.example.dileit.model.WordSearch;
 import com.example.dileit.utils.JsonUtils;
 import com.example.dileit.view.adapter.AllWordsRecyclerAdapter;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
@@ -30,10 +34,11 @@ import com.example.dileit.viewmodel.PersianDictionaryViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.List;
+
 
 public class SearchFragment extends Fragment implements WordsRecyclerViewInterface {
 
-    private EditText edtSearch;
     private PersianDictionaryViewModel mViewModel;
     private RecyclerView rvWords;
     private AllWordsRecyclerAdapter mAdapter;
@@ -42,6 +47,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     private String TAG = SearchFragment.class.getSimpleName();
     private InternalViewModel mInternalViewModel;
     private boolean isTypedYet = false;
+    private FragmentWordSearchBinding mBinding;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,9 +62,8 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_word_search, container, false);
-        edtSearch = view.findViewById(R.id.edtSearchWord);
-        return view;
+        mBinding  = DataBindingUtil.inflate(inflater,R.layout.fragment_word_search, container, false);
+        return mBinding.getRoot();
     }
 
     @Override
@@ -73,16 +78,21 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
             mAdapter.setData(words);
             if (words.size() < 4 && isTypedYet) {
                 Snackbar.make(view, "Couldn't find ?", Snackbar.LENGTH_INDEFINITE)
-                        .setAction("Advanced Dictionary", view1 -> mAdvancedDictionaryViewModel.getListOfWords("72630.a019NtO4OL3oXPgGW4SzeG3eVq8uHw1Sx21lwQpk"
-                                , edtSearch.getText().toString().trim(), "like", "fa2en , en2fa"))
+                        .setAction("Advanced Dictionary", view1 -> {
+                            mAdvancedDictionaryViewModel.getListOfWords("72630.a019NtO4OL3oXPgGW4SzeG3eVq8uHw1Sx21lwQpk"
+                                    , mBinding.edtSearchWord.getText().toString().trim(), "like", "fa2en , en2fa");
+
+                        })
                         .show();
             }
         });
 
         mAdvancedDictionaryViewModel.getLiveDataListOfWord().observe(getViewLifecycleOwner(), wordSearches -> {
-            Log.d(TAG, "onViewCreated: " + wordSearches.size());
+            if (wordSearches.size()>0){
+                setUpAdvancedDic(wordSearches);
+            }
         });
-        edtSearch.addTextChangedListener(new TextWatcher() {
+        mBinding.edtSearchWord.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -95,7 +105,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String word = edtSearch.getText().toString();
+                String word = mBinding.edtSearchWord.getText().toString();
                 if (!isTypedYet) {
                     isTypedYet = true;
                 }
@@ -117,7 +127,10 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         rvWords.setAdapter(mAdapter);
     }
 
-
+    private void setUpAdvancedDic(List<WordSearch> list){
+        Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_advancedSearchResultFragment);
+        mSharedViewModel.setAdvancedResult(list);
+    }
     @Override
     public void onItemClicked(String data, String actualWord) {
         JsonUtils jsonUtils = new JsonUtils();

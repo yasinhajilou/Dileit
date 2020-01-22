@@ -1,46 +1,64 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:background="@android:color/white"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.dileit.view.fragment.SearchFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.card.MaterialCardView
-        android:elevation="8dp"
-        app:cardCornerRadius="8dp"
-        android:id="@+id/card_search_fragment"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@android:color/white"
         android:layout_width="match_parent"
-        android:layout_height="58dp"
-        android:transitionName="@string/transition_card_fragment"
-        tools:ignore="UnusedAttribute">
-        <LinearLayout
-            android:padding="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <EditText
-                android:maxLines="1"
-                android:imeOptions="actionDone"
-                android:inputType="textFilter"
-                android:hint="@string/type_your_word"
-                android:background="@android:color/transparent"
-                android:id="@+id/edtSearchWord"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+        android:layout_height="match_parent"
+        tools:context="com.example.dileit.view.fragment.SearchFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_search_ragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_search_fragment" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ProgressBar
+            android:visibility="gone"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:id="@+id/progress_advanced_dic"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:elevation="8dp"
+            app:cardCornerRadius="8dp"
+            android:id="@+id/card_search_fragment"
+            app:layout_constraintTop_toBottomOf="@+id/progress_advanced_dic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:transitionName="@string/transition_card_fragment"
+            tools:ignore="UnusedAttribute">
+
+            <LinearLayout
+                android:padding="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:maxLines="1"
+                    android:imeOptions="actionDone"
+                    android:inputType="textFilter"
+                    android:hint="@string/type_your_word"
+                    android:background="@android:color/transparent"
+                    android:id="@+id/edtSearchWord"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_search_ragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_search_fragment" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

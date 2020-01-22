@@ -4,11 +4,13 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.dileit.model.Idiom;
 import com.example.dileit.model.TranslationWord;
 import com.example.dileit.model.WordInformation;
+import com.example.dileit.model.WordSearch;
 
 import java.util.List;
 
@@ -17,6 +19,7 @@ public class SharedViewModel extends AndroidViewModel {
     private MutableLiveData<WordInformation[]> mWordInformation;
     private MutableLiveData<List<TranslationWord>> mTranslationWord;
     private MutableLiveData<List<Idiom>> mIdiom;
+    private MutableLiveData<List<WordSearch>> mAdvancedResult;
 
 
     public SharedViewModel(@NonNull Application application) {
@@ -28,6 +31,13 @@ public class SharedViewModel extends AndroidViewModel {
     }
 
 
+    public void setAdvancedResult(List<WordSearch> advancedResult){
+        mAdvancedResult.setValue(advancedResult);
+    }
+
+    public LiveData<List<WordSearch>> getAdvancedRes(){
+        return mAdvancedResult;
+    }
     public MutableLiveData<List<Idiom>> getIdiom() {
         return mIdiom;
     }

@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        mBinding.nestedScrollView.scrollTo(0,0);
         mBinding.rvWordHistory.setAdapter(mAdapter);
         mBinding.rvWordHistory.setLayoutManager(new LinearLayoutManager(view.getContext()));
 

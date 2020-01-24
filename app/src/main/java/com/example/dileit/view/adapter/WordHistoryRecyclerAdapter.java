@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dileit.R;
 import com.example.dileit.model.Word;
+import com.example.dileit.model.WordInformation;
 import com.example.dileit.model.entity.WordHistory;
+import com.example.dileit.utils.JsonUtils;
 
 import java.util.List;
 
@@ -49,7 +51,10 @@ public class WordHistoryRecyclerAdapter extends RecyclerView.Adapter<WordHistory
         }
 
         void bind(WordHistory wordHistory){
-            tvInformation.setText(wordHistory.getWordDef());
+            JsonUtils jsonUtils = new JsonUtils();
+            WordInformation[] wordInformation = jsonUtils.getWordDefinition(wordHistory.getWordDef());
+            StringBuilder stringBuilder = new StringBuilder();
+            tvInformation.setText(jsonUtils.getTranslation(wordInformation, stringBuilder));
             tvTitle.setText(wordHistory.getWord());
         }
     }

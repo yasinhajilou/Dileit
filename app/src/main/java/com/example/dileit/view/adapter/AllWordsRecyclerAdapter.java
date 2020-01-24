@@ -13,12 +13,13 @@ import com.example.dileit.utils.JsonUtils;
 import com.example.dileit.model.Word;
 import com.example.dileit.model.WordInformation;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
+
 import java.util.List;
 
 public class AllWordsRecyclerAdapter extends RecyclerView.Adapter<AllWordsRecyclerAdapter.ViewHolder> {
 
     private String TAG = AllWordsRecyclerAdapter.class.getSimpleName();
-    private List<Word> mList ;
+    private List<Word> mList;
     private WordsRecyclerViewInterface mInterface;
 
     public AllWordsRecyclerAdapter(WordsRecyclerViewInterface anInterface) {
@@ -34,7 +35,7 @@ public class AllWordsRecyclerAdapter extends RecyclerView.Adapter<AllWordsRecycl
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_item_search, parent, false);
-        return new ViewHolder(view , mInterface);
+        return new ViewHolder(view, mInterface);
     }
 
     @Override
@@ -62,19 +63,16 @@ public class AllWordsRecyclerAdapter extends RecyclerView.Adapter<AllWordsRecycl
         void onBindData(Word word) {
             tvEng.setText(word.getWord());
 
-            //convert json data to reader string
-            JsonUtils  jsonUtils = new JsonUtils();
+            //convert json data to readable string
+            JsonUtils jsonUtils = new JsonUtils();
             WordInformation[] wordInformation = jsonUtils.getWordDefinition(word.getDefinition());
             StringBuilder stringBuilder = new StringBuilder();
-            for (int i = 0; i < wordInformation[0].getTranslationWords().size() ; i++) {
-                stringBuilder.append(wordInformation[0].getTranslationWords().get(i).getTranslatedWord()).append(".");
-            }
-            tvPer.setText(stringBuilder);
+            tvPer.setText(jsonUtils.getTranslation(wordInformation, stringBuilder));
         }
 
         @Override
         public void onClick(View view) {
-            mInterface.onItemClicked(mList.get(getAdapterPosition()).getDefinition() , mList.get(getAdapterPosition()).getWord());
+            mInterface.onItemClicked(mList.get(getAdapterPosition()).getDefinition(), mList.get(getAdapterPosition()).getWord());
         }
     }
 }

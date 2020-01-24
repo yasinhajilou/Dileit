@@ -2,12 +2,13 @@ package com.example.dileit.utils;
 
 import android.util.Log;
 
+import com.example.dileit.model.Word;
 import com.example.dileit.model.WordInformation;
 import com.google.gson.Gson;
 
 public class JsonUtils {
     private String TAG = JsonUtils.class.getSimpleName();
-    Gson mGson;
+    private Gson mGson;
 
     public JsonUtils() {
         mGson = new Gson();
@@ -21,4 +22,12 @@ public class JsonUtils {
         return info;
     }
 
+
+    //convert Json data to translated content
+    public StringBuilder getTranslation(WordInformation[] data,StringBuilder stringBuilder){
+        for (int i = 0; i < data[0].getTranslationWords().size() ; i++) {
+            stringBuilder.append(data[0].getTranslationWords().get(i).getTranslatedWord()).append(".");
+        }
+        return stringBuilder;
+    }
 }

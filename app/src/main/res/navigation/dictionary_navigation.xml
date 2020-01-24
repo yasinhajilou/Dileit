@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_homeFragment_to_wordSearchFragment"
             app:destination="@id/wordSearchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_wordInformationFragment"
+            app:destination="@id/wordInformationFragment" />
     </fragment>
     <fragment
         android:id="@+id/wordInformationFragment"

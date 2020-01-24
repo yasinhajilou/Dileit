@@ -64,7 +64,7 @@ public class WordInformationFragment extends Fragment {
         chipPersian = mBinding.chipsTranslatedOnly;
         chipEnglish = mBinding.chipsTranslatedEnglish;
         chipIdioms = mBinding.chipsIdiomsOnly;
-        mAdapter = new WordsInformationViewPagerAdapter(getChildFragmentManager());
+        mAdapter = new WordsInformationViewPagerAdapter(getFragmentManager());
         return mBinding.getRoot();
     }
 

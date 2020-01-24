@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,24 +22,29 @@ import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.databinding.FragmentHomeBinding;
+import com.example.dileit.utils.JsonUtils;
 import com.example.dileit.view.adapter.WordHistoryRecyclerAdapter;
+import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
 import com.example.dileit.viewmodel.InternalViewModel;
+import com.example.dileit.viewmodel.SharedViewModel;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements WordsRecyclerViewInterface {
     private static final int REQ_CODE_SPEECH_TO_TEXT = 12;
     private FragmentHomeBinding mBinding;
     private InternalViewModel mViewModel;
     private WordHistoryRecyclerAdapter mAdapter;
+    private SharedViewModel mSharedViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = ViewModelProviders.of(getActivity()).get(InternalViewModel.class);
-        mAdapter = new WordHistoryRecyclerAdapter();
+        mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        mAdapter = new WordHistoryRecyclerAdapter(this);
     }
 
     @Override
@@ -99,5 +105,13 @@ public class HomeFragment extends Fragment {
                 }
             }
         }
+    }
+
+    @Override
+    public void onItemClicked(String data, String actualWord) {
+        JsonUtils jsonUtils = new JsonUtils();
+        mSharedViewModel.setWordInformation(jsonUtils.getWordDefinition(data));
+        mSharedViewModel.setActualWord(actualWord);
+        Navigation.findNavController(getView()).navigate(R.id.action_homeFragment_to_wordInformationFragment);
     }
 }

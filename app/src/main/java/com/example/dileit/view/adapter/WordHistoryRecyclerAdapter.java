@@ -13,11 +13,18 @@ import com.example.dileit.model.Word;
 import com.example.dileit.model.WordInformation;
 import com.example.dileit.model.entity.WordHistory;
 import com.example.dileit.utils.JsonUtils;
+import com.example.dileit.view.viewinterface.SearchHistoryOnItemClickListener;
+import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
 
 import java.util.List;
 
 public class WordHistoryRecyclerAdapter extends RecyclerView.Adapter<WordHistoryRecyclerAdapter.ViewHolder> {
     private List<WordHistory> mList;
+    private WordsRecyclerViewInterface mOnItemClickListener;
+
+    public WordHistoryRecyclerAdapter(WordsRecyclerViewInterface onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
+    }
 
     public void setData(List<WordHistory> data) {
         mList = data;
@@ -41,13 +48,14 @@ public class WordHistoryRecyclerAdapter extends RecyclerView.Adapter<WordHistory
         return mList == null ? 0 : mList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvTitle, tvInformation;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvInformation = itemView.findViewById(R.id.tv_word_history_translation);
             tvTitle = itemView.findViewById(R.id.tv_word_history_title);
+            itemView.setOnClickListener(this::onClick);
         }
 
         void bind(WordHistory wordHistory){
@@ -56,6 +64,11 @@ public class WordHistoryRecyclerAdapter extends RecyclerView.Adapter<WordHistory
             StringBuilder stringBuilder = new StringBuilder();
             tvInformation.setText(jsonUtils.getTranslation(wordInformation, stringBuilder));
             tvTitle.setText(wordHistory.getWord());
+        }
+
+        @Override
+        public void onClick(View view) {
+            mOnItemClickListener.onItemClicked(mList.get(getAdapterPosition()).getWordDef() , mList.get(getAdapterPosition()).getWord() );
         }
     }
 }

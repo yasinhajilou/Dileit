@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.dileit.model.WordSearch;
@@ -13,6 +14,7 @@ import java.util.List;
 
 public class AdvancedDictionaryViewModel extends AndroidViewModel implements AdvancedDictionaryInterface {
     private AdvancedDictionaryRepository mRepository;
+    private MutableLiveData<Boolean> shouldGoNextPage;
     private MutableLiveData<List<WordSearch>> mListSearchWords;
 
 
@@ -20,6 +22,15 @@ public class AdvancedDictionaryViewModel extends AndroidViewModel implements Adv
         super(application);
         mRepository = new AdvancedDictionaryRepository(this);
         mListSearchWords = new MutableLiveData<>();
+        shouldGoNextPage = new MutableLiveData<>();
+    }
+
+    public void setShouldGoNextPage(boolean b){
+        shouldGoNextPage.setValue(b);
+    }
+
+    public LiveData<Boolean> getBool(){
+        return shouldGoNextPage;
     }
 
     public void getListOfWords(String token , String query , String filter , String type){
@@ -27,7 +38,7 @@ public class AdvancedDictionaryViewModel extends AndroidViewModel implements Adv
     }
 
 
-    public MutableLiveData<List<WordSearch>> getLiveDataListOfWord(){
+    public LiveData<List<WordSearch>> getLiveDataListOfWord(){
         return mListSearchWords;
     }
 

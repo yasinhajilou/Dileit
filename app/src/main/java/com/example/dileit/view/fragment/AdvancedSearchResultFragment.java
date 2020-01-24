@@ -43,9 +43,10 @@ public class AdvancedSearchResultFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding =  DataBindingUtil.inflate(inflater,R.layout.fragment_advanced_search_result, container, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_advanced_search_result, container, false);
         return mBinding.getRoot();
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -53,7 +54,8 @@ public class AdvancedSearchResultFragment extends Fragment {
         mBinding.rvAdvancedDic.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mBinding.rvAdvancedDic.setAdapter(mAdapter);
 
-        mSharedViewModel.getAdvancedRes().observe(getViewLifecycleOwner() , wordSearches -> {
+
+        mSharedViewModel.getAdvancedRes().observe(getViewLifecycleOwner(), wordSearches -> {
             mAdapter.setData(wordSearches);
         });
     }

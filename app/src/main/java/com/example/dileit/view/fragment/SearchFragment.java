@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -48,6 +49,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     private InternalViewModel mInternalViewModel;
     private boolean isTypedYet = false;
     private FragmentWordSearchBinding mBinding;
+    private boolean isPageStartUp = true;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,7 +64,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding  = DataBindingUtil.inflate(inflater,R.layout.fragment_word_search, container, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_word_search, container, false);
         return mBinding.getRoot();
     }
 
@@ -73,12 +75,13 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
 
         setUpRecyclerView(view);
         mViewModel.getAllEngWords();
-
+        mAdvancedDictionaryViewModel.setShouldGoNextPage(false);
         mViewModel.getData().observe(getViewLifecycleOwner(), words -> {
             mAdapter.setData(words);
             if (words.size() < 4 && isTypedYet) {
                 Snackbar.make(view, "Couldn't find ?", Snackbar.LENGTH_INDEFINITE)
                         .setAction("Advanced Dictionary", view1 -> {
+                            mBinding.progressAdvancedDic.setVisibility(View.VISIBLE);
                             mAdvancedDictionaryViewModel.getListOfWords("72630.a019NtO4OL3oXPgGW4SzeG3eVq8uHw1Sx21lwQpk"
                                     , mBinding.edtSearchWord.getText().toString().trim(), "like", "fa2en,en2fa");
                         })
@@ -86,10 +89,20 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
             }
         });
 
-        mAdvancedDictionaryViewModel.getLiveDataListOfWord().observe(getViewLifecycleOwner(), (List<WordSearch> wordSearches) -> {
-            if (wordSearches.size()>0){
-                setUpAdvancedDic(wordSearches);
+        mAdvancedDictionaryViewModel.getBool().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
             }
+        });
+        mAdvancedDictionaryViewModel.getLiveDataListOfWord().observe(getViewLifecycleOwner(), (List<WordSearch> wordSearches) -> {
+            if (isPageStartUp){
+                isPageStartUp=false;
+            }else {
+                if (wordSearches.size()>0){
+                    setUpAdvancedDic(wordSearches);
+                }
+            }
+
         });
         mBinding.edtSearchWord.addTextChangedListener(new TextWatcher() {
             @Override
@@ -110,7 +123,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
                 }
                 if (!word.equals(""))
                     mViewModel.getEngToPer(word);
-                else{
+                else {
                     mViewModel.getAllEngWords();
                     isTypedYet = false;
                 }
@@ -126,11 +139,12 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         rvWords.setAdapter(mAdapter);
     }
 
-    private void setUpAdvancedDic(List<WordSearch> list){
+    private void setUpAdvancedDic(List<WordSearch> list) {
         Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_advancedSearchResultFragment);
         mSharedViewModel.setAdvancedResult(list);
         mBinding.edtSearchWord.setText("");
     }
+
     @Override
     public void onItemClicked(String data, String actualWord) {
         JsonUtils jsonUtils = new JsonUtils();

@@ -14,20 +14,21 @@
 
         <ProgressBar
 
-            android:visibility="gone"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:id="@+id/progress_advanced_dic"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            style="@style/Widget.AppCompat.ProgressBar"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.card.MaterialCardView
             android:elevation="8dp"
             app:cardCornerRadius="8dp"
             android:id="@+id/card_search_fragment"
-            app:layout_constraintTop_toBottomOf="@+id/progress_advanced_dic"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="match_parent"

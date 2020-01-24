@@ -56,7 +56,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         super.onCreate(savedInstanceState);
         mViewModel = ViewModelProviders.of(getActivity()).get(PersianDictionaryViewModel.class);
         mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
-        mAdvancedDictionaryViewModel = ViewModelProviders.of(getActivity()).get(AdvancedDictionaryViewModel.class);
+        mAdvancedDictionaryViewModel = ViewModelProviders.of(this).get(AdvancedDictionaryViewModel.class);
         mInternalViewModel = ViewModelProviders.of(getActivity()).get(InternalViewModel.class);
     }
 
@@ -65,6 +65,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_word_search, container, false);
+        Log.d(TAG, "onCreateView: ");
         return mBinding.getRoot();
     }
 
@@ -75,7 +76,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
 
         setUpRecyclerView(view);
         mViewModel.getAllEngWords();
-        mAdvancedDictionaryViewModel.setShouldGoNextPage(false);
+
         mViewModel.getData().observe(getViewLifecycleOwner(), words -> {
             mAdapter.setData(words);
             if (words.size() < 4 && isTypedYet) {
@@ -89,17 +90,15 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
             }
         });
 
-        mAdvancedDictionaryViewModel.getBool().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-            }
-        });
         mAdvancedDictionaryViewModel.getLiveDataListOfWord().observe(getViewLifecycleOwner(), (List<WordSearch> wordSearches) -> {
-            if (isPageStartUp){
-                isPageStartUp=false;
-            }else {
-                if (wordSearches.size()>0){
-                    setUpAdvancedDic(wordSearches);
+            mBinding.progressAdvancedDic.setVisibility(View.GONE);
+            if (wordSearches.size() > 0) {
+                setUpAdvancedDic(wordSearches);
+            } else {
+                if (isPageStartUp){
+                    isPageStartUp = false;
+                }else {
+                    Toast.makeText(getContext(), "didn't find anything, Please write text correctly.", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -143,6 +142,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_advancedSearchResultFragment);
         mSharedViewModel.setAdvancedResult(list);
         mBinding.edtSearchWord.setText("");
+        mAdvancedDictionaryViewModel.resetListData();
     }
 
     @Override

@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.dileit.model.WordSearch;
 import com.example.dileit.model.repository.AdvancedDictionaryRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdvancedDictionaryViewModel extends AndroidViewModel implements AdvancedDictionaryInterface {
@@ -42,6 +43,9 @@ public class AdvancedDictionaryViewModel extends AndroidViewModel implements Adv
         return mListSearchWords;
     }
 
+    public void resetListData(){
+        mListSearchWords.setValue(new ArrayList<>());
+    }
 
     @Override
     public void onSuccessfully(List<WordSearch> wordSearches) {

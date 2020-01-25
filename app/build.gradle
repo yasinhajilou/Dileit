@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+// Apply the Crashlytics Gradle plugin
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     compileSdkVersion 29
@@ -71,6 +74,11 @@ dependencies {
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:2.7.1"
     implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
+
+    //Analystics
+    implementation 'com.google.firebase:firebase-analytics:17.2.0'
+
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta01'
 
 
 }

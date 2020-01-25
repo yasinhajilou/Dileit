@@ -41,6 +41,10 @@ public class SharedViewModel extends AndroidViewModel {
         return mVoiceWord;
     }
 
+    public void resetVoiceWord(){
+        mVoiceWord.setValue("");
+    }
+
     public void setAdvancedResult(List<WordSearch> advancedResult){
         mAdvancedResult.setValue(advancedResult);
     }

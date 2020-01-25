@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,12 +32,14 @@ import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class WordInformationFragment extends Fragment {
 
-//    private TextToSpeech mTextToSpeechUS;
-//    private TextToSpeech mTextToSpeechUK;
+    private TextToSpeech mTextToSpeechUS;
+    private TextToSpeech mTextToSpeechUK;
+    private int a,b = 0;
 
     private String TAG = WordInformationFragment.class.getSimpleName();
     private SharedViewModel mSharedViewModel;
@@ -77,49 +80,49 @@ public class WordInformationFragment extends Fragment {
         mBinding.viewPagerWordInfo.setCurrentItem(0);
 
 
-//        mTextToSpeechUK = new TextToSpeech(view.getContext(), i -> {
-//            if (i == TextToSpeech.SUCCESS) {
-//                int res = mTextToSpeechUS.setLanguage(Locale.UK);
-//                if (res == TextToSpeech.LANG_MISSING_DATA
-//                        || res == TextToSpeech.LANG_NOT_SUPPORTED) {
-//                    Log.e("TTS", "Language not supported");
-//                } else {
-//                    // prepare ui
-//                }
-//            } else {
-//                Log.d(TAG, "onViewCreated: " + "TTS init failed...");
-//            }
-//        });
+        mTextToSpeechUK = new TextToSpeech(view.getContext(), i -> {
+            if (i == TextToSpeech.SUCCESS) {
+                int res = mTextToSpeechUS.setLanguage(Locale.UK);
+                if (res == TextToSpeech.LANG_MISSING_DATA
+                        || res == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Log.e("TTS", "Language not supported");
+                } else {
+                    // prepare ui
+                }
+            } else {
+                Log.d(TAG, "onViewCreated: " + "TTS init failed...");
+            }
+        });
 
-//        mTextToSpeechUS = new TextToSpeech(view.getContext(), i -> {
-//            if (i == TextToSpeech.SUCCESS) {
-//                int res = mTextToSpeechUS.setLanguage(Locale.ENGLISH);
-//                if (res == TextToSpeech.LANG_MISSING_DATA
-//                        || res == TextToSpeech.LANG_NOT_SUPPORTED) {
-//                    Log.e("TTS", "Language not supported");
-//                } else {
-//
-//                }
-//            } else {
-//                Log.d(TAG, "onViewCreated: " + "TTS init failed...");
-//            }
-//        });
+        mTextToSpeechUS = new TextToSpeech(view.getContext(), i -> {
+            if (i == TextToSpeech.SUCCESS) {
+                int res = mTextToSpeechUS.setLanguage(Locale.ENGLISH);
+                if (res == TextToSpeech.LANG_MISSING_DATA
+                        || res == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Log.e("TTS", "Language not supported");
+                } else {
+
+                }
+            } else {
+                Log.d(TAG, "onViewCreated: " + "TTS init failed...");
+            }
+        });
 
 
-//        mBinding.imgBritishPronounce.setOnClickListener(view1 -> {
-//            speakUK(mBinding.tvWordTitle.getText().toString());
-//        });
-//        mBinding.tvBritishPronounce.setOnClickListener(view1 -> {
-//            speakUK(mBinding.tvWordTitle.getText().toString());
-//        });
-//
-//
-//        mBinding.imgAmericanPronounce.setOnClickListener(view1 -> {
-//            speakUS(mBinding.tvWordTitle.getText().toString());
-//        });
-//        mBinding.tvAmericanPronounce.setOnClickListener(view1 -> {
-//            speakUS(mBinding.tvWordTitle.getText().toString());
-//        });
+        mBinding.imgBritishPronounce.setOnClickListener(view1 -> {
+            speakUK(mBinding.tvWordTitle.getText().toString());
+        });
+        mBinding.tvBritishPronounce.setOnClickListener(view1 -> {
+            speakUK(mBinding.tvWordTitle.getText().toString());
+        });
+
+
+        mBinding.imgAmericanPronounce.setOnClickListener(view1 -> {
+            speakUS(mBinding.tvWordTitle.getText().toString());
+        });
+        mBinding.tvAmericanPronounce.setOnClickListener(view1 -> {
+            speakUS(mBinding.tvWordTitle.getText().toString());
+        });
 
         mBinding.imgCloseToolBar.setOnClickListener(view12 -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
 
@@ -223,30 +226,30 @@ public class WordInformationFragment extends Fragment {
     }
 
 
-//    private void speakUS(String text) {
-//        a++;
-//        if (a % 2 != 0) {
-//            mTextToSpeechUS.setSpeechRate(0.0f);
-//        } else {
-//            mTextToSpeechUS.setSpeechRate(0.6f);
-//        }
-//        mTextToSpeechUS.setPitch(0f);
-//        mTextToSpeechUS.setLanguage(Locale.US);
-//
-//        mTextToSpeechUS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
-//    }
-//
-//    private void speakUK(String text) {
-//        a++;
-//        if (a % 2 != 0) {
-//            mTextToSpeechUK.setSpeechRate(0.0f);
-//        } else {
-//            mTextToSpeechUK.setSpeechRate(0.6f);
-//        }
-//        mTextToSpeechUK.setPitch(0f);
-//        mTextToSpeechUK.setLanguage(Locale.UK);
-//        mTextToSpeechUK.speak(text, TextToSpeech.QUEUE_FLUSH, null);
-//    }
+    private void speakUS(String text) {
+        a++;
+        if (a % 2 != 0) {
+            mTextToSpeechUS.setSpeechRate(0.0f);
+        } else {
+            mTextToSpeechUS.setSpeechRate(0.6f);
+        }
+        mTextToSpeechUS.setPitch(0f);
+        mTextToSpeechUS.setLanguage(Locale.US);
+
+        mTextToSpeechUS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+    }
+
+    private void speakUK(String text) {
+        b++;
+        if (b % 2 != 0) {
+            mTextToSpeechUK.setSpeechRate(0.0f);
+        } else {
+            mTextToSpeechUK.setSpeechRate(0.6f);
+        }
+        mTextToSpeechUK.setPitch(0f);
+        mTextToSpeechUK.setLanguage(Locale.UK);
+        mTextToSpeechUK.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+    }
 
 
     private void selectIdiomChip(){

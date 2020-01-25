@@ -148,7 +148,6 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_advancedSearchResultFragment);
         mSharedViewModel.setAdvancedResult(list);
         mBinding.edtSearchWord.setText("");
-        mAdvancedDictionaryViewModel.resetListData();
     }
 
     @Override
@@ -158,5 +157,13 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         mSharedViewModel.setActualWord(actualWord);
         Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment);
         mInternalViewModel.insertWordHistory(0, 0, System.currentTimeMillis(), actualWord, data);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mAdvancedDictionaryViewModel.resetListData();
+        mSharedViewModel.resetVoiceWord();
+        mBinding.edtSearchWord.setText("");
     }
 }

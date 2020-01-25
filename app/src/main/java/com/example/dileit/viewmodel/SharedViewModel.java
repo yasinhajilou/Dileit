@@ -20,6 +20,7 @@ public class SharedViewModel extends AndroidViewModel {
     private MutableLiveData<List<TranslationWord>> mTranslationWord;
     private MutableLiveData<List<Idiom>> mIdiom;
     private MutableLiveData<List<WordSearch>> mAdvancedResult;
+    private MutableLiveData<String> mVoiceWord;
 
 
     public SharedViewModel(@NonNull Application application) {
@@ -29,8 +30,16 @@ public class SharedViewModel extends AndroidViewModel {
         mActualWord = new MutableLiveData<>();
         mIdiom = new MutableLiveData<>();
         mAdvancedResult = new MutableLiveData<>();
+        mVoiceWord = new MutableLiveData<>();
     }
 
+    public void setVoiceWord(String s){
+        mVoiceWord.setValue(s);
+    }
+
+    public LiveData<String> getVoiceWord(){
+        return mVoiceWord;
+    }
 
     public void setAdvancedResult(List<WordSearch> advancedResult){
         mAdvancedResult.setValue(advancedResult);

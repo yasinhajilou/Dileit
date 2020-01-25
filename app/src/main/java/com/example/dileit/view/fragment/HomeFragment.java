@@ -70,8 +70,7 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
                 mAdapter.setData(wordHistories);
             }else {
                 mBinding.tvWordHistoryInfo.setVisibility(View.VISIBLE);
-                mBinding.rvWordHistory.setVisibility(View.GONE);
-            }
+                mBinding.rvWordHistory.setVisibility(View.GONE); }
         });
 
         mBinding.linearLayoutVoice.setOnClickListener(view12 -> {

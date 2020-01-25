@@ -90,19 +90,25 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
             }
         });
 
+        mSharedViewModel.getVoiceWord().observe(getViewLifecycleOwner(), s -> {
+            if (s != null)
+                mBinding.edtSearchWord.setText(s);
+        });
+
         mAdvancedDictionaryViewModel.getLiveDataListOfWord().observe(getViewLifecycleOwner(), (List<WordSearch> wordSearches) -> {
             mBinding.progressAdvancedDic.setVisibility(View.GONE);
             if (wordSearches.size() > 0) {
                 setUpAdvancedDic(wordSearches);
             } else {
-                if (isPageStartUp){
+                if (isPageStartUp) {
                     isPageStartUp = false;
-                }else {
+                } else {
                     Toast.makeText(getContext(), "didn't find anything, Please write text correctly.", Toast.LENGTH_LONG).show();
                 }
             }
 
         });
+
         mBinding.edtSearchWord.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

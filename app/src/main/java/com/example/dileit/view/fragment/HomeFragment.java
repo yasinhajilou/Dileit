@@ -85,9 +85,7 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
                 Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-        mBinding.tvHomeWord.setOnClickListener(view1 -> {
-            Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_wordSearchFragment);
-        });
+        mBinding.tvHomeWord.setOnClickListener(this::goToSearchView);
     }
 
     @Override
@@ -97,7 +95,8 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
             if (data != null) {
                 ArrayList res = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 if (res != null) {
-                    Toast.makeText(getContext(), res.get(0).toString(), Toast.LENGTH_SHORT).show();
+                    mSharedViewModel.setVoiceWord(res.get(0).toString());
+                    goToSearchView(getView());
                 } else {
                     Toast.makeText(getContext(), "is null", Toast.LENGTH_SHORT).show();
 
@@ -106,6 +105,9 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
         }
     }
 
+    private void goToSearchView(View view){
+        Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_wordSearchFragment);
+    }
     @Override
     public void onItemClicked(String data, String actualWord) {
         JsonUtils jsonUtils = new JsonUtils();

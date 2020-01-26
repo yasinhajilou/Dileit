@@ -50,6 +50,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     private boolean isTypedYet = false;
     private FragmentWordSearchBinding mBinding;
     private boolean isPageStartUp = true;
+    private Snackbar mSnackbar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,18 +81,19 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         mViewModel.getData().observe(getViewLifecycleOwner(), words -> {
             mAdapter.setData(words);
             if (words.size() < 4 && isTypedYet) {
-                Snackbar.make(view, "Couldn't find ?", Snackbar.LENGTH_INDEFINITE)
+                mSnackbar = Snackbar.make(view, "Couldn't find ?", Snackbar.LENGTH_INDEFINITE)
                         .setAction("Advanced Dictionary", view1 -> {
+                            mSnackbar.dismiss();
                             mBinding.progressAdvancedDic.setVisibility(View.VISIBLE);
                             mAdvancedDictionaryViewModel.getListOfWords("72630.a019NtO4OL3oXPgGW4SzeG3eVq8uHw1Sx21lwQpk"
                                     , mBinding.edtSearchWord.getText().toString().trim(), "like", "fa2en,en2fa");
-                        })
-                        .show();
+                        });
+                mSnackbar.show();
             }
         });
 
         mSharedViewModel.getVoiceWord().observe(getViewLifecycleOwner(), s -> {
-            if (s != null)
+            if (!s.equals(""))
                 mBinding.edtSearchWord.setText(s);
         });
 
@@ -164,6 +166,11 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         super.onDestroyView();
         mAdvancedDictionaryViewModel.resetListData();
         mSharedViewModel.resetVoiceWord();
-        mBinding.edtSearchWord.setText("");
+        if (mSnackbar!=null){
+            if (mSnackbar.isShown()){
+                mSnackbar.dismiss();
+            }
+        }
+        Log.d(TAG, "onDestroyView: called");
     }
 }

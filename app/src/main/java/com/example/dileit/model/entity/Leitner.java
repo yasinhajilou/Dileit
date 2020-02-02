@@ -12,13 +12,20 @@ public class Leitner {
 
     private int repeatCounter;
 
-    private int lastCheck;
+    private int lastReview;
 
-    public Leitner(int id, int state, int repeatCounter, int lastCheck) {
+    private int timeAdded;
+
+    public Leitner(int id, int state, int repeatCounter, int lastReview, int timeAdded) {
         this.id = id;
         this.state = state;
         this.repeatCounter = repeatCounter;
-        this.lastCheck = lastCheck;
+        this.lastReview = lastReview;
+        this.timeAdded = timeAdded;
+    }
+
+    public int getTimeAdded() {
+        return timeAdded;
     }
 
     public int getId() {
@@ -33,7 +40,7 @@ public class Leitner {
         return repeatCounter;
     }
 
-    public int getLastCheck() {
-        return lastCheck;
+    public int getLastReview() {
+        return lastReview;
     }
 }

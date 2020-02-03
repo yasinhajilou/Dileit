@@ -83,4 +83,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta01'
 
 
+    //ViewPager2
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+
 }

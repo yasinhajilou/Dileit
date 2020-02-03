@@ -5,4 +5,6 @@
     <color name="colorBackground">#E3E2DF</color>
     <color name="colorBackgroundWhite">#FFFFFF</color>
     <color name="colorSecondary">#123C69</color>
+    <color name="colorBtnNot">#263D3D</color>
+    <color name="colorBtnOk">#15C3C3</color>
 </resources>

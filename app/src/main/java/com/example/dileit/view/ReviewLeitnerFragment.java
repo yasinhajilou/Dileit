@@ -1,4 +1,4 @@
-package com.example.dileit;
+package com.example.dileit.view;
 
 import android.content.Context;
 import android.net.Uri;
@@ -12,12 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.dileit.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ReviewLeitnerFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- */
+
 public class ReviewLeitnerFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;

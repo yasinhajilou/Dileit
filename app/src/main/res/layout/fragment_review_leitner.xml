@@ -48,6 +48,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager_review_items"
             android:layout_marginBottom="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"

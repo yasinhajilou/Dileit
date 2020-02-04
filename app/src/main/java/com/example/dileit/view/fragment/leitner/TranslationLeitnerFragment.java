@@ -1,4 +1,4 @@
-package com.example.dileit.view.fragment;
+package com.example.dileit.view.fragment.leitner;
 
 
 import android.os.Bundle;

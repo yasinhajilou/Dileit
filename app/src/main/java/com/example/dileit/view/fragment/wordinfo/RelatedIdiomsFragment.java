@@ -7,23 +7,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.databinding.FragmentRelatedIdiomsBinding;
-import com.example.dileit.model.Idiom;
-import com.example.dileit.model.IdiomInformation;
-import com.example.dileit.view.adapter.IdiomRecyclerAdapter;
-import com.example.dileit.view.adapter.TranslationWordRecyclerAdapter;
+import com.example.dileit.view.adapter.recycler.IdiomRecyclerAdapter;
 import com.example.dileit.viewmodel.SharedViewModel;
 
 

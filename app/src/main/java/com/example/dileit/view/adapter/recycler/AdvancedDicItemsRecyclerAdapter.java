@@ -1,4 +1,4 @@
-package com.example.dileit.view.adapter;
+package com.example.dileit.view.adapter.recycler;
 
 import android.view.LayoutInflater;
 import android.view.View;

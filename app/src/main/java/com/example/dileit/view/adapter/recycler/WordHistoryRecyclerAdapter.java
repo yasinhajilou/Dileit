@@ -1,4 +1,4 @@
-package com.example.dileit.view.adapter;
+package com.example.dileit.view.adapter.recycler;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,11 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dileit.R;
-import com.example.dileit.model.Word;
 import com.example.dileit.model.WordInformation;
 import com.example.dileit.model.entity.WordHistory;
 import com.example.dileit.utils.JsonUtils;
-import com.example.dileit.view.viewinterface.SearchHistoryOnItemClickListener;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
 
 import java.util.List;

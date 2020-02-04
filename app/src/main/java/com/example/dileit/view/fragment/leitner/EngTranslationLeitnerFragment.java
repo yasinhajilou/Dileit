@@ -11,9 +11,7 @@ import android.view.ViewGroup;
 
 import com.example.dileit.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class EngTranslationLeitnerFragment extends Fragment {
 
 

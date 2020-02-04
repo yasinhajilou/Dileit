@@ -22,7 +22,7 @@ import com.example.dileit.databinding.FragmentWordInformationBinding;
 import com.example.dileit.model.Idiom;
 import com.example.dileit.model.TranslationWord;
 import com.example.dileit.model.WordInformation;
-import com.example.dileit.view.adapter.WordsInformationViewPagerAdapter;
+import com.example.dileit.view.adapter.viewpager.WordsInformationViewPagerAdapter;
 import com.example.dileit.view.fragment.wordinfo.EnglishTranslatedFragment;
 import com.example.dileit.view.fragment.wordinfo.TranslationFragment;
 import com.example.dileit.view.fragment.wordinfo.RelatedIdiomsFragment;

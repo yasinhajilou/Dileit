@@ -1,10 +1,7 @@
 package com.example.dileit.view.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -15,11 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.databinding.FragmentAdvancedSearchResultBinding;
-import com.example.dileit.view.adapter.AdvancedDicItemsRecyclerAdapter;
+import com.example.dileit.view.adapter.recycler.AdvancedDicItemsRecyclerAdapter;
 import com.example.dileit.viewmodel.AdvancedDictionaryViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
 

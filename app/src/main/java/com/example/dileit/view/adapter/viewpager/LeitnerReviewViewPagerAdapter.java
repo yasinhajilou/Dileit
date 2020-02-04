@@ -1,4 +1,4 @@
-package com.example.dileit.view.adapter;
+package com.example.dileit.view.adapter.viewpager;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

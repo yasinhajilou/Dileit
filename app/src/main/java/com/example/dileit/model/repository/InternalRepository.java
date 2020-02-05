@@ -26,23 +26,21 @@ public class InternalRepository {
         mLiveData = mDao.getAllData();
     }
 
-    public LiveData<List<WordHistory>>  getLiveData(){
+    public LiveData<List<WordHistory>> getLiveData() {
         return mLiveData;
     }
 
-    public void insertWordHistory(int id, int leitnerId, Long time, String word, String wordDef){
-        new InsertWordHistory(id,leitnerId,time,word,wordDef).execute();
+    public void insertWordHistory(int leitnerId, Long time, String word, String wordDef) {
+        new InsertWordHistory(leitnerId, time, word, wordDef).execute();
     }
 
 
-
-    private class InsertWordHistory extends AsyncTask<Void , Void , Void>{
-        private int id,leitnerId;
+    private class InsertWordHistory extends AsyncTask<Void, Void, Void> {
+        private int leitnerId;
         private Long time;
-        private String word,wordDef;
+        private String word, wordDef;
 
-         InsertWordHistory(int id, int leitnerId, Long time, String word, String wordDef) {
-            this.id = id;
+        InsertWordHistory(int leitnerId, Long time, String word, String wordDef) {
             this.leitnerId = leitnerId;
             this.time = time;
             this.word = word;
@@ -51,9 +49,9 @@ public class InternalRepository {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            WordHistory wordHistory = new WordHistory(id,word,wordDef,leitnerId,time);
+            WordHistory wordHistory = new WordHistory(word, wordDef, leitnerId, time);
             mDao.Insert(wordHistory);
-            Log.d(TAG, "doInBackground: added" );
+            Log.d(TAG, "doInBackground: added");
             return null;
         }
     }

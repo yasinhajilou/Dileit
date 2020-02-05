@@ -67,7 +67,7 @@ public class WordInformationFragment extends Fragment {
         chipPersian = mBinding.chipsTranslatedOnly;
         chipEnglish = mBinding.chipsTranslatedEnglish;
         chipIdioms = mBinding.chipsIdiomsOnly;
-        mAdapter = new WordsInformationViewPagerAdapter(getFragmentManager());
+        mAdapter = new WordsInformationViewPagerAdapter(getChildFragmentManager());
         return mBinding.getRoot();
     }
 
@@ -124,6 +124,12 @@ public class WordInformationFragment extends Fragment {
             speakUS(mBinding.tvWordTitle.getText().toString());
         });
 
+        mBinding.btnAddToLeitner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         mBinding.imgCloseToolBar.setOnClickListener(view12 -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
 
         mSharedViewModel.getActualWord().observe(getViewLifecycleOwner(), s -> mBinding.tvWordTitle.setText(s));

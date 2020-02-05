@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
@@ -15,7 +16,7 @@ import java.util.List;
 @Dao
 public interface WordHistoryDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void Insert(WordHistory wordHistory);
 
     @Update
@@ -28,4 +29,7 @@ public interface WordHistoryDao {
     @Query("SELECT * FROM WordHistory")
     LiveData<List<WordHistory>> getAllData();
 
+    @Transaction
+    @Query("SELECT * FROM WordHistory where leitnerId LIKE :leitnerId")
+    WordHistory getWordByLeitnerId(int leitnerId);
 }

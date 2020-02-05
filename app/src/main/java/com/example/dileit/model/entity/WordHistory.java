@@ -6,9 +6,7 @@ import androidx.room.PrimaryKey;
 @Entity
 public class WordHistory {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-
+    @PrimaryKey
     private String word;
 
     private String wordDef;
@@ -17,8 +15,7 @@ public class WordHistory {
 
     private long addedTime;
 
-    public WordHistory(int id, String word, String wordDef, int leitnerId, long addedTime) {
-        this.id = id;
+    public WordHistory(String word, String wordDef, int leitnerId, long addedTime) {
         this.word = word;
         this.wordDef = wordDef;
         this.leitnerId = leitnerId;
@@ -26,9 +23,6 @@ public class WordHistory {
     }
 
 
-    public int getId() {
-        return id;
-    }
 
     public String getWord() {
         return word;

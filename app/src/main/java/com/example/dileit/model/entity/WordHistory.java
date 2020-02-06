@@ -1,5 +1,6 @@
 package com.example.dileit.model.entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -7,6 +8,7 @@ import androidx.room.PrimaryKey;
 public class WordHistory {
 
     @PrimaryKey
+    @NonNull
     private String word;
 
     private String wordDef;
@@ -15,7 +17,7 @@ public class WordHistory {
 
     private long addedTime;
 
-    public WordHistory(String word, String wordDef, int leitnerId, long addedTime) {
+    public WordHistory(@NonNull String word, String wordDef, int leitnerId, long addedTime) {
         this.word = word;
         this.wordDef = wordDef;
         this.leitnerId = leitnerId;

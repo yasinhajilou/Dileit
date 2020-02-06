@@ -26,7 +26,7 @@ public class InternalViewModel extends AndroidViewModel {
         mRepository.insertLeitnerItem(leitner);
     }
 
-    public void insertWordHistory( int leitnerId, Long time, String word, String wordDef){
+    public void insertWordHistory( int leitnerId, long time, String word, String wordDef){
         mRepository.insertWordHistory(leitnerId,time,word,wordDef);
     }
     public LiveData<List<WordHistory>> getLiveData(){

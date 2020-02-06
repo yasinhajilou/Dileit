@@ -38,7 +38,6 @@ import java.util.List;
 public class SearchFragment extends Fragment implements WordsRecyclerViewInterface {
 
     private PersianDictionaryViewModel mViewModel;
-    private RecyclerView rvWords;
     private AllWordsRecyclerAdapter mAdapter;
     private SharedViewModel mSharedViewModel;
     private AdvancedDictionaryViewModel mAdvancedDictionaryViewModel;
@@ -137,7 +136,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     }
 
     private void setUpRecyclerView(View view) {
-        rvWords = view.findViewById(R.id.rv_search_ragment);
+        RecyclerView rvWords = view.findViewById(R.id.rv_search_ragment);
         mAdapter = new AllWordsRecyclerAdapter(this::onItemClicked);
         rvWords.setLayoutManager(new LinearLayoutManager(getContext()));
         rvWords.setAdapter(mAdapter);
@@ -155,7 +154,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         mSharedViewModel.setWordInformation(jsonUtils.getWordDefinition(data));
         mSharedViewModel.setActualWord(actualWord.trim());
         Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment);
-        mInternalViewModel.insertWordHistory(0, 0, System.currentTimeMillis(), actualWord.trim(), data);
+        mInternalViewModel.insertWordHistory(0, System.currentTimeMillis(), actualWord.trim(), data);
     }
 
     @Override

@@ -18,15 +18,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dileit.R;
+import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.FragmentWordInformationBinding;
 import com.example.dileit.model.Idiom;
 import com.example.dileit.model.TranslationWord;
 import com.example.dileit.model.WordInformation;
+import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.view.adapter.viewpager.WordsInformationViewPagerAdapter;
 import com.example.dileit.view.fragment.wordinfo.EnglishTranslatedFragment;
 import com.example.dileit.view.fragment.wordinfo.TranslationFragment;
 import com.example.dileit.view.fragment.wordinfo.RelatedIdiomsFragment;
 import com.example.dileit.viewmodel.EnglishDictionaryViewModel;
+import com.example.dileit.viewmodel.InternalViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
 import com.google.android.material.chip.Chip;
 
@@ -39,7 +42,7 @@ public class WordInformationFragment extends Fragment {
 
     private TextToSpeech mTextToSpeechUS;
     private TextToSpeech mTextToSpeechUK;
-    private int a,b = 0;
+    private int a, b = 0;
 
     private String TAG = WordInformationFragment.class.getSimpleName();
     private SharedViewModel mSharedViewModel;
@@ -50,13 +53,14 @@ public class WordInformationFragment extends Fragment {
     private List<Idiom> mIdioms = new ArrayList<>();
     private boolean isIdiomAvailable = false;
     private EnglishDictionaryViewModel mEnglishDictionaryViewModel;
+    private InternalViewModel mInternalViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         mEnglishDictionaryViewModel = ViewModelProviders.of(getActivity()).get(EnglishDictionaryViewModel.class);
-
+        mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
     }
 
     @Override
@@ -157,8 +161,8 @@ public class WordInformationFragment extends Fragment {
             mAdapter.addPage(new EnglishTranslatedFragment());
         });
 
-        mEnglishDictionaryViewModel.getLiveList().observe(getViewLifecycleOwner() , wordEnglishDics -> {
-            if (wordEnglishDics.size()==0){
+        mEnglishDictionaryViewModel.getLiveList().observe(getViewLifecycleOwner(), wordEnglishDics -> {
+            if (wordEnglishDics.size() == 0) {
                 chipEnglish.setVisibility(View.GONE);
             }
         });
@@ -193,23 +197,26 @@ public class WordInformationFragment extends Fragment {
         mBinding.viewPagerWordInfo.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                Leitner leitner = new Leitner(0, LeitnerStateConstant.BOX_ONE,
+                        0, 0, System.currentTimeMillis());
 
+                mInternalViewModel.insertLeitnerItem(leitner);
             }
 
             @Override
             public void onPageSelected(int position) {
-                switch (position){
+                switch (position) {
                     case 0:
                         selectPersianChip();
                         undoIdiomChip();
                         undoEnglishChip();
                         break;
                     case 1:
-                        if (isIdiomAvailable){
+                        if (isIdiomAvailable) {
                             selectIdiomChip();
                             undoPersianChip();
                             undoEnglishChip();
-                        }else {
+                        } else {
                             selectEnglishChip();
                             undoIdiomChip();
                             undoPersianChip();
@@ -258,29 +265,33 @@ public class WordInformationFragment extends Fragment {
     }
 
 
-    private void selectIdiomChip(){
+    private void selectIdiomChip() {
         chipIdioms.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorSecondary)));
         chipIdioms.setTextColor(Color.WHITE);
     }
-    private void selectPersianChip(){
+
+    private void selectPersianChip() {
         chipPersian.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorSecondary)));
         chipPersian.setTextColor(Color.WHITE);
     }
-    private void selectEnglishChip(){
+
+    private void selectEnglishChip() {
         chipEnglish.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorSecondary)));
         chipEnglish.setTextColor(Color.WHITE);
 
     }
 
-    private void undoIdiomChip(){
+    private void undoIdiomChip() {
         chipIdioms.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
         chipIdioms.setTextColor(Color.BLACK);
     }
-    private void undoPersianChip(){
+
+    private void undoPersianChip() {
         chipPersian.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
         chipPersian.setTextColor(Color.BLACK);
     }
-    private void undoEnglishChip(){
+
+    private void undoEnglishChip() {
         chipEnglish.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
         chipEnglish.setTextColor(Color.BLACK);
     }

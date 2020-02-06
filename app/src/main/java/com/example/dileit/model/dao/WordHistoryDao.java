@@ -30,6 +30,6 @@ public interface WordHistoryDao {
     LiveData<List<WordHistory>> getAllData();
 
     @Transaction
-    @Query("SELECT * FROM WordHistory where leitnerId LIKE :leitnerId")
+    @Query("SELECT * FROM WordHistory where leitnerId LIKE :leitnerId LIMIT 1")
     WordHistory getWordByLeitnerId(int leitnerId);
 }

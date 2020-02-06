@@ -20,7 +20,7 @@ public abstract class InternalRoomDatabase extends RoomDatabase {
         if (INSTANCE == null) {
             synchronized (InternalRoomDatabase.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context, InternalRoomDatabase.class, "Deleit_DB")
+                    INSTANCE = Room.databaseBuilder(context, InternalRoomDatabase.class, "Dileit_DB")
                             .fallbackToDestructiveMigration()
                             .build();
                 }

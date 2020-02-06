@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.dileit.model.WordEnglishDic;
 import com.example.dileit.model.repository.EnglishDictionaryRepository;
+import com.example.dileit.viewmodel.vminterface.EnglishDictionaryInterface;
 
 import java.util.List;
 

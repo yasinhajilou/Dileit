@@ -5,7 +5,7 @@ import android.util.Log;
 import com.example.dileit.model.ResponseObject;
 import com.example.dileit.model.network.ApiCalls;
 import com.example.dileit.model.network.RetrofitClientInstance;
-import com.example.dileit.viewmodel.AdvancedDictionaryInterface;
+import com.example.dileit.viewmodel.vminterface.AdvancedDictionaryInterface;
 
 import retrofit2.Call;
 import retrofit2.Callback;

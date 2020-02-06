@@ -1,4 +1,4 @@
-package com.example.dileit.viewmodel;
+package com.example.dileit.viewmodel.vminterface;
 
 import com.example.dileit.model.entity.WordHistory;
 

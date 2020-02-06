@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 
 import com.example.dileit.model.WordEnglishDic;
 import com.example.dileit.model.database.engdb.EnglishDatabaseAccess;
-import com.example.dileit.viewmodel.EnglishDictionaryInterface;
+import com.example.dileit.viewmodel.vminterface.EnglishDictionaryInterface;
 
 import java.util.ArrayList;
 import java.util.List;

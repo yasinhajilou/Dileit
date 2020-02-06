@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.example.dileit.model.Word;
 import com.example.dileit.model.database.persiandb.PersianDatabaseAccess;
-import com.example.dileit.viewmodel.DictionaryInterface;
+import com.example.dileit.viewmodel.vminterface.DictionaryInterface;
 import java.util.ArrayList;
 import java.util.List;
 

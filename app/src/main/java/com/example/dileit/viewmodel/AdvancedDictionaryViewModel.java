@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.dileit.model.WordSearch;
 import com.example.dileit.model.repository.AdvancedDictionaryRepository;
+import com.example.dileit.viewmodel.vminterface.AdvancedDictionaryInterface;
 
 import java.util.ArrayList;
 import java.util.List;

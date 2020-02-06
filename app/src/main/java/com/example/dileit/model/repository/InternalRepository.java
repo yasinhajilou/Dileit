@@ -6,10 +6,11 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.dileit.model.dao.LeitnerDao;
 import com.example.dileit.model.dao.WordHistoryDao;
 import com.example.dileit.model.database.InternalRoomDatabase;
+import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.model.entity.WordHistory;
-import com.example.dileit.viewmodel.InternalInterface;
 import com.example.dileit.viewmodel.InternalViewModel;
 
 import java.util.List;
@@ -18,11 +19,13 @@ public class InternalRepository {
     private InternalRoomDatabase mDatabase;
     private WordHistoryDao mDao;
     private LiveData<List<WordHistory>> mLiveData;
+    private LeitnerDao mLeitnerDao;
     private String TAG = InternalViewModel.class.getSimpleName();
 
     public InternalRepository(Context context) {
         mDatabase = InternalRoomDatabase.getInstance(context);
         mDao = mDatabase.mWordHistoryDao();
+        mLeitnerDao = mDatabase.mLeitnerDao();
         mLiveData = mDao.getAllData();
     }
 
@@ -34,6 +37,18 @@ public class InternalRepository {
         new InsertWordHistory(leitnerId, time, word, wordDef).execute();
     }
 
+    public void insertLeitnerItem(Leitner leitner){
+        new InsertLeitnerItem().execute(leitner);
+    }
+
+    private class InsertLeitnerItem extends AsyncTask<Leitner,Void,Void>{
+
+        @Override
+        protected Void doInBackground(Leitner... leitners) {
+            mLeitnerDao.insert(leitners[0]);
+            return null;
+        }
+    }
 
     private class InsertWordHistory extends AsyncTask<Void, Void, Void> {
         private int leitnerId;

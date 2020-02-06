@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.model.entity.WordHistory;
 import com.example.dileit.model.repository.InternalRepository;
 
@@ -21,8 +22,12 @@ public class InternalViewModel extends AndroidViewModel {
         mLiveData = mRepository.getLiveData();
     }
 
-    public void insertWordHistory(int id, int leitnerId, Long time, String word, String wordDef){
-        mRepository.insertWordHistory(id,leitnerId,time,word,wordDef);
+    public void insertLeitnerItem(Leitner leitner){
+        mRepository.insertLeitnerItem(leitner);
+    }
+
+    public void insertWordHistory( int leitnerId, Long time, String word, String wordDef){
+        mRepository.insertWordHistory(leitnerId,time,word,wordDef);
     }
     public LiveData<List<WordHistory>> getLiveData(){
         return mLiveData;

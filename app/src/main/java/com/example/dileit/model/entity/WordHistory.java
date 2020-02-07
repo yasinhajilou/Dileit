@@ -13,11 +13,11 @@ public class WordHistory {
 
     private String wordDef;
 
-    private int leitnerId;
+    private long leitnerId;
 
     private long addedTime;
 
-    public WordHistory(@NonNull String word, String wordDef, int leitnerId, long addedTime) {
+    public WordHistory(@NonNull String word, String wordDef, long leitnerId, long addedTime) {
         this.word = word;
         this.wordDef = wordDef;
         this.leitnerId = leitnerId;
@@ -25,7 +25,7 @@ public class WordHistory {
     }
 
 
-    public void setLeitnerId(int leitnerId) {
+    public void setLeitnerId(long leitnerId) {
         if (leitnerId >= 0)
             this.leitnerId = leitnerId;
     }
@@ -38,7 +38,7 @@ public class WordHistory {
         return wordDef;
     }
 
-    public int getLeitnerId() {
+    public long getLeitnerId() {
         return leitnerId;
     }
 

@@ -137,6 +137,12 @@ public class WordInformationFragment extends Fragment {
 
         });
 
+        mInternalViewModel.getLeitnerAddedId().observe(getViewLifecycleOwner(),aLong -> {
+            mWordHistory.setLeitnerId(aLong);
+            mInternalViewModel.updateWordHistory(mWordHistory);
+            Toast.makeText(view.getContext(), ""+aLong, Toast.LENGTH_SHORT).show();
+        });
+
         mTextToSpeechUK = new TextToSpeech(view.getContext(), i -> {
             if (i == TextToSpeech.SUCCESS) {
                 int res = mTextToSpeechUS.setLanguage(Locale.UK);

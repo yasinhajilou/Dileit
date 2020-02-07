@@ -25,6 +25,10 @@ public class WordHistory {
     }
 
 
+    public void setLeitnerId(int leitnerId) {
+        if (leitnerId >= 0)
+            this.leitnerId = leitnerId;
+    }
 
     public String getWord() {
         return word;

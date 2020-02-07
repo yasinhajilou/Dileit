@@ -1,5 +1,7 @@
 package com.example.dileit.view.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -26,6 +28,7 @@ import com.example.dileit.model.Idiom;
 import com.example.dileit.model.TranslationWord;
 import com.example.dileit.model.WordInformation;
 import com.example.dileit.model.entity.Leitner;
+import com.example.dileit.model.entity.WordHistory;
 import com.example.dileit.view.adapter.viewpager.WordsInformationViewPagerAdapter;
 import com.example.dileit.view.fragment.wordinfo.EnglishTranslatedFragment;
 import com.example.dileit.view.fragment.wordinfo.TranslationFragment;
@@ -57,6 +60,7 @@ public class WordInformationFragment extends Fragment {
     private EnglishDictionaryViewModel mEnglishDictionaryViewModel;
     private InternalViewModel mInternalViewModel;
 
+    private WordHistory mWordHistory;
     private String actualWord;
     private boolean isWordSaved;
 
@@ -124,6 +128,7 @@ public class WordInformationFragment extends Fragment {
         mInternalViewModel.getWordHistoryInfo(actualWord).observe(getViewLifecycleOwner(), wordHistory -> {
             if (wordHistory != null) {
                 if (wordHistory.getLeitnerId() > 0) {
+                    mWordHistory = wordHistory;
                     mBinding.btnAddToLeitner.setImageResource(R.drawable.leitner_added);
                     isWordSaved = true;
                 } else
@@ -177,7 +182,7 @@ public class WordInformationFragment extends Fragment {
         mBinding.btnAddToLeitner.setOnClickListener(view16 -> {
 
             if (isWordSaved) {
-                Toast.makeText(view16.getContext(), "This Word is added!", Toast.LENGTH_SHORT).show();
+                showRemoveLeitnerDialog(view16);
             } else {
                 Leitner leitner = new Leitner(0, LeitnerStateConstant.BOX_ONE,
                         0, 0, System.currentTimeMillis());
@@ -317,6 +322,26 @@ public class WordInformationFragment extends Fragment {
         chipEnglish.setTextColor(Color.BLACK);
     }
 
+    private void showRemoveLeitnerDialog(View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext())
+                .setTitle("Remove Word")
+                .setMessage("This word exists in leitner box, do ypu want to remove it?")
+                .setNeutralButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        dialogInterface.dismiss();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
     @Override
     public void onStop() {
         super.onStop();

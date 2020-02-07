@@ -45,4 +45,8 @@ public class InternalViewModel extends AndroidViewModel {
     public void updateLeitnerItem(Leitner leitner){
         mRepository.updateLeitnerItem(leitner);
     }
+
+    public void updateWordHistory(WordHistory wordHistory){
+        mRepository.updateWordHistory(wordHistory);
+    }
 }

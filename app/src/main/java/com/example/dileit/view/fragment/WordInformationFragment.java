@@ -322,27 +322,20 @@ public class WordInformationFragment extends Fragment {
         chipEnglish.setTextColor(Color.BLACK);
     }
 
-    private void showRemoveLeitnerDialog(View view){
+    private void showRemoveLeitnerDialog(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext())
                 .setTitle("Remove Word")
                 .setMessage("This word exists in leitner box, do ypu want to remove it?")
-                .setNeutralButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                })
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        mWordHistory.setLeitnerId(0);
-                        mInternalViewModel.updateWordHistory(mWordHistory);
-                        dialogInterface.dismiss();
-                    }
+                .setNeutralButton("No", (dialogInterface, i) -> dialogInterface.dismiss())
+                .setPositiveButton("Yes", (dialogInterface, i) -> {
+                    mWordHistory.setLeitnerId(0);
+                    mInternalViewModel.updateWordHistory(mWordHistory);
+                    dialogInterface.dismiss();
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
     @Override
     public void onStop() {
         super.onStop();

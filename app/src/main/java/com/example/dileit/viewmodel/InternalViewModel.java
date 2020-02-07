@@ -13,13 +13,13 @@ import com.example.dileit.model.repository.InternalRepository;
 import java.util.List;
 
 public class InternalViewModel extends AndroidViewModel {
-    InternalRepository mRepository;
-    LiveData<List<WordHistory>> mLiveData;
+    private InternalRepository mRepository;
+    private LiveData<List<WordHistory>> mAllWordHistory;
 
     public InternalViewModel(@NonNull Application application) {
         super(application);
         mRepository = new InternalRepository(application);
-        mLiveData = mRepository.getLiveData();
+        mAllWordHistory = mRepository.getAllWordHistory();
     }
 
     public void insertLeitnerItem(Leitner leitner){
@@ -29,7 +29,12 @@ public class InternalViewModel extends AndroidViewModel {
     public void insertWordHistory( int leitnerId, long time, String word, String wordDef){
         mRepository.insertWordHistory(leitnerId,time,word,wordDef);
     }
-    public LiveData<List<WordHistory>> getLiveData(){
-        return mLiveData;
+
+    public LiveData<List<WordHistory>> getAllWordHistory(){
+        return mAllWordHistory;
+    }
+
+    public LiveData<WordHistory> getWordHistoryInfo(String word){
+        return mRepository.getWordHistoryInfo(word);
     }
 }

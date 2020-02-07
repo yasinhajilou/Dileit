@@ -154,7 +154,9 @@
                         android:paddingStart="8dp"
                         android:textColor="@android:color/black" />
 
-                    <com.google.android.material.button.MaterialButton
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:src="@drawable/leitner"
+                        android:scaleType="fitCenter"
                         android:id="@+id/btn_add_to_leitner"
                         android:textAllCaps="false"
                         style="@style/Widget.MaterialComponents.Button.TextButton"

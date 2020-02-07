@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
         mBinding.rvWordHistory.setAdapter(mAdapter);
         mBinding.rvWordHistory.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        mViewModel.getLiveData().observe(getViewLifecycleOwner() , wordHistories -> {
+        mViewModel.getAllWordHistory().observe(getViewLifecycleOwner() , wordHistories -> {
             if (wordHistories.size()>0){
                 mBinding.tvWordHistoryInfo.setVisibility(View.GONE);
                 mBinding.rvWordHistory.setVisibility(View.VISIBLE);

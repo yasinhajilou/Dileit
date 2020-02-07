@@ -18,7 +18,7 @@ import java.util.List;
 public class InternalRepository {
     private InternalRoomDatabase mDatabase;
     private WordHistoryDao mDao;
-    private LiveData<List<WordHistory>> mLiveData;
+    private LiveData<List<WordHistory>> mAllWordHistory;
     private LeitnerDao mLeitnerDao;
     private String TAG = InternalViewModel.class.getSimpleName();
 
@@ -26,11 +26,15 @@ public class InternalRepository {
         mDatabase = InternalRoomDatabase.getInstance(context);
         mDao = mDatabase.mWordHistoryDao();
         mLeitnerDao = mDatabase.mLeitnerDao();
-        mLiveData = mDao.getAllData();
+        mAllWordHistory = mDao.getAllWordHistory();
     }
 
-    public LiveData<List<WordHistory>> getLiveData() {
-        return mLiveData;
+    public LiveData<List<WordHistory>> getAllWordHistory() {
+        return mAllWordHistory;
+    }
+
+    public LiveData<WordHistory> getWordHistoryInfo(String word){
+        return mDao.getWordInformation(word);
     }
 
     public void insertWordHistory(int leitnerId, Long time, String word, String wordDef) {

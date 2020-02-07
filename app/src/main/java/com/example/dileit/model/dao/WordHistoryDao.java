@@ -27,9 +27,14 @@ public interface WordHistoryDao {
 
     @Transaction
     @Query("SELECT * FROM WordHistory")
-    LiveData<List<WordHistory>> getAllData();
+    LiveData<List<WordHistory>> getAllWordHistory();
 
     @Transaction
     @Query("SELECT * FROM WordHistory where leitnerId LIKE :leitnerId LIMIT 1")
-    WordHistory getWordByLeitnerId(int leitnerId);
+    LiveData<WordHistory> getWordByLeitnerId(int leitnerId);
+
+    @Transaction
+    @Query("SELECT * FROM  WordHistory where word LIKE :exactWord")
+    LiveData<WordHistory> getWordInformation(String exactWord);
+
 }

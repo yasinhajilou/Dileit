@@ -83,59 +83,6 @@ public class WordInformationFragment extends Fragment {
         mBinding.viewPagerWordInfo.setAdapter(mAdapter);
         mBinding.viewPagerWordInfo.setCurrentItem(0);
 
-
-        mTextToSpeechUK = new TextToSpeech(view.getContext(), i -> {
-            if (i == TextToSpeech.SUCCESS) {
-                int res = mTextToSpeechUS.setLanguage(Locale.UK);
-                if (res == TextToSpeech.LANG_MISSING_DATA
-                        || res == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Log.e("TTS", "Language not supported");
-                } else {
-                    // prepare ui
-                }
-            } else {
-                Log.d(TAG, "onViewCreated: " + "TTS init failed...");
-            }
-        });
-
-        mTextToSpeechUS = new TextToSpeech(view.getContext(), i -> {
-            if (i == TextToSpeech.SUCCESS) {
-                int res = mTextToSpeechUS.setLanguage(Locale.ENGLISH);
-                if (res == TextToSpeech.LANG_MISSING_DATA
-                        || res == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Log.e("TTS", "Language not supported");
-                } else {
-
-                }
-            } else {
-                Log.d(TAG, "onViewCreated: " + "TTS init failed...");
-            }
-        });
-
-
-        mBinding.imgBritishPronounce.setOnClickListener(view1 -> {
-            speakUK(mBinding.tvWordTitle.getText().toString());
-        });
-        mBinding.tvBritishPronounce.setOnClickListener(view1 -> {
-            speakUK(mBinding.tvWordTitle.getText().toString());
-        });
-
-
-        mBinding.imgAmericanPronounce.setOnClickListener(view1 -> {
-            speakUS(mBinding.tvWordTitle.getText().toString());
-        });
-        mBinding.tvAmericanPronounce.setOnClickListener(view1 -> {
-            speakUS(mBinding.tvWordTitle.getText().toString());
-        });
-
-        mBinding.btnAddToLeitner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-        mBinding.imgCloseToolBar.setOnClickListener(view12 -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
-
         mSharedViewModel.getActualWord().observe(getViewLifecycleOwner(), s -> mBinding.tvWordTitle.setText(s));
 
         mSharedViewModel.getWordInformation().observe(getViewLifecycleOwner(), wordInformation -> {
@@ -167,6 +114,64 @@ public class WordInformationFragment extends Fragment {
             }
         });
 
+
+
+        mTextToSpeechUK = new TextToSpeech(view.getContext(), i -> {
+            if (i == TextToSpeech.SUCCESS) {
+                int res = mTextToSpeechUS.setLanguage(Locale.UK);
+                if (res == TextToSpeech.LANG_MISSING_DATA
+                        || res == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Log.e("TTS", "Language not supported");
+                } else {
+                    // prepare ui
+                }
+            } else {
+                Log.d(TAG, "onViewCreated: " + "TTS init failed...");
+            }
+        });
+
+        mTextToSpeechUS = new TextToSpeech(view.getContext(), i -> {
+            if (i == TextToSpeech.SUCCESS) {
+                int res = mTextToSpeechUS.setLanguage(Locale.ENGLISH);
+                if (res == TextToSpeech.LANG_MISSING_DATA
+                        || res == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Log.e("TTS", "Language not supported");
+                } else {
+
+                }
+            } else {
+                Log.d(TAG, "onViewCreated: " + "TTS init failed...");
+            }
+        });
+
+        mBinding.imgBritishPronounce.setOnClickListener(view1 -> {
+            speakUK(mBinding.tvWordTitle.getText().toString());
+        });
+        mBinding.tvBritishPronounce.setOnClickListener(view1 -> {
+            speakUK(mBinding.tvWordTitle.getText().toString());
+        });
+        mBinding.imgAmericanPronounce.setOnClickListener(view1 -> {
+            speakUS(mBinding.tvWordTitle.getText().toString());
+        });
+        mBinding.tvAmericanPronounce.setOnClickListener(view1 -> {
+            speakUS(mBinding.tvWordTitle.getText().toString());
+        });
+
+
+        mBinding.btnAddToLeitner.setOnClickListener(view16 -> {
+
+            Leitner leitner = new Leitner(0, LeitnerStateConstant.BOX_ONE,
+                    0, 0, System.currentTimeMillis());
+
+            mInternalViewModel.insertLeitnerItem(leitner);
+
+            mBinding.btnAddToLeitner.setImageResource(R.drawable.leitner_added);
+
+        });
+
+        mBinding.imgCloseToolBar.setOnClickListener(view12 -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
+
+
         chipEnglish.setOnClickListener(view15 -> {
             selectEnglishChip();
             undoIdiomChip();
@@ -197,10 +202,7 @@ public class WordInformationFragment extends Fragment {
         mBinding.viewPagerWordInfo.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Leitner leitner = new Leitner(0, LeitnerStateConstant.BOX_ONE,
-                        0, 0, System.currentTimeMillis());
 
-                mInternalViewModel.insertLeitnerItem(leitner);
             }
 
             @Override

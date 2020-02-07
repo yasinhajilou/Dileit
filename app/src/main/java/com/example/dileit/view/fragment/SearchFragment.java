@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.dileit.R;
+import com.example.dileit.constant.KeysValue;
 import com.example.dileit.databinding.FragmentWordSearchBinding;
 import com.example.dileit.model.WordSearch;
 import com.example.dileit.utils.JsonUtils;
@@ -152,8 +153,10 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     public void onItemClicked(String data, String actualWord) {
         JsonUtils jsonUtils = new JsonUtils();
         mSharedViewModel.setWordInformation(jsonUtils.getWordDefinition(data));
-        mSharedViewModel.setActualWord(actualWord.trim());
-        Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment);
+        Bundle bundle = new Bundle();
+        bundle.putString(KeysValue.KEY_BUNDLE_ACTUAL_WORD , actualWord.trim());
+
+        Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment , bundle);
         mInternalViewModel.insertWordHistory(0, System.currentTimeMillis(), actualWord.trim(), data);
     }
 

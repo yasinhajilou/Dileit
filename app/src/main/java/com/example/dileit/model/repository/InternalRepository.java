@@ -29,6 +29,9 @@ public class InternalRepository {
         mAllWordHistory = mDao.getAllWordHistory();
     }
 
+
+
+    //get data(Queries)
     public LiveData<List<WordHistory>> getAllWordHistory() {
         return mAllWordHistory;
     }
@@ -37,6 +40,8 @@ public class InternalRepository {
         return mDao.getWordInformation(word);
     }
 
+
+    //insert data
     public void insertWordHistory(int leitnerId, Long time, String word, String wordDef) {
         new InsertWordHistory(leitnerId, time, word, wordDef).execute();
     }
@@ -44,6 +49,14 @@ public class InternalRepository {
     public void insertLeitnerItem(Leitner leitner){
         new InsertLeitnerItem().execute(leitner);
     }
+
+
+    //update data
+    public void updateLetnerItem(Leitner leitner){
+        new UpdateLeitnerItem().execute(leitner);
+    }
+
+
 
     private class InsertLeitnerItem extends AsyncTask<Leitner,Void,Void>{
 
@@ -71,6 +84,15 @@ public class InternalRepository {
             WordHistory wordHistory = new WordHistory(word, wordDef, leitnerId, time);
             mDao.Insert(wordHistory);
             Log.d(TAG, "doInBackground: added");
+            return null;
+        }
+    }
+
+    private class UpdateLeitnerItem extends AsyncTask<Leitner,Void,Void>{
+
+        @Override
+        protected Void doInBackground(Leitner... leitners) {
+            mLeitnerDao.update(leitners[0]);
             return null;
         }
     }

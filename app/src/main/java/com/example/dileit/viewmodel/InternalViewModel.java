@@ -43,6 +43,6 @@ public class InternalViewModel extends AndroidViewModel {
 
     //update data
     public void updateLeitnerItem(Leitner leitner){
-        mRepository.updateLetnerItem(leitner);
+        mRepository.updateLeitnerItem(leitner);
     }
 }

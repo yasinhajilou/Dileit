@@ -50,8 +50,12 @@ public class InternalRepository {
 
 
     //update data
-    public void updateLetnerItem(Leitner leitner) {
+    public void updateLeitnerItem(Leitner leitner) {
         new UpdateLeitnerItem().execute(leitner);
+    }
+
+    public void updateWordHistory(WordHistory wordHistory){
+        new UpdateWordHistory().execute(wordHistory);
     }
 
 
@@ -90,6 +94,15 @@ public class InternalRepository {
         @Override
         protected Void doInBackground(Leitner... leitners) {
             mLeitnerDao.update(leitners[0]);
+            return null;
+        }
+    }
+
+    private class UpdateWordHistory extends AsyncTask<WordHistory,Void,Void>{
+
+        @Override
+        protected Void doInBackground(WordHistory... wordHistories) {
+            mDao.update(wordHistories[0]);
             return null;
         }
     }

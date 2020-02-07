@@ -335,7 +335,8 @@ public class WordInformationFragment extends Fragment {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        mWordHistory.setLeitnerId(0);
+                        mInternalViewModel.updateLeitnerItem(mWordHistory);
                         dialogInterface.dismiss();
                     }
                 });

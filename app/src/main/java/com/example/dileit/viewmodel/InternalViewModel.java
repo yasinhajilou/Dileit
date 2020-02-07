@@ -22,6 +22,8 @@ public class InternalViewModel extends AndroidViewModel {
         mAllWordHistory = mRepository.getAllWordHistory();
     }
 
+
+    //insert data
     public void insertLeitnerItem(Leitner leitner){
         mRepository.insertLeitnerItem(leitner);
     }
@@ -30,11 +32,17 @@ public class InternalViewModel extends AndroidViewModel {
         mRepository.insertWordHistory(leitnerId,time,word,wordDef);
     }
 
+    //get data
     public LiveData<List<WordHistory>> getAllWordHistory(){
         return mAllWordHistory;
     }
 
     public LiveData<WordHistory> getWordHistoryInfo(String word){
         return mRepository.getWordHistoryInfo(word);
+    }
+
+    //update data
+    public void updateLeitnerItem(Leitner leitner){
+        mRepository.updateLetnerItem(leitner);
     }
 }

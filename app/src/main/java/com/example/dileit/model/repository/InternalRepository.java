@@ -16,19 +16,17 @@ import com.example.dileit.viewmodel.InternalViewModel;
 import java.util.List;
 
 public class InternalRepository {
-    private InternalRoomDatabase mDatabase;
     private WordHistoryDao mDao;
     private LiveData<List<WordHistory>> mAllWordHistory;
     private LeitnerDao mLeitnerDao;
     private String TAG = InternalViewModel.class.getSimpleName();
 
     public InternalRepository(Context context) {
-        mDatabase = InternalRoomDatabase.getInstance(context);
-        mDao = mDatabase.mWordHistoryDao();
-        mLeitnerDao = mDatabase.mLeitnerDao();
+        InternalRoomDatabase database = InternalRoomDatabase.getInstance(context);
+        mDao = database.mWordHistoryDao();
+        mLeitnerDao = database.mLeitnerDao();
         mAllWordHistory = mDao.getAllWordHistory();
     }
-
 
 
     //get data(Queries)
@@ -36,7 +34,7 @@ public class InternalRepository {
         return mAllWordHistory;
     }
 
-    public LiveData<WordHistory> getWordHistoryInfo(String word){
+    public LiveData<WordHistory> getWordHistoryInfo(String word) {
         return mDao.getWordInformation(word);
     }
 
@@ -46,19 +44,18 @@ public class InternalRepository {
         new InsertWordHistory(leitnerId, time, word, wordDef).execute();
     }
 
-    public void insertLeitnerItem(Leitner leitner){
+    public void insertLeitnerItem(Leitner leitner) {
         new InsertLeitnerItem().execute(leitner);
     }
 
 
     //update data
-    public void updateLetnerItem(Leitner leitner){
+    public void updateLetnerItem(Leitner leitner) {
         new UpdateLeitnerItem().execute(leitner);
     }
 
 
-
-    private class InsertLeitnerItem extends AsyncTask<Leitner,Void,Void>{
+    private class InsertLeitnerItem extends AsyncTask<Leitner, Void, Void> {
 
         @Override
         protected Void doInBackground(Leitner... leitners) {
@@ -88,7 +85,7 @@ public class InternalRepository {
         }
     }
 
-    private class UpdateLeitnerItem extends AsyncTask<Leitner,Void,Void>{
+    private class UpdateLeitnerItem extends AsyncTask<Leitner, Void, Void> {
 
         @Override
         protected Void doInBackground(Leitner... leitners) {

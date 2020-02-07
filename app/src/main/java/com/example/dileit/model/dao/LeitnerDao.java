@@ -13,7 +13,7 @@ import java.util.List;
 @Dao
 public interface LeitnerDao {
     @Insert
-    void insert(Leitner leitner);
+    long insert(Leitner leitner);
     @Update
     void update(Leitner leitner);
     @Delete

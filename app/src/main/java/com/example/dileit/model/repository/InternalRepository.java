@@ -12,6 +12,7 @@ import com.example.dileit.model.database.InternalRoomDatabase;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.model.entity.WordHistory;
 import com.example.dileit.viewmodel.InternalViewModel;
+import com.example.dileit.viewmodel.vminterface.InternalInterface;
 
 import java.util.List;
 
@@ -44,8 +45,8 @@ public class InternalRepository {
         new InsertWordHistory(leitnerId, time, word, wordDef).execute();
     }
 
-    public void insertLeitnerItem(Leitner leitner) {
-        new InsertLeitnerItem().execute(leitner);
+    public void insertLeitnerItem(Leitner leitner, InternalInterface anInterface) {
+        new InsertLeitnerItem(anInterface).execute(leitner);
     }
 
 
@@ -54,17 +55,27 @@ public class InternalRepository {
         new UpdateLeitnerItem().execute(leitner);
     }
 
-    public void updateWordHistory(WordHistory wordHistory){
+    public void updateWordHistory(WordHistory wordHistory) {
         new UpdateWordHistory().execute(wordHistory);
     }
 
 
-    private class InsertLeitnerItem extends AsyncTask<Leitner, Void, Void> {
+    private class InsertLeitnerItem extends AsyncTask<Leitner, Void, Long> {
+        InternalInterface mInterface;
+
+         InsertLeitnerItem(InternalInterface anInterface) {
+            mInterface = anInterface;
+        }
 
         @Override
-        protected Void doInBackground(Leitner... leitners) {
-            mLeitnerDao.insert(leitners[0]);
-            return null;
+        protected Long doInBackground(Leitner... leitners) {
+            return mLeitnerDao.insert(leitners[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Long aLong) {
+            super.onPostExecute(aLong);
+            mInterface.onLeitnerAdded(aLong);
         }
     }
 
@@ -98,7 +109,7 @@ public class InternalRepository {
         }
     }
 
-    private class UpdateWordHistory extends AsyncTask<WordHistory,Void,Void>{
+    private class UpdateWordHistory extends AsyncTask<WordHistory, Void, Void> {
 
         @Override
         protected Void doInBackground(WordHistory... wordHistories) {

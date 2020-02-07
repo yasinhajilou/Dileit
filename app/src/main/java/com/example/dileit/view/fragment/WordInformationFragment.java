@@ -186,7 +186,7 @@ public class WordInformationFragment extends Fragment {
             } else {
                 Leitner leitner = new Leitner(0, LeitnerStateConstant.BOX_ONE,
                         0, 0, System.currentTimeMillis());
-
+                mBinding.btnAddToLeitner.setImageResource(R.drawable.leitner_added);
                 mInternalViewModel.insertLeitnerItem(leitner);
                 isWordSaved = true;
             }

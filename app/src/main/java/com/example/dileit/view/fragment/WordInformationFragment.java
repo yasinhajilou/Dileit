@@ -16,8 +16,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.dileit.R;
+import com.example.dileit.constant.KeysValue;
 import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.FragmentWordInformationBinding;
 import com.example.dileit.model.Idiom;
@@ -55,6 +57,9 @@ public class WordInformationFragment extends Fragment {
     private EnglishDictionaryViewModel mEnglishDictionaryViewModel;
     private InternalViewModel mInternalViewModel;
 
+    private String actualWord;
+    private boolean isWordSaved;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +77,8 @@ public class WordInformationFragment extends Fragment {
         chipEnglish = mBinding.chipsTranslatedEnglish;
         chipIdioms = mBinding.chipsIdiomsOnly;
         mAdapter = new WordsInformationViewPagerAdapter(getChildFragmentManager());
+        if (getArguments() != null)
+            actualWord = getArguments().getString(KeysValue.KEY_BUNDLE_ACTUAL_WORD);
         return mBinding.getRoot();
     }
 
@@ -83,7 +90,7 @@ public class WordInformationFragment extends Fragment {
         mBinding.viewPagerWordInfo.setAdapter(mAdapter);
         mBinding.viewPagerWordInfo.setCurrentItem(0);
 
-        mSharedViewModel.getActualWord().observe(getViewLifecycleOwner(), s -> mBinding.tvWordTitle.setText(s));
+        mBinding.tvWordTitle.setText(actualWord);
 
         mSharedViewModel.getWordInformation().observe(getViewLifecycleOwner(), wordInformation -> {
 
@@ -114,7 +121,16 @@ public class WordInformationFragment extends Fragment {
             }
         });
 
+        mInternalViewModel.getWordHistoryInfo(actualWord).observe(getViewLifecycleOwner(), wordHistory -> {
+            if (wordHistory != null) {
+                if (wordHistory.getLeitnerId() > 0) {
+                    mBinding.btnAddToLeitner.setImageResource(R.drawable.leitner_added);
+                    isWordSaved = true;
+                } else
+                    isWordSaved = false;
+            }
 
+        });
 
         mTextToSpeechUK = new TextToSpeech(view.getContext(), i -> {
             if (i == TextToSpeech.SUCCESS) {
@@ -160,12 +176,15 @@ public class WordInformationFragment extends Fragment {
 
         mBinding.btnAddToLeitner.setOnClickListener(view16 -> {
 
-            Leitner leitner = new Leitner(0, LeitnerStateConstant.BOX_ONE,
-                    0, 0, System.currentTimeMillis());
+            if (isWordSaved) {
+                Toast.makeText(view16.getContext(), "This Word is added!", Toast.LENGTH_SHORT).show();
+            } else {
+                Leitner leitner = new Leitner(0, LeitnerStateConstant.BOX_ONE,
+                        0, 0, System.currentTimeMillis());
 
-            mInternalViewModel.insertLeitnerItem(leitner);
-
-            mBinding.btnAddToLeitner.setImageResource(R.drawable.leitner_added);
+                mInternalViewModel.insertLeitnerItem(leitner);
+                isWordSaved = true;
+            }
 
         });
 

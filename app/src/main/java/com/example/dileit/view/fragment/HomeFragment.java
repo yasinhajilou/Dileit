@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.dileit.R;
+import com.example.dileit.constant.KeysValue;
 import com.example.dileit.databinding.FragmentHomeBinding;
 import com.example.dileit.utils.JsonUtils;
 import com.example.dileit.view.adapter.recycler.WordHistoryRecyclerAdapter;
@@ -111,7 +112,8 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
     public void onItemClicked(String data, String actualWord) {
         JsonUtils jsonUtils = new JsonUtils();
         mSharedViewModel.setWordInformation(jsonUtils.getWordDefinition(data));
-        mSharedViewModel.setActualWord(actualWord);
-        Navigation.findNavController(getView()).navigate(R.id.action_homeFragment_to_wordInformationFragment);
+        Bundle bundle = new Bundle();
+        bundle.putString(KeysValue.KEY_BUNDLE_ACTUAL_WORD , actualWord.trim());
+        Navigation.findNavController(getView()).navigate(R.id.action_homeFragment_to_wordInformationFragment , bundle);
     }
 }

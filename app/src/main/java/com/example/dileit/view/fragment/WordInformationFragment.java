@@ -127,8 +127,8 @@ public class WordInformationFragment extends Fragment {
 
         mInternalViewModel.getWordHistoryInfo(actualWord).observe(getViewLifecycleOwner(), wordHistory -> {
             if (wordHistory != null) {
+                mWordHistory = wordHistory;
                 if (wordHistory.getLeitnerId() > 0) {
-                    mWordHistory = wordHistory;
                     mBinding.btnAddToLeitner.setImageResource(R.drawable.leitner_added);
                     isWordSaved = true;
                 } else
@@ -138,9 +138,12 @@ public class WordInformationFragment extends Fragment {
         });
 
         mInternalViewModel.getLeitnerAddedId().observe(getViewLifecycleOwner(),aLong -> {
-            mWordHistory.setLeitnerId(aLong);
-            mInternalViewModel.updateWordHistory(mWordHistory);
-            Toast.makeText(view.getContext(), ""+aLong, Toast.LENGTH_SHORT).show();
+            if (aLong!=null){
+                mWordHistory.setLeitnerId(aLong);
+                mInternalViewModel.updateWordHistory(mWordHistory);
+                Toast.makeText(view.getContext(), ""+aLong, Toast.LENGTH_SHORT).show();
+            }
+
         });
 
         mTextToSpeechUK = new TextToSpeech(view.getContext(), i -> {

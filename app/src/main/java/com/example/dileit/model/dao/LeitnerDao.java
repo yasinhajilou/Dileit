@@ -1,5 +1,6 @@
 package com.example.dileit.model.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -20,4 +21,6 @@ public interface LeitnerDao {
     void delete(Leitner leitner);
     @Query("SELECT * FROM  Leitner")
     List<Leitner> LEITNER_LIST();
+    @Query("SELECT * FROM Leitner WHERE word LIKE :word")
+    LiveData<Leitner> leitnerInfoByWord(String word);
 }

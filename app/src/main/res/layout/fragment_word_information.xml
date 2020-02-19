@@ -158,7 +158,7 @@
                     <androidx.appcompat.widget.AppCompatImageButton
                         android:src="@drawable/leitner"
                         android:scaleType="fitCenter"
-                        android:id="@+id/btn_add_to_leitner"
+                        android:id="@+id/img_btn_add_to_leitner"
                         android:textAllCaps="false"
                         style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:textColor="@color/colorSecondary"

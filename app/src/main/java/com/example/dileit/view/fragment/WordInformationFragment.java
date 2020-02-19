@@ -63,6 +63,7 @@ public class WordInformationFragment extends Fragment {
     private WordHistory mWordHistory;
     private String actualWord;
     private boolean isWordSaved;
+    private Leitner mLeitner;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,6 +96,13 @@ public class WordInformationFragment extends Fragment {
         mBinding.viewPagerWordInfo.setCurrentItem(0);
 
         mBinding.tvWordTitle.setText(actualWord);
+
+        mInternalViewModel.getLeitnerInfoByWord(actualWord).observe(getViewLifecycleOwner() , leitner -> {
+            if (leitner!=null){
+                mLeitner = leitner;
+                mBinding.imgBtnAddToLeitner.setBackgroundResource(R.drawable.leitner_added);
+            }
+        });
 
         mSharedViewModel.getWordInformation().observe(getViewLifecycleOwner(), wordInformation -> {
 
@@ -180,8 +188,12 @@ public class WordInformationFragment extends Fragment {
         });
 
 
-        mBinding.btnAddToLeitner.setOnClickListener(view16 -> {
+        mBinding.imgBtnAddToLeitner.setOnClickListener(view16 -> {
+            if (mLeitner!=null){
+                showRemoveLeitnerDialog(view16);
+            }else {
 
+            }
         });
 
         mBinding.imgCloseToolBar.setOnClickListener(view12 -> requireActivity().getOnBackPressedDispatcher().onBackPressed());

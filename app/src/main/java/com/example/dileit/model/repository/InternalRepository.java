@@ -39,6 +39,10 @@ public class InternalRepository {
         return mDao.getWordInformation(word);
     }
 
+    public LiveData<Leitner> getLeitnerInfoByWord(String word){
+        return mLeitnerDao.leitnerInfoByWord(word);
+    }
+
 
     //insert data
     public void insertWordHistory(int leitnerId, Long time, String word, String wordDef) {

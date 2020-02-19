@@ -49,6 +49,10 @@ public class InternalViewModel extends AndroidViewModel implements InternalInter
         return mLeitenrItemid;
     }
 
+    public LiveData<Leitner> getLeitnerInfoByWord(String word){
+        return mRepository.getLeitnerInfoByWord(word);
+    }
+
     //update data
     public void updateLeitnerItem(Leitner leitner){
         mRepository.updateLeitnerItem(leitner);

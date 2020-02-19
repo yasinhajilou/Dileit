@@ -329,12 +329,15 @@ public class WordInformationFragment extends Fragment {
     private void showRemoveLeitnerDialog(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext())
                 .setTitle("Remove Word")
-                .setMessage("This word exists in leitner box, do ypu want to remove it?")
+                .setMessage("This word exists in leitner box, do you want to remove it?")
                 .setNeutralButton("No", (dialogInterface, i) -> dialogInterface.dismiss())
                 .setPositiveButton("Yes", (dialogInterface, i) -> {
-//                    mWordHistory.setLeitnerId(0);
-//                    mInternalViewModel.updateWordHistory(mWordHistory);
+
+                    mInternalViewModel.deleteLeitnerItem(mLeitner);
+                    mBinding.imgBtnAddToLeitner.setImageResource(R.drawable.leitner);
+
                     dialogInterface.dismiss();
+
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();

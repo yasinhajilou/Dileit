@@ -100,7 +100,7 @@ public class WordInformationFragment extends Fragment {
         mInternalViewModel.getLeitnerInfoByWord(actualWord).observe(getViewLifecycleOwner() , leitner -> {
             if (leitner!=null){
                 mLeitner = leitner;
-                mBinding.imgBtnAddToLeitner.setBackgroundResource(R.drawable.leitner_added);
+                mBinding.imgBtnAddToLeitner.setImageResource(R.drawable.leitner_added);
             }
         });
 
@@ -139,8 +139,8 @@ public class WordInformationFragment extends Fragment {
 
         mInternalViewModel.getLeitnerAddedId().observe(getViewLifecycleOwner(),aLong -> {
             if (aLong!=null){
-                mWordHistory.setLeitnerId(aLong);
-                mInternalViewModel.updateWordHistory(mWordHistory);
+//                mWordHistory.setLeitnerId(aLong);
+//                mInternalViewModel.updateWordHistory(mWordHistory);
                 Toast.makeText(view.getContext(), ""+aLong, Toast.LENGTH_SHORT).show();
             }
 
@@ -192,7 +192,8 @@ public class WordInformationFragment extends Fragment {
             if (mLeitner!=null){
                 showRemoveLeitnerDialog(view16);
             }else {
-
+                addWordToLeitner(view16);
+                mBinding.imgBtnAddToLeitner.setImageResource(R.drawable.leitner_added);
             }
         });
 
@@ -331,12 +332,23 @@ public class WordInformationFragment extends Fragment {
                 .setMessage("This word exists in leitner box, do ypu want to remove it?")
                 .setNeutralButton("No", (dialogInterface, i) -> dialogInterface.dismiss())
                 .setPositiveButton("Yes", (dialogInterface, i) -> {
-                    mWordHistory.setLeitnerId(0);
-                    mInternalViewModel.updateWordHistory(mWordHistory);
+//                    mWordHistory.setLeitnerId(0);
+//                    mInternalViewModel.updateWordHistory(mWordHistory);
                     dialogInterface.dismiss();
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    private void addWordToLeitner(View view){
+        StringBuilder stringBuffer = new StringBuilder();
+        for (TranslationWord translationWord : wordList){
+            stringBuffer.append(translationWord.getTranslatedWord());
+        }
+        Leitner leitner = new Leitner(0,actualWord.trim(),stringBuffer.toString(),LeitnerStateConstant.BOX_ONE
+                ,0,0,System.currentTimeMillis());
+        mInternalViewModel.insertLeitnerItem(leitner);
+        Toast.makeText(view.getContext(), "Added to Leitner.", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "134015223904",
+    "firebase_url": "https://dileit-8cc6c.firebaseio.com",
+    "project_id": "dileit-8cc6c",
+    "storage_bucket": "dileit-8cc6c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134015223904:android:6c29ff6625c3e65e34db05",
+        "android_client_info": {
+          "package_name": "com.example.diliet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134015223904-sdpmkb1nc5rj18kr5j8qujl9rargbq7j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.diliet",
+            "certificate_hash": "d0e79c7ebbe440adddcb851fc500bee0cc666771"
+          }
+        },
+        {
+          "client_id": "134015223904-4t3rneddo5ojp3vf4pqu3duvh8di083p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjJTcVtOLEF71co_CDhhP2HCZC7Nykljw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "134015223904-4t3rneddo5ojp3vf4pqu3duvh8di083p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

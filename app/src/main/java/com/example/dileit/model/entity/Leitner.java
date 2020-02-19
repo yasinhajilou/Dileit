@@ -8,6 +8,10 @@ public class Leitner {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    private String word;
+
+    private String def;
+
     private int state;
 
     private int repeatCounter;
@@ -16,8 +20,10 @@ public class Leitner {
 
     private long timeAdded;
 
-    public Leitner(int id, int state, int repeatCounter, long lastReviewTime, long timeAdded) {
+    public Leitner(int id, String word, String def, int state, int repeatCounter, long lastReviewTime, long timeAdded) {
         this.id = id;
+        this.word = word;
+        this.def = def;
         this.state = state;
         this.repeatCounter = repeatCounter;
         this.lastReviewTime = lastReviewTime;
@@ -42,5 +48,13 @@ public class Leitner {
 
     public long getLastReviewTime() {
         return lastReviewTime;
+    }
+
+    public String getWord() {
+        return word;
+    }
+
+    public String getDef() {
+        return def;
     }
 }

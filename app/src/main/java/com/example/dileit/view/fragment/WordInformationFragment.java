@@ -126,14 +126,6 @@ public class WordInformationFragment extends Fragment {
         });
 
         mInternalViewModel.getWordHistoryInfo(actualWord).observe(getViewLifecycleOwner(), wordHistory -> {
-            if (wordHistory != null) {
-                mWordHistory = wordHistory;
-                if (wordHistory.getLeitnerId() > 0) {
-                    mBinding.btnAddToLeitner.setImageResource(R.drawable.leitner_added);
-                    isWordSaved = true;
-                } else
-                    isWordSaved = false;
-            }
 
         });
 
@@ -189,16 +181,6 @@ public class WordInformationFragment extends Fragment {
 
 
         mBinding.btnAddToLeitner.setOnClickListener(view16 -> {
-
-            if (isWordSaved) {
-                showRemoveLeitnerDialog(view16);
-            } else {
-                Leitner leitner = new Leitner(0, LeitnerStateConstant.BOX_ONE,
-                        0, 0, System.currentTimeMillis());
-                mBinding.btnAddToLeitner.setImageResource(R.drawable.leitner_added);
-                mInternalViewModel.insertLeitnerItem(leitner);
-                isWordSaved = true;
-            }
 
         });
 

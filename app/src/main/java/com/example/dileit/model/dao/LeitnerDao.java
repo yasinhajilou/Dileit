@@ -18,7 +18,7 @@ public interface LeitnerDao {
     @Update
     void update(Leitner leitner);
     @Delete
-    void delete(Leitner leitner);
+    long delete(Leitner leitner);
     @Query("SELECT * FROM  Leitner")
     List<Leitner> LEITNER_LIST();
     @Query("SELECT * FROM Leitner WHERE word LIKE :word")

@@ -64,6 +64,13 @@ public class InternalRepository {
     }
 
 
+    //Delete Item
+    public void deleteLeitnerItem(Leitner leitner){
+        new DeleteLeitnerItem().execute(leitner);
+    }
+
+
+    //Async classes
     private class InsertLeitnerItem extends AsyncTask<Leitner, Void, Long> {
         InternalInterface mInterface;
 
@@ -118,6 +125,16 @@ public class InternalRepository {
         @Override
         protected Void doInBackground(WordHistory... wordHistories) {
             mDao.update(wordHistories[0]);
+            return null;
+        }
+    }
+
+    private class DeleteLeitnerItem extends AsyncTask<Leitner , Void , Void>{
+
+        @Override
+        protected Void doInBackground(Leitner... leitners) {
+            long id = mLeitnerDao.delete(leitners[0]);
+            Log.d(TAG, "doInBackground: " + id );
             return null;
         }
     }

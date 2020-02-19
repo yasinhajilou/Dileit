@@ -335,6 +335,7 @@ public class WordInformationFragment extends Fragment {
 
                     mInternalViewModel.deleteLeitnerItem(mLeitner);
                     mBinding.imgBtnAddToLeitner.setImageResource(R.drawable.leitner);
+                    mLeitner = null;
 
                     dialogInterface.dismiss();
 

@@ -11,7 +11,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.dileit.R;
 
-public class AddNewLeitnerItem extends DialogFragment {
+public class AddNewLeitnerDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {

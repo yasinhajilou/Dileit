@@ -12,6 +12,10 @@ public class Leitner {
 
     private String def;
 
+    private String secondDef;
+
+    private String wordAct;
+
     private int state;
 
     private int repeatCounter;
@@ -20,7 +24,7 @@ public class Leitner {
 
     private long timeAdded;
 
-    public Leitner(int id, String word, String def, int state, int repeatCounter, long lastReviewTime, long timeAdded) {
+    public Leitner(int id, String word,String secondDef,String wordAct, String def, int state, int repeatCounter, long lastReviewTime, long timeAdded) {
         this.id = id;
         this.word = word;
         this.def = def;
@@ -28,6 +32,13 @@ public class Leitner {
         this.repeatCounter = repeatCounter;
         this.lastReviewTime = lastReviewTime;
         this.timeAdded = timeAdded;
+        this.wordAct = wordAct;
+        this.secondDef = secondDef;
+    }
+
+
+    public String getWordAct() {
+        return wordAct;
     }
 
     public long getTimeAdded() {

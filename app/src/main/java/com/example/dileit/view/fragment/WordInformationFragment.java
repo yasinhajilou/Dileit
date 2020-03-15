@@ -33,6 +33,7 @@ import com.example.dileit.view.adapter.viewpager.WordsInformationViewPagerAdapte
 import com.example.dileit.view.fragment.wordinfo.EnglishTranslatedFragment;
 import com.example.dileit.view.fragment.wordinfo.TranslationFragment;
 import com.example.dileit.view.fragment.wordinfo.RelatedIdiomsFragment;
+import com.example.dileit.view.fragment.wordinfo.leitnersetup.AddNewLeitnerDialog;
 import com.example.dileit.viewmodel.EnglishDictionaryViewModel;
 import com.example.dileit.viewmodel.InternalViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
@@ -192,8 +193,10 @@ public class WordInformationFragment extends Fragment {
             if (mLeitner!=null){
                 showRemoveLeitnerDialog(view16);
             }else {
-                addWordToLeitner(view16);
-                mBinding.imgBtnAddToLeitner.setImageResource(R.drawable.leitner_added);
+                AddNewLeitnerDialog dialog = new AddNewLeitnerDialog();
+                dialog.show(getChildFragmentManager() , "tag_dialog_add_leitner");
+//                addWordToLeitner(view16);
+//                mBinding.imgBtnAddToLeitner.setImageResource(R.drawable.leitner_added);
             }
         });
 
@@ -349,10 +352,11 @@ public class WordInformationFragment extends Fragment {
         for (TranslationWord translationWord : wordList){
             stringBuffer.append(translationWord.getTranslatedWord());
         }
-        Leitner leitner = new Leitner(0,actualWord.trim(),stringBuffer.toString(),LeitnerStateConstant.BOX_ONE
-                ,0,0,System.currentTimeMillis());
-        mInternalViewModel.insertLeitnerItem(leitner);
-        Toast.makeText(view.getContext(), "Added to Leitner.", Toast.LENGTH_SHORT).show();
+
+//        Leitner leitner = new Leitner(0,actualWord.trim(),stringBuffer.toString(),LeitnerStateConstant.BOX_ONE
+//                ,0,0,System.currentTimeMillis());
+//        mInternalViewModel.insertLeitnerItem(leitner);
+//        Toast.makeText(view.getContext(), "Added to Leitner.", Toast.LENGTH_SHORT).show();
     }
 
     @Override

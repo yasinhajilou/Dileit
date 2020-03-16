@@ -13,19 +13,16 @@ import java.util.List;
 
 public class AddNewLeitnerViewPagerAdapter extends FragmentPagerAdapter {
     List<String> titles = new ArrayList<>();
+    List<Fragment> mFragments = new ArrayList<>();
+
     public AddNewLeitnerViewPagerAdapter(@NonNull FragmentManager fm) {
-        super(fm,BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
     }
 
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        switch (position){
-            case 0:
-                return new TranslationDialogFragment();
-            default:
-                return null;
-        }
+        return mFragments.get(position);
     }
 
     @Override
@@ -38,4 +35,11 @@ public class AddNewLeitnerViewPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return titles.get(position);
     }
+
+    public void addData(String title, Fragment fragment) {
+        mFragments.add(fragment);
+        titles.add(title);
+        notifyDataSetChanged();
+    }
+
 }

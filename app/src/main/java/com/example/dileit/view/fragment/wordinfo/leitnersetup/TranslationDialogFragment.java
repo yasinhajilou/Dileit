@@ -22,6 +22,10 @@ public class TranslationDialogFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public static TranslationDialogFragment newInstance(){
+        TranslationDialogFragment  fragment = new TranslationDialogFragment();
+        return fragment;
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +44,6 @@ public class TranslationDialogFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mSharedViewModel.getLeitnerItemData().observe(getViewLifecycleOwner(),strings -> {
-            mEditText.setText(strings[2]);
-        });
+
     }
 }

@@ -6,6 +6,7 @@
     tools:context="com.example.dileit.view.fragment.wordinfo.leitnersetup.TranslationDialogFragment">
 
     <EditText
+        android:text="hiiii"
         android:layout_margin="8dp"
         android:id="@+id/edt_translation_dialog"
         android:layout_width="0dp"

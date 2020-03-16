@@ -59,7 +59,10 @@
             android:id="@+id/view_pager_add_new_leitner"
             android:layout_width="0dp"
             android:layout_height="250dp">
-
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_add_new_leitner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
         </androidx.viewpager.widget.ViewPager>
 
         <ImageView

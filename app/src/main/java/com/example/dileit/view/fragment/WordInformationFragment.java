@@ -213,9 +213,6 @@ public class WordInformationFragment extends Fragment {
                 strings[1] = builderTranslation.toString();
                 if (builderEnglish != null){
                     strings[2] = builderEnglish.toString();
-                }else {
-                    strings[2] = "0";
-
                 }
                 mSharedViewModel.setLeitnerItemData(strings);
 //                addWordToLeitner(view16);

@@ -11,21 +11,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.dileit.R;
+import com.example.dileit.constant.KeysValue;
 import com.example.dileit.viewmodel.SharedViewModel;
 
 public class TranslationDialogFragment extends Fragment {
     private SharedViewModel mSharedViewModel;
     private EditText mEditText;
+
     public TranslationDialogFragment() {
         // Required empty public constructor
     }
 
-    public static TranslationDialogFragment newInstance(){
-        TranslationDialogFragment  fragment = new TranslationDialogFragment();
+    public static TranslationDialogFragment newInstance(String s) {
+        TranslationDialogFragment fragment = new TranslationDialogFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(KeysValue.KEY_BUNDLE_WORD_TRANSLATION, s);
+        fragment.setArguments(bundle);
         return fragment;
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +51,11 @@ public class TranslationDialogFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        String translation = null;
 
+        if (getArguments() != null)
+            translation = getArguments().getString(KeysValue.KEY_BUNDLE_WORD_TRANSLATION);
+
+        mEditText.setText(translation);
     }
 }

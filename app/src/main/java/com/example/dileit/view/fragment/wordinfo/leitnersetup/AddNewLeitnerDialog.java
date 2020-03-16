@@ -3,6 +3,7 @@ package com.example.dileit.view.fragment.wordinfo.leitnersetup;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,32 +32,48 @@ public class AddNewLeitnerDialog extends BottomSheetDialogFragment {
     private ViewPager mPager;
     private TabLayout mTabLayout;
     private AddNewLeitnerViewPagerAdapter mAdapter;
+    private String mainTranslation;
+    private String secondTranslation;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        mAdapter = new AddNewLeitnerViewPagerAdapter(getChildFragmentManager());
+
 
     }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_add_new_item_leitner , container,false);
-        mAdapter = new AddNewLeitnerViewPagerAdapter(getChildFragmentManager());
         tvTitle = view.findViewById(R.id.tv_title_dialog_add_leitner);
         edtGuide = view.findViewById(R.id.edt_dialog_guide);
         mPager = view.findViewById(R.id.view_pager_add_new_leitner);
-        tvTitle.setText(title);
+        mTabLayout = view.findViewById(R.id.tab_add_new_leitner);
         mPager.setAdapter(mAdapter);
+        mTabLayout.setupWithViewPager(mPager);
         return view;
 
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        WindowManager.LayoutParams params = getDialog().getWindow().getAttributes();
-        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
-        getDialog().getWindow().setAttributes(params);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mSharedViewModel.getLeitnerItemData().observe(getViewLifecycleOwner(),strings -> {
+            title = strings[0];
+            tvTitle.setText(title);
+
+            mainTranslation = strings[1];
+            secondTranslation = strings[2];
+
+            mAdapter.addData("Translation" , TranslationDialogFragment.newInstance(mainTranslation));
+            if (secondTranslation!=null){
+                mAdapter.addData("Second Translation" , TranslationDialogFragment.newInstance(secondTranslation));
+            }
+        });
+
+
+
     }
 }

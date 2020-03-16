@@ -33,7 +33,9 @@ public class AddNewLeitnerViewPagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return titles.get(position);
+        if (titles.size() > 0)
+            return titles.get(position);
+        else return null;
     }
 
     public void addData(String title, Fragment fragment) {

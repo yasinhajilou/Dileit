@@ -1,6 +1,7 @@
 package com.example.dileit.view.fragment.wordinfo.leitnersetup;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,8 @@ public class AddNewLeitnerBottomSheet extends BottomSheetDialogFragment {
             mainTranslation = strings[1];
             secondTranslation = strings[2];
 
+            Log.d(TAG, "onViewCreated: " + strings[1]);
+            Log.d(TAG, "onViewCreated: " + strings[2]);
             mAdapter.addData("Translation" , TranslationDialogFragment.newInstance(mainTranslation));
             if (secondTranslation!=null){
                 mAdapter.addData("Second Translation" , TranslationDialogFragment.newInstance(secondTranslation));

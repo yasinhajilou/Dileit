@@ -93,7 +93,6 @@ public class WordInformationFragment extends Fragment {
         Log.d(TAG, "onViewCreated: ");
         mAdapter.addPage(new TranslationFragment());
         mBinding.viewPagerWordInfo.setAdapter(mAdapter);
-//        mBinding.viewPagerWordInfo.setCurrentItem(0);
 
         mBinding.tvWordTitle.setText(actualWord);
 
@@ -203,17 +202,18 @@ public class WordInformationFragment extends Fragment {
             } else {
                 builderTranslation = new StringBuilder();
                 for (TranslationWord word : wordList){
-                    builderTranslation.append(word.getTranslatedWord()).append(",");
+                    builderTranslation.append(word.getTranslatedWord()).append("\n");
                 }
                 AddNewLeitnerBottomSheet dialog = new AddNewLeitnerBottomSheet();
                 dialog.show(getChildFragmentManager(), "tag_dialog_add_leitner");
                 String[] strings = new String[3];
                 strings[0] = actualWord;
-                strings[1] = builderTranslation.toString();
+                strings[1] =  builderTranslation.toString();
                 if (builderEnglish != null){
                     strings[2] = builderEnglish.toString();
                 }
                 mSharedViewModel.setLeitnerItemData(strings);
+
 //                addWordToLeitner(view16);
 //                mBinding.imgBtnAddToLeitner.setImageResource(R.drawable.leitner_added);
             }

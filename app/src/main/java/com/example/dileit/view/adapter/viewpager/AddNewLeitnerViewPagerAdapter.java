@@ -27,7 +27,7 @@ public class AddNewLeitnerViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 1;
+        return titles.size();
     }
 
     @Nullable

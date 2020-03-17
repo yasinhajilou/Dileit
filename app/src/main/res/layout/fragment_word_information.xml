@@ -144,7 +144,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:gravity="center"
+                        tools:text="hi"
                         android:id="@+id/tv_pronounce_title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -152,7 +152,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
-                        android:paddingStart="8dp"
+                        android:paddingStart="10dp"
                         android:textColor="@android:color/black" />
 
                     <androidx.appcompat.widget.AppCompatImageButton

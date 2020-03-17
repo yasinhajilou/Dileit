@@ -93,9 +93,11 @@ public class WordInformationFragment extends Fragment {
         Log.d(TAG, "onViewCreated: ");
         mAdapter.addPage(new TranslationFragment());
         mBinding.viewPagerWordInfo.setAdapter(mAdapter);
-        mBinding.viewPagerWordInfo.setCurrentItem(0);
+//        mBinding.viewPagerWordInfo.setCurrentItem(0);
 
         mBinding.tvWordTitle.setText(actualWord);
+
+        mEnglishDictionaryViewModel.doSearch(actualWord.trim());
 
         mInternalViewModel.getLeitnerInfoByWord(actualWord).observe(getViewLifecycleOwner(), leitner -> {
             if (leitner != null) {
@@ -124,16 +126,17 @@ public class WordInformationFragment extends Fragment {
                 }
             }
 
-            mAdapter.addPage(new EnglishTranslatedFragment());
         });
 
         mEnglishDictionaryViewModel.getLiveList().observe(getViewLifecycleOwner(), wordEnglishDics -> {
             if (wordEnglishDics.size() == 0) {
+                Log.d(TAG, "onViewCreated: " +"english is empty");
                 chipEnglish.setVisibility(View.GONE);
             } else {
+                mAdapter.addPage(new EnglishTranslatedFragment());
                 builderEnglish = new StringBuilder();
                 for (WordEnglishDic englishDic : wordEnglishDics) {
-                    builderEnglish.append(englishDic).append(",");
+                    builderEnglish.append(englishDic.getDefinition()).append("\n");
                 }
             }
         });
@@ -193,6 +196,7 @@ public class WordInformationFragment extends Fragment {
         });
 
 
+        //button for adding word to leitner
         mBinding.imgBtnAddToLeitner.setOnClickListener(view16 -> {
             if (mLeitner != null) {
                 showRemoveLeitnerDialog(view16);

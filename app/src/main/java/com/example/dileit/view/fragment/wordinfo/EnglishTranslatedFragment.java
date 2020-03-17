@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +23,16 @@ import com.example.dileit.viewmodel.SharedViewModel;
 
 
 public class EnglishTranslatedFragment extends Fragment {
+
     private FragmentEnglishTranslatedBinding mBinding;
     private EnglishDictionaryViewModel mViewModel;
     private SharedViewModel mSharedViewModel;
     private EnglishTranslationWordRecyclerAdapter mAdapter;
+    private final String TAG = EnglishTranslatedFragment.class.getSimpleName();
 
+    public static void newInstance(){
+
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +45,7 @@ public class EnglishTranslatedFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding = DataBindingUtil.inflate(inflater , R.layout.fragment_english_translated, container , false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_english_translated, container, false);
         return mBinding.getRoot();
     }
 
@@ -47,13 +53,14 @@ public class EnglishTranslatedFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Log.d(TAG, "onViewCreated: ");
+
         mBinding.rvEnglishTranslation.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mBinding.rvEnglishTranslation.setAdapter(mAdapter);
 
-        mSharedViewModel.getActualWord().observe(getViewLifecycleOwner(), s -> mViewModel.doSearch(s.trim()));
-
-        mViewModel.getLiveList().observe(getViewLifecycleOwner(), wordEnglishDics -> {
+        mViewModel.getLiveList().observe(getViewLifecycleOwner() , wordEnglishDics -> {
             mAdapter.setData(wordEnglishDics);
         });
+
     }
 }

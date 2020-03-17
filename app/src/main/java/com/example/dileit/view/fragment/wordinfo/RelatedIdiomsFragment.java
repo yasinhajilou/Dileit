@@ -54,7 +54,6 @@ public class RelatedIdiomsFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
         mSharedViewModel.getIdiom().observe(getViewLifecycleOwner(), idioms -> {
             mAdapter.setData(idioms);
-
         });
     }
 }

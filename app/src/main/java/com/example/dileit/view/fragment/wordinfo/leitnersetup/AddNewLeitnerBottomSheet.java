@@ -1,19 +1,14 @@
 package com.example.dileit.view.fragment.wordinfo.leitnersetup;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
@@ -23,8 +18,8 @@ import com.example.dileit.viewmodel.SharedViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.tabs.TabLayout;
 
-public class AddNewLeitnerDialog extends BottomSheetDialogFragment {
-    private final String TAG = AddNewLeitnerDialog.class.getSimpleName();
+public class AddNewLeitnerBottomSheet extends BottomSheetDialogFragment {
+    private final String TAG = AddNewLeitnerBottomSheet.class.getSimpleName();
     private SharedViewModel mSharedViewModel;
     private String title;
     private TextView tvTitle;

@@ -1,7 +1,6 @@
-package com.example.dileit.view.fragment;
+package com.example.dileit.view.fragment.wordinfo;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,7 +21,6 @@ import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
-import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.FragmentWordInformationBinding;
 import com.example.dileit.model.Idiom;
 import com.example.dileit.model.TranslationWord;
@@ -31,10 +29,7 @@ import com.example.dileit.model.WordInformation;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.model.entity.WordHistory;
 import com.example.dileit.view.adapter.viewpager.WordsInformationViewPagerAdapter;
-import com.example.dileit.view.fragment.wordinfo.EnglishTranslatedFragment;
-import com.example.dileit.view.fragment.wordinfo.TranslationFragment;
-import com.example.dileit.view.fragment.wordinfo.RelatedIdiomsFragment;
-import com.example.dileit.view.fragment.wordinfo.leitnersetup.AddNewLeitnerDialog;
+import com.example.dileit.view.fragment.wordinfo.leitnersetup.AddNewLeitnerBottomSheet;
 import com.example.dileit.viewmodel.EnglishDictionaryViewModel;
 import com.example.dileit.viewmodel.InternalViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
@@ -206,7 +201,7 @@ public class WordInformationFragment extends Fragment {
                 for (TranslationWord word : wordList){
                     builderTranslation.append(word.getTranslatedWord()).append(",");
                 }
-                AddNewLeitnerDialog dialog = new AddNewLeitnerDialog();
+                AddNewLeitnerBottomSheet dialog = new AddNewLeitnerBottomSheet();
                 dialog.show(getChildFragmentManager(), "tag_dialog_add_leitner");
                 String[] strings = new String[3];
                 strings[0] = actualWord;

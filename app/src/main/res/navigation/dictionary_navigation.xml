@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/wordInformationFragment"
-        android:name="com.example.dileit.view.fragment.WordInformationFragment"
+        android:name="com.example.dileit.view.fragment.wordinfo.WordInformationFragment"
         android:label="fragment_word_information"
         tools:layout="@layout/fragment_word_information" >
         <action

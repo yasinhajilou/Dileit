@@ -57,5 +57,12 @@ public class TranslationDialogFragment extends Fragment {
             translation = getArguments().getString(KeysValue.KEY_BUNDLE_WORD_TRANSLATION);
 
         mEditText.setText(translation);
+
+        mSharedViewModel.getCostumeCheck().observe(getViewLifecycleOwner() , aBoolean -> {
+            if (aBoolean)
+                mEditText.setEnabled(true);
+            else
+                mEditText.setEnabled(false);
+        });
     }
 }

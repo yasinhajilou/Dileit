@@ -5,8 +5,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +33,7 @@ public class AddNewLeitnerBottomSheet extends BottomSheetDialogFragment {
     private AddNewLeitnerViewPagerAdapter mAdapter;
     private String mainTranslation;
     private String secondTranslation;
+    private RadioButton rbCostume,rbDic;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +50,8 @@ public class AddNewLeitnerBottomSheet extends BottomSheetDialogFragment {
         edtGuide = view.findViewById(R.id.edt_dialog_guide);
         mPager = view.findViewById(R.id.view_pager_add_new_leitner);
         mTabLayout = view.findViewById(R.id.tab_add_new_leitner);
+        rbDic = view.findViewById(R.id.rb_dic_bottom_sheet);
+        rbCostume = view.findViewById(R.id.rb_costume_bottom_sheet);
         mPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mPager);
         return view;
@@ -63,15 +69,13 @@ public class AddNewLeitnerBottomSheet extends BottomSheetDialogFragment {
             mainTranslation = strings[1];
             secondTranslation = strings[2];
 
-            Log.d(TAG, "onViewCreated: " + strings[1]);
-            Log.d(TAG, "onViewCreated: " + strings[2]);
             mAdapter.addData("Translation" , TranslationDialogFragment.newInstance(mainTranslation));
             if (secondTranslation!=null){
                 mAdapter.addData("Second Translation" , TranslationDialogFragment.newInstance(secondTranslation));
             }
         });
 
-
+        rbCostume.setOnCheckedChangeListener((compoundButton, b) -> mSharedViewModel.setCostumeCheck(b));
 
     }
 }

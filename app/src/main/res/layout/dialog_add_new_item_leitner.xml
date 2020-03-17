@@ -39,14 +39,14 @@
                 android:checked="true"
                 android:fontFamily="@font/productsansregular"
                 android:layout_margin="4dp"
-                android:id="@+id/rb_dic"
+                android:id="@+id/rb_dic_bottom_sheet"
                 android:text="@string/from_dictionary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <RadioButton
                 android:fontFamily="@font/productsansregular"
                 android:layout_margin="4dp"
-                android:id="@+id/rb_costume"
+                android:id="@+id/rb_costume_bottom_sheet"
                 android:text="@string/costume_meaning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

@@ -15,6 +15,7 @@ import com.example.dileit.model.WordSearch;
 import java.util.List;
 
 public class SharedViewModel extends AndroidViewModel {
+
     private MutableLiveData<String> mActualWord;
     private MutableLiveData<WordInformation[]> mWordInformation;
     private MutableLiveData<List<TranslationWord>> mTranslationWord;
@@ -22,6 +23,7 @@ public class SharedViewModel extends AndroidViewModel {
     private MutableLiveData<List<WordSearch>> mAdvancedResult;
     private MutableLiveData<String> mVoiceWord;
     private MutableLiveData<String[]> mLeitnerItemData;
+    private MutableLiveData<Boolean> mCostumeCheck;
 
 
     public SharedViewModel(@NonNull Application application) {
@@ -33,6 +35,15 @@ public class SharedViewModel extends AndroidViewModel {
         mAdvancedResult = new MutableLiveData<>();
         mVoiceWord = new MutableLiveData<>();
         mLeitnerItemData = new MutableLiveData<>();
+        mCostumeCheck = new MutableLiveData<>();
+    }
+
+    public void setCostumeCheck(boolean costumeCheck){
+        mCostumeCheck.setValue(costumeCheck);
+    }
+
+    public LiveData<Boolean> getCostumeCheck(){
+        return mCostumeCheck;
     }
 
     public void setLeitnerItemData(String[] leitnerItemData) {
@@ -58,6 +69,7 @@ public class SharedViewModel extends AndroidViewModel {
     public LiveData<List<WordSearch>> getAdvancedRes(){
         return mAdvancedResult;
     }
+
     public MutableLiveData<List<Idiom>> getIdiom() {
         return mIdiom;
     }

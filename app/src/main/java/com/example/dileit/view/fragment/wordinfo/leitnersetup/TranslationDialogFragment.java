@@ -5,8 +5,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +23,17 @@ import com.example.dileit.viewmodel.SharedViewModel;
 public class TranslationDialogFragment extends Fragment {
     private SharedViewModel mSharedViewModel;
     private EditText mEditText;
+    private byte mHeader;
 
     public TranslationDialogFragment() {
         // Required empty public constructor
     }
 
-    public static TranslationDialogFragment newInstance(String s) {
+    public static TranslationDialogFragment newInstance(String s, byte header) {
         TranslationDialogFragment fragment = new TranslationDialogFragment();
         Bundle bundle = new Bundle();
         bundle.putString(KeysValue.KEY_BUNDLE_WORD_TRANSLATION, s);
+        bundle.putByte(KeysValue.KEY_BUNDLE_TRANS_HEADER, header);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -53,24 +58,42 @@ public class TranslationDialogFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         String translation = null;
 
-        if (getArguments() != null)
+        if (getArguments() != null) {
             translation = getArguments().getString(KeysValue.KEY_BUNDLE_WORD_TRANSLATION);
-
-        if (translation!=null){
-            mEditText.setText(translation);
+            mHeader = getArguments().getByte(KeysValue.KEY_BUNDLE_TRANS_HEADER);
         }
+
+        if (translation != null)
+            mEditText.setText(translation);
 
 
         String firstTranslation = translation;
-        mSharedViewModel.getCostumeCheck().observe(getViewLifecycleOwner() , aBoolean -> {
+        mSharedViewModel.getCostumeCheck().observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean)
                 mEditText.setEnabled(true);
-            else{
+            else {
                 mEditText.setEnabled(false);
-                mEditText.setText(firstTranslation.toString());
+                mEditText.setText(firstTranslation);
             }
+        });
 
-
+        mSharedViewModel.getSaveButtonCheck().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean){
+                    switch (mHeader){
+                        case 0 :
+                            Toast.makeText(getContext(), "Header is Empty!", Toast.LENGTH_SHORT).show();
+                            break;
+                        case 1:
+                            mSharedViewModel.setTranslation(mEditText.getText().toString());
+                            break;
+                        case 2:
+                            mSharedViewModel.setSecondTranslation(mEditText.getText().toString());
+                            break;
+                    }
+                }
+            }
         });
     }
 }

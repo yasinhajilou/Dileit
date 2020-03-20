@@ -12,6 +12,7 @@ import com.example.dileit.model.TranslationWord;
 import com.example.dileit.model.WordInformation;
 import com.example.dileit.model.WordSearch;
 
+import java.util.BitSet;
 import java.util.List;
 
 public class SharedViewModel extends AndroidViewModel {
@@ -24,7 +25,10 @@ public class SharedViewModel extends AndroidViewModel {
     private MutableLiveData<String> mVoiceWord;
     private MutableLiveData<String[]> mLeitnerItemData;
     private MutableLiveData<Boolean> mCostumeCheck;
+    private MutableLiveData<Boolean> mSaveBtnCheck;
 
+    private String translation;
+    private String secondTranslation;
 
     public SharedViewModel(@NonNull Application application) {
         super(application);
@@ -36,13 +40,43 @@ public class SharedViewModel extends AndroidViewModel {
         mVoiceWord = new MutableLiveData<>();
         mLeitnerItemData = new MutableLiveData<>();
         mCostumeCheck = new MutableLiveData<>();
+        mSaveBtnCheck = new MutableLiveData<>();
     }
 
-    public void setCostumeCheck(boolean costumeCheck){
+    public void setTranslation(String translation) {
+        this.translation = translation;
+    }
+
+    public void setSecondTranslation(String secondTranslation) {
+        this.secondTranslation = secondTranslation;
+    }
+
+    public String getTranslation() {
+        return translation;
+    }
+
+    public String getSecondTranslation() {
+        return secondTranslation;
+    }
+
+    public void resetTranslations() {
+        translation = null;
+        secondTranslation = null;
+    }
+
+    public void setSaveBtnCheck(boolean saveBtnCheck) {
+        mSaveBtnCheck.setValue(saveBtnCheck);
+    }
+
+    public LiveData<Boolean> getSaveButtonCheck() {
+        return mSaveBtnCheck;
+    }
+
+    public void setCostumeCheck(boolean costumeCheck) {
         mCostumeCheck.setValue(costumeCheck);
     }
 
-    public LiveData<Boolean> getCostumeCheck(){
+    public LiveData<Boolean> getCostumeCheck() {
         return mCostumeCheck;
     }
 
@@ -50,23 +84,23 @@ public class SharedViewModel extends AndroidViewModel {
         mLeitnerItemData.setValue(leitnerItemData);
     }
 
-    public void setVoiceWord(String s){
+    public void setVoiceWord(String s) {
         mVoiceWord.setValue(s);
     }
 
-    public LiveData<String> getVoiceWord(){
+    public LiveData<String> getVoiceWord() {
         return mVoiceWord;
     }
 
-    public void resetVoiceWord(){
+    public void resetVoiceWord() {
         mVoiceWord.setValue("");
     }
 
-    public void setAdvancedResult(List<WordSearch> advancedResult){
+    public void setAdvancedResult(List<WordSearch> advancedResult) {
         mAdvancedResult.setValue(advancedResult);
     }
 
-    public LiveData<List<WordSearch>> getAdvancedRes(){
+    public LiveData<List<WordSearch>> getAdvancedRes() {
         return mAdvancedResult;
     }
 
@@ -78,9 +112,10 @@ public class SharedViewModel extends AndroidViewModel {
         mIdiom.setValue(idiom);
     }
 
-    public void setWordInformation(WordInformation[] wordInformation){
+    public void setWordInformation(WordInformation[] wordInformation) {
         this.mWordInformation.setValue(wordInformation);
     }
+
     public MutableLiveData<WordInformation[]> getWordInformation() {
         return mWordInformation;
     }

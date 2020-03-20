@@ -26,7 +26,7 @@ public class Leitner {
 
     private long timeAdded;
 
-    public Leitner(int id, String word,String secondDef,String wordAct, String def,String guide, int state, int repeatCounter, long lastReviewTime, long timeAdded) {
+    public Leitner(int id, String word, String def,String secondDef,String wordAct,String guide, int state, int repeatCounter, long lastReviewTime, long timeAdded) {
         this.id = id;
         this.word = word;
         this.def = def;

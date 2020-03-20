@@ -16,7 +16,13 @@
     <string name="from_dictionary">from Dictionary</string>
     <string name="costume_meaning">Costume</string>
     <string name="guide">Add Guide:</string>
-    <string name="simple_sentence_which_helps_you_to_remember">Type here a guide to remember</string>
+    <string name="simple_sentence_which_helps_you_to_remember">Type here a guide to remember(Optional)</string>
     <string name="save">Save</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_new_word_or_phrase_in_leitner">Add new Customized word or phrase in Leitner</string>
+    <string name="word_or_phrase">word or phrase</string>
+    <string name="translation_or_definition">Translation or Definition</string>
 
 </resources>

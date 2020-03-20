@@ -1,12 +1,9 @@
 package com.example.dileit.view.fragment.wordinfo.leitnersetup;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -55,7 +52,7 @@ public class AddNewLeitnerBottomSheet extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_add_new_item_leitner, container, false);
+        View view = inflater.inflate(R.layout.bottom_sheet_add_new_leitner, container, false);
         tvTitle = view.findViewById(R.id.tv_title_dialog_add_leitner);
         edtGuide = view.findViewById(R.id.edt_dialog_guide);
         mButton = view.findViewById(R.id.btn_save_item_leitner);

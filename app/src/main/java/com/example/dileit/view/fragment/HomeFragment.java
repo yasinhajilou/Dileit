@@ -87,11 +87,9 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
         });
         mBinding.tvHomeWord.setOnClickListener(this::goToSearchView);
 
-        mBinding.fabAddLeitner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
+        mBinding.fabAddLeitner.setOnClickListener(view1 -> {
+            DialogAddCostumeLeitner dialogAddCostumeLeitner = new DialogAddCostumeLeitner();
+            dialogAddCostumeLeitner.show(getChildFragmentManager() , "tag_dialog_costume_leitner");
         });
     }
 

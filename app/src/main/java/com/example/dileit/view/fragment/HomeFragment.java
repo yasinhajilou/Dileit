@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -15,14 +16,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.speech.RecognizerIntent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
 import com.example.dileit.databinding.FragmentHomeBinding;
 import com.example.dileit.utils.JsonUtils;
+import com.example.dileit.view.activity.MainActivity;
 import com.example.dileit.view.adapter.recycler.WordHistoryRecyclerAdapter;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
 import com.example.dileit.viewmodel.InternalViewModel;
@@ -59,18 +65,20 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mBinding.nestedScrollView.scrollTo(0,0);
+
+        mBinding.nestedScrollView.scrollTo(0, 0);
         mBinding.rvWordHistory.setAdapter(mAdapter);
         mBinding.rvWordHistory.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        mViewModel.getAllWordHistory().observe(getViewLifecycleOwner() , wordHistories -> {
-            if (wordHistories.size()>0){
+        mViewModel.getAllWordHistory().observe(getViewLifecycleOwner(), wordHistories -> {
+            if (wordHistories.size() > 0) {
                 mBinding.tvWordHistoryInfo.setVisibility(View.GONE);
                 mBinding.rvWordHistory.setVisibility(View.VISIBLE);
                 mAdapter.setData(wordHistories);
-            }else {
+            } else {
                 mBinding.tvWordHistoryInfo.setVisibility(View.VISIBLE);
-                mBinding.rvWordHistory.setVisibility(View.GONE); }
+                mBinding.rvWordHistory.setVisibility(View.GONE);
+            }
         });
 
         mBinding.linearLayoutVoice.setOnClickListener(view12 -> {
@@ -89,8 +97,31 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
 
         mBinding.fabAddLeitner.setOnClickListener(view1 -> {
             DialogAddCostumeLeitner dialogAddCostumeLeitner = new DialogAddCostumeLeitner();
-            dialogAddCostumeLeitner.show(getChildFragmentManager() , "tag_dialog_costume_leitner");
+            dialogAddCostumeLeitner.show(getChildFragmentManager(), "tag_dialog_costume_leitner");
         });
+
+        mBinding.imgMenuBurgerHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popupMenu = new PopupMenu(view.getContext() , view);
+                MenuInflater menuInflater = new MenuInflater(view.getContext());
+                menuInflater.inflate(R.menu.menu_home , popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(HomeFragment.this::onOptionsItemSelected);
+                popupMenu.show();
+            }
+        });
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_action_leitner:
+                Toast.makeText(getContext(), "hi", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 
     @Override
@@ -110,15 +141,17 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
         }
     }
 
-    private void goToSearchView(View view){
+    private void goToSearchView(View view) {
         Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_wordSearchFragment);
     }
+
     @Override
     public void onItemClicked(String data, String actualWord) {
         JsonUtils jsonUtils = new JsonUtils();
         mSharedViewModel.setWordInformation(jsonUtils.getWordDefinition(data));
         Bundle bundle = new Bundle();
-        bundle.putString(KeysValue.KEY_BUNDLE_ACTUAL_WORD , actualWord.trim());
-        Navigation.findNavController(getView()).navigate(R.id.action_homeFragment_to_wordInformationFragment , bundle);
+        bundle.putString(KeysValue.KEY_BUNDLE_ACTUAL_WORD, actualWord.trim());
+        Navigation.findNavController(getView()).navigate(R.id.action_homeFragment_to_wordInformationFragment, bundle);
     }
+
 }

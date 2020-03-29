@@ -24,5 +24,6 @@
     <string name="add_new_word_or_phrase_in_leitner">Add new Customized word or phrase in Leitner</string>
     <string name="word_or_phrase">word or phrase</string>
     <string name="translation_or_definition">Translation or Definition</string>
+    <string name="leitner_manager">Leitner Manager</string>
 
 </resources>

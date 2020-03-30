@@ -20,16 +20,16 @@ import java.util.List;
 public class InternalRepository {
     private WordHistoryDao mDao;
     private LiveData<List<WordHistory>> mAllWordHistory;
-    private List<Leitner> mAllLeitnerItems;
+    private LiveData<List<Leitner>> mAllLeitnerItems;
     private LeitnerDao mLeitnerDao;
     private String TAG = InternalViewModel.class.getSimpleName();
-    private MutableLiveData<List<Leitner>> readyLeitnerItem;
 
     public InternalRepository(Context context) {
         InternalRoomDatabase database = InternalRoomDatabase.getInstance(context);
         mDao = database.mWordHistoryDao();
         mLeitnerDao = database.mLeitnerDao();
         mAllWordHistory = mDao.getAllWordHistory();
+        mAllLeitnerItems = mLeitnerDao.LEITNER_LIST();
     }
 
 
@@ -46,8 +46,8 @@ public class InternalRepository {
         return mLeitnerDao.leitnerInfoByWord(word);
     }
 
-    public void getAllLeitnerItems() {
-        new ReadAllLeitnerItems().execute();
+    public LiveData<List<Leitner>> getAllLeitnerItems() {
+        return mAllLeitnerItems;
     }
 
     //insert data
@@ -145,12 +145,4 @@ public class InternalRepository {
         }
     }
 
-    private class ReadAllLeitnerItems extends AsyncTask<List<Leitner> , Void ,Void>{
-
-        @Override
-        protected Void doInBackground(List<Leitner>... lists) {
-            mAllLeitnerItems = mLeitnerDao.LEITNER_LIST();
-            return null;
-        }
-    }
 }

@@ -9,7 +9,6 @@ public class TimeUtils {
 
     public static long getHoursBetweenTimeStamps(long start , long end){
         long diff = end - start;
-        long diffDays = diff / (24 * 60 * 60 * 1000);
         long remain = diff % (24 * 60 * 60 * 1000);
         return remain / (60 * 60 * 1000);
     }

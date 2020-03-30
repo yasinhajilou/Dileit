@@ -20,7 +20,7 @@ public interface LeitnerDao {
     @Delete
     int delete(Leitner leitner);
     @Query("SELECT * FROM  Leitner")
-    List<Leitner> LEITNER_LIST();
+    LiveData<List<Leitner>> LEITNER_LIST();
     @Query("SELECT * FROM Leitner WHERE word LIKE :word")
     LiveData<Leitner> leitnerInfoByWord(String word);
 }

@@ -1,15 +1,20 @@
 package com.example.dileit.view.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.dileit.R;
+import com.example.dileit.view.fragment.HomeFragment;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements HomeFragment.OnReviewLeitnerInterface {
     private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
@@ -28,4 +33,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void nextActivity() {
+        Intent intent = new Intent(MainActivity.this , ReviewLeitnerActivity.class);
+        startActivity(intent);
+    }
 }

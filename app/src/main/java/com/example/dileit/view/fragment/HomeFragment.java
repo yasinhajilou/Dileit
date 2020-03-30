@@ -2,12 +2,12 @@ package com.example.dileit.view.fragment;
 
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.speech.RecognizerIntent;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,7 +26,6 @@ import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
 import com.example.dileit.databinding.FragmentHomeBinding;
 import com.example.dileit.utils.JsonUtils;
-import com.example.dileit.view.activity.MainActivity;
 import com.example.dileit.view.adapter.recycler.WordHistoryRecyclerAdapter;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
 import com.example.dileit.viewmodel.InternalViewModel;
@@ -43,6 +41,20 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
     private InternalViewModel mViewModel;
     private WordHistoryRecyclerAdapter mAdapter;
     private SharedViewModel mSharedViewModel;
+
+    private OnReviewLeitnerInterface mOnReviewLeitnerInterface;
+
+    public interface OnReviewLeitnerInterface {
+         void nextActivity();
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof OnReviewLeitnerInterface){
+            mOnReviewLeitnerInterface = (OnReviewLeitnerInterface) context;
+        }
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -109,6 +121,13 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
                 popupMenu.show();
             }
         });
+
+        mBinding.btnReviewLeitner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mOnReviewLeitnerInterface.nextActivity();
+            }
+        });
     }
 
 
@@ -153,11 +172,13 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
         Navigation.findNavController(getView()).navigate(R.id.action_homeFragment_to_wordInformationFragment, bundle);
     }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mBinding = null;
     }
+
+
+
 
 }

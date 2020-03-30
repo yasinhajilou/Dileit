@@ -35,7 +35,7 @@ public class ReviewLeitnerActivity extends AppCompatActivity {
         mViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
 
         mAdapter = new LeitnerReviewViewPagerAdapter(getSupportFragmentManager());
-
+        mBinding.viewPagerReviewLeitner.setAdapter(mAdapter);
 
         mViewModel.getAllLeitnerItems().observe(this, leitnerList -> {
             List<Leitner> filteredList = LeitnerFilterUtils.getPreparedLeitnerItems(leitnerList);

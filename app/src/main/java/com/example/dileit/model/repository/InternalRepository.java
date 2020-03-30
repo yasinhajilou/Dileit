@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.dileit.model.dao.LeitnerDao;
 import com.example.dileit.model.dao.WordHistoryDao;
@@ -19,8 +20,10 @@ import java.util.List;
 public class InternalRepository {
     private WordHistoryDao mDao;
     private LiveData<List<WordHistory>> mAllWordHistory;
+    private List<Leitner> mAllLeitnerItems;
     private LeitnerDao mLeitnerDao;
     private String TAG = InternalViewModel.class.getSimpleName();
+    private MutableLiveData<List<Leitner>> readyLeitnerItem;
 
     public InternalRepository(Context context) {
         InternalRoomDatabase database = InternalRoomDatabase.getInstance(context);
@@ -39,10 +42,13 @@ public class InternalRepository {
         return mDao.getWordInformation(word);
     }
 
-    public LiveData<Leitner> getLeitnerInfoByWord(String word){
+    public LiveData<Leitner> getLeitnerInfoByWord(String word) {
         return mLeitnerDao.leitnerInfoByWord(word);
     }
 
+    public void getAllLeitnerItems() {
+        new ReadAllLeitnerItems().execute();
+    }
 
     //insert data
     public void insertWordHistory(int leitnerId, Long time, String word, String wordDef) {
@@ -65,7 +71,7 @@ public class InternalRepository {
 
 
     //Delete Item
-    public void deleteLeitnerItem(Leitner leitner){
+    public void deleteLeitnerItem(Leitner leitner) {
         new DeleteLeitnerItem().execute(leitner);
     }
 
@@ -74,7 +80,7 @@ public class InternalRepository {
     private class InsertLeitnerItem extends AsyncTask<Leitner, Void, Long> {
         InternalInterface mInterface;
 
-         InsertLeitnerItem(InternalInterface anInterface) {
+        InsertLeitnerItem(InternalInterface anInterface) {
             mInterface = anInterface;
         }
 
@@ -129,12 +135,21 @@ public class InternalRepository {
         }
     }
 
-    private class DeleteLeitnerItem extends AsyncTask<Leitner , Void , Void>{
+    private class DeleteLeitnerItem extends AsyncTask<Leitner, Void, Void> {
 
         @Override
         protected Void doInBackground(Leitner... leitners) {
             long id = mLeitnerDao.delete(leitners[0]);
-            Log.d(TAG, "doInBackground: " + id );
+            Log.d(TAG, "doInBackground: " + id);
+            return null;
+        }
+    }
+
+    private class ReadAllLeitnerItems extends AsyncTask<List<Leitner> , Void ,Void>{
+
+        @Override
+        protected Void doInBackground(List<Leitner>... lists) {
+            mAllLeitnerItems = mLeitnerDao.LEITNER_LIST();
             return null;
         }
     }

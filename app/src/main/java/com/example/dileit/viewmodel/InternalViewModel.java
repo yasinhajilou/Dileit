@@ -12,18 +12,19 @@ import com.example.dileit.model.entity.WordHistory;
 import com.example.dileit.model.repository.InternalRepository;
 import com.example.dileit.viewmodel.vminterface.InternalInterface;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class InternalViewModel extends AndroidViewModel implements InternalInterface {
     private InternalRepository mRepository;
     private LiveData<List<WordHistory>> mAllWordHistory;
-    private MutableLiveData<Long> mLeitenrItemid;
+    private MutableLiveData<Long> mLeitnerItemId;
 
     public InternalViewModel(@NonNull Application application) {
         super(application);
         mRepository = new InternalRepository(application);
         mAllWordHistory = mRepository.getAllWordHistory();
-        mLeitenrItemid = new MutableLiveData<>();
+        mLeitnerItemId = new MutableLiveData<>();
     }
 
 
@@ -46,14 +47,14 @@ public class InternalViewModel extends AndroidViewModel implements InternalInter
     }
 
     public LiveData<Long> getLeitnerAddedId() {
-        return mLeitenrItemid;
+        return mLeitnerItemId;
     }
 
     public LiveData<Leitner> getLeitnerInfoByWord(String word) {
         return mRepository.getLeitnerInfoByWord(word);
     }
 
-    public LiveData<List<Leitner>> getAllLeitnerItems(){
+    public LiveData<LinkedList<Leitner>> getAllLeitnerItems(){
        return mRepository.getAllLeitnerItems();
     }
 
@@ -73,7 +74,7 @@ public class InternalViewModel extends AndroidViewModel implements InternalInter
 
     @Override
     public void onLeitnerAdded(long id) {
-        mLeitenrItemid.setValue(id);
+        mLeitnerItemId.setValue(id);
     }
 
 

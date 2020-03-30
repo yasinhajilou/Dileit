@@ -15,12 +15,13 @@ import com.example.dileit.model.entity.WordHistory;
 import com.example.dileit.viewmodel.InternalViewModel;
 import com.example.dileit.viewmodel.vminterface.InternalInterface;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class InternalRepository {
     private WordHistoryDao mDao;
     private LiveData<List<WordHistory>> mAllWordHistory;
-    private LiveData<List<Leitner>> mAllLeitnerItems;
+    private LiveData<LinkedList<Leitner>> mAllLeitnerItems;
     private LeitnerDao mLeitnerDao;
     private String TAG = InternalViewModel.class.getSimpleName();
 
@@ -46,9 +47,10 @@ public class InternalRepository {
         return mLeitnerDao.leitnerInfoByWord(word);
     }
 
-    public LiveData<List<Leitner>> getAllLeitnerItems() {
+    public LiveData<LinkedList<Leitner>> getAllLeitnerItems() {
         return mAllLeitnerItems;
     }
+
 
     //insert data
     public void insertWordHistory(int leitnerId, Long time, String word, String wordDef) {

@@ -9,6 +9,7 @@ import androidx.room.Update;
 
 import com.example.dileit.model.entity.Leitner;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Dao
@@ -20,7 +21,7 @@ public interface LeitnerDao {
     @Delete
     int delete(Leitner leitner);
     @Query("SELECT * FROM  Leitner")
-    LiveData<List<Leitner>> LEITNER_LIST();
+    LiveData<LinkedList<Leitner>> LEITNER_LIST();
     @Query("SELECT * FROM Leitner WHERE word LIKE :word")
     LiveData<Leitner> leitnerInfoByWord(String word);
 }

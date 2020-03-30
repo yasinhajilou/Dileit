@@ -96,4 +96,5 @@ public class AddNewLeitnerBottomSheet extends BottomSheetDialogFragment {
             dismiss();
         });
     }
+
 }

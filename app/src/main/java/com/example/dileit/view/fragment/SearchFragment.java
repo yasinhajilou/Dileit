@@ -153,19 +153,23 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         JsonUtils jsonUtils = new JsonUtils();
         mSharedViewModel.setWordInformation(jsonUtils.getWordDefinition(data));
         Bundle bundle = new Bundle();
-        bundle.putString(KeysValue.KEY_BUNDLE_ACTUAL_WORD , actualWord.trim());
+        bundle.putString(KeysValue.KEY_BUNDLE_ACTUAL_WORD, actualWord.trim());
 
-        Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment , bundle);
+        Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment, bundle);
         mInternalViewModel.insertWordHistory(0, System.currentTimeMillis(), actualWord.trim(), data);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
+        super.onDestroyView();
+        mBinding = null;
+
         mAdvancedDictionaryViewModel.resetListData();
         mSharedViewModel.resetVoiceWord();
-        if (mSnackbar!=null){
-            if (mSnackbar.isShown()){
+        if (mSnackbar != null) {
+            if (mSnackbar.isShown()) {
                 mSnackbar.dismiss();
             }
         }

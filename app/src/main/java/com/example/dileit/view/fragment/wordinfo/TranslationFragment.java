@@ -52,4 +52,10 @@ public class TranslationFragment extends Fragment {
             adapter.setData(translationWords);
         });
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mBinding = null;
+    }
 }

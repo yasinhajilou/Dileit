@@ -153,4 +153,11 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
         Navigation.findNavController(getView()).navigate(R.id.action_homeFragment_to_wordInformationFragment, bundle);
     }
 
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mBinding = null;
+    }
+
 }

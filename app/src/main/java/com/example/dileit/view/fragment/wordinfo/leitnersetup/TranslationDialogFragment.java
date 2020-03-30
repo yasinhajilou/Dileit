@@ -96,4 +96,6 @@ public class TranslationDialogFragment extends Fragment {
             }
         });
     }
+
+
 }

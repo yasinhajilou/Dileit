@@ -55,4 +55,10 @@ public class RelatedIdiomsFragment extends Fragment {
             mAdapter.setData(idioms);
         });
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mBinding = null;
+    }
 }

@@ -70,4 +70,10 @@ public class DialogAddCostumeLeitner extends BottomSheetDialogFragment {
             }
         });
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mBinding = null;
+    }
 }

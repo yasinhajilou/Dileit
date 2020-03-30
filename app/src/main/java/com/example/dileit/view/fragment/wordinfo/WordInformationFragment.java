@@ -398,6 +398,7 @@ public class WordInformationFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        mBinding = null;
         Log.d(TAG, "onDestroyView: ");
     }
 }

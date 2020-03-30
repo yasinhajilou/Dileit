@@ -29,11 +29,11 @@ public class ReviewLeitnerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_review_leitner);
+        mBinding = ActivityReviewLeitnerBinding.inflate(getLayoutInflater());
+        setContentView(mBinding.getRoot());
 
         mViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
 
-        mBinding = ActivityReviewLeitnerBinding.inflate(getLayoutInflater());
         mAdapter = new LeitnerReviewViewPagerAdapter(getSupportFragmentManager());
 
 

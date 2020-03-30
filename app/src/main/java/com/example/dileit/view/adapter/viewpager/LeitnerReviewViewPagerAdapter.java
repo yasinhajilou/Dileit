@@ -20,11 +20,17 @@ public class LeitnerReviewViewPagerAdapter extends FragmentStatePagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        return null;
+        return mFragments.get(position);
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return mFragments.size();
+    }
+
+
+    public void addData(List<Fragment> fragments){
+        mFragments.addAll(fragments);
+        notifyDataSetChanged();
     }
 }

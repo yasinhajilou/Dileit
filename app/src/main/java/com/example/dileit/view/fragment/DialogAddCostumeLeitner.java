@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
@@ -41,7 +40,7 @@ public class DialogAddCostumeLeitner extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_add_costume_leitner, container, false);
+        mBinding = BottomSheetAddCostumeLeitnerBinding.inflate(inflater,  container, false);
         return mBinding.getRoot();
     }
 

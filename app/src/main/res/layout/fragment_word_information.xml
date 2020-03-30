@@ -1,232 +1,225 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+    tools:context="com.example.dileit.view.fragment.wordinfo.WordInformationFragment">
 
-    <data>
-
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_word_info"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layoutDirection="rtl"
-        tools:context="com.example.dileit.view.fragment.wordinfo.WordInformationFragment">
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        android:layoutDirection="ltr"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar_word_info"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_word_info"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="8dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/itcavantgrade"
+                    android:text="@string/app_name"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/img_close_tool_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginRight="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_close_black_24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_word_info_header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_bar_word_info">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="8dp"
-            android:layoutDirection="ltr"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:orientation="vertical">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar_word_info"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:elevation="8dp">
+                android:layout_height="30dp"
+                android:layout_marginTop="8dp"
+                android:layoutDirection="ltr"
+                android:orientation="horizontal">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/img_british_pronounce"
+                    android:layout_width="12dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="8dp"
+                    android:src="@drawable/volumeup" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/itcavantgrade"
-                        android:text="@string/app_name"
-                        android:textColor="@android:color/white"
-                        android:textSize="20sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/tv_british_pronounce"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="6dp"
+                    android:fontFamily="@font/productsansregular"
+                    android:gravity="center"
+                    android:text="British"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
 
-                    <ImageView
-                        android:padding="12dp"
-                        android:id="@+id/img_close_tool_bar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_marginRight="8dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:src="@drawable/ic_close_black_24dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.appcompat.widget.Toolbar>
-        </com.google.android.material.appbar.AppBarLayout>
+                <ImageView
+                    android:id="@+id/imgAmericanPronounce"
+                    android:layout_width="12dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="24dp"
+                    android:src="@drawable/volumeup" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_word_info_header"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="8dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/app_bar_word_info">
+                <TextView
+                    android:id="@+id/tv_american_pronounce"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="6dp"
+                    android:fontFamily="@font/productsansregular"
+                    android:gravity="center"
+                    android:text="American"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_word_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/productsansregular"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                tools:text="Go" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="8dp"
-                    android:layoutDirection="ltr"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/img_british_pronounce"
-                        android:layout_width="12dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="8dp"
-                        android:src="@drawable/volumeup" />
-
-                    <TextView
-                        android:id="@+id/tv_british_pronounce"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="6dp"
-                        android:fontFamily="@font/productsansregular"
-                        android:gravity="center"
-                        android:text="British"
-                        android:textColor="@android:color/black"
-                        android:textSize="14sp" />
-
-                    <ImageView
-                        android:id="@+id/imgAmericanPronounce"
-                        android:layout_width="12dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="24dp"
-                        android:src="@drawable/volumeup" />
-
-                    <TextView
-                        android:id="@+id/tv_american_pronounce"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="6dp"
-                        android:fontFamily="@font/productsansregular"
-                        android:gravity="center"
-                        android:text="American"
-                        android:textColor="@android:color/black"
-                        android:textSize="14sp" />
-                </LinearLayout>
+                android:layoutDirection="ltr"
+                android:orientation="horizontal"
+                android:weightSum="5">
 
                 <TextView
-                    android:id="@+id/tv_word_title"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tv_pronounce_title"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="4dp"
-                    android:fontFamily="@font/productsansregular"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="4"
+                    android:paddingStart="10dp"
                     android:textColor="@android:color/black"
-                    android:textSize="20sp"
-                    tools:text="Go" />
+                    tools:text="hi" />
 
-                <LinearLayout
-                    android:layoutDirection="ltr"
-                    android:weightSum="5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        tools:text="hi"
-                        android:id="@+id/tv_pronounce_title"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="4"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:paddingStart="10dp"
-                        android:textColor="@android:color/black" />
-
-                    <androidx.appcompat.widget.AppCompatImageButton
-                        android:src="@drawable/leitner"
-                        android:scaleType="fitCenter"
-                        android:id="@+id/img_btn_add_to_leitner"
-                        android:textAllCaps="false"
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:textColor="@color/colorSecondary"
-                        android:text="Add to leitner"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"/>
-                </LinearLayout>
-
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/img_btn_add_to_leitner"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/leitner"
+                    android:text="Add to leitner"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorSecondary" />
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
 
-        <LinearLayout
-            android:id="@+id/linear_layout_tabs_chip"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="8dp"
-            android:layoutDirection="rtl"
-            android:orientation="horizontal"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_word_info_header">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chips_translated_only"
-                style="@style/Widget.MaterialComponents.Chip.Action"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:text=" فارسی "
-                android:textColor="@android:color/white"
-                app:chipBackgroundColor="@color/colorSecondary" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chips_idioms_only"
-                style="@style/Widget.MaterialComponents.Chip.Action"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_marginRight="12dp"
-                android:elevation="8dp"
-                android:text="اصطلاحات مرتبط"
-                android:visibility="gone"
-                app:chipBackgroundColor="@android:color/white" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chips_translated_english"
-                style="@style/Widget.MaterialComponents.Chip.Action"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_marginRight="12dp"
-                android:elevation="8dp"
-                android:text=" English "
-                app:chipBackgroundColor="@android:color/white" />
         </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/view_pager_word_info"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:layoutDirection="rtl"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linear_layout_tabs_chip" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+    <LinearLayout
+        android:id="@+id/linear_layout_tabs_chip"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="8dp"
+        android:layoutDirection="rtl"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_word_info_header">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chips_translated_only"
+            style="@style/Widget.MaterialComponents.Chip.Action"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:text=" فارسی "
+            android:textColor="@android:color/white"
+            app:chipBackgroundColor="@color/colorSecondary" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chips_idioms_only"
+            style="@style/Widget.MaterialComponents.Chip.Action"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="12dp"
+            android:elevation="8dp"
+            android:text="اصطلاحات مرتبط"
+            android:visibility="gone"
+            app:chipBackgroundColor="@android:color/white" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chips_translated_english"
+            style="@style/Widget.MaterialComponents.Chip.Action"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="12dp"
+            android:elevation="8dp"
+            android:text=" English "
+            app:chipBackgroundColor="@android:color/white" />
+    </LinearLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager_word_info"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layoutDirection="rtl"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear_layout_tabs_chip" />
+</androidx.constraintlayout.widget.ConstraintLayout>

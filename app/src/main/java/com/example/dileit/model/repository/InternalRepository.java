@@ -21,7 +21,7 @@ import java.util.List;
 public class InternalRepository {
     private WordHistoryDao mDao;
     private LiveData<List<WordHistory>> mAllWordHistory;
-    private LiveData<LinkedList<Leitner>> mAllLeitnerItems;
+    private LiveData<List<Leitner>> mAllLeitnerItems;
     private LeitnerDao mLeitnerDao;
     private String TAG = InternalViewModel.class.getSimpleName();
 
@@ -47,7 +47,7 @@ public class InternalRepository {
         return mLeitnerDao.leitnerInfoByWord(word);
     }
 
-    public LiveData<LinkedList<Leitner>> getAllLeitnerItems() {
+    public LiveData<List<Leitner>> getAllLeitnerItems() {
         return mAllLeitnerItems;
     }
 

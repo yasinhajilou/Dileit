@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
@@ -77,7 +76,7 @@ public class WordInformationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_word_information, container, false);
+        mBinding = FragmentWordInformationBinding.inflate(inflater,  container, false);
         chipPersian = mBinding.chipsTranslatedOnly;
         chipEnglish = mBinding.chipsTranslatedEnglish;
         chipIdioms = mBinding.chipsIdiomsOnly;

@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -62,7 +61,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_word_search, container, false);
+        mBinding = FragmentWordSearchBinding.inflate(inflater, container, false);
         Log.d(TAG, "onCreateView: ");
         return mBinding.getRoot();
     }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LeitnerFilterUtils {
-    public List<Leitner> getPreparedLeitnerItems(List<Leitner> leitnerList){
+    public static List<Leitner> getPreparedLeitnerItems(List<Leitner> leitnerList){
         List<Leitner> filteredList = new ArrayList<>();
         for (int i = leitnerList.size() ; i > 0 ; i--) {
 

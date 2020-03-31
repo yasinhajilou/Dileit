@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class LeitnerItemFragment extends Fragment {
-
+    private final String TAG = LeitnerItemFragment.class.getSimpleName();
     private FragmentLeitnerItemBinding mBinding;
     private int listId;
     private InternalViewModel mInternalViewModel;
@@ -58,9 +59,13 @@ public class LeitnerItemFragment extends Fragment {
             public void onChanged(List<Leitner> leitnerList) {
                 for (Leitner leitner :
                         leitnerList) {
-                    if (leitner.getId() == listId)
+                    if (leitner.getId() == listId){
                         mBinding.tvWordTitleReviewLeitner.setText(leitner.getWord());
-                    break;
+                        Log.d(TAG, "onChanged: list id " + leitner.getId());
+                        Log.d(TAG, "onChanged: passed id " + listId );
+                        break;
+                    }
+
                 }
             }
         });

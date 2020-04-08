@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
@@ -49,5 +50,18 @@ public class LeitnerItemTranslationViewPagerAdapter extends PagerAdapter {
         textView.setText(mStrings.get(position));
         container.addView(view);
         return view;
+    }
+
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+        switch (position){
+            case 0 :
+                return "Translation";
+            case 1:
+                return "Second Translation";
+            default:
+                return "Translation";
+        }
     }
 }

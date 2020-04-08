@@ -1,6 +1,7 @@
 package com.example.dileit.view.fragment.leitner;
 
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,9 +19,11 @@ import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
 import com.example.dileit.databinding.FragmentLeitnerItemBinding;
 import com.example.dileit.model.entity.Leitner;
+import com.example.dileit.view.adapter.viewpager.LeitnerItemTranslationViewPagerAdapter;
 import com.example.dileit.viewmodel.InternalViewModel;
 
 import java.lang.ref.PhantomReference;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,6 +35,15 @@ public class LeitnerItemFragment extends Fragment {
     private FragmentLeitnerItemBinding mBinding;
     private int listId;
     private InternalViewModel mInternalViewModel;
+    private InterfaceReviewButtonClickListener mListener;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof InterfaceReviewButtonClickListener) {
+            mListener = (InterfaceReviewButtonClickListener) context;
+        }
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,12 +71,35 @@ public class LeitnerItemFragment extends Fragment {
             public void onChanged(List<Leitner> leitnerList) {
                 for (Leitner leitner :
                         leitnerList) {
-                    if (leitner.getId() == listId){
+                    if (leitner.getId() == listId) {
                         mBinding.tvWordTitleReviewLeitner.setText(leitner.getWord());
+                        List<String> strings = new ArrayList<>();
+                        strings.add(leitner.getDef());
+                        if (leitner.getSecondDef() != null)
+                            strings.add(leitner.getSecondDef());
+                            mBinding.viewPagerLeitnerItemTranslation.setAdapter(new LeitnerItemTranslationViewPagerAdapter(view.getContext(), strings ));
+                            mBinding.tabReviewLeitner.setupWithViewPager(mBinding.viewPagerLeitnerItemTranslation);
                         break;
                     }
 
                 }
+            }
+        });
+
+
+        mBinding.layoutFirstReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mBinding.layoutFirstReview.setVisibility(View.GONE);
+                mBinding.layoutSecondReview.setVisibility(View.VISIBLE);
+            }
+        });
+
+
+        mBinding.btnReviewYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onYesClicked();
             }
         });
     }

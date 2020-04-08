@@ -61,8 +61,6 @@ public class LeitnerItemFragment extends Fragment {
                         leitnerList) {
                     if (leitner.getId() == listId){
                         mBinding.tvWordTitleReviewLeitner.setText(leitner.getWord());
-                        Log.d(TAG, "onChanged: list id " + leitner.getId());
-                        Log.d(TAG, "onChanged: passed id " + listId );
                         break;
                     }
 

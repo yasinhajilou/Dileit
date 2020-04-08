@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,9 +7,67 @@
     app:cardCornerRadius="16dp"
     tools:context=".view.fragment.leitner.LeitnerItemFragment">
 
+
+    <!--    first view for reviewing  -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:background="?attr/colorPrimary"
+        android:id="@+id/layout_first_review"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linear_layout_pronounce_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:layoutDirection="ltr"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/img_british_pronounce_leitner_rev"
+                android:layout_width="12dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/volumeup" />
+
+            <TextView
+                android:id="@+id/tv_british_pronounce_leitner_rev"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="6dp"
+                android:fontFamily="@font/productsansregular"
+                android:gravity="center"
+                android:text="British"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/img_american_pronounce_leitner_rev"
+                android:layout_width="12dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="24dp"
+                android:src="@drawable/volumeup" />
+
+            <TextView
+                android:id="@+id/tv_american_pronounce_leitner_rev"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="6dp"
+                android:fontFamily="@font/productsansregular"
+                android:gravity="center"
+                android:text="American"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_word_title_review_leitner"
@@ -19,89 +75,76 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/productsansregular"
             android:text="Banana"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="64sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- second view for viewing -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="gone"
+        android:id="@+id/layout_second_review"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_review_leitner"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="64dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:id="@+id/linear_layout_pronounce_bar"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager_leitner_item_translation"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/layout_review_leitner_controller"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tab_review_leitner"
+            app:layout_constraintVertical_weight="7" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_review_leitner_controller"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_pager_leitner_item_translation"
+            app:layout_constraintVertical_weight="1">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_review_no"
+                android:layout_marginStart="16dp"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginTop="8dp"
-                android:layoutDirection="ltr"
-                android:orientation="horizontal"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/img_british_pronounce_leitner_rev"
-                    android:layout_width="12dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="8dp"
-                    android:src="@drawable/volumeup" />
-
-                <TextView
-                    android:id="@+id/tv_british_pronounce_leitner_rev"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="6dp"
-                    android:fontFamily="@font/productsansregular"
-                    android:gravity="center"
-                    android:text="British"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:id="@+id/img_american_pronounce_leitner_rev"
-                    android:layout_width="12dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="24dp"
-                    android:src="@drawable/volumeup" />
-
-                <TextView
-                    android:id="@+id/tv_american_pronounce_leitner_rev"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="6dp"
-                    android:fontFamily="@font/productsansregular"
-                    android:gravity="center"
-                    android:text="American"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_review_leitner"
-                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linear_layout_pronounce_bar" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/view_pager_leitner_item_translation"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tab_review_leitner" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_review_yes"
+                android:layout_marginEnd="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

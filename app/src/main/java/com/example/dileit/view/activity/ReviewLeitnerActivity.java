@@ -24,6 +24,7 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
     InternalViewModel mViewModel;
     LeitnerReviewViewPagerAdapter mAdapter;
     ActivityReviewLeitnerBinding mBinding;
+    List<Fragment> fragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
 
         mViewModel.getAllLeitnerItems().observe(this, leitnerList -> {
             List<Leitner> filteredList = LeitnerUtils.getPreparedLeitnerItems(leitnerList);
-            List<Fragment> fragments = new ArrayList<>();
+            fragments = new ArrayList<>();
 
             for (int i = 0; i < filteredList.size(); i++) {
                 LeitnerItemFragment itemFragment = new LeitnerItemFragment();
@@ -53,11 +54,21 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
 
     @Override
     public void onYesClicked() {
-        Toast.makeText(this, "yes", Toast.LENGTH_SHORT).show();
+        handleNextItem();
     }
 
     @Override
     public void onNoClicked() {
+        handleNextItem();
+    }
 
+    private void handleNextItem(){
+        int nextItem = mBinding.viewPagerReviewLeitner.getCurrentItem()+1;
+        int listSize = fragments.size()-1;
+        if ( nextItem <= listSize ){
+            mBinding.viewPagerReviewLeitner.setCurrentItem(nextItem);
+        }else {
+            Toast.makeText(this, "finished", Toast.LENGTH_SHORT).show();
+        }
     }
 }

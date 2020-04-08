@@ -30,9 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class LeitnerItemFragment extends Fragment {
     private final String TAG = LeitnerItemFragment.class.getSimpleName();
     private FragmentLeitnerItemBinding mBinding;
@@ -113,6 +111,7 @@ public class LeitnerItemFragment extends Fragment {
                 else
                     Toast.makeText(view.getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
 
+                mInternalViewModel.updateLeitnerItem(mLeitner);
                 mListener.onYesClicked();
             }
         });
@@ -120,6 +119,7 @@ public class LeitnerItemFragment extends Fragment {
         mBinding.btnReviewNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mInternalViewModel.updateLeitnerItem(mLeitner);
                 mListener.onNoClicked();
             }
         });

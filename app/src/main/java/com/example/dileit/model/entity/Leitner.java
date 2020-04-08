@@ -40,6 +40,20 @@ public class Leitner {
     }
 
 
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public void setRepeatCounter(int repeatCounter) {
+        this.repeatCounter = repeatCounter;
+    }
+
+    public void setLastReviewTime(long lastReviewTime) {
+        this.lastReviewTime = lastReviewTime;
+    }
+
+
+
     public String getWordAct() {
         return wordAct;
     }

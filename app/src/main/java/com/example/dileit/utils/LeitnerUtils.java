@@ -6,7 +6,8 @@ import com.example.dileit.model.entity.Leitner;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LeitnerFilterUtils {
+public class LeitnerUtils {
+
     public static List<Leitner> getPreparedLeitnerItems(List<Leitner> leitnerList){
         List<Leitner> filteredList = new ArrayList<>();
         for (int i = leitnerList.size() ; i > 0 ; i--) {
@@ -42,5 +43,22 @@ public class LeitnerFilterUtils {
         }
 
         return filteredList;
+    }
+
+    public static int nextBoxFinder(int currentState){
+        switch (currentState){
+            case LeitnerStateConstant.BOX_ONE:
+                return LeitnerStateConstant.BOX_TWO;
+            case LeitnerStateConstant.BOX_TWO:
+                return LeitnerStateConstant.BOX_THREE;
+            case LeitnerStateConstant.BOX_THREE:
+                return LeitnerStateConstant.BOX_FOUR;
+            case LeitnerStateConstant.BOX_FOUR:
+                return LeitnerStateConstant.BOX_FIVE;
+            case LeitnerStateConstant.BOX_FIVE:
+                return LeitnerStateConstant.LEARNED;
+            default:
+                return -1;
+        }
     }
 }

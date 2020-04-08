@@ -14,11 +14,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
+import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.FragmentLeitnerItemBinding;
 import com.example.dileit.model.entity.Leitner;
+import com.example.dileit.utils.LeitnerUtils;
 import com.example.dileit.view.adapter.viewpager.LeitnerItemTranslationViewPagerAdapter;
 import com.example.dileit.viewmodel.InternalViewModel;
 
@@ -36,6 +39,7 @@ public class LeitnerItemFragment extends Fragment {
     private int listId;
     private InternalViewModel mInternalViewModel;
     private InterfaceReviewButtonClickListener mListener;
+    private Leitner mLeitner;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -77,8 +81,9 @@ public class LeitnerItemFragment extends Fragment {
                         strings.add(leitner.getDef());
                         if (leitner.getSecondDef() != null)
                             strings.add(leitner.getSecondDef());
-                            mBinding.viewPagerLeitnerItemTranslation.setAdapter(new LeitnerItemTranslationViewPagerAdapter(view.getContext(), strings ));
-                            mBinding.tabReviewLeitner.setupWithViewPager(mBinding.viewPagerLeitnerItemTranslation);
+                        mBinding.viewPagerLeitnerItemTranslation.setAdapter(new LeitnerItemTranslationViewPagerAdapter(view.getContext(), strings));
+                        mBinding.tabReviewLeitner.setupWithViewPager(mBinding.viewPagerLeitnerItemTranslation);
+                        mLeitner = leitner;
                         break;
                     }
 
@@ -92,6 +97,9 @@ public class LeitnerItemFragment extends Fragment {
             public void onClick(View view) {
                 mBinding.layoutFirstReview.setVisibility(View.GONE);
                 mBinding.layoutSecondReview.setVisibility(View.VISIBLE);
+                int currentRepeat = mLeitner.getRepeatCounter();
+                mLeitner.setRepeatCounter(++currentRepeat);
+                mLeitner.setLastReviewTime(System.currentTimeMillis());
             }
         });
 
@@ -99,7 +107,20 @@ public class LeitnerItemFragment extends Fragment {
         mBinding.btnReviewYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int nextBox = LeitnerUtils.nextBoxFinder(mLeitner.getState());
+                if (nextBox != -1)
+                    mLeitner.setState(nextBox);
+                else
+                    Toast.makeText(view.getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+
                 mListener.onYesClicked();
+            }
+        });
+
+        mBinding.btnReviewNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onNoClicked();
             }
         });
     }

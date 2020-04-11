@@ -333,17 +333,17 @@ public class WordInformationFragment extends Fragment {
     }
 
     private void undoIdiomChip() {
-        chipIdioms.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
+        chipIdioms.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorText)));
         chipIdioms.setTextColor(Color.BLACK);
     }
 
     private void undoPersianChip() {
-        chipPersian.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
+        chipPersian.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorText)));
         chipPersian.setTextColor(Color.BLACK);
     }
 
     private void undoEnglishChip() {
-        chipEnglish.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundWhite)));
+        chipEnglish.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorText)));
         chipEnglish.setTextColor(Color.BLACK);
     }
 

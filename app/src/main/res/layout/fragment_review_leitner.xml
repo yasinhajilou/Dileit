@@ -73,7 +73,6 @@
             android:fontFamily="@font/productsansregular"
             android:text="I didn't Know"
             android:textAllCaps="false"
-            app:backgroundTint="@color/colorBtnNot"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -85,7 +84,6 @@
             android:fontFamily="@font/productsansregular"
             android:text="I Knew"
             android:textAllCaps="false"
-            app:backgroundTint="@color/colorBtnOk"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -25,5 +25,7 @@
     <string name="word_or_phrase">word or phrase</string>
     <string name="translation_or_definition">Translation or Definition</string>
     <string name="leitner_manager">Leitner Manager</string>
+    <string name="know">know</string>
+    <string name="don_t_know">don\'t know</string>
 
 </resources>

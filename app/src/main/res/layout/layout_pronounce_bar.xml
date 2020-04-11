@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linear_layout_pronounce_bar"
+    android:layout_width="wrap_content"
+    android:layout_height="30dp"
+    android:layout_marginTop="?attr/actionBarSize"
+    android:layoutDirection="ltr"
+    android:orientation="horizontal">
+
+
+    <ImageView
+        android:id="@+id/img_british_pronounce_leitner_rev"
+        android:layout_width="12dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="8dp"
+        android:src="@drawable/volumeup" />
+
+    <TextView
+        android:id="@+id/tv_british_pronounce_leitner_rev"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="6dp"
+        android:fontFamily="@font/productsansregular"
+        android:gravity="center"
+        android:text="British"
+        android:textColor="@android:color/white"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/img_american_pronounce_leitner_rev"
+        android:layout_width="12dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="24dp"
+        android:src="@drawable/volumeup" />
+
+    <TextView
+        android:id="@+id/tv_american_pronounce_leitner_rev"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="6dp"
+        android:fontFamily="@font/productsansregular"
+        android:gravity="center"
+        android:text="American"
+        android:textColor="@android:color/white"
+        android:textSize="14sp" />
+</LinearLayout>

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#5D001E</color>
-    <color name="colorAccent">#C58595</color>
+    <color name="colorAccent">#ab422b </color>
     <color name="colorBackground">#E3E2DF</color>
-    <color name="colorBackgroundWhite">#FFFFFF</color>
+    <color name="colorText">#FFFFFF</color>
     <color name="colorSecondary">#123C69</color>
-    <color name="colorBtnNot">#263D3D</color>
-    <color name="colorBtnOk">#15C3C3</color>
+    <color name="colorTextTitle">#000000</color>
 </resources>

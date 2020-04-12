@@ -1,5 +1,6 @@
 package com.example.dileit.view.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -19,12 +20,14 @@ import com.example.dileit.viewmodel.InternalViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator;
+
 public class ReviewLeitnerActivity extends AppCompatActivity implements InterfaceReviewButtonClickListener {
 
-    InternalViewModel mViewModel;
-    LeitnerReviewViewPagerAdapter mAdapter;
-    ActivityReviewLeitnerBinding mBinding;
-    List<Fragment> fragments;
+    private InternalViewModel mViewModel;
+    private LeitnerReviewViewPagerAdapter mAdapter;
+    private ActivityReviewLeitnerBinding mBinding;
+    private List<Fragment> fragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,18 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
 
         mAdapter = new LeitnerReviewViewPagerAdapter(getSupportFragmentManager());
         mBinding.viewPagerReviewLeitner.setAdapter(mAdapter);
+
+
+        CircularProgressIndicator.ProgressTextAdapter progressTextAdapter = currentProgress -> {
+            int a = (int) currentProgress;
+            return a+"%";
+        };
+
+
+        mBinding.progressCircularReviewBar.setProgressTextAdapter(progressTextAdapter);
+        mBinding.progressCircularReviewBar.setShouldDrawDot(true);
+        mBinding.progressCircularReviewBar.setMaxProgress(100);
+        mBinding.progressCircularReviewBar.setCurrentProgress(47);
 
         mViewModel.getAllLeitnerItems().observe(this, leitnerList -> {
             List<Leitner> filteredList = LeitnerUtils.getPreparedLeitnerItems(leitnerList);

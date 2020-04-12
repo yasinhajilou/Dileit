@@ -48,7 +48,6 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
 
 
         mBinding.progressCircularReviewBar.setProgressTextAdapter(progressTextAdapter);
-        mBinding.progressCircularReviewBar.setShouldDrawDot(true);
         mBinding.progressCircularReviewBar.setMaxProgress(100);
         mBinding.progressCircularReviewBar.setCurrentProgress(47);
 

@@ -10,6 +10,7 @@
 
     <!--    first view for reviewing  -->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="gone"
         android:background="?attr/colorPrimary"
         android:id="@+id/layout_first_review"
         android:layout_width="0dp"
@@ -37,7 +38,7 @@
 
     <!-- second view for viewing -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:visibility="gone"
+        android:layout_marginTop="104dp"
         android:id="@+id/layout_second_review"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -46,16 +47,41 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.tabs.TabLayout
+        <com.google.android.material.card.MaterialCardView
+            android:layout_margin="16dp"
             app:layout_constraintBottom_toTopOf="@+id/view_pager_leitner_item_translation"
-            android:background="?attr/colorPrimary"
             android:id="@+id/tab_review_leitner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" >
+            <LinearLayout
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.button.MaterialButton
+                    android:text="English"
+                    android:textColor="?attr/colorAccent"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:fontFamily="@font/productsansregular"
+                    android:textAllCaps="false"
+                    android:layout_height="wrap_content"/>
+                <com.google.android.material.button.MaterialButton
+                    android:textAllCaps="false"
+                    android:fontFamily="@font/productsansregular"
+                    android:text="Persian"
+                    android:textColor="?attr/colorAccent"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager_leitner_item_translation"

@@ -80,7 +80,7 @@ public class LeitnerItemFragment extends Fragment {
                         if (leitner.getSecondDef() != null)
                             strings.add(leitner.getSecondDef());
                         mBinding.viewPagerLeitnerItemTranslation.setAdapter(new LeitnerItemTranslationViewPagerAdapter(view.getContext(), strings));
-                        mBinding.tabReviewLeitner.setupWithViewPager(mBinding.viewPagerLeitnerItemTranslation);
+//                        mBinding.tabReviewLeitner.setupWithViewPager(mBinding.viewPagerLeitnerItemTranslation);
                         mLeitner = leitner;
                         break;
                     }

@@ -27,5 +27,7 @@
     <string name="leitner_manager">Leitner Manager</string>
     <string name="know">know</string>
     <string name="don_t_know">don\'t know</string>
+    <string name="today_s_words">Today\'s words</string>
+    <string name="new_words">new words</string>
 
 </resources>

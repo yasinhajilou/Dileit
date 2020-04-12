@@ -35,17 +35,17 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.firebase:firebase-core:17.2.3'
+    implementation 'com.google.firebase:firebase-core:17.3.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     //material
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0'
 
     //navigation-java
-    implementation "androidx.navigation:navigation-fragment:2.2.0"
-    implementation "androidx.navigation:navigation-ui:2.2.0"
+    implementation "androidx.navigation:navigation-fragment:2.2.1"
+    implementation "androidx.navigation:navigation-ui:2.2.1"
 
     // Room components
     implementation "android.arch.persistence.room:runtime:2.2.0"
@@ -78,13 +78,15 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
 
     //Analystics
-    implementation 'com.google.firebase:firebase-analytics:17.2.2'
+    implementation 'com.google.firebase:firebase-analytics:17.3.0'
 
     //crashlystics
-    implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta01'
-
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta04'
 
     //ViewPager2
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
+
+    //Progress Bar
+    implementation 'com.emredavarci:CircleProgressBar:1.0.8'
 
 }

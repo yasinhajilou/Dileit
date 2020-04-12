@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class LeitnerItemFragment extends Fragment {
     private final String TAG = LeitnerItemFragment.class.getSimpleName();
     private FragmentLeitnerItemBinding mBinding;
@@ -38,6 +37,8 @@ public class LeitnerItemFragment extends Fragment {
     private InternalViewModel mInternalViewModel;
     private InterfaceReviewButtonClickListener mListener;
     private Leitner mLeitner;
+    private String mWord;
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -58,7 +59,6 @@ public class LeitnerItemFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         mBinding = FragmentLeitnerItemBinding.inflate(inflater, container, false);
         return mBinding.getRoot();
     }
@@ -74,13 +74,13 @@ public class LeitnerItemFragment extends Fragment {
                 for (Leitner leitner :
                         leitnerList) {
                     if (leitner.getId() == listId) {
-                        mBinding.tvWordTitleReviewLeitner.setText(leitner.getWord());
+                        mWord = leitner.getWord();
+                        mBinding.tvWordTitleReviewLeitner.setText(mWord);
                         List<String> strings = new ArrayList<>();
                         strings.add(leitner.getDef());
                         if (leitner.getSecondDef() != null)
                             strings.add(leitner.getSecondDef());
                         mBinding.viewPagerLeitnerItemTranslation.setAdapter(new LeitnerItemTranslationViewPagerAdapter(view.getContext(), strings));
-//                        mBinding.tabReviewLeitner.setupWithViewPager(mBinding.viewPagerLeitnerItemTranslation);
                         mLeitner = leitner;
                         break;
                     }
@@ -121,6 +121,34 @@ public class LeitnerItemFragment extends Fragment {
             public void onClick(View view) {
                 mInternalViewModel.updateLeitnerItem(mLeitner);
                 mListener.onNoClicked();
+            }
+        });
+
+        mBinding.tvBritishPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onBritishPronounce(mWord);
+            }
+        });
+
+        mBinding.tvAmericanPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onAmericanPronounce(mWord);
+            }
+        });
+
+        mBinding.imgAmericanPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onAmericanPronounce(mWord);
+            }
+        });
+
+        mBinding.imgBritishPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onBritishPronounce(mWord);
             }
         });
     }

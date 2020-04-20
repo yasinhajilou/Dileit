@@ -1,6 +1,7 @@
 package com.example.dileit.view.fragment.leitner;
 
 
+import android.animation.Animator;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -12,7 +13,9 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -31,6 +34,7 @@ import java.util.List;
 
 
 public class LeitnerItemFragment extends Fragment {
+
     private final String TAG = LeitnerItemFragment.class.getSimpleName();
     private FragmentLeitnerItemBinding mBinding;
     private int listId;
@@ -38,6 +42,8 @@ public class LeitnerItemFragment extends Fragment {
     private InterfaceReviewButtonClickListener mListener;
     private Leitner mLeitner;
     private String mWord;
+    private boolean isPageStartUp;
+    private boolean isHeaderOpen;
 
 
     @Override
@@ -90,14 +96,14 @@ public class LeitnerItemFragment extends Fragment {
         });
 
 
-        mBinding.layoutFirstReview.setOnClickListener(new View.OnClickListener() {
+        mBinding.layoutContainerReview.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                mBinding.layoutFirstReview.setVisibility(View.GONE);
-                mBinding.layoutSecondReview.setVisibility(View.VISIBLE);
+            public boolean onTouch(View view, MotionEvent motionEvent) {
                 int currentRepeat = mLeitner.getRepeatCounter();
                 mLeitner.setRepeatCounter(++currentRepeat);
                 mLeitner.setLastReviewTime(System.currentTimeMillis());
+                showSecondView((int) motionEvent.getX(), (int) motionEvent.getY());
+                return false;
             }
         });
 
@@ -153,9 +159,40 @@ public class LeitnerItemFragment extends Fragment {
         });
     }
 
+
+    //Handle view visibility witch circular animation
+    private void showSecondView(int x, int y) {
+
+        //start from center
+        int startRadius = 0;
+
+        // get the final radius for the clipping circle which is layoutMain whole size
+        int finalRadius = Math.max(mBinding.layoutContainerReview.getWidth(), mBinding.layoutContainerReview.getHeight());
+
+        // create the animator for this view (the start radius is zero)
+        Animator anim =
+                null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            anim = ViewAnimationUtils.createCircularReveal(mBinding.layoutSecondReview, x, y, startRadius, finalRadius);
+        }
+
+
+        // make the view visible and start the animation
+        mBinding.layoutSecondReview.setVisibility(View.VISIBLE);
+
+
+        anim.start();
+
+        isHeaderOpen = true;
+
+
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mBinding = null;
     }
+
+
 }

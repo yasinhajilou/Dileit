@@ -15,7 +15,7 @@ public class LeitnerUtils {
             Leitner currentItem = leitnerList.get(i-1);
             int currentState = currentItem.getState();
 
-            if (currentState == LeitnerStateConstant.BOX_ONE){
+            if (currentState == LeitnerStateConstant.BOX_ONE || currentState == LeitnerStateConstant.STARTED){
                 filteredList.add(currentItem);
             }else{
                 long startTime = currentItem.getLastReviewTime();
@@ -23,7 +23,6 @@ public class LeitnerUtils {
                 long spaceTime = TimeUtils.getDaysBetweenTimestamps(startTime , endTime);
 
                 if (currentState == LeitnerStateConstant.BOX_TWO && spaceTime>=2){
-
                     filteredList.add(currentItem);
                 }else {
 
@@ -47,6 +46,7 @@ public class LeitnerUtils {
 
     public static int nextBoxFinder(int currentState){
         switch (currentState){
+            case LeitnerStateConstant.STARTED:
             case LeitnerStateConstant.BOX_ONE:
                 return LeitnerStateConstant.BOX_TWO;
             case LeitnerStateConstant.BOX_TWO:

@@ -391,7 +391,18 @@ public class WordInformationFragment extends Fragment {
 
     @Override
     public void onDestroy() {
+        if(mTextToSpeechUK != null){
+
+            mTextToSpeechUK.stop();
+            mTextToSpeechUK.shutdown();
+        }
+        if(mTextToSpeechUS != null){
+
+            mTextToSpeechUS.stop();
+            mTextToSpeechUS.shutdown();
+        }
         super.onDestroy();
+
         Log.d(TAG, "onDestroy: ");
     }
 

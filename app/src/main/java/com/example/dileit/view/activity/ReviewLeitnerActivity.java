@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.animation.Animator;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.Toast;
 
 import com.example.dileit.constant.KeysValue;
@@ -38,6 +41,10 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
 
     private int a, b = 0;
 
+    private float percentageProgress;
+
+    private boolean isStartUp = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,20 +65,25 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
 
         mBinding.progressCircularReviewBar.setProgressTextAdapter(progressTextAdapter);
         mBinding.progressCircularReviewBar.setMaxProgress(100);
-        mBinding.progressCircularReviewBar.setCurrentProgress(47);
+        mBinding.progressCircularReviewBar.setCurrentProgress(0);
 
         mViewModel.getAllLeitnerItems().observe(this, leitnerList -> {
-            List<Leitner> filteredList = LeitnerUtils.getPreparedLeitnerItems(leitnerList);
-            fragments = new ArrayList<>();
+            if (isStartUp){
+                List<Leitner> filteredList = LeitnerUtils.getPreparedLeitnerItems(leitnerList);
+                fragments = new ArrayList<>();
 
-            for (int i = 0; i < filteredList.size(); i++) {
-                LeitnerItemFragment itemFragment = new LeitnerItemFragment();
-                Bundle bundle = new Bundle();
-                bundle.putInt(KeysValue.KEY_BUNDLE_LEITNER_ITEM_ID, filteredList.get(i).getId());
-                itemFragment.setArguments(bundle);
-                fragments.add(itemFragment);
+                for (int i = 0; i < filteredList.size(); i++) {
+                    LeitnerItemFragment itemFragment = new LeitnerItemFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(KeysValue.KEY_BUNDLE_LEITNER_ITEM_ID, filteredList.get(i).getId());
+                    itemFragment.setArguments(bundle);
+                    fragments.add(itemFragment);
+                }
+                mBinding.tvReviewCountToday.setText(String.valueOf(fragments.size()));
+                mAdapter.addData(fragments);
+                isStartUp= false;
             }
-            mAdapter.addData(fragments);
+
         });
 
         mTextToSpeechUK = new TextToSpeech(this, i -> {
@@ -126,11 +138,17 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
     private void handleNextItem() {
         int nextItem = mBinding.viewPagerReviewLeitner.getCurrentItem() + 1;
         int listSize = fragments.size() - 1;
+        float a = mBinding.viewPagerReviewLeitner.getCurrentItem() + 1;
+        float num = a / fragments.size();
+        percentageProgress = num * 100;
+        mBinding.progressCircularReviewBar.setCurrentProgress(percentageProgress);
         if (nextItem <= listSize) {
             mBinding.viewPagerReviewLeitner.setCurrentItem(nextItem);
         } else {
             Toast.makeText(this, "finished", Toast.LENGTH_SHORT).show();
         }
+        mBinding.tvReviewCountToday.setText(String.valueOf(fragments.size()- nextItem));
+
     }
 
     private void speakUS(String text) {
@@ -157,4 +175,22 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
         mTextToSpeechUK.setLanguage(Locale.UK);
         mTextToSpeechUK.speak(text, TextToSpeech.QUEUE_FLUSH, null);
     }
+
+
+    @Override
+    public void onDestroy() {
+        if(mTextToSpeechUK != null){
+
+            mTextToSpeechUK.stop();
+            mTextToSpeechUK.shutdown();
+        }
+        if(mTextToSpeechUS != null){
+
+            mTextToSpeechUS.stop();
+            mTextToSpeechUS.shutdown();
+        }
+        super.onDestroy();
+    }
+
+
 }

@@ -328,6 +328,7 @@
         android:layout_margin="8dp"
         android:elevation="8dp"
         android:src="@drawable/ic_add_black_24dp"
+        app:tint="@android:color/white"
         app:backgroundTint="@color/colorPrimary"
         app:elevation="8dp" />
 

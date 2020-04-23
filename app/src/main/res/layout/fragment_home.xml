@@ -68,6 +68,7 @@
             android:background="@drawable/backgroundbelowtool">
 
             <com.google.android.material.button.MaterialButton
+                android:focusableInTouchMode="true"
                 android:id="@+id/btn_review_leitner"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"

@@ -3,8 +3,10 @@ package com.example.dileit.model.entity;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Comparator;
+
 @Entity
-public class Leitner {
+public class Leitner implements Comparable {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
@@ -26,7 +28,7 @@ public class Leitner {
 
     private long timeAdded;
 
-    public Leitner(int id, String word, String def,String secondDef,String wordAct,String guide, int state, int repeatCounter, long lastReviewTime, long timeAdded) {
+    public Leitner(int id, String word, String def, String secondDef, String wordAct, String guide, int state, int repeatCounter, long lastReviewTime, long timeAdded) {
         this.id = id;
         this.word = word;
         this.def = def;
@@ -51,7 +53,6 @@ public class Leitner {
     public void setLastReviewTime(long lastReviewTime) {
         this.lastReviewTime = lastReviewTime;
     }
-
 
 
     public String getWordAct() {
@@ -92,5 +93,12 @@ public class Leitner {
 
     public String getGuide() {
         return guide;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Leitner leitner = (Leitner) o;
+        //we want to show smaller number(data) at first
+        return Integer.compare(leitner.getState(), this.state) * -1;
     }
 }

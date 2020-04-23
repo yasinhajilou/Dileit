@@ -4,6 +4,8 @@ import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.model.entity.Leitner;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class LeitnerUtils {
@@ -40,7 +42,7 @@ public class LeitnerUtils {
                 }
             }
         }
-
+        Collections.sort(filteredList);
         return filteredList;
     }
 

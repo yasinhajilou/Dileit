@@ -105,6 +105,8 @@ public class LeitnerItemFragment extends Fragment {
                 showSecondView((int) motionEvent.getX(), (int) motionEvent.getY());
                 return false;
             }
+
+
         });
 
 
@@ -125,6 +127,9 @@ public class LeitnerItemFragment extends Fragment {
         mBinding.btnReviewNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (mLeitner.getState() == LeitnerStateConstant.STARTED)
+                    mLeitner.setState(LeitnerStateConstant.BOX_ONE);
+
                 mInternalViewModel.updateLeitnerItem(mLeitner);
                 mListener.onNoClicked();
             }

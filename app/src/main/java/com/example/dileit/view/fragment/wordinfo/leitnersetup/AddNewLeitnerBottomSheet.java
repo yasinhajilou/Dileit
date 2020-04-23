@@ -90,7 +90,7 @@ public class AddNewLeitnerBottomSheet extends BottomSheetDialogFragment {
 
 
             Leitner leitner = new Leitner(0, title, mSharedViewModel.getTranslation(), mSharedViewModel.getSecondTranslation(),
-                    "bug", edtGuide.getText().toString(), LeitnerStateConstant.BOX_ONE, 0, 0, System.currentTimeMillis());
+                    "bug", edtGuide.getText().toString(), LeitnerStateConstant.STARTED, 0, 0, System.currentTimeMillis());
             mInternalViewModel.insertLeitnerItem(leitner);
             Toast.makeText(view1.getContext(), "Added To leitner!", Toast.LENGTH_SHORT).show();
             dismiss();

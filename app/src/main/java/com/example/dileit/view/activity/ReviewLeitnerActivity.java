@@ -14,6 +14,7 @@ import android.view.ViewAnimationUtils;
 import android.widget.Toast;
 
 import com.example.dileit.constant.KeysValue;
+import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.ActivityReviewLeitnerBinding;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.utils.LeitnerUtils;
@@ -44,6 +45,7 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
     private float percentageProgress;
 
     private boolean isStartUp = true;
+    private int newWords = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +80,11 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
                     bundle.putInt(KeysValue.KEY_BUNDLE_LEITNER_ITEM_ID, filteredList.get(i).getId());
                     itemFragment.setArguments(bundle);
                     fragments.add(itemFragment);
+                    if (filteredList.get(i).getState() == LeitnerStateConstant.STARTED)
+                        newWords++;
+
                 }
+                mBinding.tvReviewCountNew.setText(String.valueOf(newWords));
                 mBinding.tvReviewCountToday.setText(String.valueOf(fragments.size()));
                 mAdapter.addData(fragments);
                 isStartUp= false;

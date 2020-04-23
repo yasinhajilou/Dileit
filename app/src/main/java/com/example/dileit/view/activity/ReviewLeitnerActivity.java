@@ -154,7 +154,8 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
             Toast.makeText(this, "finished", Toast.LENGTH_SHORT).show();
         }
         mBinding.tvReviewCountToday.setText(String.valueOf(fragments.size()- nextItem));
-
+        if (--newWords >= 0)
+            mBinding.tvReviewCountNew.setText(String.valueOf(newWords));
     }
 
     private void speakUS(String text) {

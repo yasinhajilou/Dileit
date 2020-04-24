@@ -50,7 +50,7 @@ public class LeitnerItemFragment extends Fragment {
     private Leitner mLeitner;
     private String mWord;
     private boolean isPageStartUp;
-    private boolean isHeaderOpen;
+    private boolean isHeaderOpen = true;
 
 
     @Override
@@ -93,6 +93,9 @@ public class LeitnerItemFragment extends Fragment {
                         strings.add(leitner.getDef());
                         if (leitner.getSecondDef() != null)
                             strings.add(leitner.getSecondDef());
+                        else
+                            mBinding.btnTabEnglishTrans.setVisibility(View.GONE);
+
                         mBinding.viewPagerLeitnerItemTranslation.setAdapter(new LeitnerItemTranslationViewPagerAdapter(view.getContext(), strings));
                         mLeitner = leitner;
                         break;
@@ -103,6 +106,19 @@ public class LeitnerItemFragment extends Fragment {
         });
 
 
+        mBinding.btnTabTranslation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mBinding.viewPagerLeitnerItemTranslation.setCurrentItem(0);
+            }
+        });
+
+        mBinding.btnTabEnglishTrans.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mBinding.viewPagerLeitnerItemTranslation.setCurrentItem(1);
+            }
+        });
         mBinding.layoutContainerReview.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -177,27 +193,30 @@ public class LeitnerItemFragment extends Fragment {
     //Handle view visibility witch circular animation
     private void showSecondView(int x, int y) {
 
-        //start from center
-        int startRadius = 0;
+        if (isHeaderOpen) {
+            //start from center
+            int startRadius = 0;
 
-        // get the final radius for the clipping circle which is layoutMain whole size
-        int finalRadius = Math.max(mBinding.layoutContainerReview.getWidth(), mBinding.layoutContainerReview.getHeight());
+            // get the final radius for the clipping circle which is layoutMain whole size
+            int finalRadius = Math.max(mBinding.layoutContainerReview.getWidth(), mBinding.layoutContainerReview.getHeight());
 
-        // create the animator for this view (the start radius is zero)
-        Animator anim =
-                null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            anim = ViewAnimationUtils.createCircularReveal(mBinding.layoutSecondReview, x, y, startRadius, finalRadius);
+            // create the animator for this view (the start radius is zero)
+            Animator anim =
+                    null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                anim = ViewAnimationUtils.createCircularReveal(mBinding.layoutSecondReview, x, y, startRadius, finalRadius);
+            }
+
+
+            // make the view visible and start the animation
+            mBinding.layoutSecondReview.setVisibility(View.VISIBLE);
+
+
+            anim.start();
+
+            isHeaderOpen = false;
+
         }
-
-
-        // make the view visible and start the animation
-        mBinding.layoutSecondReview.setVisibility(View.VISIBLE);
-
-
-        anim.start();
-
-        isHeaderOpen = true;
 
 
     }

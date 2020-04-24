@@ -67,7 +67,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <com.google.android.material.button.MaterialButton
-                    android:text="English"
+                    android:id="@+id/btn_tab_translation"
+                    android:text="@string/translation"
                     android:textColor="?attr/colorAccent"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_weight="1"
@@ -76,9 +77,10 @@
                     android:textAllCaps="false"
                     android:layout_height="wrap_content"/>
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_tab_english_trans"
                     android:textAllCaps="false"
                     android:fontFamily="@font/productsansregular"
-                    android:text="Persian"
+                    android:text="@string/english"
                     android:textColor="?attr/colorAccent"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_weight="1"

@@ -29,5 +29,6 @@
     <string name="don_t_know">don\'t know</string>
     <string name="today_s_words">Today\'s words</string>
     <string name="new_words">new words</string>
+    <string name="translation">Translation</string>
 
 </resources>

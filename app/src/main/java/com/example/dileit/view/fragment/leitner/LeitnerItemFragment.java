@@ -93,8 +93,9 @@ public class LeitnerItemFragment extends Fragment {
                         strings.add(leitner.getDef());
                         if (leitner.getSecondDef() != null)
                             strings.add(leitner.getSecondDef());
-                        else
+                        else{
                             mBinding.btnTabEnglishTrans.setVisibility(View.GONE);
+                        }
 
                         mBinding.viewPagerLeitnerItemTranslation.setAdapter(new LeitnerItemTranslationViewPagerAdapter(view.getContext(), strings));
                         mLeitner = leitner;

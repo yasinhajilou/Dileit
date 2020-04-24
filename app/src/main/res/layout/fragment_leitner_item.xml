@@ -40,7 +40,6 @@
     <!-- second view for viewing -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@color/colorBackground"
-        android:visibility="gone"
         android:id="@+id/layout_second_review"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -61,12 +60,16 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" >
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:weightSum="2"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <com.google.android.material.button.MaterialButton
+                    app:layout_constraintEnd_toStartOf="@id/btn_tab_english_trans"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     android:id="@+id/btn_tab_translation"
                     android:text="@string/translation"
                     android:textColor="?attr/colorAccent"
@@ -77,6 +80,10 @@
                     android:textAllCaps="false"
                     android:layout_height="wrap_content"/>
                 <com.google.android.material.button.MaterialButton
+                    app:layout_constraintStart_toEndOf="@id/btn_tab_translation"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:id="@+id/btn_tab_english_trans"
                     android:textAllCaps="false"
                     android:fontFamily="@font/productsansregular"
@@ -86,7 +93,7 @@
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.viewpager.widget.ViewPager

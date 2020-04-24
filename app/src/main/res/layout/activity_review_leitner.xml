@@ -102,4 +102,58 @@
         android:layout_width="0dp"
         android:layout_height="0dp"/>
 
+    <LinearLayout
+        android:layout_marginBottom="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/linear_layout_pronounce_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layoutDirection="ltr"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:padding="8dp"
+            android:id="@+id/img_british_pronounce_leitner_rev"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/volumeup" />
+
+        <TextView
+
+            android:padding="4dp"
+            android:id="@+id/tv_british_pronounce_leitner_rev"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/productsansregular"
+            android:gravity="center"
+            android:text="British"
+            android:textColor="?attr/colorAccent"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:padding="8dp"
+            android:layout_marginStart="32dp"
+            android:id="@+id/img_american_pronounce_leitner_rev"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/volumeup" />
+
+        <TextView
+            android:text="American"
+            android:padding="4dp"
+            android:id="@+id/tv_american_pronounce_leitner_rev"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/productsansregular"
+            android:gravity="center"
+            android:textColor="?attr/colorAccent"
+            android:textSize="14sp" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

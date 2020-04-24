@@ -89,4 +89,8 @@ dependencies {
     //Progress Bar
     implementation 'com.github.antonKozyriatskyi:CircularProgressIndicator:1.3.0'
 
+    //Transition animation
+    implementation "com.andkulikov:transitionseverywhere:2.1.0"
+
+
 }

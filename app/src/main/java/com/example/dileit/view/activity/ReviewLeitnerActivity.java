@@ -47,6 +47,10 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
     private boolean isStartUp = true;
     private int newWords = 0;
 
+    private int currentPos;
+    private List<Leitner> filteredList;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +75,7 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
 
         mViewModel.getAllLeitnerItems().observe(this, leitnerList -> {
             if (isStartUp){
-                List<Leitner> filteredList = LeitnerUtils.getPreparedLeitnerItems(leitnerList);
+                filteredList = LeitnerUtils.getPreparedLeitnerItems(leitnerList);
                 fragments = new ArrayList<>();
 
                 for (int i = 0; i < filteredList.size(); i++) {
@@ -119,6 +123,38 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
                 Log.d(TAG, "onViewCreated: " + "TTS init failed...");
             }
         });
+
+
+        mBinding.tvBritishPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                speakUK(filteredList.get(currentPos).getWord());
+            }
+        });
+
+        mBinding.tvAmericanPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                speakUS(filteredList.get(currentPos).getWord());
+
+            }
+        });
+
+        mBinding.imgAmericanPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                speakUS(filteredList.get(currentPos).getWord());
+
+            }
+        });
+
+        mBinding.imgBritishPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                speakUK(filteredList.get(currentPos).getWord());
+
+            }
+        });
     }
 
     @Override
@@ -131,17 +167,18 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
         handleNextItem();
     }
 
-    @Override
-    public void onBritishPronounce(String word) {
-        speakUK(word);
-    }
-
-    @Override
-    public void onAmericanPronounce(String word) {
-        speakUS(word);
-    }
+//    @Override
+//    public void onBritishPronounce(String word) {
+//
+//    }
+//
+//    @Override
+//    public void onAmericanPronounce(String word) {
+//
+//    }
 
     private void handleNextItem() {
+        currentPos++;
         int nextItem = mBinding.viewPagerReviewLeitner.getCurrentItem() + 1;
         int listSize = fragments.size() - 1;
         float a = mBinding.viewPagerReviewLeitner.getCurrentItem() + 1;

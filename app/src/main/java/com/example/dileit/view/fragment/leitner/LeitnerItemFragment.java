@@ -2,16 +2,23 @@ package com.example.dileit.view.fragment.leitner;
 
 
 import android.animation.Animator;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.transition.ArcMotion;
+import android.transition.ChangeBounds;
+import android.transition.TransitionManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -99,10 +106,12 @@ public class LeitnerItemFragment extends Fragment {
         mBinding.layoutContainerReview.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+
                 int currentRepeat = mLeitner.getRepeatCounter();
                 mLeitner.setRepeatCounter(++currentRepeat);
                 mLeitner.setLastReviewTime(System.currentTimeMillis());
                 showSecondView((int) motionEvent.getX(), (int) motionEvent.getY());
+
                 return false;
             }
 
@@ -135,33 +144,33 @@ public class LeitnerItemFragment extends Fragment {
             }
         });
 
-        mBinding.tvBritishPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mListener.onBritishPronounce(mWord);
-            }
-        });
-
-        mBinding.tvAmericanPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mListener.onAmericanPronounce(mWord);
-            }
-        });
-
-        mBinding.imgAmericanPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mListener.onAmericanPronounce(mWord);
-            }
-        });
-
-        mBinding.imgBritishPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mListener.onBritishPronounce(mWord);
-            }
-        });
+//        mBinding.tvBritishPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mListener.onBritishPronounce(mWord);
+//            }
+//        });
+//
+//        mBinding.tvAmericanPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mListener.onAmericanPronounce(mWord);
+//            }
+//        });
+//
+//        mBinding.imgAmericanPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mListener.onAmericanPronounce(mWord);
+//            }
+//        });
+//
+//        mBinding.imgBritishPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mListener.onBritishPronounce(mWord);
+//            }
+//        });
     }
 
 

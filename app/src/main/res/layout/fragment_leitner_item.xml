@@ -10,7 +10,6 @@
     tools:context=".view.fragment.leitner.LeitnerItemFragment">
 
 
-
     <TextView
         android:id="@+id/tv_word_title_review_leitner"
         android:layout_width="wrap_content"
@@ -39,6 +38,7 @@
 
     <!-- second view for viewing -->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="gone"
         android:background="@color/colorBackground"
         android:id="@+id/layout_second_review"
         android:layout_width="0dp"

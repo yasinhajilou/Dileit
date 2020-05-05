@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,13 +26,16 @@ import android.widget.Toast;
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
 import com.example.dileit.databinding.FragmentHomeBinding;
+import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.utils.JsonUtils;
+import com.example.dileit.utils.LeitnerUtils;
 import com.example.dileit.view.adapter.recycler.WordHistoryRecyclerAdapter;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
 import com.example.dileit.viewmodel.InternalViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -45,13 +49,13 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
     private OnReviewLeitnerInterface mOnReviewLeitnerInterface;
 
     public interface OnReviewLeitnerInterface {
-         void nextActivity();
+        void nextActivity();
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (context instanceof OnReviewLeitnerInterface){
+        if (context instanceof OnReviewLeitnerInterface) {
             mOnReviewLeitnerInterface = (OnReviewLeitnerInterface) context;
         }
     }
@@ -92,6 +96,17 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
             }
         });
 
+        mViewModel.getAllLeitnerItems().observe(getViewLifecycleOwner(), new Observer<List<Leitner>>() {
+            @Override
+            public void onChanged(List<Leitner> leitnerList) {
+                int todayWordsCounter = LeitnerUtils.getPreparedLeitnerItems(leitnerList).size();
+                if (todayWordsCounter <= 1)
+                    mBinding.tvTodayWordsHome.setText(todayWordsCounter + " Item");
+                else
+                    mBinding.tvTodayWordsHome.setText(todayWordsCounter  + " Items");
+            }
+        });
+
         mBinding.linearLayoutVoice.setOnClickListener(view12 -> {
             Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
@@ -114,9 +129,9 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
         mBinding.imgMenuBurgerHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PopupMenu popupMenu = new PopupMenu(view.getContext() , view);
+                PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
                 MenuInflater menuInflater = new MenuInflater(view.getContext());
-                menuInflater.inflate(R.menu.menu_home , popupMenu.getMenu());
+                menuInflater.inflate(R.menu.menu_home, popupMenu.getMenu());
                 popupMenu.setOnMenuItemClickListener(HomeFragment.this::onOptionsItemSelected);
                 popupMenu.show();
             }
@@ -133,7 +148,7 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.menu_action_leitner:
                 Toast.makeText(getContext(), "hi", Toast.LENGTH_SHORT).show();
                 break;
@@ -177,8 +192,6 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
         super.onDestroyView();
         mBinding = null;
     }
-
-
 
 
 }

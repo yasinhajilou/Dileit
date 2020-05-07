@@ -15,9 +15,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/productsansregular"
-        android:text="Banana"
         android:textColor="@android:color/white"
-        android:textSize="64sp"
+        android:textSize="52sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -38,7 +37,7 @@
 
     <!-- second view for viewing -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:visibility="gone"
+        android:visibility=""
         android:background="@color/colorBackground"
         android:id="@+id/layout_second_review"
         android:layout_width="0dp"
@@ -97,6 +96,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.viewpager.widget.ViewPager
+            android:layout_marginBottom="34dp"
             android:id="@+id/view_pager_leitner_item_translation"
             android:layout_width="0dp"
             android:layout_height="0dp"

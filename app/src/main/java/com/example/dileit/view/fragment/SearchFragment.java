@@ -108,6 +108,13 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
 //        });
 
 
+        mBinding.btnClearEditSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mBinding.edtSearchWord.setText("");
+                mBinding.btnClearEditSearch.setVisibility(View.GONE);
+            }
+        });
         mBinding.btnBackwardSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,9 +139,10 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
                 if (!isTypedYet) {
                     isTypedYet = true;
                 }
-                if (!word.equals(""))
+                if (!word.equals("")) {
                     mViewModel.getEngToPer(word);
-                else {
+                    mBinding.btnClearEditSearch.setVisibility(View.VISIBLE);
+                } else {
                     mViewModel.getAllEngWords();
                     isTypedYet = false;
                 }

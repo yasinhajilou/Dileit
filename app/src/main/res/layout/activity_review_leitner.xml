@@ -94,7 +94,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.example.dileit.utils.NonSwipeableViewPager
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/linear_layout_pronounce_bar"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

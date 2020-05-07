@@ -38,13 +38,14 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:id="@+id/btn_backward_search"
-                android:background="?attr/selectableItemBackground"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:padding="8dp"
                 android:src="@drawable/ic_keyboard_backspace_black_24dp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"/>
             <EditText
+                android:paddingStart="8dp"
                 android:layout_gravity="center"
                 android:layout_weight="6"
                 android:id="@+id/edtSearchWord"
@@ -56,6 +57,9 @@
                 android:inputType="textFilter"
                 android:maxLines="1" />
             <ImageView
+                android:visibility="gone"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
                 android:id="@+id/btn_clear_edit_search"
                 android:layout_gravity="center"
                 android:padding="8dp"

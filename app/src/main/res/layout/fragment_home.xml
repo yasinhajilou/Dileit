@@ -26,13 +26,6 @@
                 android:layoutDirection="ltr"
                 android:orientation="horizontal">
 
-                <!--                    <ImageButton-->
-                <!--                        android:layout_width="wrap_content"-->
-                <!--                        android:layout_height="wrap_content"-->
-                <!--                        android:layout_gravity="center"-->
-                <!--                        android:background="?attr/actionBarItemBackground"-->
-                <!--                        android:src="@drawable/ic_menu_black_24dp" />-->
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

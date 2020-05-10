@@ -30,5 +30,8 @@
     <string name="today_s_words">Today\'s words</string>
     <string name="new_words">new words</string>
     <string name="translation">Translation</string>
+    <string name="new_">New</string>
+    <string name="review">Review</string>
+    <string name="learned">Learned</string>
 
 </resources>

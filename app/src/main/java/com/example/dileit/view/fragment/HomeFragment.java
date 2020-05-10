@@ -46,17 +46,18 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
     private WordHistoryRecyclerAdapter mAdapter;
     private SharedViewModel mSharedViewModel;
 
-    private OnReviewLeitnerInterface mOnReviewLeitnerInterface;
+    private HomeFragmentInterface mHomeFragmentInterface;
 
-    public interface OnReviewLeitnerInterface {
-        void nextActivity();
+    public interface HomeFragmentInterface {
+        void onLeitnerReviewClicked();
+        void onLeitnerManagerClicked();
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (context instanceof OnReviewLeitnerInterface) {
-            mOnReviewLeitnerInterface = (OnReviewLeitnerInterface) context;
+        if (context instanceof HomeFragmentInterface) {
+            mHomeFragmentInterface = (HomeFragmentInterface) context;
         }
     }
 
@@ -140,7 +141,7 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
         mBinding.btnReviewLeitner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mOnReviewLeitnerInterface.nextActivity();
+                mHomeFragmentInterface.onLeitnerReviewClicked();
             }
         });
     }
@@ -150,7 +151,7 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_action_leitner:
-                Toast.makeText(getContext(), "hi", Toast.LENGTH_SHORT).show();
+                mHomeFragmentInterface.onLeitnerManagerClicked();
                 break;
         }
         return super.onOptionsItemSelected(item);

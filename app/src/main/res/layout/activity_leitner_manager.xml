@@ -1,9 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dileit.LeitnerManager">
+    tools:context="com.example.dileit.view.activity.LeitnerManager">
+    <com.google.android.material.appbar.AppBarLayout
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="256dp">
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    app:layout_constraintEnd_toStartOf="@+id/tv_manager_review"
+                    app:layout_constraintHorizontal_weight="1"
+                    android:fontFamily="@font/productsansregular"
+                    android:textSize="42sp"
+                    android:textColor="@android:color/white"
+                    android:text="56"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:id="@+id/tv_manager_new"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_manager_learned"
+                    android:fontFamily="@font/productsansregular"
+                    android:textSize="42sp"
+                    android:textColor="@android:color/white"
+                    android:text="56"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_manager_new"
+                    android:id="@+id/tv_manager_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    app:layout_constraintHorizontal_weight="1"
+                    android:fontFamily="@font/productsansregular"
+                    android:textSize="42sp"
+                    android:textColor="@android:color/white"
+                    android:text="56"
+                    app:layout_constraintStart_toEndOf="@+id/tv_manager_review"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:id="@+id/tv_manager_learned"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:fontFamily="@font/productsansregular"
+                    android:textSize="28sp"
+                    android:textColor="@android:color/white"
+                    android:text="@string/new_"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_manager_new"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_label_manager_review"
+                    android:id="@+id/tv_label_manager_new"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    app:layout_constraintEnd_toStartOf="@+id/tv_label_manager_learned"
+                    app:layout_constraintHorizontal_weight="1"
+                    android:fontFamily="@font/productsansregular"
+                    android:textSize="28sp"
+                    android:textColor="@android:color/white"
+                    android:text="@string/review"
+                    app:layout_constraintStart_toEndOf="@id/tv_label_manager_new"
+                    app:layout_constraintTop_toBottomOf="@id/tv_manager_review"
+                    android:id="@+id/tv_label_manager_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    app:layout_constraintHorizontal_weight="1"
+                    android:fontFamily="@font/productsansregular"
+                    android:textSize="28sp"
+                    android:textColor="@android:color/white"
+                    android:text="@string/learned"
+                    app:layout_constraintStart_toEndOf="@+id/tv_label_manager_review"
+                    app:layout_constraintTop_toBottomOf="@id/tv_manager_learned"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/tv_label_manager_learned"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.appbar.MaterialToolbar
+                android:elevation="8dp"
+                android:id="@+id/toolbar_leitner_manager"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"/>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

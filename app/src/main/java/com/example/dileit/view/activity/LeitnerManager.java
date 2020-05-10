@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import com.example.dileit.R;
+import com.example.dileit.databinding.ActivityLeitnerManagerBinding;
 
 public class LeitnerManager extends AppCompatActivity {
 
+    ActivityLeitnerManagerBinding mBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_leitner_manager);
+        mBinding = ActivityLeitnerManagerBinding.inflate(getLayoutInflater());
+        setContentView(mBinding.getRoot());
     }
 }

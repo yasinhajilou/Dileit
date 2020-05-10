@@ -49,7 +49,6 @@ public class LeitnerItemFragment extends Fragment {
     private InterfaceReviewButtonClickListener mListener;
     private Leitner mLeitner;
     private String mWord;
-    private boolean isPageStartUp;
     private boolean isHeaderOpen = true;
 
 
@@ -89,6 +88,8 @@ public class LeitnerItemFragment extends Fragment {
                     if (leitner.getId() == listId) {
                         mWord = leitner.getWord();
                         mBinding.tvWordTitleReviewLeitner.setText(mWord);
+                        //second title in second view
+                        mBinding.tvTitleLeitner.setText(mWord);
                         List<String> strings = new ArrayList<>();
                         strings.add(leitner.getDef());
                         if (leitner.getSecondDef() != null)

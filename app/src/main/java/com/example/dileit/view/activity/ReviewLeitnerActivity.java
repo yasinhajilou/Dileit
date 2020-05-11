@@ -1,16 +1,13 @@
 package com.example.dileit.view.activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.animation.Animator;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.widget.Toast;
 
 import com.example.dileit.constant.KeysValue;
@@ -19,8 +16,8 @@ import com.example.dileit.databinding.ActivityReviewLeitnerBinding;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.utils.LeitnerUtils;
 import com.example.dileit.view.adapter.viewpager.LeitnerReviewViewPagerAdapter;
-import com.example.dileit.view.fragment.leitner.InterfaceReviewButtonClickListener;
-import com.example.dileit.view.fragment.leitner.LeitnerItemFragment;
+import com.example.dileit.view.fragment.leitnerreview.InterfaceReviewButtonClickListener;
+import com.example.dileit.view.fragment.leitnerreview.LeitnerItemFragment;
 import com.example.dileit.viewmodel.InternalViewModel;
 
 import java.util.ArrayList;

@@ -5,24 +5,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dileit.view.activity.LeitnerManager">
+    tools:context="com.example.dileit.view.activity.LeitnerManagerActivity">
     <com.google.android.material.appbar.AppBarLayout
         android:fitsSystemWindows="true"
         android:layout_width="match_parent"
-        android:layout_height="256dp">
+        android:layout_height="200dp">
         <com.google.android.material.appbar.CollapsingToolbarLayout
+            app:titleEnabled="false"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:paddingTop="36dp"
+                app:layout_collapseMode="pin"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <TextView
-                    app:layout_constraintEnd_toStartOf="@+id/tv_manager_review"
                     app:layout_constraintHorizontal_weight="1"
                     android:fontFamily="@font/productsansregular"
                     android:textSize="42sp"
                     android:textColor="@android:color/white"
                     android:text="56"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_manager_review"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     android:id="@+id/tv_manager_new"
@@ -30,12 +35,12 @@
                     android:layout_height="wrap_content"/>
                 <TextView
                     app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_manager_learned"
                     android:fontFamily="@font/productsansregular"
                     android:textSize="42sp"
                     android:textColor="@android:color/white"
                     android:text="56"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_manager_learned"
                     app:layout_constraintStart_toEndOf="@+id/tv_manager_new"
                     android:id="@+id/tv_manager_review"
                     android:layout_width="wrap_content"
@@ -92,11 +97,38 @@
                     android:layout_height="wrap_content"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-            <com.google.android.material.appbar.MaterialToolbar
+            <androidx.appcompat.widget.Toolbar
+
+                android:fitsSystemWindows="true"
+                app:layout_collapseMode="pin"
                 android:elevation="8dp"
                 android:id="@+id/toolbar_leitner_manager"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"/>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:id="@+id/view_pager_leitner_manager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_leitner_manager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.tabs.TabItem
+                    android:text="@string/new_"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <com.google.android.material.tabs.TabItem
+                    android:text="@string/review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <com.google.android.material.tabs.TabItem
+                    android:text="@string/learned"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.tabs.TabLayout>
+        </androidx.viewpager.widget.ViewPager>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

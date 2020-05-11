@@ -1,6 +1,4 @@
-package com.example.dileit.view.fragment.leitner;
-
-import com.example.dileit.model.entity.Leitner;
+package com.example.dileit.view.fragment.leitnerreview;
 
 public interface InterfaceReviewButtonClickListener {
     void onYesClicked();

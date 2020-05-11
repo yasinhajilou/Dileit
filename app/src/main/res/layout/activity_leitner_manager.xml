@@ -7,9 +7,10 @@
     android:layout_height="match_parent"
     tools:context="com.example.dileit.view.activity.LeitnerManagerActivity">
     <com.google.android.material.appbar.AppBarLayout
+        app:elevation="0dp"
         android:fitsSystemWindows="true"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="wrap_content">
         <com.google.android.material.appbar.CollapsingToolbarLayout
             app:titleEnabled="false"
             app:contentScrim="?attr/colorPrimary"
@@ -17,8 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:paddingTop="36dp"
-                app:layout_collapseMode="pin"
+                android:paddingTop="40dp"
+                android:paddingBottom="20dp"
+                app:layout_collapseMode="parallax"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <TextView
@@ -98,10 +100,8 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.appcompat.widget.Toolbar
-
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="pin"
-                android:elevation="8dp"
                 android:id="@+id/toolbar_leitner_manager"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"/>
@@ -114,6 +114,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <com.google.android.material.tabs.TabLayout
+                app:tabTextColor="@android:color/white"
+                app:tabSelectedTextColor="?attr/colorAccent"
+                android:background="?attr/colorPrimary"
                 android:id="@+id/tab_leitner_manager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

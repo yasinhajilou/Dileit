@@ -82,10 +82,6 @@ public class LeitnerManagerActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.home:
-                finish();
-        }
         return true;
     }
 

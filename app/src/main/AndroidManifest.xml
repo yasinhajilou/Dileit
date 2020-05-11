@@ -13,8 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.activity.LeitnerManagerActivity"/>
-        <activity android:name=".view.activity.ReviewLeitnerActivity" />
+        <activity android:parentActivityName=".view.activity.MainActivity" android:name=".view.activity.LeitnerManagerActivity"/>
+        <activity android:parentActivityName=".view.activity.MainActivity" android:name=".view.activity.ReviewLeitnerActivity" />
         <activity android:name=".view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -9,21 +9,28 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dileit.R;
+import com.example.dileit.databinding.FragmentNewWordManagerBinding;
+import com.example.dileit.view.adapter.recycler.LeitnerManagerAdapter;
+import com.example.dileit.viewmodel.InternalViewModel;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class NewWordsManagerFragment extends Fragment {
 
-    public NewWordsManagerFragment() {
-        // Required empty public constructor
-    }
-
+    private InternalViewModel mInternalViewModel;
+    private LeitnerManagerAdapter adapter;
+    private FragmentNewWordManagerBinding mBinding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_word_manager , container, false);
+        mBinding = FragmentNewWordManagerBinding.inflate(inflater , container , false);
+        return mBinding.getRoot();
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mBinding = null;
     }
 }

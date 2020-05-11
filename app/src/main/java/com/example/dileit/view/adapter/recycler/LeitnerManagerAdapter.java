@@ -22,10 +22,9 @@ public class LeitnerManagerAdapter extends RecyclerView.Adapter<LeitnerManagerAd
     private LeitnerManagerInterface mInterface;
     private List<Leitner> mLeitners;
 
-    public LeitnerManagerAdapter(Context context) {
-        if (context instanceof LeitnerManagerInterface){
-            mInterface = (LeitnerManagerInterface) context;
-        }
+    public LeitnerManagerAdapter(LeitnerManagerInterface anInterface) {
+        mInterface = anInterface;
+
     }
 
     public interface LeitnerManagerInterface{

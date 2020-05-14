@@ -24,8 +24,8 @@ public class LeitnerManagerActivity extends AppCompatActivity {
 
     private final String TAG = LeitnerManagerActivity.class.getSimpleName();
     private InternalViewModel mInternalViewModel;
-    ActivityLeitnerManagerBinding mBinding;
-    LeitnerManagerViewPagerAdapter mAdapter;
+    private ActivityLeitnerManagerBinding mBinding;
+    private LeitnerManagerViewPagerAdapter mAdapter;
     private int[] tabIcons = {R.drawable.ic_new_24dp
             , R.drawable.ic_searched_24dp, R.drawable.ic_done_all_24dp};
     private int newCardsCounter, learnedCardsCounter, reviewedCardsCounter;

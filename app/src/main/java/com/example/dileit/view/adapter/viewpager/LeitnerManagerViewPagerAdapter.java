@@ -5,13 +5,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.dileit.R;
 import com.example.dileit.view.fragment.leitnermanager.LearnedWordsManagerFragment;
 import com.example.dileit.view.fragment.leitnermanager.NewWordsManagerFragment;
 import com.example.dileit.view.fragment.leitnermanager.ReviewWordsManagerFragment;
 
-public class LeitnerManagerViewPagerAdapter extends FragmentPagerAdapter {
+public class LeitnerManagerViewPagerAdapter extends FragmentStatePagerAdapter {
 
 
     public LeitnerManagerViewPagerAdapter(@NonNull FragmentManager fm) {

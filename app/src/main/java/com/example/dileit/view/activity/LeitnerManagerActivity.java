@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.animation.ValueAnimator;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -21,6 +22,7 @@ import java.util.List;
 
 public class LeitnerManagerActivity extends AppCompatActivity {
 
+    private final String TAG = LeitnerManagerActivity.class.getSimpleName();
     private InternalViewModel mInternalViewModel;
     ActivityLeitnerManagerBinding mBinding;
     LeitnerManagerViewPagerAdapter mAdapter;
@@ -62,7 +64,7 @@ public class LeitnerManagerActivity extends AppCompatActivity {
                             reviewedCardsCounter++;
                     }
                 }
-
+                Log.d(TAG, "onChanged: n:"+newCardsCounter+" r"+reviewedCardsCounter+ " l:"+learnedCardsCounter);
                 showHeaderCountersWithAnimation(newCardsCounter , reviewedCardsCounter , learnedCardsCounter);
             }
         });
@@ -86,7 +88,7 @@ public class LeitnerManagerActivity extends AppCompatActivity {
     }
 
     private void showHeaderCountersWithAnimation(int newCounts , int reviewedCounts , int learnedCounts){
-        long duration = 2000;
+        long duration = 1000;
 
         //new cards
         ValueAnimator newCardsAnim = ValueAnimator.ofInt(0,newCounts);
@@ -101,12 +103,7 @@ public class LeitnerManagerActivity extends AppCompatActivity {
         //learned cards
         ValueAnimator learnedCardsAnim = ValueAnimator.ofInt(0 , learnedCounts);
         learnedCardsAnim.setDuration(duration);
-        learnedCardsAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                mBinding.tvManagerLearned.setText(valueAnimator.getAnimatedValue().toString());
-            }
-        });
+        learnedCardsAnim.addUpdateListener(valueAnimator -> mBinding.tvManagerLearned.setText(valueAnimator.getAnimatedValue().toString()));
 
         newCardsAnim.start();
         learnedCardsAnim.start();

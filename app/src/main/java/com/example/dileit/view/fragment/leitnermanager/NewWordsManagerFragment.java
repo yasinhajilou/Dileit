@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.example.dileit.viewmodel.InternalViewModel;
 
 public class NewWordsManagerFragment extends Fragment implements LeitnerManagerAdapter.LeitnerManagerInterface {
 
+    private static final String TAG = NewWordsManagerFragment.class.getSimpleName();
     private InternalViewModel mInternalViewModel;
     private LeitnerManagerAdapter adapter;
     private FragmentNewWordManagerBinding mBinding;
@@ -35,7 +37,7 @@ public class NewWordsManagerFragment extends Fragment implements LeitnerManagerA
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mBinding = FragmentNewWordManagerBinding.inflate(inflater , container , false);
+        mBinding = FragmentNewWordManagerBinding.inflate(inflater, container, false);
         return mBinding.getRoot();
     }
 
@@ -47,12 +49,16 @@ public class NewWordsManagerFragment extends Fragment implements LeitnerManagerA
         mBinding.rvNewWordManager.setAdapter(adapter);
 
 
-        mInternalViewModel.getAllLeitnerItems().observe(getViewLifecycleOwner() , leitnerList -> {
-            for (Leitner leitner:
-                 leitnerList) {
-                if (leitner.getState() != LeitnerStateConstant.STARTED)
-                    leitnerList.remove(leitner);
+        mInternalViewModel.getAllLeitnerItems().observe(getViewLifecycleOwner(), leitnerList -> {
+
+            for (int i = 0; i < leitnerList.size(); i++) {
+                if (leitnerList.get(i).getState() != LeitnerStateConstant.STARTED) {
+                    leitnerList.remove(i);
+                }
             }
+
+            Log.d(TAG, "new :" + leitnerList.size() );
+
             adapter.setData(leitnerList);
         });
     }

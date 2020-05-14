@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +21,9 @@ import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.view.adapter.recycler.LeitnerManagerAdapter;
 import com.example.dileit.viewmodel.InternalViewModel;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ReviewWordsManagerFragment extends Fragment implements LeitnerManagerAdapter.LeitnerManagerInterface {
 
+    private final String TAG = ReviewWordsManagerFragment.class.getSimpleName();
     private FragmentReviewWordsManagerBinding mBinding;
     private InternalViewModel mInternalViewModel;
     private LeitnerManagerAdapter adapter;
@@ -54,13 +53,15 @@ public class ReviewWordsManagerFragment extends Fragment implements LeitnerManag
         mBinding.rvReviewManager.setAdapter(adapter);
 
         mInternalViewModel.getAllLeitnerItems().observe(getViewLifecycleOwner(), leitnerList -> {
-            for (Leitner item :
-                    leitnerList) {
-                if (item.getState() == LeitnerStateConstant.STARTED
-                        || item.getState() == LeitnerStateConstant.LEARNED)
-                    leitnerList.remove(item);
+
+            for (int i = 0; i < leitnerList.size(); i++) {
+                if (leitnerList.get(i).getState() == LeitnerStateConstant.STARTED
+                        || leitnerList.get(i).getState() == LeitnerStateConstant.LEARNED) {
+                    leitnerList.remove(i);
+                }
             }
 
+            Log.d(TAG, "Review onViewCreated: " + leitnerList.size());
             adapter.setData(leitnerList);
         });
     }

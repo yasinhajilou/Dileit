@@ -37,5 +37,5 @@ public interface LeitnerDao {
     LiveData<List<Leitner>> getLearnedCards();
 
     @Query("SELECT * FROM Leitner WHERE state BETWEEN :start AND :end")
-    LiveData<List<Leitner>> getCardsByRangeValue(int start, int end);
+    LiveData<List<Leitner>> getCardsByRangeState(int start, int end);
 }

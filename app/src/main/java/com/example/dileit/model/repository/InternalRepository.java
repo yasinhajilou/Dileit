@@ -51,6 +51,18 @@ public class InternalRepository {
         return mAllLeitnerItems;
     }
 
+    public LiveData<List<Leitner>> getGetNewCards() {
+        return mLeitnerDao.getNewCards();
+    }
+
+    public LiveData<List<Leitner>> getGetLearnedCards() {
+        return mLeitnerDao.getLearnedCards();
+    }
+
+    public LiveData<List<Leitner>> getGetCardsByRangeState(int start, int end) {
+        return mLeitnerDao.getCardsByRangeState(start, end);
+    }
+
 
     //insert data
     public void insertWordHistory(int leitnerId, Long time, String word, String wordDef) {

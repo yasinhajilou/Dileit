@@ -1,6 +1,8 @@
 package com.example.dileit.model.entity;
 
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.Comparator;
@@ -93,6 +95,15 @@ public class Leitner implements Comparable {
 
     public String getGuide() {
         return guide;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj instanceof Leitner) {
+            Leitner leitner = (Leitner) obj;
+            return leitner.word.equals(this.word);
+        }else
+            return false;
     }
 
     @Override

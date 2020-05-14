@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,7 @@ public class LearnedWordsManagerFragment extends Fragment implements LeitnerMana
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding = FragmentLearnedWordsManagerBinding.inflate(inflater , container , false);
+        mBinding = FragmentLearnedWordsManagerBinding.inflate(inflater, container, false);
         return mBinding.getRoot();
     }
 
@@ -44,14 +45,18 @@ public class LearnedWordsManagerFragment extends Fragment implements LeitnerMana
 
         mAdapter = new LeitnerManagerAdapter(this);
 
-        mInternalViewModel.getAllLeitnerItems().observe(getViewLifecycleOwner() , leitnerList -> {
-            for (int i = 0; i < leitnerList.size(); i++) {
-                if (leitnerList.get(i).getState() != LeitnerStateConstant.LEARNED) {
-                    leitnerList.remove(i);
-                }
-            }
+        mBinding.rvLearnedCardManager.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        mBinding.rvLearnedCardManager.setAdapter(mAdapter);
+
+        mInternalViewModel.getLearnedCards().observe(getViewLifecycleOwner() , leitnerList -> {
             mAdapter.setData(leitnerList);
         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mBinding = null;
     }
 
     @Override

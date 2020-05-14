@@ -52,16 +52,7 @@ public class ReviewWordsManagerFragment extends Fragment implements LeitnerManag
         mBinding.rvReviewManager.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mBinding.rvReviewManager.setAdapter(adapter);
 
-        mInternalViewModel.getAllLeitnerItems().observe(getViewLifecycleOwner(), leitnerList -> {
-
-            for (int i = 0; i < leitnerList.size(); i++) {
-                if (leitnerList.get(i).getState() == LeitnerStateConstant.STARTED
-                        || leitnerList.get(i).getState() == LeitnerStateConstant.LEARNED) {
-                    leitnerList.remove(i);
-                }
-            }
-
-            Log.d(TAG, "Review onViewCreated: " + leitnerList.size());
+        mInternalViewModel.getCardsByRangeState(LeitnerStateConstant.BOX_ONE , LeitnerStateConstant.BOX_FIVE).observe(getViewLifecycleOwner() , leitnerList -> {
             adapter.setData(leitnerList);
         });
     }

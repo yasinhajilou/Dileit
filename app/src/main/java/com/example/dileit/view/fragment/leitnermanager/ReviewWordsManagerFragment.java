@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.example.dileit.R;
@@ -52,8 +53,49 @@ public class ReviewWordsManagerFragment extends Fragment implements LeitnerManag
         mBinding.rvReviewManager.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mBinding.rvReviewManager.setAdapter(adapter);
 
-        mInternalViewModel.getCardsByRangeState(LeitnerStateConstant.BOX_ONE , LeitnerStateConstant.BOX_FIVE).observe(getViewLifecycleOwner() , leitnerList -> {
-            adapter.setData(leitnerList);
+        mBinding.chipFilteredBoxOne.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (b){
+                mInternalViewModel.getCardsByState(LeitnerStateConstant.BOX_ONE).observe(getViewLifecycleOwner() , leitnerList -> {
+                    adapter.setData(leitnerList);
+                });
+            }
+        });
+
+        mBinding.chipFilteredBoxTwo.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (b){
+                mInternalViewModel.getCardsByState(LeitnerStateConstant.BOX_TWO).observe(getViewLifecycleOwner() , leitnerList -> {
+                    adapter.setData(leitnerList);
+                });
+            }
+        });
+
+
+        mBinding.chipFilteredBoxThree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    mInternalViewModel.getCardsByState(LeitnerStateConstant.BOX_THREE).observe(getViewLifecycleOwner() , leitnerList -> {
+                        adapter.setData(leitnerList);
+                    });
+                }
+            }
+        });
+
+
+        mBinding.chipFilteredBoxFour.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (b){
+                mInternalViewModel.getCardsByState(LeitnerStateConstant.BOX_FOUR).observe(getViewLifecycleOwner() , leitnerList -> {
+                    adapter.setData(leitnerList);
+                });
+            }
+        });
+
+        mBinding.chipFilteredBoxFive.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (b){
+                mInternalViewModel.getCardsByState(LeitnerStateConstant.BOX_FIVE).observe(getViewLifecycleOwner() , leitnerList -> {
+                    adapter.setData(leitnerList);
+                });
+            }
         });
     }
 

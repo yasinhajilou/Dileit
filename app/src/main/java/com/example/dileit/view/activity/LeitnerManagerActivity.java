@@ -11,8 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
 import com.example.dileit.R;
 import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.ActivityLeitnerManagerBinding;
@@ -119,4 +117,5 @@ public class LeitnerManagerActivity extends AppCompatActivity {
         learnedCardsAnim.start();
         reviewCardsAnim.start();
     }
+
 }

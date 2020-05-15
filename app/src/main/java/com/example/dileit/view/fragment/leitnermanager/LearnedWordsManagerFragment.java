@@ -28,7 +28,7 @@ public class LearnedWordsManagerFragment extends Fragment implements LeitnerMana
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mInternalViewModel = ViewModelProviders.of(getActivity()).get(InternalViewModel.class);
+        mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class LearnedWordsManagerFragment extends Fragment implements LeitnerMana
         mBinding.rvLearnedCardManager.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mBinding.rvLearnedCardManager.setAdapter(mAdapter);
 
-        mInternalViewModel.getLearnedCards().observe(getViewLifecycleOwner() , leitnerList -> {
+        mInternalViewModel.getCardsByState(LeitnerStateConstant.LEARNED).observe(getViewLifecycleOwner() , leitnerList -> {
             mAdapter.setData(leitnerList);
         });
     }

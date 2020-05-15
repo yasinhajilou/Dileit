@@ -54,12 +54,8 @@ public class InternalViewModel extends AndroidViewModel implements InternalInter
         return mRepository.getLeitnerInfoByWord(word);
     }
 
-    public LiveData<List<Leitner>> getNewCards() {
-        return mRepository.getGetNewCards();
-    }
-
-    public LiveData<List<Leitner>> getLearnedCards() {
-        return mRepository.getGetLearnedCards();
+    public LiveData<List<Leitner>> getCardsByState(int state) {
+        return mRepository.getCardByState(state);
     }
 
     public LiveData<List<Leitner>> getCardsByRangeState(int start, int end) {

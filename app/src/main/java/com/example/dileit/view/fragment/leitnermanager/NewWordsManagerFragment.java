@@ -49,7 +49,7 @@ public class NewWordsManagerFragment extends Fragment implements LeitnerManagerA
         mBinding.rvNewWordManager.setAdapter(adapter);
 
 
-        mInternalViewModel.getNewCards().observe(getViewLifecycleOwner() , leitnerList -> {
+        mInternalViewModel.getCardsByState(LeitnerStateConstant.STARTED).observe(getViewLifecycleOwner() , leitnerList -> {
             adapter.setData(leitnerList);
         });
 

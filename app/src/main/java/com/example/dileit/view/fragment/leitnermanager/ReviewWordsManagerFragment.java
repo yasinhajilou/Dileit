@@ -32,7 +32,7 @@ public class ReviewWordsManagerFragment extends Fragment implements LeitnerManag
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mInternalViewModel = ViewModelProviders.of(getActivity()).get(InternalViewModel.class);
+        mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
 
     }
 

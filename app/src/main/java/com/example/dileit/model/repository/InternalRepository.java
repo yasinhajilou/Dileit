@@ -51,12 +51,8 @@ public class InternalRepository {
         return mAllLeitnerItems;
     }
 
-    public LiveData<List<Leitner>> getGetNewCards() {
-        return mLeitnerDao.getNewCards();
-    }
-
-    public LiveData<List<Leitner>> getGetLearnedCards() {
-        return mLeitnerDao.getLearnedCards();
+    public LiveData<List<Leitner>> getCardByState(int state) {
+        return mLeitnerDao.getCardByState(state);
     }
 
     public LiveData<List<Leitner>> getGetCardsByRangeState(int start, int end) {

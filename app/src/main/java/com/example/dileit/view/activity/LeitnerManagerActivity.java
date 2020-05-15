@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.constant.LeitnerStateConstant;
@@ -37,9 +39,17 @@ public class LeitnerManagerActivity extends AppCompatActivity {
         setContentView(mBinding.getRoot());
 
         setSupportActionBar(mBinding.toolbarLeitnerManager);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        mBinding.toolbarLeitnerManager.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
         mAdapter = new LeitnerManagerViewPagerAdapter(getSupportFragmentManager());
 

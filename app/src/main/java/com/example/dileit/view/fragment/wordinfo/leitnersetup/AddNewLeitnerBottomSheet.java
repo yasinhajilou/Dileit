@@ -17,6 +17,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
 import com.example.dileit.constant.LeitnerStateConstant;
+import com.example.dileit.databinding.BottomSheetAddNewLeitnerBinding;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.view.adapter.viewpager.AddNewLeitnerViewPagerAdapter;
 import com.example.dileit.viewmodel.InternalViewModel;
@@ -27,17 +28,12 @@ import com.google.android.material.tabs.TabLayout;
 
 public class AddNewLeitnerBottomSheet extends BottomSheetDialogFragment {
     private final String TAG = AddNewLeitnerBottomSheet.class.getSimpleName();
+    private BottomSheetAddNewLeitnerBinding mBinding;
     private SharedViewModel mSharedViewModel;
     private String title;
-    private TextView tvTitle;
-    private EditText edtGuide;
-    private ViewPager mPager;
-    private TabLayout mTabLayout;
     private AddNewLeitnerViewPagerAdapter mAdapter;
     private String mainTranslation;
     private String secondTranslation;
-    private RadioButton rbCostume, rbDic;
-    private MaterialButton mButton;
 
     private InternalViewModel mInternalViewModel;
 
@@ -52,17 +48,10 @@ public class AddNewLeitnerBottomSheet extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.bottom_sheet_add_new_leitner, container, false);
-        tvTitle = view.findViewById(R.id.tv_title_dialog_add_leitner);
-        edtGuide = view.findViewById(R.id.edt_dialog_guide);
-        mButton = view.findViewById(R.id.btn_save_item_leitner);
-        mPager = view.findViewById(R.id.view_pager_add_new_leitner);
-        mTabLayout = view.findViewById(R.id.tab_add_new_leitner);
-        rbDic = view.findViewById(R.id.rb_dic_bottom_sheet);
-        rbCostume = view.findViewById(R.id.rb_costume_bottom_sheet);
-        mPager.setAdapter(mAdapter);
-        mTabLayout.setupWithViewPager(mPager);
-        return view;
+        mBinding = BottomSheetAddNewLeitnerBinding.inflate(inflater , container , false);
+        mBinding.viewPagerAddNewLeitner.setAdapter(mAdapter);
+        mBinding.tabAddNewLeitner.setupWithViewPager(mBinding.viewPagerAddNewLeitner);
+        return mBinding.getRoot();
 
     }
 
@@ -72,7 +61,7 @@ public class AddNewLeitnerBottomSheet extends BottomSheetDialogFragment {
 
         mSharedViewModel.getLeitnerItemData().observe(getViewLifecycleOwner(), strings -> {
             title = strings[0];
-            tvTitle.setText(title);
+            mBinding.tvTitleDialogAddLeitner.setText(title);
 
             mainTranslation = strings[1];
             secondTranslation = strings[2];
@@ -83,14 +72,14 @@ public class AddNewLeitnerBottomSheet extends BottomSheetDialogFragment {
             }
         });
 
-        rbCostume.setOnCheckedChangeListener((compoundButton, b) -> mSharedViewModel.setCostumeCheck(b));
+        mBinding.rbCostumeBottomSheet.setOnCheckedChangeListener((compoundButton, b) -> mSharedViewModel.setCostumeCheck(b));
 
-        mButton.setOnClickListener(view1 -> {
+        mBinding.btnSaveItemLeitner.setOnClickListener(view1 -> {
             mSharedViewModel.setSaveBtnCheck(true);
 
 
             Leitner leitner = new Leitner(0, title, mSharedViewModel.getTranslation(), mSharedViewModel.getSecondTranslation(),
-                    "bug", edtGuide.getText().toString(), LeitnerStateConstant.STARTED, 0, 0, System.currentTimeMillis());
+                    "bug", mBinding.edtDialogGuide.getText().toString(), LeitnerStateConstant.STARTED, 0, 0, System.currentTimeMillis());
             mInternalViewModel.insertLeitnerItem(leitner);
             Toast.makeText(view1.getContext(), "Added To leitner!", Toast.LENGTH_SHORT).show();
             dismiss();

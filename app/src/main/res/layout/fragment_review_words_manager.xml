@@ -17,19 +17,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:singleLine="true"
             app:selectionRequired="true"
-            app:checkedChip="@+id/chip_filtered_all"
+            app:checkedChip="@+id/chip_filtered_box_one"
             app:singleSelection="true">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_filtered_all"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:text="All"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_filtered_box_one"

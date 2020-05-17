@@ -1,4 +1,4 @@
-package com.example.dileit.view.fragment.wordinfo.leitnersetup;
+package com.example.dileit.view.fragment.leitnercardhandler;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

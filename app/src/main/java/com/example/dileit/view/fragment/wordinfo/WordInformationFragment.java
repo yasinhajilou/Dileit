@@ -28,7 +28,7 @@ import com.example.dileit.model.WordInformation;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.model.entity.WordHistory;
 import com.example.dileit.view.adapter.viewpager.WordsInformationViewPagerAdapter;
-import com.example.dileit.view.fragment.wordinfo.leitnersetup.LeitnerCardModifierBottomSheet;
+import com.example.dileit.view.fragment.leitnercardhandler.LeitnerCardModifierBottomSheet;
 import com.example.dileit.viewmodel.EnglishDictionaryViewModel;
 import com.example.dileit.viewmodel.InternalViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;

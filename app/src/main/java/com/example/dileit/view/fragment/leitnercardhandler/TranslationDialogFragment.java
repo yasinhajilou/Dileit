@@ -1,4 +1,4 @@
-package com.example.dileit.view.fragment.wordinfo.leitnersetup;
+package com.example.dileit.view.fragment.leitnercardhandler;
 
 import android.os.Bundle;
 
@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

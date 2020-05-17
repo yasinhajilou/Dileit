@@ -15,10 +15,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.dileit.R;
+import com.example.dileit.constant.LeitnerModifierConstants;
 import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.FragmentNewWordManagerBinding;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.view.adapter.recycler.LeitnerManagerAdapter;
+import com.example.dileit.view.fragment.leitnercardhandler.LeitnerCardModifierBottomSheet;
 import com.example.dileit.viewmodel.InternalViewModel;
 
 
@@ -51,7 +53,6 @@ public class NewWordsManagerFragment extends Fragment implements LeitnerManagerA
 
 
         mInternalViewModel.getCardsByState(LeitnerStateConstant.STARTED).observe(getViewLifecycleOwner() , leitnerList -> {
-            Toast.makeText(view.getContext(), ""+leitnerList.size(), Toast.LENGTH_SHORT).show();
             adapter.setData(leitnerList);
         });
 
@@ -70,6 +71,6 @@ public class NewWordsManagerFragment extends Fragment implements LeitnerManagerA
 
     @Override
     public void onEditSelected(Leitner leitner) {
-
+        LeitnerManagerHandler.edit(this , leitner);
     }
 }

@@ -132,7 +132,6 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
 
     }
 
-
     private void handleViewPagerItems(String mainTranslation, String secondTranslation) {
         mAdapter.addData("Translation", TranslationDialogFragment.newInstance(mainTranslation, KeysValue.FRAGMENT_HEADER_TRANSLATION));
         if (secondTranslation != null) {

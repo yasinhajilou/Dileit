@@ -13,10 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dileit.R;
+import com.example.dileit.constant.LeitnerModifierConstants;
 import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.FragmentLearnedWordsManagerBinding;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.view.adapter.recycler.LeitnerManagerAdapter;
+import com.example.dileit.view.fragment.leitnercardhandler.LeitnerCardModifierBottomSheet;
 import com.example.dileit.viewmodel.InternalViewModel;
 
 public class LearnedWordsManagerFragment extends Fragment implements LeitnerManagerAdapter.LeitnerManagerInterface {
@@ -66,6 +68,6 @@ public class LearnedWordsManagerFragment extends Fragment implements LeitnerMana
 
     @Override
     public void onEditSelected(Leitner leitner) {
-
+        LeitnerManagerHandler.edit(this , leitner);
     }
 }

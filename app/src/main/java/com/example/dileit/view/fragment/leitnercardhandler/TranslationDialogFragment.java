@@ -81,12 +81,13 @@ public class TranslationDialogFragment extends Fragment {
                 //this class serves for both first viewpager fragment and second one we should check to
                 // prepare appropriate result
 
+                String trns = mEditText.getText().toString();
                 switch (mHeader){
                     case 1:
-                        mSharedViewModel.setTranslation(mEditText.getText().toString());
+                        mSharedViewModel.setTranslation(trns);
                         break;
                     case 2:
-                        mSharedViewModel.setSecondTranslation(mEditText.getText().toString());
+                        mSharedViewModel.setSecondTranslation(trns);
                         break;
                 }
             }

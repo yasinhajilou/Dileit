@@ -80,6 +80,8 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
             if (mConstants == LeitnerModifierConstants.EDIT) {
                 setUpViewForEditing();
                 mBinding.radioGpDialog.setVisibility(View.INVISIBLE);
+                // set edit texts available
+                mSharedViewModel.setCostumeCheck(true);
             }
         }
 
@@ -95,6 +97,8 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
                     dismiss();
                     break;
                 case EDIT:
+                    mLeitner.setDef(mSharedViewModel.getTranslation());
+                    mLeitner.setSecondDef(mSharedViewModel.getSecondTranslation());
                     mInternalViewModel.updateLeitnerItem(mLeitner);
                     Toast.makeText(view1.getContext(), "Leitner Card Updated!", Toast.LENGTH_SHORT).show();
                     dismiss();

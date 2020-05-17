@@ -204,7 +204,9 @@ public class WordInformationFragment extends Fragment {
                 for (TranslationWord word : wordList){
                     builderTranslation.append(word.getTranslatedWord()).append("\n");
                 }
-                LeitnerCardModifierBottomSheet dialog = LeitnerCardModifierBottomSheet.onNewInstance(LeitnerModifierConstants.ADD , mLeitner.getId());
+
+                //leitner id =0 means we should add brand new card
+                LeitnerCardModifierBottomSheet dialog = LeitnerCardModifierBottomSheet.onNewInstance(LeitnerModifierConstants.ADD , 0 );
                 dialog.show(getChildFragmentManager(), "tag_dialog_add_leitner");
 
                 String[] strings = new String[3];

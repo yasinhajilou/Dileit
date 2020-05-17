@@ -43,6 +43,13 @@ public class Leitner implements Comparable {
         this.guide = guide;
     }
 
+    public void setDef(String def) {
+        this.def = def;
+    }
+
+    public void setSecondDef(String secondDef) {
+        this.secondDef = secondDef;
+    }
 
     public void setState(int state) {
         this.state = state;
@@ -97,12 +104,13 @@ public class Leitner implements Comparable {
         return guide;
     }
 
+
     @Override
     public boolean equals(@Nullable Object obj) {
         if (obj instanceof Leitner) {
             Leitner leitner = (Leitner) obj;
             return leitner.word.equals(this.word);
-        }else
+        } else
             return false;
     }
 

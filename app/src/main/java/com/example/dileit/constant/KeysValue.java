@@ -9,4 +9,6 @@ public class KeysValue {
     public static final byte FRAGMENT_HEADER_TRANSLATION = 1;
     public static final byte FRAGMENT_HEADER_SECOND_TRANSLATION = 2;
 
+    public static final String FRAGMENT_LEITNER_CARD_HANDLER = "key_fragment_leitner_card_handler";
+
 }

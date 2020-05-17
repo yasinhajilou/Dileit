@@ -28,7 +28,7 @@ import com.example.dileit.model.WordInformation;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.model.entity.WordHistory;
 import com.example.dileit.view.adapter.viewpager.WordsInformationViewPagerAdapter;
-import com.example.dileit.view.fragment.wordinfo.leitnersetup.AddNewLeitnerBottomSheet;
+import com.example.dileit.view.fragment.wordinfo.leitnersetup.LeitnerCardModifierBottomSheet;
 import com.example.dileit.viewmodel.EnglishDictionaryViewModel;
 import com.example.dileit.viewmodel.InternalViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
@@ -203,7 +203,7 @@ public class WordInformationFragment extends Fragment {
                 for (TranslationWord word : wordList){
                     builderTranslation.append(word.getTranslatedWord()).append("\n");
                 }
-                AddNewLeitnerBottomSheet dialog = new AddNewLeitnerBottomSheet();
+                LeitnerCardModifierBottomSheet dialog = new LeitnerCardModifierBottomSheet();
                 dialog.show(getChildFragmentManager(), "tag_dialog_add_leitner");
                 String[] strings = new String[3];
                 strings[0] = actualWord;

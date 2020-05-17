@@ -8,28 +8,24 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.dileit.R;
-import com.example.dileit.constant.LeitnerModifierConstants;
 import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.FragmentNewWordManagerBinding;
 import com.example.dileit.model.entity.Leitner;
-import com.example.dileit.view.adapter.recycler.LeitnerManagerAdapter;
-import com.example.dileit.view.fragment.leitnercardhandler.LeitnerCardModifierBottomSheet;
+import com.example.dileit.view.adapter.recycler.LeitnerManagerRecyclerAdapter;
 import com.example.dileit.viewmodel.InternalViewModel;
 
 
-public class NewWordsManagerFragment extends Fragment implements LeitnerManagerAdapter.LeitnerManagerInterface {
+public class NewWordsManagerFragment extends Fragment implements LeitnerManagerRecyclerAdapter.LeitnerManagerInterface {
 
     private static final String TAG = NewWordsManagerFragment.class.getSimpleName();
     private InternalViewModel mInternalViewModel;
-    private LeitnerManagerAdapter adapter;
+    private LeitnerManagerRecyclerAdapter adapter;
     private FragmentNewWordManagerBinding mBinding;
+    private boolean notifyRv = true;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,13 +43,16 @@ public class NewWordsManagerFragment extends Fragment implements LeitnerManagerA
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        adapter = new LeitnerManagerAdapter(this);
+        adapter = new LeitnerManagerRecyclerAdapter(this);
         mBinding.rvNewWordManager.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mBinding.rvNewWordManager.setAdapter(adapter);
 
 
-        mInternalViewModel.getCardsByState(LeitnerStateConstant.STARTED).observe(getViewLifecycleOwner() , leitnerList -> {
-            adapter.setData(leitnerList);
+        mInternalViewModel.getCardsByState(LeitnerStateConstant.STARTED).observe(getViewLifecycleOwner(), leitnerList -> {
+            adapter.setData(leitnerList, notifyRv);
+            //reset
+            if (!notifyRv)
+                notifyRv = true;
         });
 
     }
@@ -66,11 +65,12 @@ public class NewWordsManagerFragment extends Fragment implements LeitnerManagerA
 
     @Override
     public void onDeleteSelected(Leitner leitner) {
+        notifyRv = false;
         mInternalViewModel.deleteLeitnerItem(leitner);
     }
 
     @Override
     public void onEditSelected(Leitner leitner) {
-        LeitnerManagerHandler.edit(this , leitner);
+        LeitnerManagerHandler.edit(this, leitner);
     }
 }

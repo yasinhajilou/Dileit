@@ -12,20 +12,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.dileit.R;
-import com.example.dileit.constant.LeitnerModifierConstants;
 import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.FragmentLearnedWordsManagerBinding;
 import com.example.dileit.model.entity.Leitner;
-import com.example.dileit.view.adapter.recycler.LeitnerManagerAdapter;
-import com.example.dileit.view.fragment.leitnercardhandler.LeitnerCardModifierBottomSheet;
+import com.example.dileit.view.adapter.recycler.LeitnerManagerRecyclerAdapter;
 import com.example.dileit.viewmodel.InternalViewModel;
 
-public class LearnedWordsManagerFragment extends Fragment implements LeitnerManagerAdapter.LeitnerManagerInterface {
+public class LearnedWordsManagerFragment extends Fragment implements LeitnerManagerRecyclerAdapter.LeitnerManagerInterface {
 
     private InternalViewModel mInternalViewModel;
-    private LeitnerManagerAdapter mAdapter;
+    private LeitnerManagerRecyclerAdapter mAdapter;
     private FragmentLearnedWordsManagerBinding mBinding;
+    private boolean notifyRv = true;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,13 +43,16 @@ public class LearnedWordsManagerFragment extends Fragment implements LeitnerMana
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mAdapter = new LeitnerManagerAdapter(this);
+        mAdapter = new LeitnerManagerRecyclerAdapter(this);
 
         mBinding.rvLearnedCardManager.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mBinding.rvLearnedCardManager.setAdapter(mAdapter);
 
         mInternalViewModel.getCardsByState(LeitnerStateConstant.LEARNED).observe(getViewLifecycleOwner() , leitnerList -> {
-            mAdapter.setData(leitnerList);
+            mAdapter.setData(leitnerList , notifyRv);
+            //reset
+            if (!notifyRv)
+                notifyRv = true;
         });
     }
 
@@ -63,6 +64,7 @@ public class LearnedWordsManagerFragment extends Fragment implements LeitnerMana
 
     @Override
     public void onDeleteSelected(Leitner leitner) {
+        notifyRv = false;
         mInternalViewModel.deleteLeitnerItem(leitner);
     }
 

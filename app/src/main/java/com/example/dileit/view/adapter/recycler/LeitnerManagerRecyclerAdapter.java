@@ -1,6 +1,5 @@
 package com.example.dileit.view.adapter.recycler;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,28 +12,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.dileit.R;
 import com.example.dileit.model.entity.Leitner;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
-public class LeitnerManagerAdapter extends RecyclerView.Adapter<LeitnerManagerAdapter.ViewHolder> {
+public class LeitnerManagerRecyclerAdapter extends RecyclerView.Adapter<LeitnerManagerRecyclerAdapter.ViewHolder> {
 
     private LeitnerManagerInterface mInterface;
     private List<Leitner> mLeitners;
 
-    public LeitnerManagerAdapter(LeitnerManagerInterface anInterface) {
+    public interface LeitnerManagerInterface {
+        void onDeleteSelected(Leitner leitner);
+
+        void onEditSelected(Leitner leitner);
+    }
+
+    public LeitnerManagerRecyclerAdapter(LeitnerManagerInterface anInterface) {
         mInterface = anInterface;
 
     }
 
-    public interface LeitnerManagerInterface{
-        void onDeleteSelected(Leitner leitner);
-        void onEditSelected(Leitner leitner);
-    }
-
-    public void setData(List<Leitner> data) {
+    public void setData(List<Leitner> data, boolean notifyRv) {
         mLeitners = data;
-        notifyDataSetChanged();
+        if (notifyRv)
+            notifyDataSetChanged();
     }
 
     @NonNull
@@ -65,7 +64,7 @@ public class LeitnerManagerAdapter extends RecyclerView.Adapter<LeitnerManagerAd
             imgEdit = itemView.findViewById(R.id.img_edit_leitner_manager_item);
         }
 
-        void bindData(Leitner leitner){
+        void bindData(Leitner leitner) {
             mTextView.setText(leitner.getWord());
 
             imgEdit.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +78,7 @@ public class LeitnerManagerAdapter extends RecyclerView.Adapter<LeitnerManagerAd
             imgDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    mLeitners.remove(leitner);
                     notifyItemRemoved(getAdapterPosition());
                     mInterface.onDeleteSelected(leitner);
                 }

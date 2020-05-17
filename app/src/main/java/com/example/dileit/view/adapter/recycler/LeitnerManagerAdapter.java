@@ -79,6 +79,7 @@ public class LeitnerManagerAdapter extends RecyclerView.Adapter<LeitnerManagerAd
             imgDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    notifyItemRemoved(getAdapterPosition());
                     mInterface.onDeleteSelected(leitner);
                 }
             });

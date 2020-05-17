@@ -63,7 +63,7 @@ public class LearnedWordsManagerFragment extends Fragment implements LeitnerMana
 
     @Override
     public void onDeleteSelected(Leitner leitner) {
-
+        mInternalViewModel.deleteLeitnerItem(leitner);
     }
 
     @Override

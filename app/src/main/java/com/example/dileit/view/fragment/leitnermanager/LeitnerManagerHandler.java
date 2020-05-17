@@ -13,8 +13,4 @@ public class LeitnerManagerHandler {
         LeitnerCardModifierBottomSheet bottomSheet = LeitnerCardModifierBottomSheet.onNewInstance(LeitnerModifierConstants.EDIT , leitner.getId());
         bottomSheet.show(fragment.getChildFragmentManager() , "fragment_edit");
     }
-
-    static void delete(){
-
-    }
 }

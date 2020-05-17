@@ -66,7 +66,7 @@ public class NewWordsManagerFragment extends Fragment implements LeitnerManagerA
 
     @Override
     public void onDeleteSelected(Leitner leitner) {
-
+        mInternalViewModel.deleteLeitnerItem(leitner);
     }
 
     @Override

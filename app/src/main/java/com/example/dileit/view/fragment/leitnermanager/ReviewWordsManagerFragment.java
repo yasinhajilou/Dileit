@@ -109,7 +109,7 @@ public class ReviewWordsManagerFragment extends Fragment implements LeitnerManag
 
     @Override
     public void onDeleteSelected(Leitner leitner) {
-        Toast.makeText(getContext(), "hi", Toast.LENGTH_SHORT).show();
+        mInternalViewModel.deleteLeitnerItem(leitner);
     }
 
     @Override

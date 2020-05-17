@@ -31,6 +31,13 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
     private InternalViewModel mInternalViewModel;
     private LeitnerModifierConstants mConstants;
 
+    public static LeitnerCardModifierBottomSheet onNewInstance(LeitnerModifierConstants constants){
+        LeitnerCardModifierBottomSheet bottomSheet = new LeitnerCardModifierBottomSheet();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(KeysValue.FRAGMENT_LEITNER_CARD_HANDLER , constants);
+        bottomSheet.setArguments(bundle);
+        return bottomSheet;
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

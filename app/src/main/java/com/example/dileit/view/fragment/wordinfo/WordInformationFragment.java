@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
+import com.example.dileit.constant.LeitnerModifierConstants;
 import com.example.dileit.databinding.FragmentWordInformationBinding;
 import com.example.dileit.model.Idiom;
 import com.example.dileit.model.TranslationWord;
@@ -203,8 +204,9 @@ public class WordInformationFragment extends Fragment {
                 for (TranslationWord word : wordList){
                     builderTranslation.append(word.getTranslatedWord()).append("\n");
                 }
-                LeitnerCardModifierBottomSheet dialog = new LeitnerCardModifierBottomSheet();
+                LeitnerCardModifierBottomSheet dialog = LeitnerCardModifierBottomSheet.onNewInstance(LeitnerModifierConstants.ADD);
                 dialog.show(getChildFragmentManager(), "tag_dialog_add_leitner");
+
                 String[] strings = new String[3];
                 strings[0] = actualWord;
                 strings[1] =  builderTranslation.toString();

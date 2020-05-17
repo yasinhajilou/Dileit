@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.example.dileit.model.dao.LeitnerDao;
 import com.example.dileit.model.dao.WordHistoryDao;
@@ -15,11 +14,10 @@ import com.example.dileit.model.entity.WordHistory;
 import com.example.dileit.viewmodel.InternalViewModel;
 import com.example.dileit.viewmodel.vminterface.InternalInterface;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class InternalRepository {
-    private WordHistoryDao mDao;
+    private WordHistoryDao mWordHistoryDao;
     private LiveData<List<WordHistory>> mAllWordHistory;
     private LiveData<List<Leitner>> mAllLeitnerItems;
     private LeitnerDao mLeitnerDao;
@@ -27,9 +25,9 @@ public class InternalRepository {
 
     public InternalRepository(Context context) {
         InternalRoomDatabase database = InternalRoomDatabase.getInstance(context);
-        mDao = database.mWordHistoryDao();
+        mWordHistoryDao = database.mWordHistoryDao();
         mLeitnerDao = database.mLeitnerDao();
-        mAllWordHistory = mDao.getAllWordHistory();
+        mAllWordHistory = mWordHistoryDao.getAllWordHistory();
         mAllLeitnerItems = mLeitnerDao.LEITNER_LIST();
     }
 
@@ -40,7 +38,7 @@ public class InternalRepository {
     }
 
     public LiveData<WordHistory> getWordHistoryInfo(String word) {
-        return mDao.getWordInformation(word);
+        return mWordHistoryDao.getWordInformation(word);
     }
 
     public LiveData<Leitner> getLeitnerInfoByWord(String word) {
@@ -57,6 +55,10 @@ public class InternalRepository {
 
     public LiveData<List<Leitner>> getGetCardsByRangeState(int start, int end) {
         return mLeitnerDao.getCardsByRangeState(start, end);
+    }
+
+    public LiveData<Leitner> getLeitnerCardById(int id){
+        return mLeitnerDao.getLeitnerCardById(id);
     }
 
 
@@ -121,7 +123,7 @@ public class InternalRepository {
         @Override
         protected Void doInBackground(Void... voids) {
             WordHistory wordHistory = new WordHistory(word, wordDef, leitnerId, time);
-            mDao.Insert(wordHistory);
+            mWordHistoryDao.Insert(wordHistory);
             Log.d(TAG, "doInBackground: added");
             return null;
         }
@@ -140,7 +142,7 @@ public class InternalRepository {
 
         @Override
         protected Void doInBackground(WordHistory... wordHistories) {
-            mDao.update(wordHistories[0]);
+            mWordHistoryDao.update(wordHistories[0]);
             return null;
         }
     }

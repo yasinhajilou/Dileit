@@ -30,15 +30,12 @@ public interface LeitnerDao {
     @Query("SELECT * FROM Leitner WHERE word LIKE :word")
     LiveData<Leitner> leitnerInfoByWord(String word);
 
-//    @Query("SELECT * FROM Leitner WHERE state LIKE " + LeitnerStateConstant.STARTED)
-//    LiveData<List<Leitner>> getNewCards();
-//
-//    @Query("SELECT * FROM Leitner WHERE state LIKE " + LeitnerStateConstant.LEARNED)
-//    LiveData<List<Leitner>> getLearnedCards();
-
     @Query("SELECT * FROM Leitner WHERE state LIKE :cardState")
     LiveData<List<Leitner>> getCardByState(int cardState);
 
     @Query("SELECT * FROM Leitner WHERE state BETWEEN :start AND :end")
     LiveData<List<Leitner>> getCardsByRangeState(int start, int end);
+
+    @Query("SELECT * FROM Leitner WHERE id LIKE :cardId")
+    LiveData<Leitner> getLeitnerCardById(int cardId);
 }

@@ -27,7 +27,7 @@ public class TranslationDialogFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static TranslationDialogFragment newInstance(String s, byte header) {
+     static TranslationDialogFragment newInstance(String s, byte header) {
         TranslationDialogFragment fragment = new TranslationDialogFragment();
         Bundle bundle = new Bundle();
         bundle.putString(KeysValue.KEY_BUNDLE_WORD_TRANSLATION, s);
@@ -75,21 +75,19 @@ public class TranslationDialogFragment extends Fragment {
             }
         });
 
-        mSharedViewModel.getSaveButtonCheck().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean){
-                    switch (mHeader){
-                        case 0 :
-                            Toast.makeText(getContext(), "Header is Empty!", Toast.LENGTH_SHORT).show();
-                            break;
-                        case 1:
-                            mSharedViewModel.setTranslation(mEditText.getText().toString());
-                            break;
-                        case 2:
-                            mSharedViewModel.setSecondTranslation(mEditText.getText().toString());
-                            break;
-                    }
+        mSharedViewModel.getSaveButtonCheck().observe(getViewLifecycleOwner(), aBoolean -> {
+            if (aBoolean){
+
+                //this class serves for both first viewpager fragment and second one we should check to
+                // prepare appropriate result
+
+                switch (mHeader){
+                    case 1:
+                        mSharedViewModel.setTranslation(mEditText.getText().toString());
+                        break;
+                    case 2:
+                        mSharedViewModel.setSecondTranslation(mEditText.getText().toString());
+                        break;
                 }
             }
         });

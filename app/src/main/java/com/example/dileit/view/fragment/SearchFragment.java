@@ -17,7 +17,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
@@ -26,11 +25,9 @@ import com.example.dileit.model.WordSearch;
 import com.example.dileit.utils.JsonUtils;
 import com.example.dileit.view.adapter.recycler.AllWordsRecyclerAdapter;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
-import com.example.dileit.viewmodel.AdvancedDictionaryViewModel;
 import com.example.dileit.viewmodel.InternalViewModel;
 import com.example.dileit.viewmodel.PersianDictionaryViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -40,7 +37,6 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     private PersianDictionaryViewModel mViewModel;
     private AllWordsRecyclerAdapter mAdapter;
     private SharedViewModel mSharedViewModel;
-    private AdvancedDictionaryViewModel mAdvancedDictionaryViewModel;
     private String TAG = SearchFragment.class.getSimpleName();
     private InternalViewModel mInternalViewModel;
     private boolean isTypedYet = false;
@@ -53,7 +49,6 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         super.onCreate(savedInstanceState);
         mViewModel = ViewModelProviders.of(getActivity()).get(PersianDictionaryViewModel.class);
         mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
-        mAdvancedDictionaryViewModel = ViewModelProviders.of(this).get(AdvancedDictionaryViewModel.class);
         mInternalViewModel = ViewModelProviders.of(getActivity()).get(InternalViewModel.class);
     }
 
@@ -158,11 +153,6 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         rvWords.setAdapter(mAdapter);
     }
 
-    private void setUpAdvancedDic(List<WordSearch> list) {
-        Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_advancedSearchResultFragment);
-        mSharedViewModel.setAdvancedResult(list);
-        mBinding.edtSearchWord.setText("");
-    }
 
     @Override
     public void onItemClicked(String data, String actualWord) {
@@ -182,13 +172,6 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         super.onDestroyView();
         mBinding = null;
 
-        mAdvancedDictionaryViewModel.resetListData();
         mSharedViewModel.resetVoiceWord();
-//        if (mSnackbar != null) {
-//            if (mSnackbar.isShown()) {
-//                mSnackbar.dismiss();
-//            }
-//        }
-        Log.d(TAG, "onDestroyView: called");
     }
 }

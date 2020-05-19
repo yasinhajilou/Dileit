@@ -2,6 +2,7 @@ package com.example.dileit.view.fragment.leitnerreview;
 
 
 import android.animation.Animator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -25,6 +26,7 @@ import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.utils.LeitnerUtils;
 import com.example.dileit.view.adapter.viewpager.LeitnerItemTranslationViewPagerAdapter;
 import com.example.dileit.viewmodel.InternalViewModel;
+import com.example.dileit.viewmodel.ReviewLeitnerSharedViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +42,10 @@ public class LeitnerItemFragment extends Fragment {
     private Leitner mLeitner;
     private String mWord;
     private boolean isHeaderOpen = true;
+    private ReviewLeitnerSharedViewModel mReviewLeitnerSharedViewModel;
 
+    private int reviewedCards = 0;
+    private int reviewAgainCards = 0;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -54,6 +59,7 @@ public class LeitnerItemFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mInternalViewModel = ViewModelProviders.of(getActivity()).get(InternalViewModel.class);
+        mReviewLeitnerSharedViewModel = ViewModelProviders.of(getActivity()).get(ReviewLeitnerSharedViewModel.class);
         if (getArguments() != null)
             listId = getArguments().getInt(KeysValue.KEY_BUNDLE_LEITNER_ITEM_ID);
     }
@@ -66,6 +72,7 @@ public class LeitnerItemFragment extends Fragment {
     }
 
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -97,34 +104,20 @@ public class LeitnerItemFragment extends Fragment {
         });
 
 
-        mBinding.btnTabTranslation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mBinding.viewPagerLeitnerItemTranslation.setCurrentItem(0);
-            }
-        });
+        mBinding.btnTabTranslation.setOnClickListener(view1 -> mBinding.viewPagerLeitnerItemTranslation.setCurrentItem(0));
 
-        mBinding.btnTabEnglishTrans.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mBinding.viewPagerLeitnerItemTranslation.setCurrentItem(1);
-            }
-        });
-        mBinding.layoutContainerReview.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
+        mBinding.btnTabEnglishTrans.setOnClickListener(view12 -> mBinding.viewPagerLeitnerItemTranslation.setCurrentItem(1));
 
-                int currentRepeat = mLeitner.getRepeatCounter();
-                mLeitner.setRepeatCounter(++currentRepeat);
-                mLeitner.setLastReviewTime(System.currentTimeMillis());
-                mLeitner.setState(LeitnerStateConstant.BOX_ONE);
+        mBinding.layoutContainerReview.setOnTouchListener((view13, motionEvent) -> {
 
-                showSecondView((int) motionEvent.getX(), (int) motionEvent.getY());
+            int currentRepeat = mLeitner.getRepeatCounter();
+            mLeitner.setRepeatCounter(++currentRepeat);
+            mLeitner.setLastReviewTime(System.currentTimeMillis());
+            mLeitner.setState(LeitnerStateConstant.BOX_ONE);
 
-                return false;
-            }
+            showSecondView((int) motionEvent.getX(), (int) motionEvent.getY());
 
-
+            return false;
         });
 
 
@@ -140,6 +133,7 @@ public class LeitnerItemFragment extends Fragment {
 
                 mInternalViewModel.updateLeitnerItem(mLeitner);
                 mListener.onYesClicked();
+                mReviewLeitnerSharedViewModel.setReviewedCards(++reviewedCards);
             }
         });
 
@@ -150,6 +144,9 @@ public class LeitnerItemFragment extends Fragment {
                 mLeitner.setState(LeitnerStateConstant.BOX_ONE);
                 mInternalViewModel.updateLeitnerItem(mLeitner);
                 mListener.onNoClicked();
+
+                mReviewLeitnerSharedViewModel.setReviewedCards(++reviewedCards);
+                mReviewLeitnerSharedViewModel.setReviewAgainCards(++reviewAgainCards);
             }
         });
 
@@ -193,7 +190,4 @@ public class LeitnerItemFragment extends Fragment {
         mBinding = null;
     }
 
-    private void handleCardReviewing(boolean knowCard) {
-
-    }
 }

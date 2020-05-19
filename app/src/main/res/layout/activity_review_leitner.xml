@@ -8,6 +8,7 @@
     tools:context=".view.activity.ReviewLeitnerActivity">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_header_counter"
         app:cardCornerRadius="16dp"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toTopOf="parent"

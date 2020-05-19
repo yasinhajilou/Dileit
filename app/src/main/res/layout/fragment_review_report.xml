@@ -1,13 +1,74 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.dileit.view.fragment.leitnerreview.ReviewReportFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.card.MaterialCardView
+        app:backgroundTint="@android:color/white"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginTop="32dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:paddingBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-</FrameLayout>
+            <TextView
+                android:id="@+id/tv_reviewed_cards"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:fontFamily="@font/productsansregular"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="28" />
+
+            <TextView
+                android:layout_marginTop="8dp"
+                android:id="@+id/tv_label_reviewed_cards"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/productsansregular"
+                android:text="Reviewed Cards"
+                android:textSize="22sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_reviewed_cards" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_review_again_cards"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:fontFamily="@font/productsansregular"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_label_reviewed_cards"
+                tools:text="28" />
+
+            <TextView
+                android:visibility="gone"
+                android:layout_marginTop="8dp"
+                android:id="@+id/tv_label_review_again_cards"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/productsansregular"
+                android:text="Review Again Cards For Today"
+                android:textSize="22sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_review_again_cards" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

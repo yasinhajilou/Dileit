@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.dileit.constant.KeysValue;
@@ -41,8 +42,6 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
 
     private int currentPos;
     private List<Leitner> filteredList;
-
-    int todayCards = 0;
 
 
     @Override
@@ -158,10 +157,11 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
         if (nextItem <= listSize) {
             mBinding.viewPagerReviewLeitner.setCurrentItem(nextItem);
         } else {
-            Toast.makeText(this, "finished", Toast.LENGTH_SHORT).show();
             mAdapter.addReportView(new ReviewReportFragment());
             //go to last pager which created by above code
             mBinding.viewPagerReviewLeitner.setCurrentItem(mBinding.viewPagerReviewLeitner.getCurrentItem() + 1);
+            mBinding.linearLayoutPronounceBar.setVisibility(View.INVISIBLE);
+            mBinding.cardHeaderCounter.setVisibility(View.INVISIBLE);
         }
 
         mBinding.tvReviewCountToday.setText(String.valueOf(fragments.size() - nextItem));

@@ -10,6 +10,7 @@ import java.util.List;
 
 public class LeitnerUtils {
 
+    //get today card that are ready for reviewing
     public static List<Leitner> getPreparedLeitnerItems(List<Leitner> leitnerList){
         List<Leitner> filteredList = new ArrayList<>();
         for (int i = leitnerList.size() ; i > 0 ; i--) {

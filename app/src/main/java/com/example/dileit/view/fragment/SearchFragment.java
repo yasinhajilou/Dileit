@@ -41,8 +41,6 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     private InternalViewModel mInternalViewModel;
     private boolean isTypedYet = false;
     private FragmentWordSearchBinding mBinding;
-    private boolean isPageStartUp = true;
-//    private Snackbar mSnackbar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,16 +69,6 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
 
         mViewModel.getData().observe(getViewLifecycleOwner(), words -> {
             mAdapter.setData(words);
-//            if (words.size() < 4 && isTypedYet) {
-//                mSnackbar = Snackbar.make(view, "Couldn't find ?", Snackbar.LENGTH_INDEFINITE)
-//                        .setAction("Advanced Dictionary", view1 -> {
-//                            mSnackbar.dismiss();
-//                            mBinding.progressAdvancedDic.setVisibility(View.VISIBLE);
-//                            mAdvancedDictionaryViewModel.getListOfWords("72630.a019NtO4OL3oXPgGW4SzeG3eVq8uHw1Sx21lwQpk"
-//                                    , mBinding.edtSearchWord.getText().toString().trim(), "like", "fa2en,en2fa");
-//                        });
-//                mSnackbar.show();
-//            }
         });
 
         mSharedViewModel.getVoiceWord().observe(getViewLifecycleOwner(), s -> {
@@ -88,19 +76,6 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
                 mBinding.edtSearchWord.setText(s);
         });
 
-//        mAdvancedDictionaryViewModel.getLiveDataListOfWord().observe(getViewLifecycleOwner(), (List<WordSearch> wordSearches) -> {
-//            mBinding.progressAdvancedDic.setVisibility(View.GONE);
-//            if (wordSearches.size() > 0) {
-//                setUpAdvancedDic(wordSearches);
-//            } else {
-//                if (isPageStartUp) {
-//                    isPageStartUp = false;
-//                } else {
-//                    Toast.makeText(getContext(), "didn't find anything, Please write text correctly.", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//        });
 
 
         mBinding.btnClearEditSearch.setOnClickListener(new View.OnClickListener() {

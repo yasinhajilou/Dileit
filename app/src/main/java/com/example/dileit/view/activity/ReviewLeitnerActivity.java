@@ -32,14 +32,9 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
     private TextToSpeech mTextToSpeechUS;
     private TextToSpeech mTextToSpeechUK;
 
-    private InternalViewModel mViewModel;
     private LeitnerReviewViewPagerAdapter mAdapter;
     private ActivityReviewLeitnerBinding mBinding;
     private List<Fragment> fragments;
-
-    private int a, b = 0;
-
-    private float percentageProgress;
 
     private boolean isStartUp = true;
     private int newWords = 0;
@@ -54,12 +49,13 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
         mBinding = ActivityReviewLeitnerBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
-        mViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
+        InternalViewModel viewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
 
         mAdapter = new LeitnerReviewViewPagerAdapter(getSupportFragmentManager());
         mBinding.viewPagerReviewLeitner.setAdapter(mAdapter);
 
 
+        //setting up progress bar for showing percent with number
         CircularProgressIndicator.ProgressTextAdapter progressTextAdapter = currentProgress -> {
             int a = (int) currentProgress;
             return a + "%";
@@ -70,14 +66,15 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
         mBinding.progressCircularReviewBar.setMaxProgress(100);
         mBinding.progressCircularReviewBar.setCurrentProgress(0);
 
-        mViewModel.getAllLeitnerItems().observe(this, leitnerList -> {
-            if (isStartUp){
+        viewModel.getAllLeitnerItems().observe(this, leitnerList -> {
+            if (isStartUp) {
                 filteredList = LeitnerUtils.getPreparedLeitnerItems(leitnerList);
                 fragments = new ArrayList<>();
 
                 for (int i = 0; i < filteredList.size(); i++) {
                     LeitnerItemFragment itemFragment = new LeitnerItemFragment();
                     Bundle bundle = new Bundle();
+                    //pass item id to fragment
                     bundle.putInt(KeysValue.KEY_BUNDLE_LEITNER_ITEM_ID, filteredList.get(i).getId());
                     itemFragment.setArguments(bundle);
                     fragments.add(itemFragment);
@@ -88,7 +85,7 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
                 mBinding.tvReviewCountNew.setText(String.valueOf(newWords));
                 mBinding.tvReviewCountToday.setText(String.valueOf(fragments.size()));
                 mAdapter.addData(fragments);
-                isStartUp= false;
+                isStartUp = false;
             }
 
         });
@@ -122,36 +119,13 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
         });
 
 
-        mBinding.tvBritishPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                speakUK(filteredList.get(currentPos).getWord());
-            }
-        });
+        mBinding.tvBritishPronounceLeitnerRev.setOnClickListener(view -> speakUK(filteredList.get(currentPos).getWord()));
 
-        mBinding.tvAmericanPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                speakUS(filteredList.get(currentPos).getWord());
+        mBinding.tvAmericanPronounceLeitnerRev.setOnClickListener(view -> speakUS(filteredList.get(currentPos).getWord()));
 
-            }
-        });
+        mBinding.imgAmericanPronounceLeitnerRev.setOnClickListener(view -> speakUS(filteredList.get(currentPos).getWord()));
 
-        mBinding.imgAmericanPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                speakUS(filteredList.get(currentPos).getWord());
-
-            }
-        });
-
-        mBinding.imgBritishPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                speakUK(filteredList.get(currentPos).getWord());
-
-            }
-        });
+        mBinding.imgBritishPronounceLeitnerRev.setOnClickListener(view -> speakUK(filteredList.get(currentPos).getWord()));
     }
 
     @Override
@@ -164,41 +138,32 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
         handleNextItem();
     }
 
-//    @Override
-//    public void onBritishPronounce(String word) {
-//
-//    }
-//
-//    @Override
-//    public void onAmericanPronounce(String word) {
-//
-//    }
 
     private void handleNextItem() {
         currentPos++;
         int nextItem = mBinding.viewPagerReviewLeitner.getCurrentItem() + 1;
+        //list size for indexing (-1)
         int listSize = fragments.size() - 1;
+
+        //calculate percent amount of reviewed cards
         float a = mBinding.viewPagerReviewLeitner.getCurrentItem() + 1;
         float num = a / fragments.size();
-        percentageProgress = num * 100;
+        float percentageProgress = num * 100;
         mBinding.progressCircularReviewBar.setCurrentProgress(percentageProgress);
+
         if (nextItem <= listSize) {
             mBinding.viewPagerReviewLeitner.setCurrentItem(nextItem);
         } else {
             Toast.makeText(this, "finished", Toast.LENGTH_SHORT).show();
         }
-        mBinding.tvReviewCountToday.setText(String.valueOf(fragments.size()- nextItem));
+        mBinding.tvReviewCountToday.setText(String.valueOf(fragments.size() - nextItem));
         if (--newWords >= 0)
             mBinding.tvReviewCountNew.setText(String.valueOf(newWords));
     }
 
     private void speakUS(String text) {
-        a++;
-        if (a % 2 != 0) {
-            mTextToSpeechUS.setSpeechRate(0.0f);
-        } else {
-            mTextToSpeechUS.setSpeechRate(0.6f);
-        }
+        mTextToSpeechUS.setSpeechRate(0.0f);
+
         mTextToSpeechUS.setPitch(0f);
         mTextToSpeechUS.setLanguage(Locale.US);
 
@@ -206,12 +171,8 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
     }
 
     private void speakUK(String text) {
-        b++;
-        if (b % 2 != 0) {
-            mTextToSpeechUK.setSpeechRate(0.0f);
-        } else {
-            mTextToSpeechUK.setSpeechRate(0.6f);
-        }
+        mTextToSpeechUK.setSpeechRate(0.0f);
+
         mTextToSpeechUK.setPitch(0f);
         mTextToSpeechUK.setLanguage(Locale.UK);
         mTextToSpeechUK.speak(text, TextToSpeech.QUEUE_FLUSH, null);
@@ -220,12 +181,12 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
 
     @Override
     public void onDestroy() {
-        if(mTextToSpeechUK != null){
+        if (mTextToSpeechUK != null) {
 
             mTextToSpeechUK.stop();
             mTextToSpeechUK.shutdown();
         }
-        if(mTextToSpeechUS != null){
+        if (mTextToSpeechUS != null) {
 
             mTextToSpeechUS.stop();
             mTextToSpeechUS.shutdown();

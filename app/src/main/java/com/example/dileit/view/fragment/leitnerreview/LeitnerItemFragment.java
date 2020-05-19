@@ -117,6 +117,8 @@ public class LeitnerItemFragment extends Fragment {
                 int currentRepeat = mLeitner.getRepeatCounter();
                 mLeitner.setRepeatCounter(++currentRepeat);
                 mLeitner.setLastReviewTime(System.currentTimeMillis());
+                mLeitner.setState(LeitnerStateConstant.BOX_ONE);
+
                 showSecondView((int) motionEvent.getX(), (int) motionEvent.getY());
 
                 return false;
@@ -130,9 +132,10 @@ public class LeitnerItemFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 int nextBox = LeitnerUtils.nextBoxFinder(mLeitner.getState());
-                if (nextBox != -1)
+                if (nextBox != -1) {
                     mLeitner.setState(nextBox);
-                else
+                    mLeitner.setLastReviewTime(System.currentTimeMillis());
+                } else
                     Toast.makeText(view.getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
 
                 mInternalViewModel.updateLeitnerItem(mLeitner);
@@ -143,9 +146,8 @@ public class LeitnerItemFragment extends Fragment {
         mBinding.btnReviewNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mLeitner.getState() == LeitnerStateConstant.STARTED)
-                    mLeitner.setState(LeitnerStateConstant.BOX_ONE);
-
+                mLeitner.setLastReviewTime(System.currentTimeMillis());
+                mLeitner.setState(LeitnerStateConstant.BOX_ONE);
                 mInternalViewModel.updateLeitnerItem(mLeitner);
                 mListener.onNoClicked();
             }
@@ -191,5 +193,7 @@ public class LeitnerItemFragment extends Fragment {
         mBinding = null;
     }
 
+    private void handleCardReviewing(boolean knowCard) {
 
+    }
 }

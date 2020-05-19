@@ -11,7 +11,7 @@ import java.util.List;
 
 public class LeitnerReviewViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    List<Fragment> mFragments = new ArrayList<>();
+    private List<Fragment> mFragments = new ArrayList<>();
 
     public LeitnerReviewViewPagerAdapter(@NonNull FragmentManager fm) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
@@ -31,6 +31,11 @@ public class LeitnerReviewViewPagerAdapter extends FragmentStatePagerAdapter {
 
     public void addData(List<Fragment> fragments){
         mFragments.addAll(fragments);
+        notifyDataSetChanged();
+    }
+
+    public void addReportView(Fragment fragment){
+        mFragments.add(fragment);
         notifyDataSetChanged();
     }
 }

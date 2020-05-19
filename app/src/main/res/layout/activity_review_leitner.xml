@@ -100,9 +100,8 @@
         app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/view_pager_review_leitner"
         android:layout_width="0dp"
-        android:layout_height="0dp"/>
-
-
+        android:layout_height="0dp">
+    </com.example.dileit.utils.NonSwipeableViewPager>
 
     <LinearLayout
         android:layout_marginBottom="64dp"

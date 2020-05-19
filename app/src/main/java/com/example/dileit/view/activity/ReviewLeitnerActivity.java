@@ -2,6 +2,7 @@ package com.example.dileit.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ReportFragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.ActivityReviewLeitnerBinding;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.utils.LeitnerUtils;
+import com.example.dileit.view.ReviewReportFragment;
 import com.example.dileit.view.adapter.viewpager.LeitnerReviewViewPagerAdapter;
 import com.example.dileit.view.fragment.leitnerreview.InterfaceReviewButtonClickListener;
 import com.example.dileit.view.fragment.leitnerreview.LeitnerItemFragment;
@@ -41,6 +43,8 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
 
     private int currentPos;
     private List<Leitner> filteredList;
+
+    int todayCards = 0;
 
 
     @Override
@@ -78,6 +82,7 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
                     bundle.putInt(KeysValue.KEY_BUNDLE_LEITNER_ITEM_ID, filteredList.get(i).getId());
                     itemFragment.setArguments(bundle);
                     fragments.add(itemFragment);
+
                     if (filteredList.get(i).getState() == LeitnerStateConstant.STARTED)
                         newWords++;
 
@@ -151,11 +156,16 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
         float percentageProgress = num * 100;
         mBinding.progressCircularReviewBar.setCurrentProgress(percentageProgress);
 
+
         if (nextItem <= listSize) {
             mBinding.viewPagerReviewLeitner.setCurrentItem(nextItem);
         } else {
             Toast.makeText(this, "finished", Toast.LENGTH_SHORT).show();
+            mAdapter.addReportView(new ReviewReportFragment());
+            //go to last pager which created by above code
+            mBinding.viewPagerReviewLeitner.setCurrentItem(mBinding.viewPagerReviewLeitner.getCurrentItem() + 1);
         }
+
         mBinding.tvReviewCountToday.setText(String.valueOf(fragments.size() - nextItem));
         if (--newWords >= 0)
             mBinding.tvReviewCountNew.setText(String.valueOf(newWords));

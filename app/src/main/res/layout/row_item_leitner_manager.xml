@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
+    app:strokeColor="@color/colorSecondary"
+    app:strokeWidth="2dp"
     android:layout_margin="2dp"
     app:cardCornerRadius="8dp"
     app:cardBackgroundColor="@android:color/white"

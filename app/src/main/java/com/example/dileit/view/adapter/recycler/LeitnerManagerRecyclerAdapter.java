@@ -1,5 +1,6 @@
 package com.example.dileit.view.adapter.recycler;
 
+import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,9 +79,20 @@ public class LeitnerManagerRecyclerAdapter extends RecyclerView.Adapter<LeitnerM
             imgDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mLeitners.remove(leitner);
-                    notifyItemRemoved(getAdapterPosition());
-                    mInterface.onDeleteSelected(leitner);
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext())
+                            .setTitle("Delete Leitner Card")
+                            .setMessage("Do you want to delete this leitner card?")
+                            .setNeutralButton("Yes", (dialogInterface, i) -> {
+                                mLeitners.remove(leitner);
+                                notifyItemRemoved(getAdapterPosition());
+                                mInterface.onDeleteSelected(leitner);
+                            })
+                            .setNegativeButton("No", (dialogInterface, i) -> {
+                                dialogInterface.dismiss();
+                            });
+                    builder.show();
+
                 }
             });
         }

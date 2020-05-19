@@ -8,5 +8,4 @@ public class LeitnerStateConstant {
     public static final int BOX_FOUR = 4;
     public static final int BOX_FIVE = 5;
     public static final int LEARNED = 6;
-
 }

@@ -51,6 +51,16 @@ public class ReviewWordsManagerFragment extends Fragment implements LeitnerManag
         mBinding.rvReviewManager.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mBinding.rvReviewManager.setAdapter(adapter);
 
+
+        //showing box1 items in startup
+        mInternalViewModel.getCardsByState(LeitnerStateConstant.BOX_ONE).observe(getViewLifecycleOwner(), leitnerList -> {
+            adapter.setData(leitnerList, notifyRv);
+            //reset
+            if (!notifyRv)
+                notifyRv = true;
+        });
+
+
         mBinding.chipFilteredBoxOne.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
                 mInternalViewModel.getCardsByState(LeitnerStateConstant.BOX_ONE).observe(getViewLifecycleOwner(), leitnerList -> {

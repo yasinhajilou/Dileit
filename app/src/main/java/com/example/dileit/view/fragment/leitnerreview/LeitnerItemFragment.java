@@ -151,33 +151,6 @@ public class LeitnerItemFragment extends Fragment {
             }
         });
 
-//        mBinding.tvBritishPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mListener.onBritishPronounce(mWord);
-//            }
-//        });
-//
-//        mBinding.tvAmericanPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mListener.onAmericanPronounce(mWord);
-//            }
-//        });
-//
-//        mBinding.imgAmericanPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mListener.onAmericanPronounce(mWord);
-//            }
-//        });
-//
-//        mBinding.imgBritishPronounceLeitnerRev.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mListener.onBritishPronounce(mWord);
-//            }
-//        });
     }
 
 

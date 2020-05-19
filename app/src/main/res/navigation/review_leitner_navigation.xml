@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/review_leitner_navigation"
+    app:startDestination="@id/reviewReportFragment">
+
+    <fragment
+        android:id="@+id/reviewReportFragment"
+        android:name="com.example.dileit.view.ReviewReportFragment"
+        android:label="fragment_review_report"
+        tools:layout="@layout/fragment_review_report" />
+</navigation>

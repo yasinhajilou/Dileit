@@ -6,10 +6,12 @@
     tools:context="com.example.dileit.view.fragment.leitnerreview.ReviewReportFragment">
 
     <com.google.android.material.card.MaterialCardView
+        android:layout_gravity="center"
+        app:elevation="8dp"
+        app:cardCornerRadius="8dp"
         app:backgroundTint="@android:color/white"
         android:layout_marginStart="18dp"
         android:layout_marginEnd="18dp"
-        android:layout_marginTop="32dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,10 +33,10 @@
                 tools:text="28" />
 
             <TextView
-                android:layout_marginTop="8dp"
                 android:id="@+id/tv_label_reviewed_cards"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/productsansregular"
                 android:text="Reviewed Cards"
                 android:textSize="22sp"
@@ -58,16 +60,39 @@
 
             <TextView
                 android:visibility="gone"
-                android:layout_marginTop="8dp"
                 android:id="@+id/tv_label_review_again_cards"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/productsansregular"
                 android:text="Review Again Cards For Today"
                 android:textSize="22sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_review_again_cards" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                app:lottie_loop="false"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="trophy.json"
+                android:id="@+id/anim_trophy"
+                android:layout_width="wrap_content"
+                android:layout_height="230dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_label_reviewed_cards" />
+            <com.airbnb.lottie.LottieAnimationView
+                android:visibility="gone"
+                android:layout_marginTop="8dp"
+                app:lottie_loop="true"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="clap.json"
+                android:id="@+id/anim_clap"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_label_review_again_cards" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 

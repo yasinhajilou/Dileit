@@ -170,7 +170,7 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
     }
 
     private void speakUS(String text) {
-        mTextToSpeechUS.setSpeechRate(0.0f);
+        mTextToSpeechUS.setSpeechRate(0.5f);
 
         mTextToSpeechUS.setPitch(0f);
         mTextToSpeechUS.setLanguage(Locale.US);
@@ -179,7 +179,7 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
     }
 
     private void speakUK(String text) {
-        mTextToSpeechUK.setSpeechRate(0.0f);
+        mTextToSpeechUK.setSpeechRate(0.5f);
 
         mTextToSpeechUK.setPitch(0f);
         mTextToSpeechUK.setLanguage(Locale.UK);

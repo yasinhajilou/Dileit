@@ -133,7 +133,9 @@ public class LeitnerItemFragment extends Fragment {
 
                 mInternalViewModel.updateLeitnerItem(mLeitner);
                 mListener.onYesClicked();
-                mReviewLeitnerSharedViewModel.setReviewedCards(++reviewedCards);
+
+                handleReviewedCardsCounter();
+
             }
         });
 
@@ -190,4 +192,20 @@ public class LeitnerItemFragment extends Fragment {
         mBinding = null;
     }
 
+    private void handleReviewedCardsCounter() {
+        reviewedCards++;
+        if (mReviewLeitnerSharedViewModel.getReviewedCards().getValue() != null)
+            reviewedCards = reviewedCards + mReviewLeitnerSharedViewModel.getReviewedCards().getValue();
+
+        mReviewLeitnerSharedViewModel.setReviewedCards(reviewedCards);
+
+    }
+
+    private void handleReviewAgainCardsCounter() {
+        reviewAgainCards++;
+        if (mReviewLeitnerSharedViewModel.getReviewAgainCards().getValue() != null)
+            reviewAgainCards = reviewAgainCards + mReviewLeitnerSharedViewModel.getReviewAgainCards().getValue();
+
+        mReviewLeitnerSharedViewModel.setReviewAgainCards(reviewAgainCards);
+    }
 }

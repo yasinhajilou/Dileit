@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.databinding.FragmentReviewReportBinding;
@@ -47,15 +48,20 @@ public class ReviewReportFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mSharedViewModel.getReviewAgainCards().observe(getViewLifecycleOwner(), integer -> {
-            if (integer>0){
+            // integer > 0 user should review again some cards
+            if (integer > 0) {
                 mBinding.tvReviewAgainCards.setVisibility(View.VISIBLE);
                 mBinding.tvLabelReviewAgainCards.setVisibility(View.VISIBLE);
                 mBinding.tvReviewAgainCards.setText(String.valueOf(integer));
+                mBinding.animTrophy.setVisibility(View.GONE);
+                mBinding.animClap.setVisibility(View.VISIBLE);
+                mBinding.animClap.playAnimation();
             }
+
         });
 
         mSharedViewModel.getReviewedCards().observe(getViewLifecycleOwner(), integer -> {
-            mBinding.tvReviewedCards.setText(String.valueOf(integer));
+                    mBinding.tvReviewedCards.setText(String.valueOf(integer));
         });
     }
 }

@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.dileit.R;
@@ -20,6 +21,8 @@ import com.example.dileit.databinding.BottomSheetAddCostumeLeitnerBinding;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.model.repository.InternalRepository;
 import com.example.dileit.viewmodel.InternalViewModel;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -48,6 +51,14 @@ public class DialogAddCostumeLeitner extends BottomSheetDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        view.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            view.getViewTreeObserver().removeOnGlobalLayoutListener(this::onDestroyView);
+            BottomSheetDialog dialog = (BottomSheetDialog) getDialog();
+            FrameLayout bottomSheet = dialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+            BottomSheetBehavior behavior = BottomSheetBehavior.from(bottomSheet);
+            behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        });
+
         mBinding.btnSaveCostumeLeitner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,7 +69,7 @@ public class DialogAddCostumeLeitner extends BottomSheetDialogFragment {
                     if (mBinding.edtInputGuide.getText() != null)
                         guide = mBinding.edtInputGuide.getText().toString().trim();
 
-                    Leitner leitner = new Leitner(0,title,def,null,"bug" , guide , LeitnerStateConstant.BOX_ONE,
+                    Leitner leitner = new Leitner(0,title,def,null,"bug" , guide , LeitnerStateConstant.STARTED,
                             0 , 0 , System.currentTimeMillis());
 
                     mViewModel.insertLeitnerItem(leitner);

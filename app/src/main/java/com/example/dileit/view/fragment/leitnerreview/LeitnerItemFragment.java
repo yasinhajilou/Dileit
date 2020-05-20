@@ -121,35 +121,31 @@ public class LeitnerItemFragment extends Fragment {
         });
 
 
-        mBinding.btnReviewYes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int nextBox = LeitnerUtils.nextBoxFinder(mLeitner.getState());
-                if (nextBox != -1) {
-                    mLeitner.setState(nextBox);
-                    mLeitner.setLastReviewTime(System.currentTimeMillis());
-                } else
-                    Toast.makeText(view.getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+        mBinding.btnReviewYes.setOnClickListener(view15 -> {
 
-                mInternalViewModel.updateLeitnerItem(mLeitner);
-                mListener.onYesClicked();
+            int nextBox = LeitnerUtils.nextBoxFinder(mLeitner.getState());
+            if (nextBox != -1) {
+                mLeitner.setState(nextBox);
+                mLeitner.setLastReviewTime(System.currentTimeMillis());
+            } else
+                Toast.makeText(view15.getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
 
-                handleReviewedCardsCounter();
+            mInternalViewModel.updateLeitnerItem(mLeitner);
+            mListener.onYesClicked();
 
-            }
+            handleReviewedCardsCounter();
+
         });
 
-        mBinding.btnReviewNo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mLeitner.setLastReviewTime(System.currentTimeMillis());
-                mLeitner.setState(LeitnerStateConstant.BOX_ONE);
-                mInternalViewModel.updateLeitnerItem(mLeitner);
-                mListener.onNoClicked();
+        mBinding.btnReviewNo.setOnClickListener(view14 -> {
 
-                mReviewLeitnerSharedViewModel.setReviewedCards(++reviewedCards);
-                mReviewLeitnerSharedViewModel.setReviewAgainCards(++reviewAgainCards);
-            }
+            mLeitner.setLastReviewTime(System.currentTimeMillis());
+            mLeitner.setState(LeitnerStateConstant.BOX_ONE);
+            mInternalViewModel.updateLeitnerItem(mLeitner);
+            mListener.onNoClicked();
+
+            handleReviewedCardsCounter();
+            handleReviewAgainCardsCounter();
         });
 
     }

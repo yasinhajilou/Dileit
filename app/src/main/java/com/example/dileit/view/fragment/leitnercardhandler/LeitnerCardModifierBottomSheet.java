@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,8 @@ import com.example.dileit.constant.LeitnerModifierConstants;
 import com.example.dileit.view.adapter.viewpager.AddNewLeitnerViewPagerAdapter;
 import com.example.dileit.viewmodel.InternalViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
@@ -67,6 +70,14 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        view.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            view.getViewTreeObserver().removeOnGlobalLayoutListener(this::onDestroyView);
+            BottomSheetDialog dialog = (BottomSheetDialog) getDialog();
+            FrameLayout bottomSheet = dialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+            BottomSheetBehavior behavior = BottomSheetBehavior.from(bottomSheet);
+            behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        });
 
         //this class will call in two way:
         //1- when user wants to add a brand new card

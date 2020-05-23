@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dileit.R;
+import com.example.dileit.model.SearchDictionary;
 import com.example.dileit.utils.JsonUtils;
 import com.example.dileit.model.Word;
 import com.example.dileit.model.WordInformation;
@@ -19,14 +20,14 @@ import java.util.List;
 public class AllWordsRecyclerAdapter extends RecyclerView.Adapter<AllWordsRecyclerAdapter.ViewHolder> {
 
     private String TAG = AllWordsRecyclerAdapter.class.getSimpleName();
-    private List<Word> mList;
+    private List<SearchDictionary> mList;
     private WordsRecyclerViewInterface mInterface;
 
     public AllWordsRecyclerAdapter(WordsRecyclerViewInterface anInterface) {
         mInterface = anInterface;
     }
 
-    public void setData(List<Word> data) {
+    public void setData(List<SearchDictionary> data) {
         mList = data;
         notifyDataSetChanged();
     }
@@ -49,30 +50,23 @@ public class AllWordsRecyclerAdapter extends RecyclerView.Adapter<AllWordsRecycl
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView tvEng, tvPer;
+        TextView tvTitle;
         WordsRecyclerViewInterface mInterface;
 
         ViewHolder(@NonNull View itemView, WordsRecyclerViewInterface anInterface) {
             super(itemView);
             mInterface = anInterface;
-            tvEng = itemView.findViewById(R.id.tv_eng_word_item);
-            tvPer = itemView.findViewById(R.id.tv_per_def_item);
+            tvTitle = itemView.findViewById(R.id.tv_title_word_item);
             itemView.setOnClickListener(this::onClick);
         }
 
-        void onBindData(Word word) {
-            tvEng.setText(word.getWord());
-
-            //convert json data to readable string
-            JsonUtils jsonUtils = new JsonUtils();
-            WordInformation[] wordInformation = jsonUtils.getWordDefinition(word.getDefinition());
-            StringBuilder stringBuilder = new StringBuilder();
-            tvPer.setText(jsonUtils.getTranslation(wordInformation, stringBuilder));
+        void onBindData(SearchDictionary searchDictionary) {
+            tvTitle.setText(searchDictionary.getTitle());
         }
 
         @Override
         public void onClick(View view) {
-            mInterface.onItemClicked(mList.get(getAdapterPosition()).getDefinition(), mList.get(getAdapterPosition()).getWord());
+            mInterface.onItemClicked(mList.get(getAdapterPosition()).getTitle(), mList.get(getAdapterPosition()).getEngId());
         }
     }
 }

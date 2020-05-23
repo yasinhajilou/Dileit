@@ -6,20 +6,48 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:padding="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_english_translation"
-            android:layout_width="0dp"
+            android:fontFamily="@font/productsansregular"
+            android:textAlignment="center"
+            android:id="@+id/tv_cat_item_eng"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="hello"
+            android:textSize="18sp" />
+        <TextView
+            android:fontFamily="@font/productsansregular"
+            android:textSize="20sp"
+            android:id="@+id/tv_def_item_eng"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:fontFamily="@font/productsansregular"
+            android:textStyle="bold"
+            android:text="Synonymos:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:textSize="18sp"
+            android:fontFamily="@font/productsansregular"
+            android:id="@+id/tv_syn_item_eng"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:fontFamily="@font/productsansregular"
+            android:text="Examples:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_example_item_eng"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

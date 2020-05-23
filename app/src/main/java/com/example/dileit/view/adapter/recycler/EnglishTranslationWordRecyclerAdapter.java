@@ -9,21 +9,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dileit.R;
-import com.example.dileit.model.WordEnglishDic;
+import com.example.dileit.model.EnglishDef;
 
 import java.util.List;
 
 public class EnglishTranslationWordRecyclerAdapter extends RecyclerView.Adapter<EnglishTranslationWordRecyclerAdapter.ViewHolder> {
-    List<WordEnglishDic> mList;
+    List<EnglishDef> mList;
 
-    public void setData(List<WordEnglishDic> data){
+    public void setData(List<EnglishDef> data) {
         mList = data;
         notifyDataSetChanged();
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_item_english_translation , parent , false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_item_english_translation, parent, false);
         return new ViewHolder(view);
     }
 
@@ -37,15 +38,23 @@ public class EnglishTranslationWordRecyclerAdapter extends RecyclerView.Adapter<
         return mList != null ? mList.size() : 0;
     }
 
-     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView mTextView;
-         ViewHolder(@NonNull View itemView) {
+    class ViewHolder extends RecyclerView.ViewHolder {
+        TextView cat, def, syn, exam;
+
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
-            mTextView = itemView.findViewById(R.id.tv_english_translation);
+            cat = itemView.findViewById(R.id.tv_cat_item_eng);
+            def = itemView.findViewById(R.id.tv_def_item_eng);
+            syn = itemView.findViewById(R.id.tv_syn_item_eng);
+            exam = itemView.findViewById(R.id.tv_example_item_eng);
+
         }
 
-        void bindData(WordEnglishDic wordEnglishDic){
-            mTextView.setText(wordEnglishDic.getDefinition());
+        void bindData(EnglishDef englishDef) {
+            def.setText(englishDef.getDefinition());
+            cat.setText(englishDef.getCat());
+            syn.setText(englishDef.getSynonyms());
+            exam.setText(englishDef.getExamples());
         }
     }
 }

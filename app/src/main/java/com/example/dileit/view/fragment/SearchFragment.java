@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,33 +20,31 @@ import android.view.ViewGroup;
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
 import com.example.dileit.databinding.FragmentWordSearchBinding;
-import com.example.dileit.model.WordSearch;
 import com.example.dileit.utils.JsonUtils;
 import com.example.dileit.view.adapter.recycler.AllWordsRecyclerAdapter;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
 import com.example.dileit.viewmodel.InternalViewModel;
-import com.example.dileit.viewmodel.PersianDictionaryViewModel;
+import com.example.dileit.viewmodel.PersianPersionDictionaryViewModel;
+import com.example.dileit.viewmodel.SearchViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
-
-import java.util.List;
 
 
 public class SearchFragment extends Fragment implements WordsRecyclerViewInterface {
 
-    private PersianDictionaryViewModel mViewModel;
     private AllWordsRecyclerAdapter mAdapter;
     private SharedViewModel mSharedViewModel;
     private String TAG = SearchFragment.class.getSimpleName();
     private InternalViewModel mInternalViewModel;
     private boolean isTypedYet = false;
     private FragmentWordSearchBinding mBinding;
+    private SearchViewModel mSearchViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = ViewModelProviders.of(getActivity()).get(PersianDictionaryViewModel.class);
         mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         mInternalViewModel = ViewModelProviders.of(getActivity()).get(InternalViewModel.class);
+        mSearchViewModel = ViewModelProviders.of(getActivity()).get(SearchViewModel.class);
     }
 
     @Override
@@ -55,7 +52,6 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mBinding = FragmentWordSearchBinding.inflate(inflater, container, false);
-        Log.d(TAG, "onCreateView: ");
         return mBinding.getRoot();
     }
 
@@ -64,18 +60,16 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         super.onViewCreated(view, savedInstanceState);
 
 
-        setUpRecyclerView(view);
-        mViewModel.getAllEngWords();
+        setUpRecyclerView();
 
-        mViewModel.getData().observe(getViewLifecycleOwner(), words -> {
-            mAdapter.setData(words);
+        mSearchViewModel.getSyncedSearch().observe(getViewLifecycleOwner() , searchDictionaries -> {
+            mAdapter.setData(searchDictionaries);
         });
 
         mSharedViewModel.getVoiceWord().observe(getViewLifecycleOwner(), s -> {
             if (!s.equals(""))
                 mBinding.edtSearchWord.setText(s);
         });
-
 
 
         mBinding.btnClearEditSearch.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +79,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
                 mBinding.btnClearEditSearch.setVisibility(View.GONE);
             }
         });
+
         mBinding.btnBackwardSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,10 +105,11 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
                     isTypedYet = true;
                 }
                 if (!word.equals("")) {
-                    mViewModel.getEngToPer(word);
+                    mSearchViewModel.doEngSearch(word);
+                    mSearchViewModel.doPerSearch(word);
                     mBinding.btnClearEditSearch.setVisibility(View.VISIBLE);
                 } else {
-                    mViewModel.getAllEngWords();
+                    mAdapter.setData(null);
                     isTypedYet = false;
                 }
             }
@@ -121,32 +117,39 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
 
     }
 
-    private void setUpRecyclerView(View view) {
-        RecyclerView rvWords = view.findViewById(R.id.rv_search_ragment);
+    private void setUpRecyclerView() {
         mAdapter = new AllWordsRecyclerAdapter(this::onItemClicked);
-        rvWords.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvWords.setAdapter(mAdapter);
+        mBinding.rvSearchRagment.setLayoutManager(new LinearLayoutManager(getContext()));
+        mBinding.rvSearchRagment.setAdapter(mAdapter);
     }
 
 
-    @Override
-    public void onItemClicked(String data, String actualWord) {
-        JsonUtils jsonUtils = new JsonUtils();
-        mSharedViewModel.setWordInformation(jsonUtils.getWordDefinition(data));
-        Bundle bundle = new Bundle();
-        bundle.putString(KeysValue.KEY_BUNDLE_ACTUAL_WORD, actualWord.trim());
-
-        Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment, bundle);
-        mInternalViewModel.insertWordHistory(0, System.currentTimeMillis(), actualWord.trim(), data);
-    }
+//    @Override
+//    public void onItemClicked(String data, String actualWord) {
+//        JsonUtils jsonUtils = new JsonUtils();
+//        mSharedViewModel.setWordInformation(jsonUtils.getWordDefinition(data));
+//        Bundle bundle = new Bundle();
+//        bundle.putString(KeysValue.KEY_BUNDLE_ACTUAL_WORD, actualWord.trim());
+//
+//    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
 
-        super.onDestroyView();
         mBinding = null;
 
         mSharedViewModel.resetVoiceWord();
+    }
+
+    @Override
+    public void onItemClicked(String actualWord, int engId) {
+        Bundle bundle = new Bundle();
+        bundle.putString(KeysValue.KEY_BUNDLE_ACTUAL_WORD, actualWord.trim());
+        bundle.putInt(KeysValue.KEY_BUNDLE_WORD_REF_ID , engId);
+        Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment , bundle);
+        //TODO(1) DO SOME SHIT ABOUT WORD HISTORY
+        mInternalViewModel.insertWordHistory(0, System.currentTimeMillis(), actualWord.trim(), null);
+
     }
 }

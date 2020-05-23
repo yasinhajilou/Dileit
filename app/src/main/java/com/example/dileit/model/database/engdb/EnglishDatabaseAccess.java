@@ -9,7 +9,7 @@ public class EnglishDatabaseAccess {
     private SQLiteDatabase mDatabase;
     private static EnglishDatabaseAccess INSTANCE;
 
-    EnglishDatabaseAccess(Context context) {
+    private EnglishDatabaseAccess(Context context) {
         mHelper = new EnglishDatabaseOpenHelper(context);
     }
 

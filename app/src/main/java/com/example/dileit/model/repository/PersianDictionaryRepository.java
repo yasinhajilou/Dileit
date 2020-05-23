@@ -6,9 +6,11 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 
+import com.example.dileit.model.SearchDictionary;
 import com.example.dileit.model.Word;
+import com.example.dileit.model.WordInformation;
 import com.example.dileit.model.database.persiandb.PersianDatabaseAccess;
-import com.example.dileit.viewmodel.vminterface.DictionaryInterface;
+import com.example.dileit.viewmodel.vminterface.PersionDictionaryInterface;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +18,9 @@ public class PersianDictionaryRepository {
 
     private static final String TAG = PersianDictionaryRepository.class.getSimpleName();
     private PersianDatabaseAccess mPersianDatabaseAccess;
-    private DictionaryInterface mInterface;
+    private PersionDictionaryInterface mInterface;
 
-    public PersianDictionaryRepository(Application application, DictionaryInterface anInterface) {
+    public PersianDictionaryRepository(Application application, PersionDictionaryInterface anInterface) {
         mPersianDatabaseAccess = PersianDatabaseAccess.getINSTANCE(application);
         mInterface = anInterface;
     }
@@ -28,14 +30,18 @@ public class PersianDictionaryRepository {
     }
 
     public void getSpecificWord(String word) {
-        new AsyncGetSpecificWord(mPersianDatabaseAccess, mInterface, word).execute();
+        new AsyncGetSpecificWordBySearch(mPersianDatabaseAccess, mInterface, word).execute();
+    }
+
+    public void getExactWord(String word){
+        new AsyncGetExactWord(mPersianDatabaseAccess , mInterface , word).execute();
     }
 
     private class AsyncGetAllWords extends AsyncTask<Void, Void, List<Word>> {
         PersianDatabaseAccess mPersianDatabaseAccess;
-        DictionaryInterface mInterface;
+        PersionDictionaryInterface mInterface;
 
-         AsyncGetAllWords(PersianDatabaseAccess persianDatabaseAccess, DictionaryInterface anInterface) {
+         AsyncGetAllWords(PersianDatabaseAccess persianDatabaseAccess, PersionDictionaryInterface anInterface) {
             this.mPersianDatabaseAccess = persianDatabaseAccess;
             mInterface = anInterface;
         }
@@ -60,7 +66,7 @@ public class PersianDictionaryRepository {
         @Override
         protected void onPostExecute(List<Word> word) {
             super.onPostExecute(word);
-            mInterface.allEngWords(word);
+            mInterface.allWords(word);
         }
 
         @Override
@@ -69,41 +75,33 @@ public class PersianDictionaryRepository {
         }
     }
 
-    private class AsyncGetSpecificWord extends AsyncTask<Void, Void, List<Word>> {
+    private class AsyncGetSpecificWordBySearch extends AsyncTask<Void, Void, List<SearchDictionary>> {
         String word;
         PersianDatabaseAccess mPersianDatabaseAccess;
-        DictionaryInterface mInterface;
+        PersionDictionaryInterface mInterface;
 
-         AsyncGetSpecificWord(PersianDatabaseAccess persianDatabaseAccess, DictionaryInterface anInterface, String word) {
+         AsyncGetSpecificWordBySearch(PersianDatabaseAccess persianDatabaseAccess, PersionDictionaryInterface anInterface, String word) {
             this.mPersianDatabaseAccess = persianDatabaseAccess;
             mInterface = anInterface;
             this.word = word;
         }
 
         @Override
-        protected List<Word> doInBackground(Void... voids) {
+        protected List<SearchDictionary> doInBackground(Void... voids) {
              // ORDER BY word COLLATE NOCASE ASC
             mPersianDatabaseAccess.openDatabase();
-            List<Word> wordsList = new ArrayList<>();
-            Cursor cursor = mPersianDatabaseAccess.getDatabase().rawQuery("SELECT word,def from dictionary WHERE word LIKE ? ORDER BY LOWER(word) LIMIT 50 ", new String[]{word+"%"});
+            List<SearchDictionary> wordsList = new ArrayList<>();
+            Cursor cursor = mPersianDatabaseAccess.getDatabase().rawQuery("SELECT word from dictionary WHERE word LIKE ? ORDER BY LOWER(word) LIMIT 50 ", new String[]{word+"%"});
             while (cursor.moveToNext()) {
                 String actualWord = cursor.getString(0);
-                String def = cursor.getString(1);
-                Word word = new Word(actualWord , def);
-                wordsList.add(word);
+                SearchDictionary searchDictionary = new SearchDictionary(actualWord , 0);
+                wordsList.add(searchDictionary);
             }
-            Log.d(TAG, String.valueOf(wordsList.size()));
             cursor.close();
             mPersianDatabaseAccess.closeDatabase();
+            mInterface.getSpecificWord(wordsList);
 
             return wordsList;
-        }
-
-
-        @Override
-        protected void onPostExecute(List<Word> word) {
-            super.onPostExecute(word);
-            mInterface.allEngToPer(word);
         }
 
         @Override
@@ -112,6 +110,41 @@ public class PersianDictionaryRepository {
         }
     }
 
+    private class AsyncGetExactWord extends AsyncTask<Void, Void, Void> {
+        String word;
+        PersianDatabaseAccess mPersianDatabaseAccess;
+        PersionDictionaryInterface mInterface;
+
+        AsyncGetExactWord(PersianDatabaseAccess persianDatabaseAccess, PersionDictionaryInterface anInterface, String word) {
+            this.mPersianDatabaseAccess = persianDatabaseAccess;
+            mInterface = anInterface;
+            this.word = word;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            // ORDER BY word COLLATE NOCASE ASC
+            Log.d(TAG, "doInBackground: " + word);
+
+            mPersianDatabaseAccess.openDatabase();
+            Cursor cursor = mPersianDatabaseAccess.getDatabase().rawQuery("SELECT def from dictionary WHERE word LIKE ?  ", new String[]{word});
+            String data = null;
+            while (cursor.moveToNext()) {
+                data = cursor.getString(0);
+            }
+            cursor.close();
+            mPersianDatabaseAccess.closeDatabase();
+            Log.d(TAG, "doInBackground: " + data);
+            mInterface.getExactWordData(data);
+
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+    }
 
 
 }

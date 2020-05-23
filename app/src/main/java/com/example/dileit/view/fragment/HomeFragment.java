@@ -48,6 +48,11 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
 
     private HomeFragmentInterface mHomeFragmentInterface;
 
+    @Override
+    public void onItemClicked(String actualWord, int engId) {
+
+    }
+
     public interface HomeFragmentInterface {
         void onLeitnerReviewClicked();
         void onLeitnerManagerClicked();
@@ -179,14 +184,14 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
         Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_wordSearchFragment);
     }
 
-    @Override
-    public void onItemClicked(String data, String actualWord) {
-        JsonUtils jsonUtils = new JsonUtils();
-        mSharedViewModel.setWordInformation(jsonUtils.getWordDefinition(data));
-        Bundle bundle = new Bundle();
-        bundle.putString(KeysValue.KEY_BUNDLE_ACTUAL_WORD, actualWord.trim());
-        Navigation.findNavController(getView()).navigate(R.id.action_homeFragment_to_wordInformationFragment, bundle);
-    }
+//    @Override
+//    public void onItemClicked(String data, String actualWord) {
+//        JsonUtils jsonUtils = new JsonUtils();
+//        mSharedViewModel.setWordInformation(jsonUtils.getWordDefinition(data));
+//        Bundle bundle = new Bundle();
+//        bundle.putString(KeysValue.KEY_BUNDLE_ACTUAL_WORD, actualWord.trim());
+//        Navigation.findNavController(getView()).navigate(R.id.action_homeFragment_to_wordInformationFragment, bundle);
+//    }
 
     @Override
     public void onDestroyView() {

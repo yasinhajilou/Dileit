@@ -5,11 +5,12 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 
-public class WordsInformationViewPagerAdapter extends FragmentStatePagerAdapter {
+public class WordsInformationViewPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private String TAG = WordsInformationViewPagerAdapter.class.getSimpleName();
 

@@ -66,7 +66,7 @@ public class WordHistoryRecyclerAdapter extends RecyclerView.Adapter<WordHistory
 
         @Override
         public void onClick(View view) {
-            mOnItemClickListener.onItemClicked(mList.get(getAdapterPosition()).getWordDef() , mList.get(getAdapterPosition()).getWord() );
+//            mOnItemClickListener.onItemClicked(mList.get(getAdapterPosition()).getWordDef() , mList.get(getAdapterPosition()).getWord() );
         }
     }
 }

@@ -4,12 +4,12 @@ import android.content.Context;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
-public class EnglishDatabaseOpenHelper extends SQLiteAssetHelper {
+ class EnglishDatabaseOpenHelper extends SQLiteAssetHelper {
 
     private final static int DB_VERSION = 1;
-    private final static String DB_NAME = "engdic.db";
+    private final static String DB_NAME = "eng2engdic.db";
 
-    public EnglishDatabaseOpenHelper(Context context) {
+     EnglishDatabaseOpenHelper(Context context) {
         super(context, DB_NAME , null, DB_VERSION);
     }
 }

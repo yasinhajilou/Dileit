@@ -24,14 +24,15 @@ import com.example.dileit.constant.LeitnerModifierConstants;
 import com.example.dileit.databinding.FragmentWordInformationBinding;
 import com.example.dileit.model.Idiom;
 import com.example.dileit.model.TranslationWord;
-import com.example.dileit.model.WordEnglishDic;
+import com.example.dileit.model.EnglishDef;
 import com.example.dileit.model.WordInformation;
 import com.example.dileit.model.entity.Leitner;
-import com.example.dileit.model.entity.WordHistory;
+import com.example.dileit.utils.JsonUtils;
 import com.example.dileit.view.adapter.viewpager.WordsInformationViewPagerAdapter;
 import com.example.dileit.view.fragment.leitnercardhandler.LeitnerCardModifierBottomSheet;
 import com.example.dileit.viewmodel.EnglishDictionaryViewModel;
 import com.example.dileit.viewmodel.InternalViewModel;
+import com.example.dileit.viewmodel.PersianPersionDictionaryViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
 import com.google.android.material.chip.Chip;
 
@@ -51,53 +52,89 @@ public class WordInformationFragment extends Fragment {
     private FragmentWordInformationBinding mBinding;
     private Chip chipPersian, chipEnglish, chipIdioms;
     private WordsInformationViewPagerAdapter mAdapter;
-    private List<TranslationWord> wordList = new ArrayList<>();
-    private List<Idiom> mIdioms = new ArrayList<>();
+    private List<TranslationWord> wordList;
     private boolean isIdiomAvailable = false;
     private EnglishDictionaryViewModel mEnglishDictionaryViewModel;
     private InternalViewModel mInternalViewModel;
+    private PersianPersionDictionaryViewModel mPersionDictionaryViewModel;
 
     private StringBuilder builderEnglish;
     private StringBuilder builderTranslation;
 
-    private WordHistory mWordHistory;
     private String actualWord;
-    private boolean isWordSaved;
+    private int engId;
+
     private Leitner mLeitner;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
-        mEnglishDictionaryViewModel = ViewModelProviders.of(getActivity()).get(EnglishDictionaryViewModel.class);
+        mEnglishDictionaryViewModel = ViewModelProviders.of(this).get(EnglishDictionaryViewModel.class);
         mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
+        mPersionDictionaryViewModel = ViewModelProviders.of(this).get(PersianPersionDictionaryViewModel.class);
+        if (getArguments() != null) {
+            actualWord = getArguments().getString(KeysValue.KEY_BUNDLE_ACTUAL_WORD);
+            engId = getArguments().getInt(KeysValue.KEY_BUNDLE_WORD_REF_ID);
+
+            mEnglishDictionaryViewModel.searchEngWordById(engId);
+            mPersionDictionaryViewModel.searchForExactWord(actualWord);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding = FragmentWordInformationBinding.inflate(inflater,  container, false);
+        mBinding = FragmentWordInformationBinding.inflate(inflater, container, false);
+        mAdapter = new WordsInformationViewPagerAdapter(getChildFragmentManager());
         chipPersian = mBinding.chipsTranslatedOnly;
         chipEnglish = mBinding.chipsTranslatedEnglish;
         chipIdioms = mBinding.chipsIdiomsOnly;
-        mAdapter = new WordsInformationViewPagerAdapter(getChildFragmentManager());
-        if (getArguments() != null)
-            actualWord = getArguments().getString(KeysValue.KEY_BUNDLE_ACTUAL_WORD);
         return mBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d(TAG, "onViewCreated: ");
-        mAdapter.addPage(new TranslationFragment());
+
         mBinding.viewPagerWordInfo.setAdapter(mAdapter);
 
         mBinding.tvWordTitle.setText(actualWord);
 
-        mEnglishDictionaryViewModel.doSearch(actualWord.trim());
+        mPersionDictionaryViewModel.getWordInfo().observe(getViewLifecycleOwner(), s -> {
+            if (s != null) {
+                mAdapter.addPage(new TranslationFragment());
+                chipPersian.setVisibility(View.VISIBLE);
+                JsonUtils jsonUtils = new JsonUtils();
+                WordInformation[] wordInformations = jsonUtils.getWordDefinition(s);
+                List<Idiom> idioms = new ArrayList<>();
+                wordList = new ArrayList<>();
+                for (WordInformation information : wordInformations) {
+                    wordList.addAll(information.getTranslationWords());
+                    if (information.getIdioms() != null)
+                        idioms.addAll(information.getIdioms());
+                }
+                mSharedViewModel.setTranslationWord(wordList);
 
+                if (idioms.size() > 0) {
+                    chipIdioms.setVisibility(View.VISIBLE);
+                    mAdapter.addPage(new RelatedIdiomsFragment());
+                    isIdiomAvailable = true;
+                    mSharedViewModel.setIdiom(idioms);
+                }
+            }
+        });
+
+        mEnglishDictionaryViewModel.getAllDefs().observe(getViewLifecycleOwner(), englishDefs -> {
+            if (englishDefs != null) {
+                if (englishDefs.size() > 0) {
+                    mAdapter.addPage(new EnglishTranslatedFragment());
+                    chipEnglish.setVisibility(View.VISIBLE);
+                    mSharedViewModel.setEngDefList(englishDefs);
+                }
+            }
+        });
         mInternalViewModel.getLeitnerInfoByWord(actualWord).observe(getViewLifecycleOwner(), leitner -> {
             if (leitner != null) {
                 mLeitner = leitner;
@@ -105,53 +142,6 @@ public class WordInformationFragment extends Fragment {
             }
         });
 
-        mSharedViewModel.getWordInformation().observe(getViewLifecycleOwner(), wordInformation -> {
-
-            mBinding.tvPronounceTitle.setText(wordInformation[0].getPronunciation());
-
-            for (WordInformation information : wordInformation) {
-                wordList.addAll(information.getTranslationWords());
-                if (information.getIdioms() != null)
-                    mIdioms.addAll(information.getIdioms());
-            }
-
-            mSharedViewModel.setTranslationWord(wordList);
-            if (mIdioms != null) {
-                if (mIdioms.size() > 0) {
-                    chipIdioms.setVisibility(View.VISIBLE);
-                    mAdapter.addPage(new RelatedIdiomsFragment());
-                    isIdiomAvailable = true;
-                    mSharedViewModel.setIdiom(mIdioms);
-                }
-            }
-
-        });
-
-        mEnglishDictionaryViewModel.getLiveList().observe(getViewLifecycleOwner(), wordEnglishDics -> {
-            if (wordEnglishDics.size() == 0) {
-                Log.d(TAG, "onViewCreated: " +"english is empty");
-                chipEnglish.setVisibility(View.GONE);
-            } else {
-                mAdapter.addPage(new EnglishTranslatedFragment());
-                builderEnglish = new StringBuilder();
-                for (WordEnglishDic englishDic : wordEnglishDics) {
-                    builderEnglish.append(englishDic.getDefinition()).append("\n");
-                }
-            }
-        });
-
-        mInternalViewModel.getWordHistoryInfo(actualWord).observe(getViewLifecycleOwner(), wordHistory -> {
-
-        });
-
-        mInternalViewModel.getLeitnerAddedId().observe(getViewLifecycleOwner(), aLong -> {
-            if (aLong != null) {
-//                mWordHistory.setLeitnerId(aLong);
-//                mInternalViewModel.updateWordHistory(mWordHistory);
-                Toast.makeText(view.getContext(), "" + aLong, Toast.LENGTH_SHORT).show();
-            }
-
-        });
 
         mTextToSpeechUK = new TextToSpeech(view.getContext(), i -> {
             if (i == TextToSpeech.SUCCESS) {
@@ -201,24 +191,22 @@ public class WordInformationFragment extends Fragment {
                 showRemoveLeitnerDialog(view16);
             } else {
                 builderTranslation = new StringBuilder();
-                for (TranslationWord word : wordList){
+                for (TranslationWord word : wordList) {
                     builderTranslation.append(word.getTranslatedWord()).append("\n");
                 }
 
                 //leitner id =0 means we should add brand new card
-                LeitnerCardModifierBottomSheet dialog = LeitnerCardModifierBottomSheet.onNewInstance(LeitnerModifierConstants.ADD , 0 );
+                LeitnerCardModifierBottomSheet dialog = LeitnerCardModifierBottomSheet.onNewInstance(LeitnerModifierConstants.ADD, 0);
                 dialog.show(getChildFragmentManager(), "tag_dialog_add_leitner");
 
                 String[] strings = new String[3];
                 strings[0] = actualWord;
-                strings[1] =  builderTranslation.toString();
-                if (builderEnglish != null){
+                strings[1] = builderTranslation.toString();
+                if (builderEnglish != null) {
                     strings[2] = builderEnglish.toString();
                 }
                 mSharedViewModel.setLeitnerItemData(strings);
 
-//                addWordToLeitner(view16);
-//                mBinding.imgBtnAddToLeitner.setImageResource(R.drawable.leitner_added);
             }
         });
 
@@ -250,7 +238,6 @@ public class WordInformationFragment extends Fragment {
             mBinding.viewPagerWordInfo.setCurrentItem(0);
 
         });
-
 
         mBinding.viewPagerWordInfo.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -369,18 +356,6 @@ public class WordInformationFragment extends Fragment {
         alertDialog.show();
     }
 
-    private void addWordToLeitner(View view) {
-        StringBuilder stringBuffer = new StringBuilder();
-        for (TranslationWord translationWord : wordList) {
-            stringBuffer.append(translationWord.getTranslatedWord());
-        }
-
-//        Leitner leitner = new Leitner(0,actualWord.trim(),stringBuffer.toString(),LeitnerStateConstant.BOX_ONE
-//                ,0,0,System.currentTimeMillis());
-//        mInternalViewModel.insertLeitnerItem(leitner);
-//        Toast.makeText(view.getContext(), "Added to Leitner.", Toast.LENGTH_SHORT).show();
-    }
-
     @Override
     public void onStop() {
         super.onStop();
@@ -395,12 +370,12 @@ public class WordInformationFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        if(mTextToSpeechUK != null){
+        if (mTextToSpeechUK != null) {
 
             mTextToSpeechUK.stop();
             mTextToSpeechUK.shutdown();
         }
-        if(mTextToSpeechUS != null){
+        if (mTextToSpeechUS != null) {
 
             mTextToSpeechUS.stop();
             mTextToSpeechUS.shutdown();

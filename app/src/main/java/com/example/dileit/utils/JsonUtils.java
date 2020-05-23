@@ -16,17 +16,18 @@ public class JsonUtils {
 
     //Convert word data to wordDefinition class
     // wordDefinition : whole information of a word(idioms,means...)
-    public WordInformation[] getWordDefinition(String data){
+    public WordInformation[] getWordDefinition(String data) {
         WordInformation[] info = mGson.fromJson(data, WordInformation[].class);
-        Log.d(TAG, "getWordDefinition: " + info.length);
         return info;
     }
 
 
     //convert Json data to translated content
-    public StringBuilder getTranslation(WordInformation[] data,StringBuilder stringBuilder){
-        for (int i = 0; i < data[0].getTranslationWords().size() ; i++) {
-            stringBuilder.append(data[0].getTranslationWords().get(i).getTranslatedWord()).append(".");
+    public StringBuilder getTranslation(WordInformation[] data, StringBuilder stringBuilder) {
+        if (data != null) {
+            for (int i = 0; i < data[0].getTranslationWords().size(); i++) {
+                stringBuilder.append(data[0].getTranslationWords().get(i).getTranslatedWord()).append(".");
+            }
         }
         return stringBuilder;
     }

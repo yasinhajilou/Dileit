@@ -7,12 +7,11 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.dileit.model.EnglishDef;
 import com.example.dileit.model.Idiom;
 import com.example.dileit.model.TranslationWord;
 import com.example.dileit.model.WordInformation;
-import com.example.dileit.model.WordSearch;
 
-import java.util.BitSet;
 import java.util.List;
 
 public class SharedViewModel extends AndroidViewModel {
@@ -21,11 +20,12 @@ public class SharedViewModel extends AndroidViewModel {
     private MutableLiveData<WordInformation[]> mWordInformation;
     private MutableLiveData<List<TranslationWord>> mTranslationWord;
     private MutableLiveData<List<Idiom>> mIdiom;
-    private MutableLiveData<List<WordSearch>> mAdvancedResult;
     private MutableLiveData<String> mVoiceWord;
     private MutableLiveData<String[]> mLeitnerItemData;
     private MutableLiveData<Boolean> mCostumeCheck;
     private MutableLiveData<Boolean> mSaveBtnCheck;
+
+    private MutableLiveData<List<EnglishDef>> mEngDefList;
 
     private String translation;
     private String secondTranslation;
@@ -36,13 +36,21 @@ public class SharedViewModel extends AndroidViewModel {
         mTranslationWord = new MutableLiveData<>();
         mActualWord = new MutableLiveData<>();
         mIdiom = new MutableLiveData<>();
-        mAdvancedResult = new MutableLiveData<>();
         mVoiceWord = new MutableLiveData<>();
         mLeitnerItemData = new MutableLiveData<>();
         mCostumeCheck = new MutableLiveData<>();
         mSaveBtnCheck = new MutableLiveData<>();
+        mEngDefList = new MutableLiveData<>();
     }
 
+
+    public void setEngDefList(List<EnglishDef> engDefList){
+        mEngDefList.setValue(engDefList);
+    }
+
+    public LiveData<List<EnglishDef>> getEngDefList(){
+        return mEngDefList;
+    }
     public void setTranslation(String translation) {
         this.translation = translation;
     }
@@ -94,14 +102,6 @@ public class SharedViewModel extends AndroidViewModel {
 
     public void resetVoiceWord() {
         mVoiceWord.setValue("");
-    }
-
-    public void setAdvancedResult(List<WordSearch> advancedResult) {
-        mAdvancedResult.setValue(advancedResult);
-    }
-
-    public LiveData<List<WordSearch>> getAdvancedRes() {
-        return mAdvancedResult;
     }
 
     public MutableLiveData<List<Idiom>> getIdiom() {

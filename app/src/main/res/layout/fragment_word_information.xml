@@ -179,6 +179,7 @@
         app:layout_constraintTop_toBottomOf="@+id/card_word_info_header">
 
         <com.google.android.material.chip.Chip
+            android:visibility="gone"
             android:id="@+id/chips_translated_only"
             style="@style/Widget.MaterialComponents.Chip.Action"
             android:layout_width="wrap_content"
@@ -201,6 +202,7 @@
             app:chipBackgroundColor="@android:color/white" />
 
         <com.google.android.material.chip.Chip
+            android:visibility="gone"
             android:id="@+id/chips_translated_english"
             style="@style/Widget.MaterialComponents.Chip.Action"
             android:layout_width="wrap_content"

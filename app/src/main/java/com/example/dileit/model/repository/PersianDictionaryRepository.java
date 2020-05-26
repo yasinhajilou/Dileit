@@ -93,7 +93,7 @@ public class PersianDictionaryRepository {
             List<SearchDictionary> wordsList = new ArrayList<>();
             Cursor cursor = mPersianDatabaseAccess.getDatabase().rawQuery("SELECT word from dictionary WHERE word LIKE ? ORDER BY LOWER(word) LIMIT 50 ", new String[]{word+"%"});
             while (cursor.moveToNext()) {
-                String actualWord = cursor.getString(0);
+                String actualWord = cursor.getString(0).trim();
                 SearchDictionary searchDictionary = new SearchDictionary(actualWord , 0);
                 wordsList.add(searchDictionary);
             }

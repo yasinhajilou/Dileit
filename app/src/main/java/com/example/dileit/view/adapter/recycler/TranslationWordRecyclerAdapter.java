@@ -23,6 +23,7 @@ public class TranslationWordRecyclerAdapter extends RecyclerView.Adapter<Transla
         mList = data;
         notifyDataSetChanged();
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

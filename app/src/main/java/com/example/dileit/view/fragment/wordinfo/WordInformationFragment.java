@@ -62,9 +62,12 @@ public class WordInformationFragment extends Fragment {
     private StringBuilder builderTranslation;
 
     private String actualWord;
-    private int engId;
 
     private Leitner mLeitner;
+
+    private int engPos =-1;
+    private int perPos = -1;
+    private int idiomPos = -1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,7 +78,7 @@ public class WordInformationFragment extends Fragment {
         mPersionDictionaryViewModel = ViewModelProviders.of(this).get(PersianPersionDictionaryViewModel.class);
         if (getArguments() != null) {
             actualWord = getArguments().getString(KeysValue.KEY_BUNDLE_ACTUAL_WORD);
-            engId = getArguments().getInt(KeysValue.KEY_BUNDLE_WORD_REF_ID);
+            int engId = getArguments().getInt(KeysValue.KEY_BUNDLE_WORD_REF_ID);
 
             mEnglishDictionaryViewModel.searchEngWordById(engId);
             mPersionDictionaryViewModel.searchForExactWord(actualWord);
@@ -105,6 +108,7 @@ public class WordInformationFragment extends Fragment {
         mPersionDictionaryViewModel.getWordInfo().observe(getViewLifecycleOwner(), s -> {
             if (s != null) {
                 mAdapter.addPage(new TranslationFragment());
+
                 chipPersian.setVisibility(View.VISIBLE);
                 JsonUtils jsonUtils = new JsonUtils();
                 WordInformation[] wordInformations = jsonUtils.getWordDefinition(s);
@@ -132,6 +136,10 @@ public class WordInformationFragment extends Fragment {
                     mAdapter.addPage(new EnglishTranslatedFragment());
                     chipEnglish.setVisibility(View.VISIBLE);
                     mSharedViewModel.setEngDefList(englishDefs);
+                    builderEnglish = new StringBuilder();
+                    for (EnglishDef englishDef : englishDefs){
+                        builderEnglish.append(englishDef.getDefinition()).append("\n");
+                    }
                 }
             }
         });

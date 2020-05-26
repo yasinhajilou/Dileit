@@ -51,7 +51,7 @@ public class EnglishDictionaryRepository {
             if (cursor != null) {
                 while (cursor.moveToNext()) {
                     int refrenceId = cursor.getInt(0);
-                    String actualWord = cursor.getString(1);
+                    String actualWord = cursor.getString(1).trim();
                     SearchDictionary englishDic = new SearchDictionary(actualWord, refrenceId);
                     wordEnglishDics.add(englishDic);
                 }

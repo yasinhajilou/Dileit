@@ -75,6 +75,12 @@ public class SearchViewModel extends AndroidViewModel implements EnglishDictiona
         }
     }
 
+    public void reset(){
+        mMediatorLiveData.setValue(null);
+        mEngData.setValue(null);
+        mPerData.setValue(null);
+    }
+
     @Override
     public void getEngWord(List<SearchDictionary> searchDictionaries) {
         mEngData.postValue(searchDictionaries);

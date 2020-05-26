@@ -137,6 +137,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         mBinding = null;
 
         mSharedViewModel.resetVoiceWord();
+        mSearchViewModel.reset();
     }
 
     @Override

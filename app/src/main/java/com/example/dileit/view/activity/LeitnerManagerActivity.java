@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
 import com.example.dileit.R;
 import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.ActivityLeitnerManagerBinding;
@@ -29,6 +30,8 @@ public class LeitnerManagerActivity extends AppCompatActivity {
     private int[] tabIcons = {R.drawable.ic_new_24dp
             , R.drawable.ic_searched_24dp, R.drawable.ic_done_all_24dp};
     private int newCardsCounter, learnedCardsCounter, reviewedCardsCounter;
+
+    private int listCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,15 @@ public class LeitnerManagerActivity extends AppCompatActivity {
 
 
         mInternalViewModel.getAllLeitnerItems().observe(this, leitnerList -> {
+
+            //it means one item removed
+            //we should restart counters
+            int currentSize = leitnerList.size();
+            if (listCounter > currentSize) {
+                newCardsCounter=0;
+                learnedCardsCounter=0;
+                reviewedCardsCounter=0;
+            }
             for (Leitner leitner :
                     leitnerList) {
                 switch (leitner.getState()) {
@@ -70,8 +82,8 @@ public class LeitnerManagerActivity extends AppCompatActivity {
                         reviewedCardsCounter++;
                 }
             }
-            Log.d(TAG, "onChanged: n:"+newCardsCounter+" r"+reviewedCardsCounter+ " l:"+learnedCardsCounter);
-            showHeaderCountersWithAnimation(newCardsCounter , reviewedCardsCounter , learnedCardsCounter);
+            listCounter = leitnerList.size();
+            showHeaderCountersWithAnimation(newCardsCounter, reviewedCardsCounter, learnedCardsCounter);
         });
     }
 
@@ -92,21 +104,21 @@ public class LeitnerManagerActivity extends AppCompatActivity {
         return true;
     }
 
-    private void showHeaderCountersWithAnimation(int newCounts , int reviewedCounts , int learnedCounts){
+    private void showHeaderCountersWithAnimation(int newCounts, int reviewedCounts, int learnedCounts) {
         long duration = 1000;
 
         //new cards
-        ValueAnimator newCardsAnim = ValueAnimator.ofInt(0,newCounts);
+        ValueAnimator newCardsAnim = ValueAnimator.ofInt(0, newCounts);
         newCardsAnim.setDuration(duration);
         newCardsAnim.addUpdateListener(valueAnimator -> mBinding.tvManagerNew.setText(valueAnimator.getAnimatedValue().toString()));
 
         //reviewed cards
-        ValueAnimator reviewCardsAnim = ValueAnimator.ofInt(0 , reviewedCounts);
+        ValueAnimator reviewCardsAnim = ValueAnimator.ofInt(0, reviewedCounts);
         reviewCardsAnim.setDuration(duration);
         reviewCardsAnim.addUpdateListener(valueAnimator -> mBinding.tvManagerReview.setText(valueAnimator.getAnimatedValue().toString()));
 
         //learned cards
-        ValueAnimator learnedCardsAnim = ValueAnimator.ofInt(0 , learnedCounts);
+        ValueAnimator learnedCardsAnim = ValueAnimator.ofInt(0, learnedCounts);
         learnedCardsAnim.setDuration(duration);
         learnedCardsAnim.addUpdateListener(valueAnimator -> mBinding.tvManagerLearned.setText(valueAnimator.getAnimatedValue().toString()));
 

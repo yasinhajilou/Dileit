@@ -57,14 +57,14 @@ public class InternalRepository {
         return mLeitnerDao.getCardsByRangeState(start, end);
     }
 
-    public LiveData<Leitner> getLeitnerCardById(int id){
+    public LiveData<Leitner> getLeitnerCardById(int id) {
         return mLeitnerDao.getLeitnerCardById(id);
     }
 
 
     //insert data
-    public void insertWordHistory(int leitnerId, Long time, String word, String wordDef) {
-        new InsertWordHistory(leitnerId, time, word, wordDef).execute();
+    public void insertWordHistory(int leitnerId, Long time, String word , int engId) {
+        new InsertWordHistory(leitnerId, time, word , engId).execute();
     }
 
     public void insertLeitnerItem(Leitner leitner, InternalInterface anInterface) {
@@ -111,18 +111,19 @@ public class InternalRepository {
     private class InsertWordHistory extends AsyncTask<Void, Void, Void> {
         private int leitnerId;
         private Long time;
-        private String word, wordDef;
+        private String word;
+        private int engId;
 
-        InsertWordHistory(int leitnerId, Long time, String word, String wordDef) {
+        public InsertWordHistory(int leitnerId, Long time, String word, int engId) {
             this.leitnerId = leitnerId;
             this.time = time;
             this.word = word;
-            this.wordDef = wordDef;
+            this.engId = engId;
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            WordHistory wordHistory = new WordHistory(word, wordDef, leitnerId, time);
+            WordHistory wordHistory = new WordHistory(word, engId, leitnerId, time);
             mWordHistoryDao.Insert(wordHistory);
             Log.d(TAG, "doInBackground: added");
             return null;

@@ -16,18 +16,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:textAlignment="center"
             android:layout_margin="4dp"
             android:textSize="18sp"
             android:textColor="@android:color/black"
             android:id="@+id/tv_word_history_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_margin="4dp"
-            android:maxLines="1"
-            android:textSize="16sp"
-            android:id="@+id/tv_word_history_translation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

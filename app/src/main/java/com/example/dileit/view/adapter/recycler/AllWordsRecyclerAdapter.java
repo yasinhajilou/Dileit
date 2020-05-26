@@ -10,9 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dileit.R;
 import com.example.dileit.model.SearchDictionary;
-import com.example.dileit.utils.JsonUtils;
-import com.example.dileit.model.Word;
-import com.example.dileit.model.WordInformation;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
 
 import java.util.List;

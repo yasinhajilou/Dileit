@@ -27,7 +27,6 @@ import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
 import com.example.dileit.databinding.FragmentHomeBinding;
 import com.example.dileit.model.entity.Leitner;
-import com.example.dileit.utils.JsonUtils;
 import com.example.dileit.utils.LeitnerUtils;
 import com.example.dileit.view.adapter.recycler.WordHistoryRecyclerAdapter;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
@@ -48,10 +47,6 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
 
     private HomeFragmentInterface mHomeFragmentInterface;
 
-    @Override
-    public void onItemClicked(String actualWord, int engId) {
-
-    }
 
     public interface HomeFragmentInterface {
         void onLeitnerReviewClicked();
@@ -184,14 +179,13 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
         Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_wordSearchFragment);
     }
 
-//    @Override
-//    public void onItemClicked(String data, String actualWord) {
-//        JsonUtils jsonUtils = new JsonUtils();
-//        mSharedViewModel.setWordInformation(jsonUtils.getWordDefinition(data));
-//        Bundle bundle = new Bundle();
-//        bundle.putString(KeysValue.KEY_BUNDLE_ACTUAL_WORD, actualWord.trim());
-//        Navigation.findNavController(getView()).navigate(R.id.action_homeFragment_to_wordInformationFragment, bundle);
-//    }
+    @Override
+    public void onItemClicked(String actualWord, int engId) {
+        Bundle bundle = new Bundle();
+        bundle.putString(KeysValue.KEY_BUNDLE_ACTUAL_WORD, actualWord.trim());
+        bundle.putInt(KeysValue.KEY_BUNDLE_WORD_REF_ID, engId);
+        Navigation.findNavController(getView()).navigate(R.id.action_homeFragment_to_wordInformationFragment, bundle);
+    }
 
     @Override
     public void onDestroyView() {

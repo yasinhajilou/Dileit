@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dileit.R;
-import com.example.dileit.model.WordInformation;
 import com.example.dileit.model.entity.WordHistory;
 import com.example.dileit.utils.JsonUtils;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
@@ -47,26 +46,21 @@ public class WordHistoryRecyclerAdapter extends RecyclerView.Adapter<WordHistory
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView tvTitle, tvInformation;
+        TextView tvTitle;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvInformation = itemView.findViewById(R.id.tv_word_history_translation);
             tvTitle = itemView.findViewById(R.id.tv_word_history_title);
             itemView.setOnClickListener(this::onClick);
         }
 
-        void bind(WordHistory wordHistory){
-            JsonUtils jsonUtils = new JsonUtils();
-            WordInformation[] wordInformation = jsonUtils.getWordDefinition(wordHistory.getWordDef());
-            StringBuilder stringBuilder = new StringBuilder();
-            tvInformation.setText(jsonUtils.getTranslation(wordInformation, stringBuilder));
+        void bind(WordHistory wordHistory) {
             tvTitle.setText(wordHistory.getWord());
         }
 
         @Override
         public void onClick(View view) {
-//            mOnItemClickListener.onItemClicked(mList.get(getAdapterPosition()).getWordDef() , mList.get(getAdapterPosition()).getWord() );
+            mOnItemClickListener.onItemClicked(mList.get(getAdapterPosition()).getWord() , mList.get(getAdapterPosition()).getEngId());
         }
     }
 }

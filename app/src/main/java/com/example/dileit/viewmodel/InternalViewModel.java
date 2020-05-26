@@ -33,8 +33,8 @@ public class InternalViewModel extends AndroidViewModel implements InternalInter
         mRepository.insertLeitnerItem(leitner, this::onLeitnerAdded);
     }
 
-    public void insertWordHistory(int leitnerId, long time, String word, String wordDef) {
-        mRepository.insertWordHistory(leitnerId, time, word, wordDef);
+    public void insertWordHistory(int leitnerId, long time, String word, int engId) {
+        mRepository.insertWordHistory(leitnerId, time, word ,engId);
     }
 
     //get data

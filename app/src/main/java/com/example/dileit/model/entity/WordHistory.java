@@ -11,31 +11,30 @@ public class WordHistory {
     @NonNull
     private String word;
 
-    private String wordDef;
+    private int engId;
 
     private long leitnerId;
 
     private long addedTime;
 
-    public WordHistory(@NonNull String word, String wordDef, long leitnerId, long addedTime) {
+    public WordHistory(@NonNull String word, int engId, long leitnerId, long addedTime) {
         this.word = word;
-        this.wordDef = wordDef;
+        this.engId = engId;
         this.leitnerId = leitnerId;
         this.addedTime = addedTime;
     }
-
 
     public void setLeitnerId(long leitnerId) {
         if (leitnerId >= 0)
             this.leitnerId = leitnerId;
     }
 
-    public String getWord() {
-        return word;
+    public int getEngId() {
+        return engId;
     }
 
-    public String getWordDef() {
-        return wordDef;
+    public String getWord() {
+        return word;
     }
 
     public long getLeitnerId() {

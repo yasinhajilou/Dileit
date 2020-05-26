@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,11 +19,9 @@ import android.view.ViewGroup;
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
 import com.example.dileit.databinding.FragmentWordSearchBinding;
-import com.example.dileit.utils.JsonUtils;
 import com.example.dileit.view.adapter.recycler.AllWordsRecyclerAdapter;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
 import com.example.dileit.viewmodel.InternalViewModel;
-import com.example.dileit.viewmodel.PersianPersionDictionaryViewModel;
 import com.example.dileit.viewmodel.SearchViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
 
@@ -62,7 +59,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
 
         setUpRecyclerView();
 
-        mSearchViewModel.getSyncedSearch().observe(getViewLifecycleOwner() , searchDictionaries -> {
+        mSearchViewModel.getSyncedSearch().observe(getViewLifecycleOwner(), searchDictionaries -> {
             mAdapter.setData(searchDictionaries);
         });
 
@@ -146,10 +143,8 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     public void onItemClicked(String actualWord, int engId) {
         Bundle bundle = new Bundle();
         bundle.putString(KeysValue.KEY_BUNDLE_ACTUAL_WORD, actualWord.trim());
-        bundle.putInt(KeysValue.KEY_BUNDLE_WORD_REF_ID , engId);
-        Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment , bundle);
-        //TODO(1) DO SOME SHIT ABOUT WORD HISTORY
-        mInternalViewModel.insertWordHistory(0, System.currentTimeMillis(), actualWord.trim(), null);
-
+        bundle.putInt(KeysValue.KEY_BUNDLE_WORD_REF_ID, engId);
+        Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment, bundle);
+        mInternalViewModel.insertWordHistory(0, System.currentTimeMillis(), actualWord.trim(), engId);
     }
 }

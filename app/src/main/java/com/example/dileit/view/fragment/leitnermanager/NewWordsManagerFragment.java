@@ -49,10 +49,17 @@ public class NewWordsManagerFragment extends Fragment implements LeitnerManagerR
 
 
         mInternalViewModel.getCardsByState(LeitnerStateConstant.STARTED).observe(getViewLifecycleOwner(), leitnerList -> {
-            adapter.setData(leitnerList, notifyRv);
-            //reset
-            if (!notifyRv)
-                notifyRv = true;
+            if (leitnerList != null) {
+                if (leitnerList.size() > 0) {
+                    mBinding.rvNewWordManager.setVisibility(View.VISIBLE);
+                    mBinding.tvNoDataNew.setVisibility(View.GONE);
+                    adapter.setData(leitnerList, notifyRv);
+                    //reset
+                    if (!notifyRv)
+                        notifyRv = true;
+                }
+            }
+
         });
 
     }
@@ -67,6 +74,10 @@ public class NewWordsManagerFragment extends Fragment implements LeitnerManagerR
     public void onDeleteSelected(Leitner leitner) {
         notifyRv = false;
         mInternalViewModel.deleteLeitnerItem(leitner);
+        if (adapter.getItemCount() == 0){
+            mBinding.rvNewWordManager.setVisibility(View.GONE);
+            mBinding.tvNoDataNew.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

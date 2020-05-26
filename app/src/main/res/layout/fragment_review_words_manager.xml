@@ -63,6 +63,7 @@
     </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/rv_review_manager"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -70,4 +71,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scroll_horiz_review"/>
+
+    <TextView
+        android:id="@+id/tv_no_data_review_man"
+        app:layout_constraintTop_toBottomOf="@+id/scroll_horiz_review"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="@color/colorOrange"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="There is no card in this box!" />
 </androidx.constraintlayout.widget.ConstraintLayout>

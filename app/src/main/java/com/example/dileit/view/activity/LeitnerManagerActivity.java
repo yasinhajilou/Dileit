@@ -56,25 +56,22 @@ public class LeitnerManagerActivity extends AppCompatActivity {
         setTabIcons(tabIcons);
 
 
-        mInternalViewModel.getAllLeitnerItems().observe(this, new Observer<List<Leitner>>() {
-            @Override
-            public void onChanged(List<Leitner> leitnerList) {
-                for (Leitner leitner :
-                        leitnerList) {
-                    switch (leitner.getState()) {
-                        case LeitnerStateConstant.STARTED:
-                            newCardsCounter++;
-                            break;
-                        case LeitnerStateConstant.LEARNED:
-                            learnedCardsCounter++;
-                            break;
-                        default:
-                            reviewedCardsCounter++;
-                    }
+        mInternalViewModel.getAllLeitnerItems().observe(this, leitnerList -> {
+            for (Leitner leitner :
+                    leitnerList) {
+                switch (leitner.getState()) {
+                    case LeitnerStateConstant.STARTED:
+                        newCardsCounter++;
+                        break;
+                    case LeitnerStateConstant.LEARNED:
+                        learnedCardsCounter++;
+                        break;
+                    default:
+                        reviewedCardsCounter++;
                 }
-                Log.d(TAG, "onChanged: n:"+newCardsCounter+" r"+reviewedCardsCounter+ " l:"+learnedCardsCounter);
-                showHeaderCountersWithAnimation(newCardsCounter , reviewedCardsCounter , learnedCardsCounter);
             }
+            Log.d(TAG, "onChanged: n:"+newCardsCounter+" r"+reviewedCardsCounter+ " l:"+learnedCardsCounter);
+            showHeaderCountersWithAnimation(newCardsCounter , reviewedCardsCounter , learnedCardsCounter);
         });
     }
 

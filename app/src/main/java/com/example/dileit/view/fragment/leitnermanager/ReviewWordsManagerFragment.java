@@ -12,12 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.FragmentReviewWordsManagerBinding;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.view.adapter.recycler.LeitnerManagerRecyclerAdapter;
 import com.example.dileit.viewmodel.InternalViewModel;
+
+import java.util.List;
 
 public class ReviewWordsManagerFragment extends Fragment implements LeitnerManagerRecyclerAdapter.LeitnerManagerInterface {
 
@@ -53,73 +56,53 @@ public class ReviewWordsManagerFragment extends Fragment implements LeitnerManag
 
 
         //showing box1 items in startup
-        mInternalViewModel.getCardsByState(LeitnerStateConstant.BOX_ONE).observe(getViewLifecycleOwner(), leitnerList -> {
-            adapter.setData(leitnerList, notifyRv);
-            //reset
-            if (!notifyRv)
-                notifyRv = true;
-        });
+        mInternalViewModel.getCardsByState(LeitnerStateConstant.BOX_ONE).observe(getViewLifecycleOwner(), this::setData);
 
 
         mBinding.chipFilteredBoxOne.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
-                mInternalViewModel.getCardsByState(LeitnerStateConstant.BOX_ONE).observe(getViewLifecycleOwner(), leitnerList -> {
-                    adapter.setData(leitnerList, notifyRv);
-                    //reset
-                    if (!notifyRv)
-                        notifyRv = true;
-                });
+                mInternalViewModel.getCardsByState(LeitnerStateConstant.BOX_ONE).observe(getViewLifecycleOwner(), this::setData);
             }
         });
 
         mBinding.chipFilteredBoxTwo.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
-                mInternalViewModel.getCardsByState(LeitnerStateConstant.BOX_TWO).observe(getViewLifecycleOwner(), leitnerList -> {
-                    adapter.setData(leitnerList, notifyRv);
-                    //reset
-                    if (!notifyRv)
-                        notifyRv = true;
-                });
+                mInternalViewModel.getCardsByState(LeitnerStateConstant.BOX_TWO).observe(getViewLifecycleOwner(), this::setData);
             }
         });
 
 
-        mBinding.chipFilteredBoxThree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    mInternalViewModel.getCardsByState(LeitnerStateConstant.BOX_THREE).observe(getViewLifecycleOwner(), leitnerList -> {
-                        adapter.setData(leitnerList, notifyRv);
-                        //reset
-                        if (!notifyRv)
-                            notifyRv = true;
-                    });
-                }
+        mBinding.chipFilteredBoxThree.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (b) {
+                mInternalViewModel.getCardsByState(LeitnerStateConstant.BOX_THREE).observe(getViewLifecycleOwner(), this::setData);
             }
         });
 
 
         mBinding.chipFilteredBoxFour.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
-                mInternalViewModel.getCardsByState(LeitnerStateConstant.BOX_FOUR).observe(getViewLifecycleOwner(), leitnerList -> {
-                    adapter.setData(leitnerList, notifyRv);
-                    //reset
-                    if (!notifyRv)
-                        notifyRv = true;
-                });
+                mInternalViewModel.getCardsByState(LeitnerStateConstant.BOX_FOUR).observe(getViewLifecycleOwner(), this::setData);
             }
         });
 
         mBinding.chipFilteredBoxFive.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
-                mInternalViewModel.getCardsByState(LeitnerStateConstant.BOX_FIVE).observe(getViewLifecycleOwner(), leitnerList -> {
-                    adapter.setData(leitnerList, notifyRv);
-                    //reset
-                    if (!notifyRv)
-                        notifyRv = true;
-                });
+                mInternalViewModel.getCardsByState(LeitnerStateConstant.BOX_FIVE).observe(getViewLifecycleOwner(), this::setData);
             }
         });
+    }
+
+    private void setData(List<Leitner> leitnerList) {
+        if (leitnerList != null) {
+            if (leitnerList.size() > 0) {
+                mBinding.rvReviewManager.setVisibility(View.VISIBLE);
+                mBinding.tvNoDataReviewMan.setVisibility(View.GONE);
+                adapter.setData(leitnerList, notifyRv);
+                //reset
+                if (!notifyRv)
+                    notifyRv = true;
+            }
+        }
     }
 
     @Override
@@ -132,6 +115,11 @@ public class ReviewWordsManagerFragment extends Fragment implements LeitnerManag
     public void onDeleteSelected(Leitner leitner) {
         notifyRv = false;
         mInternalViewModel.deleteLeitnerItem(leitner);
+        Toast.makeText(getContext(), ""+adapter.getItemCount(), Toast.LENGTH_SHORT).show();
+        if (adapter.getItemCount() == 0){
+            mBinding.rvReviewManager.setVisibility(View.GONE);
+            mBinding.tvNoDataReviewMan.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

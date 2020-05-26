@@ -48,11 +48,17 @@ public class LearnedWordsManagerFragment extends Fragment implements LeitnerMana
         mBinding.rvLearnedCardManager.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mBinding.rvLearnedCardManager.setAdapter(mAdapter);
 
-        mInternalViewModel.getCardsByState(LeitnerStateConstant.LEARNED).observe(getViewLifecycleOwner() , leitnerList -> {
-            mAdapter.setData(leitnerList , notifyRv);
-            //reset
-            if (!notifyRv)
-                notifyRv = true;
+        mInternalViewModel.getCardsByState(LeitnerStateConstant.LEARNED).observe(getViewLifecycleOwner(), leitnerList -> {
+            if (leitnerList != null) {
+                if (leitnerList.size() > 0) {
+                    mBinding.rvLearnedCardManager.setVisibility(View.VISIBLE);
+                    mBinding.tvNoDataLearned.setVisibility(View.GONE);
+                    mAdapter.setData(leitnerList, notifyRv);
+                    //reset
+                    if (!notifyRv)
+                        notifyRv = true;
+                }
+            }
         });
     }
 
@@ -66,10 +72,14 @@ public class LearnedWordsManagerFragment extends Fragment implements LeitnerMana
     public void onDeleteSelected(Leitner leitner) {
         notifyRv = false;
         mInternalViewModel.deleteLeitnerItem(leitner);
+        if (mAdapter.getItemCount() == 0){
+            mBinding.rvLearnedCardManager.setVisibility(View.GONE);
+            mBinding.tvNoDataLearned.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void onEditSelected(Leitner leitner) {
-        LeitnerManagerHandler.edit(this , leitner);
+        LeitnerManagerHandler.edit(this, leitner);
     }
 }

@@ -101,11 +101,15 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
             mSharedViewModel.setSaveBtnCheck(true);
             switch (mConstants) {
                 case ADD:
-                    mLeitner = new Leitner(0, title, mSharedViewModel.getTranslation(), mSharedViewModel.getSecondTranslation(),
-                            "bug", mBinding.edtDialogGuide.getText().toString(), LeitnerStateConstant.STARTED, 0, 0, System.currentTimeMillis());
-                    mInternalViewModel.insertLeitnerItem(mLeitner);
-                    Toast.makeText(view1.getContext(), "Added To leitner!", Toast.LENGTH_SHORT).show();
-                    dismiss();
+                    String edtTitle = mBinding.edtTitleDialogAddLeitner.getText().toString().trim();
+                    if (!edtTitle.equals("")) {
+                        mLeitner = new Leitner(0, title, mSharedViewModel.getTranslation(), mSharedViewModel.getSecondTranslation(),
+                                "bug", mBinding.edtDialogGuide.getText().toString(), LeitnerStateConstant.STARTED, 0, 0, System.currentTimeMillis());
+                        mInternalViewModel.insertLeitnerItem(mLeitner);
+                        Toast.makeText(view1.getContext(), "Added To leitner!", Toast.LENGTH_SHORT).show();
+                        dismiss();
+                    }else
+                        Toast.makeText(view1.getContext(), "You Should fill title field!", Toast.LENGTH_SHORT).show();
                     break;
                 case EDIT:
                     mLeitner.setDef(mSharedViewModel.getTranslation());
@@ -122,7 +126,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
 
     private void setUpViewForEditing() {
         mInternalViewModel.getLeitnerCardById(cardId).observe(getViewLifecycleOwner(), leitner -> {
-            mBinding.tvTitleDialogAddLeitner.setText(leitner.getWord());
+            mBinding.edtTitleDialogAddLeitner.setText(leitner.getWord());
             mBinding.edtDialogGuide.setText(leitner.getGuide());
 
             handleViewPagerItems(leitner.getDef(), leitner.getSecondDef());
@@ -134,7 +138,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
     private void setUpViewForAdding() {
         mSharedViewModel.getLeitnerItemData().observe(getViewLifecycleOwner(), strings -> {
             title = strings[0];
-            mBinding.tvTitleDialogAddLeitner.setText(title);
+            mBinding.edtDialogGuide.setText(title);
 
             mainTranslation = strings[1];
             secondTranslation = strings[2];

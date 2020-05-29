@@ -24,11 +24,13 @@ import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
+import com.example.dileit.constant.LeitnerModifierConstants;
 import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.FragmentLeitnerItemBinding;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.utils.LeitnerUtils;
 import com.example.dileit.view.adapter.viewpager.LeitnerItemTranslationViewPagerAdapter;
+import com.example.dileit.view.fragment.leitnercardhandler.LeitnerCardModifierBottomSheet;
 import com.example.dileit.viewmodel.InternalViewModel;
 import com.example.dileit.viewmodel.ReviewLeitnerSharedViewModel;
 
@@ -62,7 +64,7 @@ public class LeitnerItemFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mInternalViewModel = ViewModelProviders.of(getActivity()).get(InternalViewModel.class);
+        mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
         mReviewLeitnerSharedViewModel = ViewModelProviders.of(getActivity()).get(ReviewLeitnerSharedViewModel.class);
         if (getArguments() != null)
             listId = getArguments().getInt(KeysValue.KEY_BUNDLE_LEITNER_ITEM_ID);
@@ -81,29 +83,24 @@ public class LeitnerItemFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mInternalViewModel.getAllLeitnerItems().observe(getViewLifecycleOwner(), new Observer<List<Leitner>>() {
-            @Override
-            public void onChanged(List<Leitner> leitnerList) {
-                for (Leitner leitner :
-                        leitnerList) {
-                    if (leitner.getId() == listId) {
-                        mWord = leitner.getWord();
-                        mBinding.tvWordTitleReviewLeitner.setText(mWord);
-                        //second title in second view
-                        mBinding.tvTitleLeitner.setText(mWord);
-                        List<String> strings = new ArrayList<>();
-                        strings.add(leitner.getDef());
-                        if (leitner.getSecondDef() != null)
-                            strings.add(leitner.getSecondDef());
-                        else
-                            mBinding.btnTabEnglishTrans.setVisibility(View.GONE);
+        mInternalViewModel.getLeitnerCardById(listId).observe(getViewLifecycleOwner(), leitner -> {
+            if (leitner.getId() == listId) {
+                mWord = leitner.getWord();
+                mBinding.tvWordTitleReviewLeitner.setText(mWord);
+                //second title in second view
+                mBinding.tvTitleLeitner.setText(mWord);
+                if (leitner.getGuide() != null)
+                    mBinding.tvGuideLeitnerCard.setText(leitner.getGuide());
 
-                        mBinding.viewPagerLeitnerItemTranslation.setAdapter(new LeitnerItemTranslationViewPagerAdapter(view.getContext(), strings));
-                        mLeitner = leitner;
-                        break;
-                    }
+                List<String> strings = new ArrayList<>();
+                strings.add(leitner.getDef());
+                if (leitner.getSecondDef() != null)
+                    strings.add(leitner.getSecondDef());
+                else
+                    mBinding.btnTabEnglishTrans.setVisibility(View.GONE);
 
-                }
+                mBinding.viewPagerLeitnerItemTranslation.setAdapter(new LeitnerItemTranslationViewPagerAdapter(view.getContext(), strings));
+                mLeitner = leitner;
             }
         });
 
@@ -112,7 +109,9 @@ public class LeitnerItemFragment extends Fragment {
 
         mBinding.btnTabEnglishTrans.setOnClickListener(view12 -> mBinding.viewPagerLeitnerItemTranslation.setCurrentItem(1));
 
-        mBinding.layoutContainerReview.setOnTouchListener((view13, motionEvent) -> {
+        mBinding.layoutContainerReview.setOnTouchListener((view13, motionEvent) ->
+
+        {
 
             int currentRepeat = mLeitner.getRepeatCounter();
             mLeitner.setRepeatCounter(++currentRepeat);
@@ -125,7 +124,9 @@ public class LeitnerItemFragment extends Fragment {
         });
 
 
-        mBinding.btnReviewYes.setOnClickListener(view15 -> {
+        mBinding.btnReviewYes.setOnClickListener(view15 ->
+
+        {
 
             int nextBox = LeitnerUtils.nextBoxFinder(mLeitner.getState());
             if (nextBox != -1) {
@@ -141,7 +142,9 @@ public class LeitnerItemFragment extends Fragment {
 
         });
 
-        mBinding.btnReviewNo.setOnClickListener(view14 -> {
+        mBinding.btnReviewNo.setOnClickListener(view14 ->
+
+        {
 
             mLeitner.setLastReviewTime(System.currentTimeMillis());
             mLeitner.setState(LeitnerStateConstant.BOX_ONE);
@@ -197,10 +200,10 @@ public class LeitnerItemFragment extends Fragment {
         mBinding = null;
     }
 
-    private void setUpMenu(View view){
-        PopupMenu popupMenu = new PopupMenu(view.getContext() , view);
+    private void setUpMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
         MenuInflater menuInflater = new MenuInflater(view.getContext());
-        menuInflater.inflate(R.menu.menu_review_leitner , popupMenu.getMenu());
+        menuInflater.inflate(R.menu.menu_review_leitner, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(this::onOptionsItemSelected);
         popupMenu.show();
     }
@@ -209,11 +212,13 @@ public class LeitnerItemFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.menu_delete_leitner:
                 mInternalViewModel.deleteLeitnerItem(mLeitner);
                 break;
             case R.id.menu_edit_leitner:
+                LeitnerCardModifierBottomSheet bottomSheet = LeitnerCardModifierBottomSheet.onNewInstance(LeitnerModifierConstants.EDIT, mLeitner.getId());
+                bottomSheet.show(getChildFragmentManager(), "BottomSheetEditor");
                 break;
         }
         return true;

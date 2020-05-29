@@ -50,6 +50,7 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
 
     public interface HomeFragmentInterface {
         void onLeitnerReviewClicked();
+
         void onLeitnerManagerClicked();
     }
 
@@ -104,7 +105,7 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
                 if (todayWordsCounter <= 1)
                     mBinding.tvTodayWordsHome.setText(todayWordsCounter + " Item");
                 else
-                    mBinding.tvTodayWordsHome.setText(todayWordsCounter  + " Items");
+                    mBinding.tvTodayWordsHome.setText(todayWordsCounter + " Items");
             }
         });
 
@@ -127,15 +128,12 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
             dialogAddCostumeLeitner.show(getChildFragmentManager(), "tag_dialog_costume_leitner");
         });
 
-        mBinding.imgMenuBurgerHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
-                MenuInflater menuInflater = new MenuInflater(view.getContext());
-                menuInflater.inflate(R.menu.menu_home, popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(HomeFragment.this::onOptionsItemSelected);
-                popupMenu.show();
-            }
+        mBinding.imgMenuBurgerHome.setOnClickListener(view13 -> {
+            PopupMenu popupMenu = new PopupMenu(view13.getContext(), view13);
+            MenuInflater menuInflater = new MenuInflater(view13.getContext());
+            menuInflater.inflate(R.menu.menu_home, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(HomeFragment.this::onOptionsItemSelected);
+            popupMenu.show();
         });
 
         mBinding.btnReviewLeitner.setOnClickListener(new View.OnClickListener() {

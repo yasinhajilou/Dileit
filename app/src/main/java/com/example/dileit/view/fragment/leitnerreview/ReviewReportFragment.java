@@ -61,7 +61,13 @@ public class ReviewReportFragment extends Fragment {
         });
 
         mSharedViewModel.getReviewedCards().observe(getViewLifecycleOwner(), integer -> {
-                    mBinding.tvReviewedCards.setText(String.valueOf(integer));
+            if (integer > 0)
+                mBinding.tvReviewedCards.setText(String.valueOf(integer));
+            else {
+                mBinding.tvNoDataReviewing.setVisibility(View.VISIBLE);
+                mBinding.tvReviewedCards.setText(String.valueOf(0));
+                mBinding.animTrophy.setVisibility(View.GONE);
+            }
         });
     }
 }

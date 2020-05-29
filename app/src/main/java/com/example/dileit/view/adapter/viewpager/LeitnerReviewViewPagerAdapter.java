@@ -38,4 +38,9 @@ public class LeitnerReviewViewPagerAdapter extends FragmentStatePagerAdapter {
         mFragments.add(fragment);
         notifyDataSetChanged();
     }
+
+    public void removeData(Fragment fragment){
+        mFragments.remove(fragment);
+        notifyDataSetChanged();
+    }
 }

@@ -121,15 +121,6 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     }
 
 
-//    @Override
-//    public void onItemClicked(String data, String actualWord) {
-//        JsonUtils jsonUtils = new JsonUtils();
-//        mSharedViewModel.setWordInformation(jsonUtils.getWordDefinition(data));
-//        Bundle bundle = new Bundle();
-//        bundle.putString(KeysValue.KEY_BUNDLE_ACTUAL_WORD, actualWord.trim());
-//
-//    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

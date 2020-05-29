@@ -8,17 +8,21 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
 import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.FragmentLeitnerItemBinding;
@@ -148,6 +152,11 @@ public class LeitnerItemFragment extends Fragment {
             handleReviewAgainCardsCounter();
         });
 
+
+        mBinding.ivLeitnerMenu.setOnClickListener(this::setUpMenu);
+
+        mBinding.ivLeitnerMenuSecond.setOnClickListener(this::setUpMenu);
+
     }
 
 
@@ -186,6 +195,28 @@ public class LeitnerItemFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         mBinding = null;
+    }
+
+    private void setUpMenu(View view){
+        PopupMenu popupMenu = new PopupMenu(view.getContext() , view);
+        MenuInflater menuInflater = new MenuInflater(view.getContext());
+        menuInflater.inflate(R.menu.menu_review_leitner , popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(this::onOptionsItemSelected);
+        popupMenu.show();
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.menu_delete_leitner:
+                mInternalViewModel.deleteLeitnerItem(mLeitner);
+                break;
+            case R.id.menu_edit_leitner:
+                break;
+        }
+        return true;
     }
 
     private void handleReviewedCardsCounter() {

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.dileit.constant.KeysValue;
 import com.example.dileit.constant.LeitnerStateConstant;
@@ -40,9 +39,10 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
     private boolean isStartUp = true;
     private int newWords = 0;
 
-    private int currentPos;
+    private int currentPosIndex = 0;
     private List<Leitner> filteredList;
 
+    private int cardsSize = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +68,16 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
         mBinding.progressCircularReviewBar.setCurrentProgress(0);
 
         viewModel.getAllLeitnerItems().observe(this, leitnerList -> {
+            if (leitnerList.size()<cardsSize){
+                cardsSize = leitnerList.size();
+                int fragmentSizeIndex = fragments.size()-1;
+                if (++currentPosIndex<= fragmentSizeIndex){
+                    mBinding.viewPagerReviewLeitner.setCurrentItem(currentPosIndex);
+                    headerCounterHandler(fragments.size() , currentPosIndex  );
+                }else {
+                    goToReviewedCardReporter();
+                }
+            }
             if (isStartUp) {
                 filteredList = LeitnerUtils.getPreparedLeitnerItems(leitnerList);
                 fragments = new ArrayList<>();
@@ -84,8 +94,9 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
                         newWords++;
 
                 }
+                cardsSize = fragments.size();
                 mBinding.tvReviewCountNew.setText(String.valueOf(newWords));
-                mBinding.tvReviewCountToday.setText(String.valueOf(fragments.size()));
+                mBinding.tvReviewCountToday.setText(String.valueOf(cardsSize));
                 mAdapter.addData(fragments);
                 isStartUp = false;
             }
@@ -121,13 +132,13 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
         });
 
 
-        mBinding.tvBritishPronounceLeitnerRev.setOnClickListener(view -> speakUK(filteredList.get(currentPos).getWord()));
+        mBinding.tvBritishPronounceLeitnerRev.setOnClickListener(view -> speakUK(filteredList.get(currentPosIndex).getWord()));
 
-        mBinding.tvAmericanPronounceLeitnerRev.setOnClickListener(view -> speakUS(filteredList.get(currentPos).getWord()));
+        mBinding.tvAmericanPronounceLeitnerRev.setOnClickListener(view -> speakUS(filteredList.get(currentPosIndex).getWord()));
 
-        mBinding.imgAmericanPronounceLeitnerRev.setOnClickListener(view -> speakUS(filteredList.get(currentPos).getWord()));
+        mBinding.imgAmericanPronounceLeitnerRev.setOnClickListener(view -> speakUS(filteredList.get(currentPosIndex).getWord()));
 
-        mBinding.imgBritishPronounceLeitnerRev.setOnClickListener(view -> speakUK(filteredList.get(currentPos).getWord()));
+        mBinding.imgBritishPronounceLeitnerRev.setOnClickListener(view -> speakUK(filteredList.get(currentPosIndex).getWord()));
     }
 
     @Override
@@ -142,8 +153,9 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
 
 
     private void handleNextItem() {
-        currentPos++;
+        currentPosIndex++;
         int nextItem = mBinding.viewPagerReviewLeitner.getCurrentItem() + 1;
+
         //list size for indexing (-1)
         int listSize = fragments.size() - 1;
 
@@ -157,16 +169,11 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
         if (nextItem <= listSize) {
             mBinding.viewPagerReviewLeitner.setCurrentItem(nextItem);
         } else {
-            mAdapter.addReportView(new ReviewReportFragment());
-            //go to last pager which created by above code
-            mBinding.viewPagerReviewLeitner.setCurrentItem(mBinding.viewPagerReviewLeitner.getCurrentItem() + 1);
-            mBinding.linearLayoutPronounceBar.setVisibility(View.INVISIBLE);
-            mBinding.cardHeaderCounter.setVisibility(View.INVISIBLE);
+            goToReviewedCardReporter();
         }
 
-        mBinding.tvReviewCountToday.setText(String.valueOf(fragments.size() - nextItem));
-        if (--newWords >= 0)
-            mBinding.tvReviewCountNew.setText(String.valueOf(newWords));
+        headerCounterHandler(fragments.size() , nextItem);
+
     }
 
     private void speakUS(String text) {
@@ -186,7 +193,19 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
         mTextToSpeechUK.speak(text, TextToSpeech.QUEUE_FLUSH, null);
     }
 
+    private void headerCounterHandler(int totalSize , int nextItemIndex){
+        mBinding.tvReviewCountToday.setText(String.valueOf(totalSize - nextItemIndex));
+        if (--newWords >= 0)
+            mBinding.tvReviewCountNew.setText(String.valueOf(newWords));
+    }
 
+    private void goToReviewedCardReporter(){
+        mAdapter.addReportView(new ReviewReportFragment());
+        //go to last pager which created by above code
+        mBinding.viewPagerReviewLeitner.setCurrentItem(mBinding.viewPagerReviewLeitner.getCurrentItem() + 1);
+        mBinding.linearLayoutPronounceBar.setVisibility(View.INVISIBLE);
+        mBinding.cardHeaderCounter.setVisibility(View.INVISIBLE);
+    }
     @Override
     public void onDestroy() {
         if (mTextToSpeechUK != null) {

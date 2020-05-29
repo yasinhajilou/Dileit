@@ -47,6 +47,16 @@ public class ReviewReportFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mSharedViewModel.getReviewedCards().observe(getViewLifecycleOwner(), integer -> {
+            if (integer > 0) {
+                mBinding.tvNoDataReviewing.setVisibility(View.GONE);
+                mBinding.animTrophy.setVisibility(View.VISIBLE);
+                mBinding.tvLabelReviewedCards.setVisibility(View.VISIBLE);
+                mBinding.tvReviewedCards.setVisibility(View.VISIBLE);
+                mBinding.tvReviewedCards.setText(String.valueOf(integer));
+            }
+        });
+
         mSharedViewModel.getReviewAgainCards().observe(getViewLifecycleOwner(), integer -> {
             // integer > 0 user should review again some cards
             if (integer > 0) {
@@ -57,17 +67,8 @@ public class ReviewReportFragment extends Fragment {
                 mBinding.animClap.setVisibility(View.VISIBLE);
                 mBinding.animClap.playAnimation();
             }
-
         });
 
-        mSharedViewModel.getReviewedCards().observe(getViewLifecycleOwner(), integer -> {
-            if (integer > 0)
-                mBinding.tvReviewedCards.setText(String.valueOf(integer));
-            else {
-                mBinding.tvNoDataReviewing.setVisibility(View.VISIBLE);
-                mBinding.tvReviewedCards.setText(String.valueOf(0));
-                mBinding.animTrophy.setVisibility(View.GONE);
-            }
-        });
+
     }
 }

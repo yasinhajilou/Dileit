@@ -1,4 +1,4 @@
-package com.example.dileit.view.fragment;
+package com.example.dileit.view.fragment.leitnercardhandler;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -27,6 +27,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.Objects;
+
 
 public class DialogAddCostumeLeitner extends BottomSheetDialogFragment {
     private InternalViewModel mViewModel;
@@ -43,7 +45,7 @@ public class DialogAddCostumeLeitner extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding = BottomSheetAddCostumeLeitnerBinding.inflate(inflater,  container, false);
+        mBinding = BottomSheetAddCostumeLeitnerBinding.inflate(inflater, container, false);
         return mBinding.getRoot();
     }
 
@@ -59,26 +61,25 @@ public class DialogAddCostumeLeitner extends BottomSheetDialogFragment {
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         });
 
-        mBinding.btnSaveCostumeLeitner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mBinding.edtInputTitle.getText() != null || mBinding.edtInputDef.getText() != null) {
-                    String title = mBinding.edtInputTitle.getText().toString().trim();
-                    String def = mBinding.edtInputDef.getText().toString().trim();
-                    String guide = null;
-                    if (mBinding.edtInputGuide.getText() != null)
-                        guide = mBinding.edtInputGuide.getText().toString().trim();
+        mBinding.btnSaveCostumeLeitner.setOnClickListener(view1 -> {
 
-                    Leitner leitner = new Leitner(0,title,def,null,"bug" , guide , LeitnerStateConstant.STARTED,
-                            0 , 0 , System.currentTimeMillis());
+            String cardTitle = mBinding.edtInputTitle.getText().toString().toLowerCase();
+            String cardDef = mBinding.edtInputDef.getText().toString().trim();
+            if (!Objects.equals(cardTitle, "") && !Objects.equals(cardDef, "")) {
+                String guide = null;
+                if (mBinding.edtInputGuide.getText() != null)
+                    guide = mBinding.edtInputGuide.getText().toString().trim();
 
-                    mViewModel.insertLeitnerItem(leitner);
-                    dismiss();
-                    Toast.makeText(view.getContext(), "Added.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), "please fill fields", Toast.LENGTH_SHORT).show();
-                }
+                Leitner leitner = new Leitner(0, cardTitle, cardDef, null, "bug", guide, LeitnerStateConstant.STARTED,
+                        0, 0, System.currentTimeMillis());
+
+                mViewModel.insertLeitnerItem(leitner);
+                dismiss();
+                Toast.makeText(view1.getContext(), "Added.", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "please fill fields", Toast.LENGTH_SHORT).show();
             }
+
         });
     }
 

@@ -20,6 +20,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_reviewed_cards"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -33,6 +34,7 @@
                 tools:text="28" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_label_reviewed_cards"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -72,6 +74,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_review_again_cards" />
 
             <com.airbnb.lottie.LottieAnimationView
+                android:visibility="gone"
                 app:lottie_loop="false"
                 app:lottie_autoPlay="true"
                 app:lottie_fileName="trophy.json"
@@ -95,17 +98,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_label_review_again_cards" />
 
             <TextView
+                android:textAlignment="center"
+                android:padding="44dp"
                 android:id="@+id/tv_no_data_reviewing"
-                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="206dp"
-                android:text=":("
+                android:text="Nothing Reviewed :("
                 android:textSize="50sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_label_reviewed_cards" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 

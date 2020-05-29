@@ -47,6 +47,13 @@ public class Leitner implements Comparable {
         this.def = def;
     }
 
+    public void setWord(String word){
+        this.word = word;
+    }
+
+    public void setGuide(String guide){
+        this.guide = guide;
+    }
     public void setSecondDef(String secondDef) {
         this.secondDef = secondDef;
     }

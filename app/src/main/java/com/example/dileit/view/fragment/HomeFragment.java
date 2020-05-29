@@ -29,6 +29,7 @@ import com.example.dileit.databinding.FragmentHomeBinding;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.utils.LeitnerUtils;
 import com.example.dileit.view.adapter.recycler.WordHistoryRecyclerAdapter;
+import com.example.dileit.view.fragment.leitnercardhandler.DialogAddCostumeLeitner;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
 import com.example.dileit.viewmodel.InternalViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;

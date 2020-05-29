@@ -84,23 +84,25 @@ public class LeitnerItemFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mInternalViewModel.getLeitnerCardById(listId).observe(getViewLifecycleOwner(), leitner -> {
-            if (leitner.getId() == listId) {
-                mWord = leitner.getWord();
-                mBinding.tvWordTitleReviewLeitner.setText(mWord);
-                //second title in second view
-                mBinding.tvTitleLeitner.setText(mWord);
-                if (leitner.getGuide() != null)
-                    mBinding.tvGuideLeitnerCard.setText(leitner.getGuide());
+            if (leitner != null) {
+                if (leitner.getId() == listId) {
+                    mWord = leitner.getWord();
+                    mBinding.tvWordTitleReviewLeitner.setText(mWord);
+                    //second title in second view
+                    mBinding.tvTitleLeitner.setText(mWord);
+                    if (leitner.getGuide() != null)
+                        mBinding.tvGuideLeitnerCard.setText(leitner.getGuide());
 
-                List<String> strings = new ArrayList<>();
-                strings.add(leitner.getDef());
-                if (leitner.getSecondDef() != null)
-                    strings.add(leitner.getSecondDef());
-                else
-                    mBinding.btnTabEnglishTrans.setVisibility(View.GONE);
+                    List<String> strings = new ArrayList<>();
+                    strings.add(leitner.getDef());
+                    if (leitner.getSecondDef() != null)
+                        strings.add(leitner.getSecondDef());
+                    else
+                        mBinding.btnTabEnglishTrans.setVisibility(View.GONE);
 
-                mBinding.viewPagerLeitnerItemTranslation.setAdapter(new LeitnerItemTranslationViewPagerAdapter(view.getContext(), strings));
-                mLeitner = leitner;
+                    mBinding.viewPagerLeitnerItemTranslation.setAdapter(new LeitnerItemTranslationViewPagerAdapter(view.getContext(), strings));
+                    mLeitner = leitner;
+                }
             }
         });
 

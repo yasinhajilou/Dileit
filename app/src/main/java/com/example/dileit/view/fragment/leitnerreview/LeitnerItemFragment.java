@@ -83,6 +83,14 @@ public class LeitnerItemFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if (savedInstanceState != null) {
+            isHeaderOpen = savedInstanceState.getBoolean(KeysValue.BUNDLE_KEY_FOR_BOOL_ROTATION);
+            if (isHeaderOpen)
+                mBinding.layoutSecondReview.setVisibility(View.GONE);
+            else
+                mBinding.layoutSecondReview.setVisibility(View.VISIBLE);
+        }
+
         mInternalViewModel.getLeitnerCardById(listId).observe(getViewLifecycleOwner(), leitner -> {
             if (leitner != null) {
                 if (leitner.getId() == listId) {
@@ -164,6 +172,11 @@ public class LeitnerItemFragment extends Fragment {
 
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(KeysValue.BUNDLE_KEY_FOR_BOOL_ROTATION, isHeaderOpen);
+    }
 
     //Handle view visibility witch circular animation
     private void showSecondView(int x, int y) {

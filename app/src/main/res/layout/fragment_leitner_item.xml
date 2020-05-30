@@ -1,188 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:background="?attr/colorPrimary"
-    android:id="@+id/layout_container_review"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.fragment.leitnerreview.LeitnerItemFragment">
 
-    <ImageView
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:padding="8dp"
-        android:layout_margin="8dp"
-        android:src="@drawable/ic_burger_menu_24dp"
-        android:id="@+id/iv_leitner_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        tools:text="Hiiiiii"
-        android:id="@+id/tv_word_title_review_leitner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/productsansregular"
-        android:textColor="@android:color/white"
-        android:textSize="52sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_guide_leitner_card"
-        android:maxLines="2"
-        android:layout_marginTop="18dp"
-        android:textColor="@android:color/white"
-        android:textAlignment="center"
-        tools:text="this is sample"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_word_title_review_leitner"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"/>
-
-    <!-- second view for viewing -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:visibility="gone"
-        android:background="@color/colorBackground"
-        android:id="@+id/layout_second_review"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="?attr/colorPrimary"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layout_container_review"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.fragment.leitnerreview.LeitnerItemFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/iv_leitner_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:padding="8dp"
-            android:layout_margin="8dp"
-            android:src="@drawable/ic_more_vert_black_24dp"
-            android:id="@+id/iv_leitner_menu_second"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:src="@drawable/ic_burger_menu_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:layout_margin="4dp"
-            android:textSize="24sp"
-            android:fontFamily="@font/productsansregular"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/tab_review_leitner"
-            android:id="@+id/tv_title_leitner"
+            android:id="@+id/tv_word_title_review_leitner"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/productsansregular"
+            android:textColor="@android:color/white"
+            android:textSize="52sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Hiiiiii" />
 
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_marginTop="124dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/view_pager_leitner_item_translation"
-            android:id="@+id/tab_review_leitner"
+        <TextView
+            android:id="@+id/tv_guide_leitner_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
+            android:layout_marginTop="18dp"
+            android:maxLines="2"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_word_title_review_leitner"
+            tools:text="this is sample" />
 
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:weightSum="2"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <com.google.android.material.button.MaterialButton
-                    app:layout_constraintEnd_toStartOf="@id/btn_tab_english_trans"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:id="@+id/btn_tab_translation"
-                    android:text="@string/translation"
-                    android:textColor="?attr/colorAccent"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:fontFamily="@font/productsansregular"
-                    android:textAllCaps="false"
-                    android:layout_height="wrap_content"/>
-                <com.google.android.material.button.MaterialButton
-                    app:layout_constraintStart_toEndOf="@id/btn_tab_translation"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:id="@+id/btn_tab_english_trans"
-                    android:textAllCaps="false"
-                    android:fontFamily="@font/productsansregular"
-                    android:text="@string/english"
-                    android:textColor="?attr/colorAccent"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-
-        <androidx.viewpager.widget.ViewPager
-            android:layout_marginBottom="38dp"
-            android:id="@+id/view_pager_leitner_item_translation"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/layout_review_leitner_controller"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tab_review_leitner"
-            app:layout_constraintVertical_weight="7" />
-
+        <!-- second view for viewing -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_review_leitner_controller"
+            android:id="@+id/layout_second_review"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="@color/colorBackground"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_pager_leitner_item_translation"
-            app:layout_constraintVertical_weight="1">
+            app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.button.MaterialButton
-                app:backgroundTint="?attr/colorAccent"
-                android:id="@+id/btn_review_no"
-                android:textAllCaps="false"
-                android:fontFamily="@font/productsansregular"
-                android:text="@string/don_t_know"
-                android:layout_marginStart="16dp"
+            <ImageView
+                android:id="@+id/iv_leitner_menu_second"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.button.MaterialButton
-                android:text="@string/know"
-                android:textAllCaps="false"
-                android:fontFamily="@font/productsansregular"
-                app:backgroundTint="?attr/colorAccent"
-                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                android:id="@+id/btn_review_yes"
-                android:layout_marginEnd="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_margin="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:padding="8dp"
+                android:src="@drawable/ic_more_vert_black_24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tv_title_leitner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:fontFamily="@font/productsansregular"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/tab_review_leitner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/tab_review_leitner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="124dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/view_pager_leitner_item_translation"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_tab_translation"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/productsansregular"
+                        android:text="@string/translation"
+                        android:textAllCaps="false"
+                        android:textColor="?attr/colorAccent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/btn_tab_english_trans"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_tab_english_trans"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/productsansregular"
+                        android:text="@string/english"
+                        android:textAllCaps="false"
+                        android:textColor="?attr/colorAccent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/btn_tab_translation"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager_leitner_item_translation"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="38dp"
+                app:layout_constraintBottom_toTopOf="@+id/layout_review_leitner_controller"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tab_review_leitner"
+                app:layout_constraintVertical_weight="7" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_review_leitner_controller"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_pager_leitner_item_translation"
+                app:layout_constraintVertical_weight="1">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_review_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/productsansregular"
+                    android:text="@string/don_t_know"
+                    android:textAllCaps="false"
+                    app:backgroundTint="?attr/colorAccent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_review_yes"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/productsansregular"
+                    android:text="@string/know"
+                    android:textAllCaps="false"
+                    app:backgroundTint="?attr/colorAccent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>

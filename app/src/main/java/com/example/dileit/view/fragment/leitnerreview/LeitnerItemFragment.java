@@ -122,7 +122,6 @@ public class LeitnerItemFragment extends Fragment {
         mBinding.layoutContainerReview.setOnTouchListener((view13, motionEvent) ->
 
         {
-
             int currentRepeat = mLeitner.getRepeatCounter();
             mLeitner.setRepeatCounter(++currentRepeat);
             mLeitner.setLastReviewTime(System.currentTimeMillis());

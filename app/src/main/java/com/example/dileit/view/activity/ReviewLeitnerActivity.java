@@ -68,16 +68,7 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
         mBinding.progressCircularReviewBar.setCurrentProgress(0);
 
         viewModel.getAllLeitnerItems().observe(this, leitnerList -> {
-            if (leitnerList.size()<cardsSize){
-                cardsSize = leitnerList.size();
-                int fragmentSizeIndex = fragments.size()-1;
-                if (++currentPosIndex<= fragmentSizeIndex){
-                    mBinding.viewPagerReviewLeitner.setCurrentItem(currentPosIndex);
-                    headerCounterHandler(fragments.size() , currentPosIndex  );
-                }else {
-                    goToReviewedCardReporter();
-                }
-            }
+
             if (isStartUp) {
                 filteredList = LeitnerUtils.getPreparedLeitnerItems(leitnerList);
                 fragments = new ArrayList<>();
@@ -99,6 +90,18 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
                 mBinding.tvReviewCountToday.setText(String.valueOf(cardsSize));
                 mAdapter.addData(fragments);
                 isStartUp = false;
+            }
+
+
+            if (leitnerList.size() < cardsSize) {
+                cardsSize = leitnerList.size();
+                int fragmentSizeIndex = fragments.size() - 1;
+                if (++currentPosIndex <= fragmentSizeIndex) {
+                    mBinding.viewPagerReviewLeitner.setCurrentItem(currentPosIndex);
+                    headerCounterHandler(fragments.size(), currentPosIndex);
+                } else {
+                    goToReviewedCardReporter();
+                }
             }
 
         });
@@ -172,7 +175,7 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
             goToReviewedCardReporter();
         }
 
-        headerCounterHandler(fragments.size() , nextItem);
+        headerCounterHandler(fragments.size(), nextItem);
 
     }
 
@@ -193,19 +196,20 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
         mTextToSpeechUK.speak(text, TextToSpeech.QUEUE_FLUSH, null);
     }
 
-    private void headerCounterHandler(int totalSize , int nextItemIndex){
+    private void headerCounterHandler(int totalSize, int nextItemIndex) {
         mBinding.tvReviewCountToday.setText(String.valueOf(totalSize - nextItemIndex));
         if (--newWords >= 0)
             mBinding.tvReviewCountNew.setText(String.valueOf(newWords));
     }
 
-    private void goToReviewedCardReporter(){
+    private void goToReviewedCardReporter() {
         mAdapter.addReportView(new ReviewReportFragment());
         //go to last pager which created by above code
         mBinding.viewPagerReviewLeitner.setCurrentItem(mBinding.viewPagerReviewLeitner.getCurrentItem() + 1);
         mBinding.linearLayoutPronounceBar.setVisibility(View.INVISIBLE);
         mBinding.cardHeaderCounter.setVisibility(View.INVISIBLE);
     }
+
     @Override
     public void onDestroy() {
         if (mTextToSpeechUK != null) {

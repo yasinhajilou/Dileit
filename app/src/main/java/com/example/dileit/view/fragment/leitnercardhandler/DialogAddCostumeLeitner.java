@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
@@ -71,12 +72,23 @@ public class DialogAddCostumeLeitner extends BottomSheetDialogFragment {
                         0, 0, System.currentTimeMillis());
 
                 mViewModel.insertLeitnerItem(leitner);
-                dismiss();
-                Toast.makeText(view1.getContext(), "Added.", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getContext(), "please fill fields", Toast.LENGTH_SHORT).show();
             }
 
+        });
+
+
+        mViewModel.getLeitnerItemId().observe(getViewLifecycleOwner(), new Observer<Long>() {
+            @Override
+            public void onChanged(Long aLong) {
+                if (aLong > 0) {
+                    dismiss();
+                    Toast.makeText(getContext(), "Added.", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getContext(), "An error occurred.", Toast.LENGTH_SHORT).show();
+                }
+            }
         });
     }
 

@@ -16,10 +16,14 @@ import com.example.dileit.viewmodel.vminterface.InternalInterface;
 
 import java.util.List;
 
+import io.reactivex.Completable;
+import io.reactivex.Flowable;
+import io.reactivex.Single;
+import io.reactivex.schedulers.Schedulers;
+
 public class InternalRepository {
     private WordHistoryDao mWordHistoryDao;
     private LiveData<List<WordHistory>> mAllWordHistory;
-    private LiveData<List<Leitner>> mAllLeitnerItems;
     private LeitnerDao mLeitnerDao;
     private String TAG = InternalViewModel.class.getSimpleName();
 
@@ -28,7 +32,6 @@ public class InternalRepository {
         mWordHistoryDao = database.mWordHistoryDao();
         mLeitnerDao = database.mLeitnerDao();
         mAllWordHistory = mWordHistoryDao.getAllWordHistory();
-        mAllLeitnerItems = mLeitnerDao.LEITNER_LIST();
     }
 
 
@@ -41,40 +44,47 @@ public class InternalRepository {
         return mWordHistoryDao.getWordInformation(word);
     }
 
-    public LiveData<Leitner> getLeitnerInfoByWord(String word) {
-        return mLeitnerDao.leitnerInfoByWord(word);
+    public Flowable<Leitner> getLeitnerInfoByWord(String word) {
+        return mLeitnerDao.leitnerInfoByWord(word)
+                .subscribeOn(Schedulers.io());
     }
 
-    public LiveData<List<Leitner>> getAllLeitnerItems() {
-        return mAllLeitnerItems;
+    public Flowable<List<Leitner>> getAllLeitnerItems() {
+        return mLeitnerDao.LEITNER_LIST()
+                .subscribeOn(Schedulers.io());
     }
 
-    public LiveData<List<Leitner>> getCardByState(int state) {
-        return mLeitnerDao.getCardByState(state);
+    public Flowable<List<Leitner>> getCardByState(int state) {
+        return mLeitnerDao.getCardByState(state)
+                .subscribeOn(Schedulers.io());
     }
 
-    public LiveData<List<Leitner>> getGetCardsByRangeState(int start, int end) {
-        return mLeitnerDao.getCardsByRangeState(start, end);
+    public Flowable<List<Leitner>> getGetCardsByRangeState(int start, int end) {
+        return mLeitnerDao.getCardsByRangeState(start, end)
+                .subscribeOn(Schedulers.io());
     }
 
-    public LiveData<Leitner> getLeitnerCardById(int id) {
-        return mLeitnerDao.getLeitnerCardById(id);
+    public Flowable<Leitner> getLeitnerCardById(int id) {
+        return mLeitnerDao.getLeitnerCardById(id)
+                .subscribeOn(Schedulers.io());
     }
 
 
     //insert data
-    public void insertWordHistory(int leitnerId, Long time, String word , int engId) {
-        new InsertWordHistory(leitnerId, time, word , engId).execute();
+    public void insertWordHistory(int leitnerId, Long time, String word, int engId) {
+        new InsertWordHistory(leitnerId, time, word, engId).execute();
     }
 
-    public void insertLeitnerItem(Leitner leitner, InternalInterface anInterface) {
-        new InsertLeitnerItem(anInterface).execute(leitner);
+    public Single<Long> insertLeitnerItem(Leitner leitner) {
+        return mLeitnerDao.insert(leitner)
+                .subscribeOn(Schedulers.io());
     }
 
 
     //update data
-    public void updateLeitnerItem(Leitner leitner) {
-        new UpdateLeitnerItem().execute(leitner);
+    public Completable updateLeitnerItem(Leitner leitner) {
+        return mLeitnerDao.update(leitner)
+                .subscribeOn(Schedulers.io());
     }
 
     public void updateWordHistory(WordHistory wordHistory) {
@@ -83,30 +93,13 @@ public class InternalRepository {
 
 
     //Delete Item
-    public void deleteLeitnerItem(Leitner leitner) {
-        new DeleteLeitnerItem().execute(leitner);
+    public Single<Integer> deleteLeitnerItem(Leitner leitner) {
+        return mLeitnerDao.delete(leitner)
+                .subscribeOn(Schedulers.io());
     }
 
 
     //Async classes
-    private class InsertLeitnerItem extends AsyncTask<Leitner, Void, Long> {
-        InternalInterface mInterface;
-
-        InsertLeitnerItem(InternalInterface anInterface) {
-            mInterface = anInterface;
-        }
-
-        @Override
-        protected Long doInBackground(Leitner... leitners) {
-            return mLeitnerDao.insert(leitners[0]);
-        }
-
-        @Override
-        protected void onPostExecute(Long aLong) {
-            super.onPostExecute(aLong);
-            mInterface.onLeitnerAdded(aLong);
-        }
-    }
 
     private class InsertWordHistory extends AsyncTask<Void, Void, Void> {
         private int leitnerId;
@@ -130,30 +123,11 @@ public class InternalRepository {
         }
     }
 
-    private class UpdateLeitnerItem extends AsyncTask<Leitner, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Leitner... leitners) {
-            mLeitnerDao.update(leitners[0]);
-            return null;
-        }
-    }
-
     private class UpdateWordHistory extends AsyncTask<WordHistory, Void, Void> {
 
         @Override
         protected Void doInBackground(WordHistory... wordHistories) {
             mWordHistoryDao.update(wordHistories[0]);
-            return null;
-        }
-    }
-
-    private class DeleteLeitnerItem extends AsyncTask<Leitner, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Leitner... leitners) {
-            long id = mLeitnerDao.delete(leitners[0]);
-            Log.d(TAG, "doInBackground: " + id);
             return null;
         }
     }

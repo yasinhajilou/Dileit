@@ -45,13 +45,10 @@ public class LeitnerManagerActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        mBinding.toolbarLeitnerManager.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        mBinding.toolbarLeitnerManager.setNavigationOnClickListener(view -> finish());
+
         mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
+
         mAdapter = new LeitnerManagerViewPagerAdapter(getSupportFragmentManager());
 
         mBinding.viewPagerLeitnerManager.setAdapter(mAdapter);
@@ -65,9 +62,9 @@ public class LeitnerManagerActivity extends AppCompatActivity {
             //we should restart counters
             int currentSize = leitnerList.size();
             if (listCounter > currentSize) {
-                newCardsCounter=0;
-                learnedCardsCounter=0;
-                reviewedCardsCounter=0;
+                newCardsCounter = 0;
+                learnedCardsCounter = 0;
+                reviewedCardsCounter = 0;
             }
             for (Leitner leitner :
                     leitnerList) {

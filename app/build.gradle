@@ -69,20 +69,24 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
     annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomVersion"
     androidTestImplementation "android.arch.persistence.room:testing:$rootProject.roomVersion"
+    // optional - RxJava support for Room
+    implementation "androidx.room:room-rxjava2:2.2.5"
 
     // Lifecycle components
     implementation "android.arch.lifecycle:extensions:$rootProject.archLifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.archLifecycleVersion"
+    // ReactiveStreams support for LiveData
+    implementation "androidx.lifecycle:lifecycle-reactivestreams:2.2.0"
 
     //Retrofit
-    implementation "com.squareup.retrofit2:retrofit:2.7.1"
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
 
     //Analystics
-    implementation 'com.google.firebase:firebase-analytics:17.4.1'
+    implementation 'com.google.firebase:firebase-analytics:17.4.3'
 
     //crashlystics
-    implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
+    implementation 'com.google.firebase:firebase-crashlytics:17.1.0'
 
     //ViewPager2
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
@@ -96,5 +100,8 @@ dependencies {
     //Lottie Animation
     implementation "com.airbnb.android:lottie:3.4.0"
 
+    //rx
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
 
 }

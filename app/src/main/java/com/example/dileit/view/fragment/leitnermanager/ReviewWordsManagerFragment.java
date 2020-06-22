@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -88,6 +89,18 @@ public class ReviewWordsManagerFragment extends Fragment implements LeitnerManag
         mBinding.chipFilteredBoxFive.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
                 mInternalViewModel.getCardsByState(LeitnerStateConstant.BOX_FIVE).observe(getViewLifecycleOwner(), this::setData);
+            }
+        });
+
+
+        mInternalViewModel.getDeletedItemStatus().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                if (integer > 0){
+                    Toast.makeText(getContext(), "Item deleted", Toast.LENGTH_SHORT).show();
+                }else
+                    Toast.makeText(getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+
             }
         });
     }

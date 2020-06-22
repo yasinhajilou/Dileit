@@ -23,14 +23,12 @@ import java.util.List;
 
 public class ReviewReportFragment extends Fragment {
 
-    private InternalViewModel mInternalViewModel;
     private FragmentReviewReportBinding mBinding;
     private ReviewLeitnerSharedViewModel mSharedViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mInternalViewModel = ViewModelProviders.of(getActivity()).get(InternalViewModel.class);
         mSharedViewModel = ViewModelProviders.of(getActivity()).get(ReviewLeitnerSharedViewModel.class);
     }
 

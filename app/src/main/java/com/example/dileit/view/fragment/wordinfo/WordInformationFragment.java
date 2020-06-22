@@ -65,10 +65,6 @@ public class WordInformationFragment extends Fragment {
 
     private Leitner mLeitner;
 
-    private int engPos =-1;
-    private int perPos = -1;
-    private int idiomPos = -1;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

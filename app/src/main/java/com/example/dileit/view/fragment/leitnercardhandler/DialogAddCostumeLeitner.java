@@ -14,18 +14,15 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.example.dileit.R;
-import com.example.dileit.constant.KeysValue;
+
 import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.BottomSheetAddCostumeLeitnerBinding;
 import com.example.dileit.model.entity.Leitner;
-import com.example.dileit.model.repository.InternalRepository;
 import com.example.dileit.viewmodel.InternalViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
+
 
 import java.util.Objects;
 

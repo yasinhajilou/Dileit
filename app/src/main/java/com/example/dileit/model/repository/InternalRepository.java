@@ -12,7 +12,6 @@ import com.example.dileit.model.database.InternalRoomDatabase;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.model.entity.WordHistory;
 import com.example.dileit.viewmodel.InternalViewModel;
-import com.example.dileit.viewmodel.vminterface.InternalInterface;
 
 import java.util.List;
 

@@ -13,29 +13,33 @@ import com.example.dileit.model.entity.Leitner;
 import java.util.LinkedList;
 import java.util.List;
 
+import io.reactivex.Completable;
+import io.reactivex.Flowable;
+import io.reactivex.Single;
+
 @Dao
 public interface LeitnerDao {
     @Insert
-    long insert(Leitner leitner);
+    Single<Long> insert(Leitner leitner);
 
     @Update
-    void update(Leitner leitner);
+    Completable update(Leitner leitner);
 
     @Delete
-    int delete(Leitner leitner);
+    Single<Integer> delete(Leitner leitner);
 
     @Query("SELECT * FROM  Leitner")
-    LiveData<List<Leitner>> LEITNER_LIST();
+    Flowable<List<Leitner>> LEITNER_LIST();
 
     @Query("SELECT * FROM Leitner WHERE word LIKE :word")
-    LiveData<Leitner> leitnerInfoByWord(String word);
+    Flowable<Leitner> leitnerInfoByWord(String word);
 
     @Query("SELECT * FROM Leitner WHERE state LIKE :cardState")
-    LiveData<List<Leitner>> getCardByState(int cardState);
+    Flowable<List<Leitner>> getCardByState(int cardState);
 
     @Query("SELECT * FROM Leitner WHERE state BETWEEN :start AND :end")
-    LiveData<List<Leitner>> getCardsByRangeState(int start, int end);
+    Flowable<List<Leitner>> getCardsByRangeState(int start, int end);
 
     @Query("SELECT * FROM Leitner WHERE id LIKE :cardId")
-    LiveData<Leitner> getLeitnerCardById(int cardId);
+    Flowable<Leitner> getLeitnerCardById(int cardId);
 }

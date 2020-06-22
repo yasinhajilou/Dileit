@@ -99,15 +99,11 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
             }
         });
 
-        mViewModel.getAllLeitnerItems().observe(getViewLifecycleOwner(), new Observer<List<Leitner>>() {
-            @Override
-            public void onChanged(List<Leitner> leitnerList) {
-                int todayWordsCounter = LeitnerUtils.getPreparedLeitnerItems(leitnerList).size();
-                if (todayWordsCounter <= 1)
-                    mBinding.tvTodayWordsHome.setText(todayWordsCounter + " Item");
-                else
-                    mBinding.tvTodayWordsHome.setText(todayWordsCounter + " Items");
-            }
+        mViewModel.getTodayList().observe(getViewLifecycleOwner(), leitners -> {
+            if (leitners.size() <= 1)
+                mBinding.tvTodayWordsHome.setText(leitners.size() + " Card");
+            else
+                mBinding.tvTodayWordsHome.setText(leitners.size() + " Cards");
         });
 
         mBinding.linearLayoutVoice.setOnClickListener(view12 -> {

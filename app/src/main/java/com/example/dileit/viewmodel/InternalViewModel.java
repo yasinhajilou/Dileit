@@ -11,12 +11,18 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.model.entity.WordHistory;
 import com.example.dileit.model.repository.InternalRepository;
+import com.example.dileit.utils.LeitnerUtils;
+
+import org.reactivestreams.Publisher;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import io.reactivex.CompletableObserver;
+import io.reactivex.Flowable;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 
 public class InternalViewModel extends AndroidViewModel {
     private InternalRepository mRepository;
@@ -121,26 +127,31 @@ public class InternalViewModel extends AndroidViewModel {
         return LiveDataReactiveStreams.fromPublisher(mRepository.getAllLeitnerItems());
     }
 
+    public LiveData<List<Leitner>> getTodayList() {
+        return LiveDataReactiveStreams.fromPublisher(
+                mRepository.getAllLeitnerItems().concatMap(leitners -> Flowable.fromCallable(() -> LeitnerUtils.getPreparedLeitnerItems(leitners)))
+        );
+    }
 
     //Delete data
     public void deleteLeitnerItem(Leitner leitner) {
         mRepository.deleteLeitnerItem(leitner)
-        .subscribe(new SingleObserver<Integer>() {
-            @Override
-            public void onSubscribe(Disposable d) {
+                .subscribe(new SingleObserver<Integer>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-            }
+                    }
 
-            @Override
-            public void onSuccess(Integer integer) {
-                mDeletedItemStatus.postValue(integer);
-            }
+                    @Override
+                    public void onSuccess(Integer integer) {
+                        mDeletedItemStatus.postValue(integer);
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                mDeletedItemStatus.postValue(-1);
-            }
-        });
+                    @Override
+                    public void onError(Throwable e) {
+                        mDeletedItemStatus.postValue(-1);
+                    }
+                });
     }
 
 

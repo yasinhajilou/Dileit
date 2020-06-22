@@ -5,12 +5,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.FragmentLearnedWordsManagerBinding;
@@ -58,6 +60,18 @@ public class LearnedWordsManagerFragment extends Fragment implements LeitnerMana
                     if (!notifyRv)
                         notifyRv = true;
                 }
+            }
+        });
+
+
+        mInternalViewModel.getDeletedItemStatus().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                if (integer > 0){
+                    Toast.makeText(getContext(), "Item deleted", Toast.LENGTH_SHORT).show();
+                }else
+                    Toast.makeText(getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+
             }
         });
     }

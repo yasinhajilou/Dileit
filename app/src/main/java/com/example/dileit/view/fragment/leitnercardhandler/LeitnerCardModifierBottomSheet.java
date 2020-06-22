@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.dileit.constant.KeysValue;
@@ -106,8 +107,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
                     mLeitner = new Leitner(0, title, mSharedViewModel.getTranslation(), mSharedViewModel.getSecondTranslation(),
                             "bug", edtGuide, LeitnerStateConstant.STARTED, 0, 0, System.currentTimeMillis());
                     mInternalViewModel.insertLeitnerItem(mLeitner);
-                    Toast.makeText(view1.getContext(), "Added To leitner!", Toast.LENGTH_SHORT).show();
-                    dismiss();
+
                     break;
                 case EDIT:
                     if (!edtTitle.equals("")) {
@@ -117,8 +117,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
                         if (!edtGuide.equals(""))
                             mLeitner.setGuide(edtGuide);
                         mInternalViewModel.updateLeitnerItem(mLeitner);
-                        Toast.makeText(view1.getContext(), "Leitner Card Updated!", Toast.LENGTH_SHORT).show();
-                        dismiss();
+
                     } else
                         Toast.makeText(view1.getContext(), "You Should fill title field!", Toast.LENGTH_SHORT).show();
 
@@ -127,6 +126,29 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
 
         });
 
+
+        mInternalViewModel.getLeitnerItemId().observe(getViewLifecycleOwner(), new Observer<Long>() {
+            @Override
+            public void onChanged(Long aLong) {
+                if (aLong > 0) {
+                    Toast.makeText(getContext(), "Added To leitner!", Toast.LENGTH_SHORT).show();
+                    dismiss();
+                } else {
+                    Toast.makeText(getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        mInternalViewModel.getUpdateItemStatus().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) {
+                    Toast.makeText(getContext(), "Leitner Card Updated!", Toast.LENGTH_SHORT).show();
+                    dismiss();
+                } else {
+                    Toast.makeText(getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void setUpViewForEditing() {

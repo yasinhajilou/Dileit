@@ -70,7 +70,6 @@ public class DialogAddCostumeLeitner extends BottomSheetDialogFragment {
 
                 Leitner leitner = new Leitner(0, cardTitle, cardDef, null, "bug", guide, LeitnerStateConstant.STARTED,
                         0, 0, System.currentTimeMillis());
-
                 mViewModel.insertLeitnerItem(leitner);
             } else {
                 Toast.makeText(getContext(), "please fill fields", Toast.LENGTH_SHORT).show();
@@ -79,15 +78,12 @@ public class DialogAddCostumeLeitner extends BottomSheetDialogFragment {
         });
 
 
-        mViewModel.getLeitnerItemId().observe(getViewLifecycleOwner(), new Observer<Long>() {
-            @Override
-            public void onChanged(Long aLong) {
-                if (aLong > 0) {
-                    dismiss();
-                    Toast.makeText(getContext(), "Added.", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(getContext(), "An error occurred.", Toast.LENGTH_SHORT).show();
-                }
+        mViewModel.getLeitnerItemId().observe(getViewLifecycleOwner(), aLong -> {
+            if (aLong > 0) {
+                dismiss();
+                Toast.makeText(getContext(), "Added.", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(getContext(), "An error occurred.", Toast.LENGTH_SHORT).show();
             }
         });
     }

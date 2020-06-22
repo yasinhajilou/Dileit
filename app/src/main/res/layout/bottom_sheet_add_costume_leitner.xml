@@ -6,16 +6,11 @@
     android:padding="8dp"
     tools:context="com.example.dileit.view.fragment.leitnercardhandler.DialogAddCostumeLeitner">
 
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <TextView
             android:id="@+id/tv_costume_leitner_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             android:fontFamily="@font/productsansregular"
             android:text="@string/add_new_word_or_phrase_in_leitner"
             android:textAlignment="center"
@@ -30,7 +25,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_costume_leitner_info">
@@ -53,12 +48,13 @@
             app:layout_constraintTop_toBottomOf="@+id/txt_layout_leitner_title">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:maxLines="6"
                 android:id="@+id/edt_input_def"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="start"
                 android:hint="@string/translation_or_definition"
-                android:lines="5" />
+                android:lines="4" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -80,17 +76,16 @@
                 android:hint="@string/simple_sentence_which_helps_you_to_remember" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_save_costume_leitner"
-            style="?attr/materialButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:fontFamily="@font/productsansregular"
-            android:text="@string/save"
-            android:textAllCaps="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_layout_leitner_guide" />
-    </ScrollView>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save_costume_leitner"
+        style="?attr/materialButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/productsansregular"
+        android:text="@string/save"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_layout_leitner_guide" />
 </androidx.constraintlayout.widget.ConstraintLayout>

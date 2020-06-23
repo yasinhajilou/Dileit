@@ -1,6 +1,7 @@
 package com.example.dileit.view.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
@@ -55,8 +58,9 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
+        mBinding.edtSearchWord.requestFocus();
+        InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.showSoftInput(mBinding.edtSearchWord, InputMethodManager.SHOW_IMPLICIT);
         setUpRecyclerView();
 
         mSearchViewModel.getSyncedSearch().observe(getViewLifecycleOwner(), searchDictionaries -> {

@@ -1,16 +1,13 @@
 package com.example.dileit.model.dao;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.model.entity.Leitner;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import io.reactivex.Completable;

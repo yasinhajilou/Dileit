@@ -10,16 +10,14 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.dileit.model.EnglishDef;
 import com.example.dileit.model.SearchDictionary;
-import com.example.dileit.model.Word;
 import com.example.dileit.model.repository.EnglishDictionaryRepository;
 import com.example.dileit.model.repository.PersianDictionaryRepository;
-import com.example.dileit.viewmodel.vminterface.PersionDictionaryInterface;
 import com.example.dileit.viewmodel.vminterface.EnglishDictionaryInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchViewModel extends AndroidViewModel implements EnglishDictionaryInterface, PersionDictionaryInterface {
+public class SearchViewModel extends AndroidViewModel implements EnglishDictionaryInterface {
     private EnglishDictionaryRepository mEnglishDictionaryRepository;
     private PersianDictionaryRepository mPersianDictionaryRepository;
 
@@ -32,7 +30,7 @@ public class SearchViewModel extends AndroidViewModel implements EnglishDictiona
     public SearchViewModel(@NonNull Application application) {
         super(application);
         mEnglishDictionaryRepository = new EnglishDictionaryRepository(application, this);
-        mPersianDictionaryRepository = new PersianDictionaryRepository(application , this );
+        mPersianDictionaryRepository = new PersianDictionaryRepository(application);
         mMediatorLiveData = new MediatorLiveData<>();
         mEngData = new MutableLiveData<>();
         mPerData = new MutableLiveData<>();
@@ -50,7 +48,7 @@ public class SearchViewModel extends AndroidViewModel implements EnglishDictiona
     }
 
     public void doPerSearch(String text){
-        mPersianDictionaryRepository.getSpecificWord(text);
+        mPersianDictionaryRepository.searchWords(text);
     }
 
     private LiveData<List<SearchDictionary>> getEngData() {
@@ -91,19 +89,4 @@ public class SearchViewModel extends AndroidViewModel implements EnglishDictiona
 
     }
 
-
-    @Override
-    public void allWords(List<Word> wordList) {
-
-    }
-
-    @Override
-    public void getSpecificWord(List<SearchDictionary> searchDictionaries) {
-        mPerData.postValue(searchDictionaries);
-    }
-
-    @Override
-    public void getExactWordData(String data) {
-
-    }
 }

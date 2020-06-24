@@ -2,15 +2,11 @@ package com.example.dileit.model.repository;
 
 import android.app.Application;
 import android.database.Cursor;
-import android.os.AsyncTask;
-import android.util.Log;
 
 
 import com.example.dileit.model.SearchDictionary;
 import com.example.dileit.model.Word;
-import com.example.dileit.model.WordInformation;
 import com.example.dileit.model.database.persiandb.PersianDatabaseAccess;
-import com.example.dileit.viewmodel.vminterface.PersionDictionaryInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +24,7 @@ public class PersianDictionaryRepository {
         mPersianDatabaseAccess = PersianDatabaseAccess.getINSTANCE(application);
     }
 
-    public Flowable<List<SearchDictionary>> getSpecificWord(String word) {
+    public Flowable<List<SearchDictionary>> searchWords(String word) {
         return Flowable.fromCallable(() -> {
             // ORDER BY word COLLATE NOCASE ASC
             mPersianDatabaseAccess.openDatabase();

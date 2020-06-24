@@ -13,28 +13,31 @@ import com.example.dileit.model.entity.WordHistory;
 
 import java.util.List;
 
+import io.reactivex.Completable;
+import io.reactivex.Flowable;
+
 @Dao
 public interface WordHistoryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void Insert(WordHistory wordHistory);
+    Completable Insert(WordHistory wordHistory);
 
     @Update
-    void update(WordHistory wordHistory);
+    Completable update(WordHistory wordHistory);
 
     @Delete
-    void delete(WordHistory wordHistory);
+    Completable delete(WordHistory wordHistory);
 
     @Transaction
     @Query("SELECT * FROM WordHistory")
-    LiveData<List<WordHistory>> getAllWordHistory();
+    Flowable<List<WordHistory>> getAllWordHistory();
 
     @Transaction
     @Query("SELECT * FROM WordHistory where leitnerId LIKE :leitnerId LIMIT 1")
-    LiveData<WordHistory> getWordByLeitnerId(int leitnerId);
+    Flowable<WordHistory> getWordByLeitnerId(int leitnerId);
 
     @Transaction
     @Query("SELECT * FROM  WordHistory where word LIKE :exactWord")
-    LiveData<WordHistory> getWordInformation(String exactWord);
+    Flowable<WordHistory> getWordInformation(String exactWord);
 
 }

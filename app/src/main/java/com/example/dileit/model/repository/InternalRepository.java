@@ -14,6 +14,7 @@ import com.example.dileit.model.entity.WordHistory;
 import com.example.dileit.viewmodel.InternalViewModel;
 
 import java.util.List;
+import java.util.concurrent.Flow;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
@@ -22,7 +23,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class InternalRepository {
     private WordHistoryDao mWordHistoryDao;
-    private LiveData<List<WordHistory>> mAllWordHistory;
     private LeitnerDao mLeitnerDao;
     private String TAG = InternalViewModel.class.getSimpleName();
 
@@ -30,17 +30,18 @@ public class InternalRepository {
         InternalRoomDatabase database = InternalRoomDatabase.getInstance(context);
         mWordHistoryDao = database.mWordHistoryDao();
         mLeitnerDao = database.mLeitnerDao();
-        mAllWordHistory = mWordHistoryDao.getAllWordHistory();
     }
 
 
     //get data(Queries)
-    public LiveData<List<WordHistory>> getAllWordHistory() {
-        return mAllWordHistory;
+    public Flowable<List<WordHistory>> getAllWordHistory() {
+        return mWordHistoryDao.getAllWordHistory()
+                .subscribeOn(Schedulers.io());
     }
 
-    public LiveData<WordHistory> getWordHistoryInfo(String word) {
-        return mWordHistoryDao.getWordInformation(word);
+    public Flowable<WordHistory> getWordHistoryInfo(String word) {
+        return mWordHistoryDao.getWordInformation(word)
+                .subscribeOn(Schedulers.io());
     }
 
     public Flowable<Leitner> getLeitnerInfoByWord(String word) {
@@ -70,8 +71,9 @@ public class InternalRepository {
 
 
     //insert data
-    public void insertWordHistory(int leitnerId, Long time, String word, int engId) {
-        new InsertWordHistory(leitnerId, time, word, engId).execute();
+    public Completable insertWordHistory(WordHistory wordHistory) {
+        return mWordHistoryDao.Insert(wordHistory)
+                .subscribeOn(Schedulers.io());
     }
 
     public Single<Long> insertLeitnerItem(Leitner leitner) {
@@ -86,8 +88,8 @@ public class InternalRepository {
                 .subscribeOn(Schedulers.io());
     }
 
-    public void updateWordHistory(WordHistory wordHistory) {
-        new UpdateWordHistory().execute(wordHistory);
+    public Completable updateWordHistory(WordHistory wordHistory) {
+        return mWordHistoryDao.update(wordHistory);
     }
 
 
@@ -97,38 +99,5 @@ public class InternalRepository {
                 .subscribeOn(Schedulers.io());
     }
 
-
-    //Async classes
-
-    private class InsertWordHistory extends AsyncTask<Void, Void, Void> {
-        private int leitnerId;
-        private Long time;
-        private String word;
-        private int engId;
-
-        public InsertWordHistory(int leitnerId, Long time, String word, int engId) {
-            this.leitnerId = leitnerId;
-            this.time = time;
-            this.word = word;
-            this.engId = engId;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            WordHistory wordHistory = new WordHistory(word, engId, leitnerId, time);
-            mWordHistoryDao.Insert(wordHistory);
-            Log.d(TAG, "doInBackground: added");
-            return null;
-        }
-    }
-
-    private class UpdateWordHistory extends AsyncTask<WordHistory, Void, Void> {
-
-        @Override
-        protected Void doInBackground(WordHistory... wordHistories) {
-            mWordHistoryDao.update(wordHistories[0]);
-            return null;
-        }
-    }
 
 }

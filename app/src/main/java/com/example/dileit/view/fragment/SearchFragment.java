@@ -22,6 +22,7 @@ import android.view.inputmethod.InputMethodManager;
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
 import com.example.dileit.databinding.FragmentWordSearchBinding;
+import com.example.dileit.model.entity.WordHistory;
 import com.example.dileit.view.adapter.recycler.AllWordsRecyclerAdapter;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
 import com.example.dileit.viewmodel.InternalViewModel;
@@ -140,7 +141,9 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         Bundle bundle = new Bundle();
         bundle.putString(KeysValue.KEY_BUNDLE_ACTUAL_WORD, actualWord.trim());
         bundle.putInt(KeysValue.KEY_BUNDLE_WORD_REF_ID, engId);
+        WordHistory wordHistory = new WordHistory(actualWord.trim(), engId, 0, System.currentTimeMillis());
+        mInternalViewModel.insertWordHistory(wordHistory);
         Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment, bundle);
-        mInternalViewModel.insertWordHistory(0, System.currentTimeMillis(), actualWord.trim(), engId);
+
     }
 }

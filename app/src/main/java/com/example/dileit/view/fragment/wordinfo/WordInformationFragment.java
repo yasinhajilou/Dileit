@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
@@ -29,6 +30,7 @@ import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.utils.JsonUtils;
 import com.example.dileit.view.adapter.viewpager.WordsInformationViewPagerAdapter;
 import com.example.dileit.view.fragment.leitnercardhandler.LeitnerCardModifierBottomSheet;
+import com.example.dileit.viewmodel.ExternalViewModel;
 import com.example.dileit.viewmodel.InternalViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
 import com.google.android.material.chip.Chip;
@@ -46,14 +48,13 @@ public class WordInformationFragment extends Fragment {
 
     private String TAG = WordInformationFragment.class.getSimpleName();
     private SharedViewModel mSharedViewModel;
+    private ExternalViewModel mExternalViewModel;
     private FragmentWordInformationBinding mBinding;
     private Chip chipPersian, chipEnglish, chipIdioms;
     private WordsInformationViewPagerAdapter mAdapter;
     private List<TranslationWord> wordList;
     private boolean isIdiomAvailable = false;
-    private EnglishDictionaryViewModel mEnglishDictionaryViewModel;
     private InternalViewModel mInternalViewModel;
-    private PersianDictionaryViewModel mPersionDictionaryViewModel;
 
     private StringBuilder builderEnglish;
     private StringBuilder builderTranslation;
@@ -67,9 +68,8 @@ public class WordInformationFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
-        mEnglishDictionaryViewModel = ViewModelProviders.of(this).get(EnglishDictionaryViewModel.class);
         mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
-        mPersionDictionaryViewModel = ViewModelProviders.of(this).get(PersianDictionaryViewModel.class);
+        mExternalViewModel = ViewModelProviders.of(this).get(ExternalViewModel.class);
         if (getArguments() != null) {
             actualWord = getArguments().getString(KeysValue.KEY_BUNDLE_ACTUAL_WORD);
             engId = getArguments().getInt(KeysValue.KEY_BUNDLE_WORD_REF_ID);
@@ -96,7 +96,7 @@ public class WordInformationFragment extends Fragment {
 
         mBinding.tvWordTitle.setText(actualWord);
 
-        mPersionDictionaryViewModel.searchForExactWord(actualWord).observe(getViewLifecycleOwner(), s -> {
+        mExternalViewModel.searchForExactWord(actualWord).observe(getViewLifecycleOwner(), s -> {
             if (s != null) {
                 mAdapter.addPage(new TranslationFragment());
 
@@ -121,14 +121,14 @@ public class WordInformationFragment extends Fragment {
             }
         });
 
-        mEnglishDictionaryViewModel.searchEngWordById(engId).observe(getViewLifecycleOwner(), englishDefs -> {
+        mExternalViewModel.searchEngWordById(engId).observe(getViewLifecycleOwner(), englishDefs -> {
             if (englishDefs != null) {
                 if (englishDefs.size() > 0) {
                     mAdapter.addPage(new EnglishTranslatedFragment());
                     chipEnglish.setVisibility(View.VISIBLE);
                     mSharedViewModel.setEngDefList(englishDefs);
                     builderEnglish = new StringBuilder();
-                    for (EnglishDef englishDef : englishDefs){
+                    for (EnglishDef englishDef : englishDefs) {
                         builderEnglish.append(englishDef.getDefinition()).append("\n");
                     }
                 }

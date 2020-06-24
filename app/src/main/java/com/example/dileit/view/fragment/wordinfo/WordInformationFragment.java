@@ -61,6 +61,7 @@ public class WordInformationFragment extends Fragment {
     private StringBuilder builderTranslation;
 
     private String actualWord;
+    private int engId;
 
     private Leitner mLeitner;
 
@@ -73,10 +74,7 @@ public class WordInformationFragment extends Fragment {
         mPersionDictionaryViewModel = ViewModelProviders.of(this).get(PersianDictionaryViewModel.class);
         if (getArguments() != null) {
             actualWord = getArguments().getString(KeysValue.KEY_BUNDLE_ACTUAL_WORD);
-            int engId = getArguments().getInt(KeysValue.KEY_BUNDLE_WORD_REF_ID);
-
-            mEnglishDictionaryViewModel.searchEngWordById(engId);
-            mPersionDictionaryViewModel.searchForExactWord(actualWord);
+            engId = getArguments().getInt(KeysValue.KEY_BUNDLE_WORD_REF_ID);
         }
     }
 
@@ -100,7 +98,7 @@ public class WordInformationFragment extends Fragment {
 
         mBinding.tvWordTitle.setText(actualWord);
 
-        mPersionDictionaryViewModel.getWordInfo().observe(getViewLifecycleOwner(), s -> {
+        mPersionDictionaryViewModel.searchForExactWord(actualWord).observe(getViewLifecycleOwner(), s -> {
             if (s != null) {
                 mAdapter.addPage(new TranslationFragment());
 
@@ -125,7 +123,7 @@ public class WordInformationFragment extends Fragment {
             }
         });
 
-        mEnglishDictionaryViewModel.getAllDefs().observe(getViewLifecycleOwner(), englishDefs -> {
+        mEnglishDictionaryViewModel.searchEngWordById(engId).observe(getViewLifecycleOwner(), englishDefs -> {
             if (englishDefs != null) {
                 if (englishDefs.size() > 0) {
                     mAdapter.addPage(new EnglishTranslatedFragment());

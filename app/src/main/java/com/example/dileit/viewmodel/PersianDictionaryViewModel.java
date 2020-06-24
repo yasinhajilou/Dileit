@@ -27,4 +27,5 @@ public class PersianDictionaryViewModel extends AndroidViewModel {
     public LiveData<String> searchForExactWord(String word) {
         return LiveDataReactiveStreams.fromPublisher(mRepository.getExactWord(word));
     }
+
 }

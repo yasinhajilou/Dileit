@@ -29,9 +29,7 @@ import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.utils.JsonUtils;
 import com.example.dileit.view.adapter.viewpager.WordsInformationViewPagerAdapter;
 import com.example.dileit.view.fragment.leitnercardhandler.LeitnerCardModifierBottomSheet;
-import com.example.dileit.viewmodel.EnglishDictionaryViewModel;
 import com.example.dileit.viewmodel.InternalViewModel;
-import com.example.dileit.viewmodel.PersianDictionaryViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
 import com.google.android.material.chip.Chip;
 

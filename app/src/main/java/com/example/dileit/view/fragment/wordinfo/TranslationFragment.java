@@ -13,10 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.dileit.R;
 import com.example.dileit.databinding.FragmentPersianTranslatedBinding;
 import com.example.dileit.view.adapter.recycler.TranslationWordRecyclerAdapter;
-import com.example.dileit.viewmodel.EnglishDictionaryViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
 
 

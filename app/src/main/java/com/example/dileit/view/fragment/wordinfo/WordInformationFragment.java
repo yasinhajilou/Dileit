@@ -136,6 +136,7 @@ public class WordInformationFragment extends Fragment {
                 }
             }
         });
+
         mInternalViewModel.getLeitnerInfoByWord(actualWord).observe(getViewLifecycleOwner(), leitner -> {
             if (leitner != null) {
                 mLeitner = leitner;

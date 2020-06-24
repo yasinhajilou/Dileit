@@ -1,22 +1,6 @@
 package com.example.dileit.viewmodel;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.LiveDataReactiveStreams;
-import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
-import com.example.dileit.model.EnglishDef;
-import com.example.dileit.model.SearchDictionary;
-import com.example.dileit.model.repository.EnglishDictionaryRepository;
-import com.example.dileit.model.repository.PersianDictionaryRepository;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SearchViewModel extends ViewModel {
 //    private EnglishDictionaryRepository mEnglishDictionaryRepository;

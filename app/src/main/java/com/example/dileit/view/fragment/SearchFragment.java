@@ -64,9 +64,9 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         inputMethodManager.showSoftInput(mBinding.edtSearchWord, InputMethodManager.SHOW_IMPLICIT);
         setUpRecyclerView();
 
-        mSearchViewModel.getSyncedSearch().observe(getViewLifecycleOwner(), searchDictionaries -> {
-            mAdapter.setData(searchDictionaries);
-        });
+//        mSearchViewModel.getSyncedSearch().observe(getViewLifecycleOwner(), searchDictionaries -> {
+//            mAdapter.setData(searchDictionaries);
+//        });
 
         mSharedViewModel.getVoiceWord().observe(getViewLifecycleOwner(), s -> {
             if (!s.equals(""))
@@ -107,8 +107,8 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
                     isTypedYet = true;
                 }
                 if (!word.equals("")) {
-                    mSearchViewModel.doEngSearch(word);
-                    mSearchViewModel.doPerSearch(word);
+//                    mSearchViewModel.doEngSearch(word);
+//                    mSearchViewModel.doPerSearch(word);
                     mBinding.btnClearEditSearch.setVisibility(View.VISIBLE);
                 } else {
                     mAdapter.setData(null);
@@ -133,7 +133,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         mBinding = null;
 
         mSharedViewModel.resetVoiceWord();
-        mSearchViewModel.reset();
+//        mSearchViewModel.reset();
     }
 
     @Override

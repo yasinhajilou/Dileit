@@ -14,11 +14,11 @@ import com.example.dileit.model.repository.PersianDictionaryRepository;
 
 import java.util.List;
 
-public class PersianPersionDictionaryViewModel extends AndroidViewModel {
+public class PersianDictionaryViewModel extends AndroidViewModel {
     private PersianDictionaryRepository mRepository;
 
 
-    public PersianPersionDictionaryViewModel(@NonNull Application application) {
+    public PersianDictionaryViewModel(@NonNull Application application) {
         super(application);
         mRepository = new PersianDictionaryRepository(application);
     }

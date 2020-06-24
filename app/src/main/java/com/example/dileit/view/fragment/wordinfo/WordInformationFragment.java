@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
@@ -32,7 +31,7 @@ import com.example.dileit.view.adapter.viewpager.WordsInformationViewPagerAdapte
 import com.example.dileit.view.fragment.leitnercardhandler.LeitnerCardModifierBottomSheet;
 import com.example.dileit.viewmodel.EnglishDictionaryViewModel;
 import com.example.dileit.viewmodel.InternalViewModel;
-import com.example.dileit.viewmodel.PersianPersionDictionaryViewModel;
+import com.example.dileit.viewmodel.PersianDictionaryViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
 import com.google.android.material.chip.Chip;
 
@@ -56,7 +55,7 @@ public class WordInformationFragment extends Fragment {
     private boolean isIdiomAvailable = false;
     private EnglishDictionaryViewModel mEnglishDictionaryViewModel;
     private InternalViewModel mInternalViewModel;
-    private PersianPersionDictionaryViewModel mPersionDictionaryViewModel;
+    private PersianDictionaryViewModel mPersionDictionaryViewModel;
 
     private StringBuilder builderEnglish;
     private StringBuilder builderTranslation;
@@ -71,7 +70,7 @@ public class WordInformationFragment extends Fragment {
         mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         mEnglishDictionaryViewModel = ViewModelProviders.of(this).get(EnglishDictionaryViewModel.class);
         mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
-        mPersionDictionaryViewModel = ViewModelProviders.of(this).get(PersianPersionDictionaryViewModel.class);
+        mPersionDictionaryViewModel = ViewModelProviders.of(this).get(PersianDictionaryViewModel.class);
         if (getArguments() != null) {
             actualWord = getArguments().getString(KeysValue.KEY_BUNDLE_ACTUAL_WORD);
             int engId = getArguments().getInt(KeysValue.KEY_BUNDLE_WORD_REF_ID);

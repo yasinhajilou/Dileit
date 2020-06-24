@@ -2,16 +2,13 @@ package com.example.dileit.model.repository;
 
 import android.app.Application;
 import android.database.Cursor;
-import android.os.AsyncTask;
 
 import com.example.dileit.model.SearchDictionary;
 import com.example.dileit.model.EnglishDef;
 import com.example.dileit.model.database.engdb.EnglishDatabaseAccess;
-import com.example.dileit.viewmodel.vminterface.EnglishDictionaryInterface;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import io.reactivex.Flowable;
 import io.reactivex.schedulers.Schedulers;

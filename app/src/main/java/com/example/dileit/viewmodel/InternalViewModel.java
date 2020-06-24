@@ -26,8 +26,6 @@ import io.reactivex.functions.Function;
 
 public class InternalViewModel extends AndroidViewModel {
     private InternalRepository mRepository;
-    private LiveData<List<WordHistory>> mAllWordHistory;
-
 
     //observe for inserted item id
     private MutableLiveData<Long> mLeitnerItemId = new MutableLiveData<>();
@@ -39,12 +37,11 @@ public class InternalViewModel extends AndroidViewModel {
     public InternalViewModel(@NonNull Application application) {
         super(application);
         mRepository = new InternalRepository(application);
-        mAllWordHistory = mRepository.getAllWordHistory();
     }
 
 
-    public void insertWordHistory(int leitnerId, long time, String word, int engId) {
-        mRepository.insertWordHistory(leitnerId, time, word, engId);
+    public void insertWordHistory(WordHistory wordHistory) {
+        mRepository.insertWordHistory(wordHistory);
     }
 
     public void insertLeitnerItem(Leitner leitner) {
@@ -95,7 +92,7 @@ public class InternalViewModel extends AndroidViewModel {
 
 
     public LiveData<List<WordHistory>> getAllWordHistory() {
-        return mAllWordHistory;
+        return LiveDataReactiveStreams.fromPublisher(mRepository.getAllWordHistory());
     }
 
 

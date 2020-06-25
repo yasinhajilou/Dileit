@@ -19,7 +19,6 @@ import com.example.dileit.viewmodel.SharedViewModel;
 
 
 public class TranslationFragment extends Fragment {
-    private EnglishDictionaryViewModel mEnglishDictionaryViewModel;
     private FragmentPersianTranslatedBinding mBinding;
     private SharedViewModel mSharedViewModel;
     private String TAG = TranslationFragment.class.getSimpleName();

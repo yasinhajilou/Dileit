@@ -8,7 +8,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
@@ -46,7 +45,7 @@ public class WordInformationFragment extends Fragment {
     private TextToSpeech mTextToSpeechUK;
     private int a, b = 0;
 
-    private String TAG = WordInformationFragment.class.getSimpleName();
+    private String TAG = WordInformationFragment.class.getSimpleName() + "Checker";
     private SharedViewModel mSharedViewModel;
     private ExternalViewModel mExternalViewModel;
     private FragmentWordInformationBinding mBinding;
@@ -97,7 +96,7 @@ public class WordInformationFragment extends Fragment {
         mBinding.tvWordTitle.setText(actualWord);
 
         mExternalViewModel.searchForExactWord(actualWord).observe(getViewLifecycleOwner(), s -> {
-            if (s != null) {
+            if (!s.equals("Error")) {
                 mAdapter.addPage(new TranslationFragment());
 
                 chipPersian.setVisibility(View.VISIBLE);

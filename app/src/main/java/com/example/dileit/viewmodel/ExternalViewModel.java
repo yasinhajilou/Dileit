@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.LiveDataReactiveStreams;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.Transformations;
 
 import com.example.dileit.model.EnglishDef;
 import com.example.dileit.model.repository.ExternalDictionaryRepository;
@@ -14,7 +16,6 @@ import java.util.List;
 
 public class ExternalViewModel extends AndroidViewModel {
     private ExternalDictionaryRepository mRepository;
-
     public ExternalViewModel(@NonNull Application application) {
         super(application);
         mRepository = new ExternalDictionaryRepository(application);

@@ -11,7 +11,6 @@ import com.example.dileit.model.database.persiandb.PersianDatabaseAccess;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import io.reactivex.Flowable;
 import io.reactivex.schedulers.Schedulers;
@@ -39,23 +38,6 @@ public class ExternalDictionaryRepository {
             cursor.close();
             mPersianDatabaseAccess.closeDatabase();
             return wordsList;
-        }).subscribeOn(Schedulers.io());
-    }
-
-    public Flowable<String> getExactWord(String word) {
-        return Flowable.fromCallable(new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                mPersianDatabaseAccess.openDatabase();
-                Cursor cursor = mPersianDatabaseAccess.getDatabase().rawQuery("SELECT def from dictionary WHERE word LIKE ?  ", new String[]{word});
-                String data = null;
-                while (cursor.moveToNext()) {
-                    data = cursor.getString(0);
-                }
-                cursor.close();
-                mPersianDatabaseAccess.closeDatabase();
-                return data;
-            }
         }).subscribeOn(Schedulers.io());
     }
 
@@ -102,6 +84,8 @@ public class ExternalDictionaryRepository {
         }).subscribeOn(Schedulers.io());
     }
 
+
+    //getting data for word information view
     public Flowable<List<EnglishDef>> getRefById(int engId) {
         return Flowable.fromCallable(() -> {
             mDatabaseAccess.openDatabase();
@@ -126,4 +110,20 @@ public class ExternalDictionaryRepository {
             return englishDefs;
         }).subscribeOn(Schedulers.io());
     }
+
+    public Flowable<String> getExactWord(String word) {
+        return Flowable.fromCallable(() -> {
+            mPersianDatabaseAccess.openDatabase();
+            Cursor cursor = mPersianDatabaseAccess.getDatabase().rawQuery("SELECT def from dictionary WHERE word LIKE ?  ", new String[]{word});
+            String data = null;
+            while (cursor.moveToNext()) {
+                data = cursor.getString(0);
+            }
+            cursor.close();
+            mPersianDatabaseAccess.closeDatabase();
+            return data;
+        }).onErrorReturnItem("Error")
+                .subscribeOn(Schedulers.io());
+    }
+
 }

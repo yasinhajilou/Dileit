@@ -30,8 +30,9 @@ public class WordsInformationViewPagerAdapter extends FragmentPagerAdapter {
         return mFragments.size();
     }
 
-    public void addPage(Fragment fragment) {
+    public int addPage(Fragment fragment) {
         mFragments.add(fragment);
         notifyDataSetChanged();
+        return getCount()-1;
     }
 }

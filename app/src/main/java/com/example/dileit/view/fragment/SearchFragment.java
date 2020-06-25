@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
@@ -39,6 +40,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     private boolean isTypedYet = false;
     private FragmentWordSearchBinding mBinding;
     private SearchViewModel mSearchViewModel;
+    private InputMethodManager inputMethodManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,7 +62,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mBinding.edtSearchWord.requestFocus();
-        InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.showSoftInput(mBinding.edtSearchWord, InputMethodManager.SHOW_IMPLICIT);
         setUpRecyclerView();
 
@@ -86,6 +88,8 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
             @Override
             public void onClick(View view) {
                 requireActivity().getOnBackPressedDispatcher().onBackPressed();
+                inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
             }
         });
 

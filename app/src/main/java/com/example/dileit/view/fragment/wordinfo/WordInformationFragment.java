@@ -63,6 +63,8 @@ public class WordInformationFragment extends Fragment {
 
     private Leitner mLeitner;
 
+    private int engPagerIndex, idiomsPagerIndex, perPagerIndex = -1;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +99,7 @@ public class WordInformationFragment extends Fragment {
 
         mExternalViewModel.searchForExactWord(actualWord).observe(getViewLifecycleOwner(), s -> {
             if (!s.equals("Error")) {
-                mAdapter.addPage(new TranslationFragment());
+                perPagerIndex = mAdapter.addPage(new TranslationFragment());
 
                 chipPersian.setVisibility(View.VISIBLE);
                 JsonUtils jsonUtils = new JsonUtils();
@@ -113,7 +115,7 @@ public class WordInformationFragment extends Fragment {
 
                 if (idioms.size() > 0) {
                     chipIdioms.setVisibility(View.VISIBLE);
-                    mAdapter.addPage(new RelatedIdiomsFragment());
+                    idiomsPagerIndex = mAdapter.addPage(new RelatedIdiomsFragment());
                     isIdiomAvailable = true;
                     mSharedViewModel.setIdiom(idioms);
                 }
@@ -123,7 +125,7 @@ public class WordInformationFragment extends Fragment {
         mExternalViewModel.searchEngWordById(engId).observe(getViewLifecycleOwner(), englishDefs -> {
             if (englishDefs != null) {
                 if (englishDefs.size() > 0) {
-                    mAdapter.addPage(new EnglishTranslatedFragment());
+                    engPagerIndex = mAdapter.addPage(new EnglishTranslatedFragment());
                     chipEnglish.setVisibility(View.VISIBLE);
                     mSharedViewModel.setEngDefList(englishDefs);
                     builderEnglish = new StringBuilder();
@@ -216,17 +218,18 @@ public class WordInformationFragment extends Fragment {
             selectEnglishChip();
             undoIdiomChip();
             undoPersianChip();
-            if (isIdiomAvailable)
-                mBinding.viewPagerWordInfo.setCurrentItem(2);
-            else
-                mBinding.viewPagerWordInfo.setCurrentItem(1);
+            mBinding.viewPagerWordInfo.setCurrentItem(engPagerIndex);
+//            if (isIdiomAvailable)
+//                mBinding.viewPagerWordInfo.setCurrentItem(2);
+//            else
+//                mBinding.viewPagerWordInfo.setCurrentItem(1);
 
         });
         chipIdioms.setOnClickListener(view13 -> {
             selectIdiomChip();
             undoPersianChip();
             undoEnglishChip();
-            mBinding.viewPagerWordInfo.setCurrentItem(1);
+            mBinding.viewPagerWordInfo.setCurrentItem(idiomsPagerIndex);
 
         });
 
@@ -234,7 +237,7 @@ public class WordInformationFragment extends Fragment {
             selectPersianChip();
             undoIdiomChip();
             undoEnglishChip();
-            mBinding.viewPagerWordInfo.setCurrentItem(0);
+            mBinding.viewPagerWordInfo.setCurrentItem(perPagerIndex);
 
         });
 

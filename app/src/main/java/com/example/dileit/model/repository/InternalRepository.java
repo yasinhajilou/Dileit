@@ -11,7 +11,10 @@ import com.example.dileit.model.dao.WordHistoryDao;
 import com.example.dileit.model.database.InternalRoomDatabase;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.model.entity.WordHistory;
+import com.example.dileit.utils.LeitnerUtils;
 import com.example.dileit.viewmodel.InternalViewModel;
+
+import org.reactivestreams.Publisher;
 
 import java.util.List;
 import java.util.concurrent.Flow;
@@ -19,6 +22,7 @@ import java.util.concurrent.Flow;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class InternalRepository {
@@ -69,6 +73,19 @@ public class InternalRepository {
                 .subscribeOn(Schedulers.io());
     }
 
+
+    public Flowable<List<Leitner>> getTodayList() {
+        return getAllLeitnerItems().concatMap(leitners -> Flowable.fromCallable(() -> LeitnerUtils.getPreparedLeitnerItems(leitners)));
+    }
+
+    public Flowable<Integer> getTodayListSize() {
+        return getTodayList().map(leitners -> {
+            if (leitners != null)
+                return leitners.size();
+            else
+                return 0;
+        });
+    }
 
     //insert data
     public Completable insertWordHistory(WordHistory wordHistory) {

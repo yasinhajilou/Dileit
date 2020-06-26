@@ -84,7 +84,6 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mBinding.nestedScrollView.scrollTo(0, 0);
         mBinding.rvWordHistory.setAdapter(mAdapter);
         mBinding.rvWordHistory.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
@@ -93,17 +92,18 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
                 mBinding.tvWordHistoryInfo.setVisibility(View.GONE);
                 mBinding.rvWordHistory.setVisibility(View.VISIBLE);
                 mAdapter.setData(wordHistories);
+                Toast.makeText(getContext(), ""+wordHistories.size(), Toast.LENGTH_SHORT).show();
             } else {
                 mBinding.tvWordHistoryInfo.setVisibility(View.VISIBLE);
                 mBinding.rvWordHistory.setVisibility(View.GONE);
             }
         });
 
-        mViewModel.getTodayList().observe(getViewLifecycleOwner(), leitners -> {
-            if (leitners.size() <= 1)
-                mBinding.tvTodayWordsHome.setText(leitners.size() + " Card");
+        mViewModel.getTodayListSize().observe(getViewLifecycleOwner(), size -> {
+            if (size <= 1)
+                mBinding.tvTodayWordsHome.setText(size + " Card");
             else
-                mBinding.tvTodayWordsHome.setText(leitners.size() + " Cards");
+                mBinding.tvTodayWordsHome.setText(size + " Cards");
         });
 
         mBinding.linearLayoutVoice.setOnClickListener(view12 -> {
@@ -158,13 +158,12 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQ_CODE_SPEECH_TO_TEXT) {
             if (data != null) {
-                ArrayList res = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                ArrayList<String> res = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 if (res != null) {
-                    mSharedViewModel.setVoiceWord(res.get(0).toString());
+                    mSharedViewModel.setVoiceWord(res.get(0));
                     goToSearchView(getView());
                 } else {
                     Toast.makeText(getContext(), "is null", Toast.LENGTH_SHORT).show();
-
                 }
             }
         }

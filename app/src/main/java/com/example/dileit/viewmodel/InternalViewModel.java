@@ -18,6 +18,7 @@ import org.reactivestreams.Publisher;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
 import io.reactivex.Flowable;
 import io.reactivex.SingleObserver;
@@ -41,7 +42,7 @@ public class InternalViewModel extends AndroidViewModel {
 
 
     public void insertWordHistory(WordHistory wordHistory) {
-        mRepository.insertWordHistory(wordHistory);
+        mRepository.insertWordHistory(wordHistory).subscribe();
     }
 
     public void insertLeitnerItem(Leitner leitner) {
@@ -125,9 +126,11 @@ public class InternalViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Leitner>> getTodayList() {
-        return LiveDataReactiveStreams.fromPublisher(
-                mRepository.getAllLeitnerItems().concatMap(leitners -> Flowable.fromCallable(() -> LeitnerUtils.getPreparedLeitnerItems(leitners)))
-        );
+        return LiveDataReactiveStreams.fromPublisher(mRepository.getTodayList());
+    }
+
+    public LiveData<Integer> getTodayListSize() {
+        return LiveDataReactiveStreams.fromPublisher(mRepository.getTodayListSize());
     }
 
     //Delete data

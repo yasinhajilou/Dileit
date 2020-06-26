@@ -64,4 +64,8 @@ public class ExternalViewModel extends AndroidViewModel {
         mSyncedSearchList.addSource(mGetPer, searchDictionaries -> syncSearchedData( mGetPer, mGetEng));
         return mGetPer;
     }
+
+    public void closeExternalDbs(){
+        mRepository.closeExternalDatabases();
+    }
 }

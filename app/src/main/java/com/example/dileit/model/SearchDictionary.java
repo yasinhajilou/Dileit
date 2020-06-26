@@ -21,14 +21,15 @@ public class SearchDictionary {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
         SearchDictionary that = (SearchDictionary) o;
-        return Objects.equals(title, that.title);
+        if (that != null) {
+            return that.title.equals(this.title);
+        } else
+            return false;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, engId);
+        return this.title.hashCode();
     }
 }

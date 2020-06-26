@@ -16,15 +16,40 @@ import io.reactivex.Flowable;
 import io.reactivex.schedulers.Schedulers;
 
 public class ExternalDictionaryRepository {
-    private EnglishDatabaseAccess mDatabaseAccess;
+    private EnglishDatabaseAccess mEnglishDatabaseAccess;
     private PersianDatabaseAccess mPersianDatabaseAccess;
 
     public ExternalDictionaryRepository(Application application) {
-        mDatabaseAccess = EnglishDatabaseAccess.getINSTANCE(application);
+        mEnglishDatabaseAccess = EnglishDatabaseAccess.getINSTANCE(application);
         mPersianDatabaseAccess = PersianDatabaseAccess.getINSTANCE(application);
     }
 
-    public Flowable<List<SearchDictionary>> searchWords(String word) {
+    //search for list of data
+    public Flowable<List<SearchDictionary>> doEngSearch(String word) {
+        return Flowable.fromCallable(() -> {
+            mEnglishDatabaseAccess.openDatabase();
+            List<SearchDictionary> wordEnglishDics = new ArrayList<>();
+
+            Cursor cursor = mEnglishDatabaseAccess.getDatabase().rawQuery("SELECT _idref,word FROM keys WHERE word like ?", new String[]{word + "%"});
+            if (cursor != null) {
+                while (cursor.moveToNext()) {
+                    int refrenceId = cursor.getInt(0);
+                    String actualWord = cursor.getString(1).trim();
+                    SearchDictionary englishDic = new SearchDictionary(actualWord, refrenceId);
+                    wordEnglishDics.add(englishDic);
+                }
+            }
+
+            if (cursor != null) {
+                cursor.close();
+            }
+
+            return wordEnglishDics;
+        })
+                .subscribeOn(Schedulers.io());
+    }
+
+    public Flowable<List<SearchDictionary>> doPersianSearch(String word)                                                                                                        {
         return Flowable.fromCallable(() -> {
             // ORDER BY word COLLATE NOCASE ASC
             mPersianDatabaseAccess.openDatabase();
@@ -36,7 +61,6 @@ public class ExternalDictionaryRepository {
                 wordsList.add(searchDictionary);
             }
             cursor.close();
-            mPersianDatabaseAccess.closeDatabase();
             return wordsList;
         }).subscribeOn(Schedulers.io());
     }
@@ -58,40 +82,15 @@ public class ExternalDictionaryRepository {
         }).subscribeOn(Schedulers.io());
     }
 
-    //search in keys table for finding typed word
-    public Flowable<List<SearchDictionary>> doSearch(String word) {
-        return Flowable.fromCallable(() -> {
-            mDatabaseAccess.openDatabase();
-            List<SearchDictionary> wordEnglishDics = new ArrayList<>();
-
-            Cursor cursor = mDatabaseAccess.getDatabase().rawQuery("SELECT _idref,word FROM keys WHERE word like ?", new String[]{word + "%"});
-            if (cursor != null) {
-                while (cursor.moveToNext()) {
-                    int refrenceId = cursor.getInt(0);
-                    String actualWord = cursor.getString(1).trim();
-                    SearchDictionary englishDic = new SearchDictionary(actualWord, refrenceId);
-                    wordEnglishDics.add(englishDic);
-                }
-            }
-
-            mDatabaseAccess.closeDatabase();
-
-            if (cursor != null) {
-                cursor.close();
-            }
-
-            return wordEnglishDics;
-        }).subscribeOn(Schedulers.io());
-    }
 
 
     //getting data for word information view
     public Flowable<List<EnglishDef>> getRefById(int engId) {
         return Flowable.fromCallable(() -> {
-            mDatabaseAccess.openDatabase();
+            mEnglishDatabaseAccess.openDatabase();
             List<EnglishDef> englishDefs = new ArrayList<>();
 
-            Cursor cursor = mDatabaseAccess.getDatabase().rawQuery("SELECT definition,category,synonyms,examples FROM description WHERE _id like ?", new String[]{String.valueOf(engId)});
+            Cursor cursor = mEnglishDatabaseAccess.getDatabase().rawQuery("SELECT definition,category,synonyms,examples FROM description WHERE _id like ?", new String[]{String.valueOf(engId)});
             if (cursor != null) {
                 while (cursor.moveToNext()) {
                     String def = cursor.getString(0);
@@ -103,7 +102,7 @@ public class ExternalDictionaryRepository {
                 }
             }
 
-            mDatabaseAccess.closeDatabase();
+            mEnglishDatabaseAccess.closeDatabase();
             if (cursor != null) {
                 cursor.close();
             }
@@ -126,4 +125,8 @@ public class ExternalDictionaryRepository {
                 .subscribeOn(Schedulers.io());
     }
 
+    public void closeExternalDatabases(){
+        mEnglishDatabaseAccess.closeDatabase();
+        mPersianDatabaseAccess.closeDatabase();
+    }
 }

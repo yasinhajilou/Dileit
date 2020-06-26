@@ -16,9 +16,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
@@ -28,7 +26,6 @@ import com.example.dileit.view.adapter.recycler.AllWordsRecyclerAdapter;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
 import com.example.dileit.viewmodel.ExternalViewModel;
 import com.example.dileit.viewmodel.InternalViewModel;
-import com.example.dileit.viewmodel.SearchViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
 
 

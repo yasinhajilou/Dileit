@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
@@ -52,7 +53,6 @@ public class WordInformationFragment extends Fragment {
     private Chip chipPersian, chipEnglish, chipIdioms;
     private WordsInformationViewPagerAdapter mAdapter;
     private List<TranslationWord> wordList;
-    private boolean isIdiomAvailable = false;
     private InternalViewModel mInternalViewModel;
 
     private StringBuilder builderEnglish;
@@ -100,8 +100,10 @@ public class WordInformationFragment extends Fragment {
         mExternalViewModel.searchForExactWord(actualWord).observe(getViewLifecycleOwner(), s -> {
             if (!s.equals("Error")) {
                 perPagerIndex = mAdapter.addPage(new TranslationFragment());
-
                 chipPersian.setVisibility(View.VISIBLE);
+                selectPersianChip();
+
+
                 JsonUtils jsonUtils = new JsonUtils();
                 WordInformation[] wordInformations = jsonUtils.getWordDefinition(s);
                 List<Idiom> idioms = new ArrayList<>();
@@ -111,29 +113,33 @@ public class WordInformationFragment extends Fragment {
                     if (information.getIdioms() != null)
                         idioms.addAll(information.getIdioms());
                 }
+
+
                 mSharedViewModel.setTranslationWord(wordList);
+
 
                 if (idioms.size() > 0) {
                     chipIdioms.setVisibility(View.VISIBLE);
                     idiomsPagerIndex = mAdapter.addPage(new RelatedIdiomsFragment());
-                    isIdiomAvailable = true;
                     mSharedViewModel.setIdiom(idioms);
                 }
             }
         });
 
         mExternalViewModel.searchEngWordById(engId).observe(getViewLifecycleOwner(), englishDefs -> {
-            if (englishDefs != null) {
-                if (englishDefs.size() > 0) {
-                    engPagerIndex = mAdapter.addPage(new EnglishTranslatedFragment());
-                    chipEnglish.setVisibility(View.VISIBLE);
-                    mSharedViewModel.setEngDefList(englishDefs);
-                    builderEnglish = new StringBuilder();
-                    for (EnglishDef englishDef : englishDefs) {
-                        builderEnglish.append(englishDef.getDefinition()).append("\n");
-                    }
+            if (englishDefs.size() > 0) {
+
+                engPagerIndex = mAdapter.addPage(new EnglishTranslatedFragment());
+                chipEnglish.setVisibility(View.VISIBLE);
+                selectEnglishChip();
+
+                mSharedViewModel.setEngDefList(englishDefs);
+                builderEnglish = new StringBuilder();
+                for (EnglishDef englishDef : englishDefs) {
+                    builderEnglish.append(englishDef.getDefinition()).append("\n");
                 }
             }
+
         });
 
         mInternalViewModel.getLeitnerInfoByWord(actualWord).observe(getViewLifecycleOwner(), leitner -> {
@@ -216,29 +222,14 @@ public class WordInformationFragment extends Fragment {
 
         chipEnglish.setOnClickListener(view15 -> {
             selectEnglishChip();
-            undoIdiomChip();
-            undoPersianChip();
-            mBinding.viewPagerWordInfo.setCurrentItem(engPagerIndex);
-//            if (isIdiomAvailable)
-//                mBinding.viewPagerWordInfo.setCurrentItem(2);
-//            else
-//                mBinding.viewPagerWordInfo.setCurrentItem(1);
-
         });
         chipIdioms.setOnClickListener(view13 -> {
             selectIdiomChip();
-            undoPersianChip();
-            undoEnglishChip();
-            mBinding.viewPagerWordInfo.setCurrentItem(idiomsPagerIndex);
 
         });
 
         chipPersian.setOnClickListener(view14 -> {
             selectPersianChip();
-            undoIdiomChip();
-            undoEnglishChip();
-            mBinding.viewPagerWordInfo.setCurrentItem(perPagerIndex);
-
         });
 
         mBinding.viewPagerWordInfo.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -249,29 +240,16 @@ public class WordInformationFragment extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-                switch (position) {
-                    case 0:
-                        selectPersianChip();
-                        undoIdiomChip();
-                        undoEnglishChip();
-                        break;
-                    case 1:
-                        if (isIdiomAvailable) {
-                            selectIdiomChip();
-                            undoPersianChip();
-                            undoEnglishChip();
-                        } else {
-                            selectEnglishChip();
-                            undoIdiomChip();
-                            undoPersianChip();
-                        }
-
-                        break;
-                    case 2:
+                if (position == perPagerIndex) {
+                    selectPersianChip();
+                } else {
+                    if (position == engPagerIndex)
                         selectEnglishChip();
-                        undoIdiomChip();
-                        undoPersianChip();
-                        break;
+                    else {
+                        if (position == idiomsPagerIndex)
+                            selectIdiomChip();
+                    }
+
                 }
             }
 
@@ -310,18 +288,30 @@ public class WordInformationFragment extends Fragment {
 
 
     private void selectIdiomChip() {
+        mBinding.viewPagerWordInfo.setCurrentItem(idiomsPagerIndex);
         chipIdioms.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorSecondary)));
         chipIdioms.setTextColor(Color.WHITE);
+
+        undoPersianChip();
+        undoEnglishChip();
     }
 
     private void selectPersianChip() {
+        mBinding.viewPagerWordInfo.setCurrentItem(perPagerIndex);
         chipPersian.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorSecondary)));
         chipPersian.setTextColor(Color.WHITE);
+
+        undoIdiomChip();
+        undoEnglishChip();
     }
 
     private void selectEnglishChip() {
+        mBinding.viewPagerWordInfo.setCurrentItem(engPagerIndex);
         chipEnglish.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.colorSecondary)));
         chipEnglish.setTextColor(Color.WHITE);
+
+        undoIdiomChip();
+        undoPersianChip();
 
     }
 

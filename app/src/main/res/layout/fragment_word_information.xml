@@ -186,8 +186,9 @@
             android:layout_height="42dp"
             android:layout_gravity="center"
             android:text=" فارسی "
-            android:textColor="@android:color/white"
-            app:chipBackgroundColor="@color/colorSecondary" />
+            app:elevation="8dp"
+            android:textColor="@android:color/black"
+            app:chipBackgroundColor="@android:color/white" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chips_idioms_only"
@@ -196,9 +197,10 @@
             android:layout_height="42dp"
             android:layout_gravity="center"
             android:layout_marginRight="12dp"
-            android:elevation="8dp"
+            app:elevation="8dp"
             android:text="اصطلاحات مرتبط"
             android:visibility="gone"
+            android:textColor="@android:color/black"
             app:chipBackgroundColor="@android:color/white" />
 
         <com.google.android.material.chip.Chip
@@ -209,8 +211,9 @@
             android:layout_height="42dp"
             android:layout_gravity="center"
             android:layout_marginRight="12dp"
-            android:elevation="8dp"
+            app:elevation="8dp"
             android:text=" English "
+            android:textColor="@android:color/black"
             app:chipBackgroundColor="@android:color/white" />
     </LinearLayout>
 

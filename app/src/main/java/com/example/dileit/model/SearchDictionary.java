@@ -1,8 +1,7 @@
 package com.example.dileit.model;
 
-import java.util.Objects;
 
-public class SearchDictionary {
+public class SearchDictionary implements Comparable<SearchDictionary> {
     private String title;
     private int engId;
 
@@ -21,9 +20,17 @@ public class SearchDictionary {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         SearchDictionary that = (SearchDictionary) o;
-        if (that != null) {
-            return that.title.equals(this.title);
+        if (this.title.equals(that.title)) {
+            if (this.engId == 0 && that.engId != 0)
+                this.engId = that.engId;
+
+            if (that.engId == 0 && this.engId != 0)
+                that.engId = this.engId;
+
+            return true;
         } else
             return false;
     }
@@ -31,5 +38,11 @@ public class SearchDictionary {
     @Override
     public int hashCode() {
         return this.title.hashCode();
+    }
+
+
+    @Override
+    public int compareTo(SearchDictionary searchDictionary) {
+        return this.title.compareToIgnoreCase(searchDictionary.title);
     }
 }

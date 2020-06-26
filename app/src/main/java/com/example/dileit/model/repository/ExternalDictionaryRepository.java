@@ -71,7 +71,7 @@ public class ExternalDictionaryRepository {
             mPersianDatabaseAccess.openDatabase();
             Cursor cursor = mPersianDatabaseAccess.getDatabase().rawQuery("SELECT word,def FROM dictionary LIMIT 50", null);
             while (cursor.moveToNext()) {
-                String word = cursor.getString(0);
+                String word = cursor.getString(0).trim();
                 String def = cursor.getString(1);
                 Word dictionary = new Word(word, def);
                 wordsList.add(dictionary);

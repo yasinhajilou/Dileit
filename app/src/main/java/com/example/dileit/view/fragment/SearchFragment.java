@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -139,6 +140,14 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         bundle.putInt(KeysValue.KEY_BUNDLE_WORD_REF_ID, engId);
         WordHistory wordHistory = new WordHistory(actualWord.trim(), engId, 0, System.currentTimeMillis());
         mInternalViewModel.insertWordHistory(wordHistory);
+
+        char[] chars = actualWord.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            int c = chars[i];
+            Log.d(TAG, "" + c);
+        }
+        Log.d(TAG, "------------------------");
+
         Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment, bundle);
 
     }

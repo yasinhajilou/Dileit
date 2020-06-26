@@ -127,7 +127,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
         });
 
 
-        mInternalViewModel.getLeitnerItemId().observe(getViewLifecycleOwner(), new Observer<Long>() {
+        mInternalViewModel.getAddedLeitnerItemId().observe(getViewLifecycleOwner(), new Observer<Long>() {
             @Override
             public void onChanged(Long aLong) {
                 if (aLong > 0) {

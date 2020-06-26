@@ -12,6 +12,7 @@ import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 @Dao
@@ -29,7 +30,7 @@ public interface LeitnerDao {
     Flowable<List<Leitner>> LEITNER_LIST();
 
     @Query("SELECT * FROM Leitner WHERE word LIKE :word")
-    Flowable<Leitner> leitnerInfoByWord(String word);
+    Flowable<Leitner> getLeitnerInfoByWord(String word);
 
     @Query("SELECT * FROM Leitner WHERE state LIKE :cardState")
     Flowable<List<Leitner>> getCardByState(int cardState);
@@ -39,4 +40,7 @@ public interface LeitnerDao {
 
     @Query("SELECT * FROM Leitner WHERE id LIKE :cardId")
     Flowable<Leitner> getLeitnerCardById(int cardId);
+
+    @Query("SELECT * FROM Leitner WHERE word LIKE :word")
+    Maybe<Leitner> getExistingLeitner(String word);
 }

@@ -92,7 +92,6 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
                 mBinding.tvWordHistoryInfo.setVisibility(View.GONE);
                 mBinding.rvWordHistory.setVisibility(View.VISIBLE);
                 mAdapter.setData(wordHistories);
-                Toast.makeText(getContext(), ""+wordHistories.size(), Toast.LENGTH_SHORT).show();
             } else {
                 mBinding.tvWordHistoryInfo.setVisibility(View.VISIBLE);
                 mBinding.rvWordHistory.setVisibility(View.GONE);

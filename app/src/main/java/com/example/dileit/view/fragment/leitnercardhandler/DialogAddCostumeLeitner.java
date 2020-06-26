@@ -1,7 +1,5 @@
 package com.example.dileit.view.fragment.leitnercardhandler;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -27,10 +25,16 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.Objects;
 
+import io.reactivex.CompletableObserver;
+import io.reactivex.MaybeObserver;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 
 public class DialogAddCostumeLeitner extends BottomSheetDialogFragment {
     private InternalViewModel mViewModel;
     private BottomSheetAddCostumeLeitnerBinding mBinding;
+    private Leitner mLeitner;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,9 +72,10 @@ public class DialogAddCostumeLeitner extends BottomSheetDialogFragment {
                 if (mBinding.edtInputGuide.getText() != null)
                     guide = mBinding.edtInputGuide.getText().toString().trim();
 
-                Leitner leitner = new Leitner(0, cardTitle, cardDef, null, "bug", guide, LeitnerStateConstant.STARTED,
+                mLeitner = new Leitner(0, cardTitle, cardDef, null, "bug", guide, LeitnerStateConstant.STARTED,
                         0, 0, System.currentTimeMillis());
-                mViewModel.insertLeitnerItem(leitner);
+
+                mViewModel.getExistedLeitner(cardTitle);
             } else {
                 Toast.makeText(getContext(), "please fill fields", Toast.LENGTH_SHORT).show();
             }
@@ -78,11 +83,19 @@ public class DialogAddCostumeLeitner extends BottomSheetDialogFragment {
         });
 
 
-        mViewModel.getLeitnerItemId().observe(getViewLifecycleOwner(), aLong -> {
+        mViewModel.getBooleanExistedCard().observe(this, aBoolean -> {
+            if (aBoolean)
+                Toast.makeText(getContext(), "A card with title title exist! Please change Word/Phrase.", Toast.LENGTH_LONG).show();
+            else
+                mViewModel.insertLeitnerItem(mLeitner);
+
+        });
+
+        mViewModel.getAddedLeitnerItemId().observe(getViewLifecycleOwner(), aLong -> {
             if (aLong > 0) {
                 dismiss();
                 Toast.makeText(getContext(), "Added.", Toast.LENGTH_SHORT).show();
-            }else {
+            } else {
                 Toast.makeText(getContext(), "An error occurred.", Toast.LENGTH_SHORT).show();
             }
         });

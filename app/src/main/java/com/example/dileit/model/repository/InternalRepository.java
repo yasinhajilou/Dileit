@@ -1,10 +1,6 @@
 package com.example.dileit.model.repository;
 
 import android.content.Context;
-import android.os.AsyncTask;
-import android.util.Log;
-
-import androidx.lifecycle.LiveData;
 
 import com.example.dileit.model.dao.LeitnerDao;
 import com.example.dileit.model.dao.WordHistoryDao;
@@ -14,15 +10,12 @@ import com.example.dileit.model.entity.WordHistory;
 import com.example.dileit.utils.LeitnerUtils;
 import com.example.dileit.viewmodel.InternalViewModel;
 
-import org.reactivestreams.Publisher;
-
 import java.util.List;
-import java.util.concurrent.Flow;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.Maybe;
 import io.reactivex.Single;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class InternalRepository {
@@ -49,7 +42,12 @@ public class InternalRepository {
     }
 
     public Flowable<Leitner> getLeitnerInfoByWord(String word) {
-        return mLeitnerDao.leitnerInfoByWord(word)
+        return mLeitnerDao.getLeitnerInfoByWord(word)
+                .subscribeOn(Schedulers.io());
+    }
+
+    public Maybe<Leitner> getExistingLeitner(String word){
+        return mLeitnerDao.getExistingLeitner(word)
                 .subscribeOn(Schedulers.io());
     }
 

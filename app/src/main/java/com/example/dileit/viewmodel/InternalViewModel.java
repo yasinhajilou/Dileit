@@ -1,6 +1,7 @@
 package com.example.dileit.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -11,36 +12,36 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.model.entity.WordHistory;
 import com.example.dileit.model.repository.InternalRepository;
-import com.example.dileit.utils.LeitnerUtils;
-
-import org.reactivestreams.Publisher;
 
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
-import io.reactivex.Flowable;
+import io.reactivex.Maybe;
+import io.reactivex.MaybeObserver;
+import io.reactivex.MaybeSource;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 
 public class InternalViewModel extends AndroidViewModel {
     private InternalRepository mRepository;
-
+    private String TAG = InternalViewModel.class.getSimpleName();
     //observe for inserted item id
-    private MutableLiveData<Long> mLeitnerItemId = new MutableLiveData<>();
+    private MutableLiveData<Long> mAddedLeitnerItemId = new MutableLiveData<>();
     //observe for updated item status
     private MutableLiveData<Boolean> mUpdatedItemStatus = new MutableLiveData<>();
     //observe for deleted item status
     private MutableLiveData<Integer> mDeletedItemStatus = new MutableLiveData<>();
-
+    //observe for existed item result
+    private MutableLiveData<Boolean> mExistedItem = new MutableLiveData<>();
     public InternalViewModel(@NonNull Application application) {
         super(application);
         mRepository = new InternalRepository(application);
     }
 
 
+    //insert data
     public void insertWordHistory(WordHistory wordHistory) {
         mRepository.insertWordHistory(wordHistory).subscribe();
     }
@@ -55,12 +56,12 @@ public class InternalViewModel extends AndroidViewModel {
 
                     @Override
                     public void onSuccess(Long aLong) {
-                        mLeitnerItemId.postValue(aLong);
+                        mAddedLeitnerItemId.postValue(aLong);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        mLeitnerItemId.postValue(-1L);
+                        mAddedLeitnerItemId.postValue(-1L);
                     }
                 });
     }
@@ -87,10 +88,38 @@ public class InternalViewModel extends AndroidViewModel {
                 });
     }
 
-    public LiveData<Long> getLeitnerItemId() {
-        return mLeitnerItemId;
+    public LiveData<Long> getAddedLeitnerItemId() {
+        return mAddedLeitnerItemId;
     }
 
+
+    //getData
+    public void getExistedLeitner(String word){
+         mRepository.getExistingLeitner(word)
+                .subscribe(new MaybeObserver<Leitner>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onSuccess(Leitner leitner) {
+                        mExistedItem.postValue(true);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mExistedItem.postValue(false);
+                    }
+                });
+    }
+
+    public LiveData<Boolean> getBooleanExistedCard(){
+        return mExistedItem;
+    }
 
     public LiveData<List<WordHistory>> getAllWordHistory() {
         return LiveDataReactiveStreams.fromPublisher(mRepository.getAllWordHistory());

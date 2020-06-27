@@ -46,7 +46,7 @@ public class InternalRepository {
                 .subscribeOn(Schedulers.io());
     }
 
-    public Maybe<Leitner> getExistingLeitner(String word){
+    public Maybe<Leitner> getExistingLeitner(String word) {
         return mLeitnerDao.getExistingLeitner(word)
                 .subscribeOn(Schedulers.io());
     }
@@ -83,6 +83,19 @@ public class InternalRepository {
             else
                 return 0;
         });
+    }
+
+
+    public Flowable<Integer> getNewCardsCount() {
+        return mLeitnerDao.getNewCardsCount();
+    }
+
+    public Flowable<Integer> getLearnedCardsCount() {
+        return mLeitnerDao.getLearnedCardsCount();
+    }
+
+    public Flowable<Integer> getReviewingCardCount() {
+        return mLeitnerDao.getReviewingCardCount();
     }
 
     //insert data

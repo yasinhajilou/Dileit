@@ -48,6 +48,7 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
 
     private HomeFragmentInterface mHomeFragmentInterface;
 
+    private int todayCardsSize;
 
     public interface HomeFragmentInterface {
         void onLeitnerReviewClicked();
@@ -99,7 +100,8 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
         });
 
         mViewModel.getTodayListSize().observe(getViewLifecycleOwner(), size -> {
-            if (size <= 1)
+            todayCardsSize = size;
+            if (todayCardsSize <= 1)
                 mBinding.tvTodayWordsHome.setText(size + " Card");
             else
                 mBinding.tvTodayWordsHome.setText(size + " Cards");
@@ -135,7 +137,10 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
         mBinding.btnReviewLeitner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mHomeFragmentInterface.onLeitnerReviewClicked();
+                if (todayCardsSize > 0)
+                    mHomeFragmentInterface.onLeitnerReviewClicked();
+                else
+                    Toast.makeText(view.getContext(), "There is no card for reviewing :)", Toast.LENGTH_SHORT).show();
             }
         });
     }

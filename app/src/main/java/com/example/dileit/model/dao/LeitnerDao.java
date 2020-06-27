@@ -43,4 +43,13 @@ public interface LeitnerDao {
 
     @Query("SELECT * FROM Leitner WHERE word LIKE :word")
     Maybe<Leitner> getExistingLeitner(String word);
+
+    @Query("SELECT COUNT(id) FROM Leitner WHERE state LIKE 0")
+    Flowable<Integer> getNewCardsCount();
+
+    @Query("SELECT COUNT(id) FROM Leitner WHERE state LIKE 6")
+    Flowable<Integer> getLearnedCardsCount();
+
+    @Query("SELECT COUNT(id) FROM Leitner WHERE state BETWEEN 1 AND 5")
+    Flowable<Integer> getReviewingCardCount();
 }

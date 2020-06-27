@@ -17,6 +17,7 @@ import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
+import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.MaybeObserver;
 import io.reactivex.MaybeSource;
@@ -160,6 +161,18 @@ public class InternalViewModel extends AndroidViewModel {
 
     public LiveData<Integer> getTodayListSize() {
         return LiveDataReactiveStreams.fromPublisher(mRepository.getTodayListSize());
+    }
+
+    public LiveData<Integer> getNewCardsCount() {
+        return LiveDataReactiveStreams.fromPublisher(mRepository.getNewCardsCount());
+    }
+
+    public LiveData<Integer> getLearnedCardsCount() {
+        return LiveDataReactiveStreams.fromPublisher(mRepository.getLearnedCardsCount());
+    }
+
+    public LiveData<Integer> getReviewingCardCount() {
+        return LiveDataReactiveStreams.fromPublisher(mRepository.getReviewingCardCount());
     }
 
     //Delete data

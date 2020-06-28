@@ -4,10 +4,12 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.arch.core.util.Function;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.LiveDataReactiveStreams;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.model.entity.WordHistory;
@@ -23,7 +25,6 @@ import io.reactivex.MaybeObserver;
 import io.reactivex.MaybeSource;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Function;
 
 public class InternalViewModel extends AndroidViewModel {
     private InternalRepository mRepository;
@@ -36,11 +37,24 @@ public class InternalViewModel extends AndroidViewModel {
     private MutableLiveData<Integer> mDeletedItemStatus = new MutableLiveData<>();
     //observe for existed item result
     private MutableLiveData<Boolean> mExistedItem = new MutableLiveData<>();
+
+    //observing cards by their state
+    private MutableLiveData<Integer> mBoxState = new MutableLiveData<>();
+    private LiveData<List<Leitner>> mLearnedCardByBox = Transformations.switchMap(mBoxState, new Function<Integer, LiveData<List<Leitner>>>() {
+        @Override
+        public LiveData<List<Leitner>> apply(Integer input) {
+            return LiveDataReactiveStreams.fromPublisher(mRepository.getCardByState(input));
+        }
+    });
+
     public InternalViewModel(@NonNull Application application) {
         super(application);
         mRepository = new InternalRepository(application);
     }
 
+    public void setBoxState(int state){
+        mBoxState.setValue(state);
+    }
 
     //insert data
     public void insertWordHistory(WordHistory wordHistory) {
@@ -95,8 +109,8 @@ public class InternalViewModel extends AndroidViewModel {
 
 
     //getData
-    public void getExistedLeitner(String word){
-         mRepository.getExistingLeitner(word)
+    public void getExistedLeitner(String word) {
+        mRepository.getExistingLeitner(word)
                 .subscribe(new MaybeObserver<Leitner>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -118,7 +132,7 @@ public class InternalViewModel extends AndroidViewModel {
                 });
     }
 
-    public LiveData<Boolean> getBooleanExistedCard(){
+    public LiveData<Boolean> getBooleanExistedCard() {
         return mExistedItem;
     }
 
@@ -138,13 +152,12 @@ public class InternalViewModel extends AndroidViewModel {
     public LiveData<Leitner> getLeitnerInfoByWord(String word) {
         return LiveDataReactiveStreams.fromPublisher(mRepository.getLeitnerInfoByWord(word));
     }
+    public LiveData<List<Leitner>> getLearnedCardByBox() {
+        return mLearnedCardByBox;
+    }
 
     public LiveData<List<Leitner>> getCardsByState(int state) {
         return LiveDataReactiveStreams.fromPublisher(mRepository.getCardByState(state));
-    }
-
-    public LiveData<List<Leitner>> getCardsByRangeState(int start, int end) {
-        return LiveDataReactiveStreams.fromPublisher(mRepository.getGetCardsByRangeState(start, end));
     }
 
     public LiveData<Leitner> getLeitnerCardById(int id) {

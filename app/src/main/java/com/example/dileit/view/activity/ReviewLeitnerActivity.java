@@ -2,6 +2,7 @@ package com.example.dileit.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -67,10 +68,10 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
         mBinding.progressCircularReviewBar.setMaxProgress(100);
         mBinding.progressCircularReviewBar.setCurrentProgress(0);
 
-        viewModel.getAllLeitnerItems().observe(this, leitnerList -> {
+        viewModel.getTodayList().observe(this, leitners -> {
 
             if (isStartUp) {
-                filteredList = LeitnerUtils.getPreparedLeitnerItems(leitnerList);
+                filteredList = leitners;
                 fragments = new ArrayList<>();
 
                 for (int i = 0; i < filteredList.size(); i++) {
@@ -93,8 +94,8 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
             }
 
 
-            if (leitnerList.size() < cardsSize) {
-                cardsSize = leitnerList.size();
+            if (leitners.size() < cardsSize) {
+                cardsSize = leitners.size();
                 int fragmentSizeIndex = fragments.size() - 1;
                 if (++currentPosIndex <= fragmentSizeIndex) {
                     mBinding.viewPagerReviewLeitner.setCurrentItem(currentPosIndex);
@@ -103,7 +104,6 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
                     goToReviewedCardReporter();
                 }
             }
-
         });
 
         mTextToSpeechUK = new TextToSpeech(this, i -> {

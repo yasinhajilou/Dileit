@@ -27,7 +27,6 @@ public class NewWordsManagerFragment extends Fragment implements LeitnerManagerR
     private InternalViewModel mInternalViewModel;
     private LeitnerManagerRecyclerAdapter adapter;
     private FragmentNewWordManagerBinding mBinding;
-    private boolean notifyRv = true;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,28 +50,21 @@ public class NewWordsManagerFragment extends Fragment implements LeitnerManagerR
 
 
         mInternalViewModel.getCardsByState(LeitnerStateConstant.STARTED).observe(getViewLifecycleOwner(), leitnerList -> {
-            if (leitnerList != null) {
-                if (leitnerList.size() > 0) {
-                    mBinding.rvNewWordManager.setVisibility(View.VISIBLE);
-                    mBinding.tvNoDataNew.setVisibility(View.GONE);
-                    adapter.setData(leitnerList, notifyRv);
-                    //reset
-                    if (!notifyRv)
-                        notifyRv = true;
-                }
+            if (leitnerList.size() > 0) {
+                mBinding.rvNewWordManager.setVisibility(View.VISIBLE);
+                mBinding.tvNoDataNew.setVisibility(View.GONE);
+                adapter.setData(leitnerList);
             }
+
 
         });
 
-        mInternalViewModel.getDeletedItemStatus().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                if (integer > 0) {
-                    Toast.makeText(getContext(), "Item deleted", Toast.LENGTH_SHORT).show();
-                } else
-                    Toast.makeText(getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+        mInternalViewModel.getDeletedItemStatus().observe(getViewLifecycleOwner(), integer -> {
+            if (integer > 0) {
+                Toast.makeText(getContext(), "Item deleted", Toast.LENGTH_SHORT).show();
+            } else
+                Toast.makeText(getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
 
-            }
         });
     }
 
@@ -84,7 +76,6 @@ public class NewWordsManagerFragment extends Fragment implements LeitnerManagerR
 
     @Override
     public void onDeleteSelected(Leitner leitner) {
-        notifyRv = false;
         mInternalViewModel.deleteLeitnerItem(leitner);
         if (adapter.getItemCount() == 0) {
             mBinding.rvNewWordManager.setVisibility(View.GONE);

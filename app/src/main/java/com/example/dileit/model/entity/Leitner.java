@@ -127,4 +127,20 @@ public class Leitner implements Comparable {
         //we want to show smaller number(data) at first
         return Integer.compare(leitner.getState(), this.state) * -1;
     }
+
+    @Override
+    public String toString() {
+        return "Leitner{" +
+                "id=" + id +
+                ", word='" + word + '\'' +
+                ", def='" + def + '\'' +
+                ", secondDef='" + secondDef + '\'' +
+                ", wordAct='" + wordAct + '\'' +
+                ", guide='" + guide + '\'' +
+                ", state=" + state +
+                ", repeatCounter=" + repeatCounter +
+                ", lastReviewTime=" + lastReviewTime +
+                ", timeAdded=" + timeAdded +
+                '}';
+    }
 }

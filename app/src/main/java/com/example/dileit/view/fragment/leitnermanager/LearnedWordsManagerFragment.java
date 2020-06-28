@@ -25,7 +25,6 @@ public class LearnedWordsManagerFragment extends Fragment implements LeitnerMana
     private InternalViewModel mInternalViewModel;
     private LeitnerManagerRecyclerAdapter mAdapter;
     private FragmentLearnedWordsManagerBinding mBinding;
-    private boolean notifyRv = true;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,25 +50,21 @@ public class LearnedWordsManagerFragment extends Fragment implements LeitnerMana
         mBinding.rvLearnedCardManager.setAdapter(mAdapter);
 
         mInternalViewModel.getCardsByState(LeitnerStateConstant.LEARNED).observe(getViewLifecycleOwner(), leitnerList -> {
-            if (leitnerList != null) {
-                if (leitnerList.size() > 0) {
-                    mBinding.rvLearnedCardManager.setVisibility(View.VISIBLE);
-                    mBinding.tvNoDataLearned.setVisibility(View.GONE);
-                    mAdapter.setData(leitnerList, notifyRv);
-                    //reset
-                    if (!notifyRv)
-                        notifyRv = true;
-                }
+            if (leitnerList.size() > 0) {
+                mBinding.rvLearnedCardManager.setVisibility(View.VISIBLE);
+                mBinding.tvNoDataLearned.setVisibility(View.GONE);
+                mAdapter.setData(leitnerList);
             }
+
         });
 
 
         mInternalViewModel.getDeletedItemStatus().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
-                if (integer > 0){
+                if (integer > 0) {
                     Toast.makeText(getContext(), "Item deleted", Toast.LENGTH_SHORT).show();
-                }else
+                } else
                     Toast.makeText(getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
 
             }
@@ -84,9 +79,8 @@ public class LearnedWordsManagerFragment extends Fragment implements LeitnerMana
 
     @Override
     public void onDeleteSelected(Leitner leitner) {
-        notifyRv = false;
         mInternalViewModel.deleteLeitnerItem(leitner);
-        if (mAdapter.getItemCount() == 0){
+        if (mAdapter.getItemCount() == 0) {
             mBinding.rvLearnedCardManager.setVisibility(View.GONE);
             mBinding.tvNoDataLearned.setVisibility(View.VISIBLE);
         }

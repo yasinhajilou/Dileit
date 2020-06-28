@@ -31,10 +31,9 @@ public class LeitnerManagerRecyclerAdapter extends RecyclerView.Adapter<LeitnerM
 
     }
 
-    public void setData(List<Leitner> data, boolean notifyRv) {
+    public void setData(List<Leitner> data) {
         mLeitners = data;
-        if (notifyRv)
-            notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     @NonNull

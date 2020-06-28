@@ -9,7 +9,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,8 +25,6 @@ import android.widget.Toast;
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
 import com.example.dileit.databinding.FragmentHomeBinding;
-import com.example.dileit.model.entity.Leitner;
-import com.example.dileit.utils.LeitnerUtils;
 import com.example.dileit.view.adapter.recycler.WordHistoryRecyclerAdapter;
 import com.example.dileit.view.fragment.leitnercardhandler.DialogAddCostumeLeitner;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
@@ -35,7 +32,6 @@ import com.example.dileit.viewmodel.InternalViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 
@@ -51,9 +47,11 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
     private int todayCardsSize;
 
     public interface HomeFragmentInterface {
-        void onLeitnerReviewClicked();
+        void onLeitnerReviewButtonTouched();
 
-        void onLeitnerManagerClicked();
+        void onSettingMenuTouched();
+
+        void onLeitnerManagerMenuTouched();
     }
 
     @Override
@@ -138,7 +136,7 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
             @Override
             public void onClick(View view) {
                 if (todayCardsSize > 0)
-                    mHomeFragmentInterface.onLeitnerReviewClicked();
+                    mHomeFragmentInterface.onLeitnerReviewButtonTouched();
                 else
                     Toast.makeText(view.getContext(), "There is no card for reviewing :)", Toast.LENGTH_SHORT).show();
             }
@@ -150,8 +148,10 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_action_leitner:
-                mHomeFragmentInterface.onLeitnerManagerClicked();
+                mHomeFragmentInterface.onLeitnerManagerMenuTouched();
                 break;
+            case R.id.menu_action_setting:
+                mHomeFragmentInterface.onSettingMenuTouched();
         }
         return super.onOptionsItemSelected(item);
 

@@ -34,13 +34,19 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
 
 
     @Override
-    public void onLeitnerReviewClicked() {
+    public void onLeitnerReviewButtonTouched() {
         Intent intent = new Intent(MainActivity.this, ReviewLeitnerActivity.class);
         startActivity(intent);
     }
 
     @Override
-    public void onLeitnerManagerClicked() {
+    public void onSettingMenuTouched() {
+        Intent intent = new Intent(MainActivity.this , SettingActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onLeitnerManagerMenuTouched() {
         Intent intent = new Intent(MainActivity.this, LeitnerManagerActivity.class);
         startActivity(intent);
     }

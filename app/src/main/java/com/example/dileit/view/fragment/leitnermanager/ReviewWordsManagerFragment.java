@@ -59,13 +59,7 @@ public class ReviewWordsManagerFragment extends Fragment implements LeitnerManag
         //showing box1 items in startup
         mInternalViewModel.setBoxState(LeitnerStateConstant.BOX_ONE);
 
-        mInternalViewModel.getLearnedCardByBox().observe(getViewLifecycleOwner(), leitners -> {
-            setData(leitners);
-            for (Leitner leitner:
-                 leitners) {
-                Log.d(TAG, leitner.toString());
-            }
-        });
+        mInternalViewModel.getLearnedCardByBox().observe(getViewLifecycleOwner(), this::setData);
 
         mBinding.chipFilteredBoxOne.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
@@ -133,7 +127,6 @@ public class ReviewWordsManagerFragment extends Fragment implements LeitnerManag
     @Override
     public void onDeleteSelected(Leitner leitner) {
         mInternalViewModel.deleteLeitnerItem(leitner);
-        Toast.makeText(getContext(), "" + adapter.getItemCount(), Toast.LENGTH_SHORT).show();
         if (adapter.getItemCount() == 0) {
             mBinding.rvReviewManager.setVisibility(View.GONE);
             mBinding.tvNoDataReviewMan.setVisibility(View.VISIBLE);

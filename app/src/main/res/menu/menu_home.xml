@@ -3,4 +3,7 @@
 
     <item android:id="@+id/menu_action_leitner"
         android:title="@string/leitner_manager"/>
+    <item
+        android:id="@+id/menu_action_setting"
+        android:title="@string/setting"/>
 </menu>

@@ -13,15 +13,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:parentActivityName=".view.activity.MainActivity" android:name=".view.activity.LeitnerManagerActivity">
+        <activity android:name=".view.activity.SettingActivity"></activity>
+        <activity
+            android:name=".view.activity.LeitnerManagerActivity"
+            android:parentActivityName=".view.activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".view.activity.MainActivity"/>
+                android:value=".view.activity.MainActivity" />
         </activity>
-        <activity android:parentActivityName=".view.activity.MainActivity" android:name=".view.activity.ReviewLeitnerActivity" />
+        <activity
+            android:name=".view.activity.ReviewLeitnerActivity"
+            android:parentActivityName=".view.activity.MainActivity" />
         <activity android:name=".view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

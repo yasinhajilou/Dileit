@@ -13,7 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.activity.SettingActivity"></activity>
+        <receiver
+            android:name=".reciever.AlarmReceiver"
+            android:enabled="true"
+            android:exported="false"/>
+
+        <activity android:name=".view.activity.SettingActivity" />
         <activity
             android:name=".view.activity.LeitnerManagerActivity"
             android:parentActivityName=".view.activity.MainActivity">

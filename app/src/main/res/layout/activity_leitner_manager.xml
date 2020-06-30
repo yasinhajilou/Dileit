@@ -59,44 +59,7 @@
                     android:id="@+id/tv_manager_learned"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-
-<!--                <TextView-->
-<!--                    android:fontFamily="@font/productsansregular"-->
-<!--                    android:textSize="28sp"-->
-<!--                    android:textColor="@android:color/white"-->
-<!--                    android:text="@string/new_"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/tv_manager_new"-->
-<!--                    app:layout_constraintEnd_toStartOf="@+id/tv_label_manager_review"-->
-<!--                    android:id="@+id/tv_label_manager_new"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"/>-->
-
-<!--                <TextView-->
-<!--                    app:layout_constraintEnd_toStartOf="@+id/tv_label_manager_learned"-->
-<!--                    app:layout_constraintHorizontal_weight="1"-->
-<!--                    android:fontFamily="@font/productsansregular"-->
-<!--                    android:textSize="28sp"-->
-<!--                    android:textColor="@android:color/white"-->
-<!--                    android:text="@string/review"-->
-<!--                    app:layout_constraintStart_toEndOf="@id/tv_label_manager_new"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/tv_manager_review"-->
-<!--                    android:id="@+id/tv_label_manager_review"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"/>-->
-
-<!--                <TextView-->
-<!--                    app:layout_constraintHorizontal_weight="1"-->
-<!--                    android:fontFamily="@font/productsansregular"-->
-<!--                    android:textSize="28sp"-->
-<!--                    android:textColor="@android:color/white"-->
-<!--                    android:text="@string/learned"-->
-<!--                    app:layout_constraintStart_toEndOf="@+id/tv_label_manager_review"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/tv_manager_learned"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    android:id="@+id/tv_label_manager_learned"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"/>-->
+                
 
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.appcompat.widget.Toolbar

@@ -15,4 +15,6 @@ public class KeysValue {
 
     public static final String BUNDLE_KEY_FOR_BOOL_ROTATION = "bool_rotation";
 
+    public static final String SP_HOUR = "shared_preference_hour";
+    public static final String SP_MIN = "shared_preference_minute";
 }

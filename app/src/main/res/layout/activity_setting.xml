@@ -25,6 +25,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.switchmaterial.SwitchMaterial
+        android:checked="false"
         android:id="@+id/switch_reminder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -46,6 +47,7 @@
         app:layout_constraintTop_toBottomOf="@+id/switch_reminder">
 
         <TextView
+            android:textAlignment="center"
             android:id="@+id/tv_reminder_h"
             android:padding="4dp"
             android:textSize="20sp"
@@ -60,6 +62,7 @@
             android:textSize="20sp" />
 
         <TextView
+            android:textAlignment="center"
             android:id="@+id/tv_reminder_m"
             android:padding="4dp"
             android:textSize="20sp"
@@ -83,7 +86,9 @@
         style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="28dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="68dp"
         android:text="Clear Search History"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

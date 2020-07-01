@@ -6,14 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
-public class TimeSharedViewModel extends AndroidViewModel {
-    private MutableLiveData<int[]> mTime;
-
-    public TimeSharedViewModel(@NonNull Application application) {
-        super(application);
-        mTime = new MutableLiveData<>();
-    }
+public class TimeSharedViewModel extends ViewModel {
+    private MutableLiveData<int[]> mTime = new MutableLiveData<>();
 
     public void setTime(int[] time) {
         mTime.setValue(time);

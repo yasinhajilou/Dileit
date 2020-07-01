@@ -35,7 +35,7 @@ public class SettingActivity extends AppCompatActivity {
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
     private String TAG = SettingActivity.class.getSimpleName();
-
+    private int lastHour,lastMin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +54,8 @@ public class SettingActivity extends AppCompatActivity {
 
         mAlarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-        int lastHour = mSharedPreferences.getInt(KeysValue.SP_HOUR, -1);
-        int lastMin = mSharedPreferences.getInt(KeysValue.SP_MIN, -1);
+         lastHour = mSharedPreferences.getInt(KeysValue.SP_HOUR, -1);
+         lastMin = mSharedPreferences.getInt(KeysValue.SP_MIN, -1);
         if (lastHour != -1 && lastMin != -1) {
             initTextViews(lastHour, lastMin);
         }
@@ -105,6 +105,19 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        mTimeSharedViewModel.getCancelListener().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+
+                //check for is it first time for setting reminder or not
+                //if not we use default values in SP
+                if (lastHour == -1 && lastMin == -1) {
+                    //we should swicth back because time picking canceled
+                    if (aBoolean)
+                        mBinding.switchReminder.setChecked(false);
+                }
+            }
+        });
         mInternalViewModel.getDeletedHistoryResult().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
@@ -117,19 +130,17 @@ public class SettingActivity extends AppCompatActivity {
 
         mTimeSharedViewModel.getTime().observe(this, ints -> {
 
-            int hour = ints[0];
-            int min = ints[1];
+            lastHour  = ints[0];
+            lastMin = ints[1];
 
-            Log.d(TAG, "onCreate: " + hour + " " + min);
-
-            initTextViews(hour, min);
+            initTextViews(lastHour, lastMin);
 
             mEditor = mSharedPreferences.edit();
-            mEditor.putInt(KeysValue.SP_HOUR, hour);
-            mEditor.putInt(KeysValue.SP_MIN, min);
+            mEditor.putInt(KeysValue.SP_HOUR, lastHour);
+            mEditor.putInt(KeysValue.SP_MIN, lastMin);
             mEditor.apply();
 
-            setAlarm(hour, min);
+            setAlarm(lastHour, lastMin);
         });
     }
 

@@ -2,6 +2,7 @@ package com.example.dileit.view.fragment;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -37,5 +38,14 @@ public class TimePickerDialogFragment extends DialogFragment implements TimePick
     @Override
     public void onTimeSet(TimePicker timePicker, int i, int i1) {
         mTimeSharedViewModel.setTime(new int[]{i, i1});
+    }
+
+    @Override
+    public void onCancel(@NonNull DialogInterface dialog) {
+        super.onCancel(dialog);
+
+        //first dialog will popup and if user cancel the time picker
+        // we should turn of the switch
+        mTimeSharedViewModel.setCancelListener(true);
     }
 }

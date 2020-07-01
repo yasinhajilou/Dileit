@@ -4,6 +4,7 @@
     package="com.example.dileit">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -16,11 +17,11 @@
         <receiver
             android:name=".reciever.AlarmReceiver"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
 
         <activity
-            android:parentActivityName=".view.activity.MainActivity"
-            android:name=".view.activity.SettingActivity" />
+            android:name=".view.activity.SettingActivity"
+            android:parentActivityName=".view.activity.MainActivity" />
         <activity
             android:name=".view.activity.LeitnerManagerActivity"
             android:parentActivityName=".view.activity.MainActivity">

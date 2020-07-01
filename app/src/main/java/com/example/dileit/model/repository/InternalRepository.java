@@ -16,6 +16,7 @@ import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class InternalRepository {
@@ -51,11 +52,6 @@ public class InternalRepository {
                 .subscribeOn(Schedulers.io());
     }
 
-    public Flowable<List<Leitner>> getAllLeitnerItems() {
-        return mLeitnerDao.LEITNER_LIST()
-                .subscribeOn(Schedulers.io());
-    }
-
     public Flowable<List<Leitner>> getCardByState(int state) {
         return mLeitnerDao.getCardByState(state)
                 .subscribeOn(Schedulers.io());
@@ -71,6 +67,11 @@ public class InternalRepository {
                 .subscribeOn(Schedulers.io());
     }
 
+    public Flowable<List<Leitner>> getAllLeitnerItems() {
+        return mLeitnerDao.LEITNER_LIST()
+                .subscribeOn(Schedulers.io());
+    }
+
 
     public Flowable<List<Leitner>> getTodayList() {
         return getAllLeitnerItems().concatMap(leitners -> Flowable.fromCallable(() -> LeitnerUtils.getPreparedLeitnerItems(leitners)));
@@ -83,6 +84,19 @@ public class InternalRepository {
             else
                 return 0;
         });
+    }
+
+
+    public Single<Integer> getTodayListSizeSingle() {
+        return mLeitnerDao.getAllCards()
+                .map(new Function<List<Leitner>, Integer>() {
+                    @Override
+                    public Integer apply(List<Leitner> leitners) throws Exception {
+                        int todaySize = LeitnerUtils.getPreparedLeitnerItems(leitners).size();
+                        return Math.max(todaySize, 0);
+                    }
+                })
+                .subscribeOn(Schedulers.io());
     }
 
 

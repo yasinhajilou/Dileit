@@ -29,6 +29,9 @@ public interface LeitnerDao {
     @Query("SELECT * FROM  Leitner")
     Flowable<List<Leitner>> LEITNER_LIST();
 
+    @Query("SELECT * FROM  Leitner")
+    Single<List<Leitner>> getAllCards();
+
     @Query("SELECT * FROM Leitner WHERE word LIKE :word")
     Flowable<Leitner> getLeitnerInfoByWord(String word);
 

@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,7 +36,8 @@ public class SettingActivity extends AppCompatActivity {
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
     private String TAG = SettingActivity.class.getSimpleName();
-    private int lastHour,lastMin;
+    private int lastHour, lastMin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +56,8 @@ public class SettingActivity extends AppCompatActivity {
 
         mAlarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-         lastHour = mSharedPreferences.getInt(KeysValue.SP_HOUR, -1);
-         lastMin = mSharedPreferences.getInt(KeysValue.SP_MIN, -1);
+        lastHour = mSharedPreferences.getInt(KeysValue.SP_HOUR, -1);
+        lastMin = mSharedPreferences.getInt(KeysValue.SP_MIN, -1);
         if (lastHour != -1 && lastMin != -1) {
             initTextViews(lastHour, lastMin);
         }
@@ -130,7 +132,7 @@ public class SettingActivity extends AppCompatActivity {
 
         mTimeSharedViewModel.getTime().observe(this, ints -> {
 
-            lastHour  = ints[0];
+            lastHour = ints[0];
             lastMin = ints[1];
 
             initTextViews(lastHour, lastMin);
@@ -164,7 +166,8 @@ public class SettingActivity extends AppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, REQ_CODE_ALARM_REC,
                 new Intent(this, AlarmReceiver.class),
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        mAlarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
     }
 
     private void initTextViews(int h, int m) {

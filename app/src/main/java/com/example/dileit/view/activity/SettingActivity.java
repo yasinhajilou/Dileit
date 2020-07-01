@@ -5,11 +5,15 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
@@ -30,6 +34,7 @@ public class SettingActivity extends AppCompatActivity {
     private final int REQ_CODE_ALARM_REC = 110;
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
+    private String TAG = SettingActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,10 +88,39 @@ public class SettingActivity extends AppCompatActivity {
             showTimePicker();
         });
 
+        mBinding.btnDeleteHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this)
+                        .setTitle("Delete History")
+                        .setMessage("Are you want to delete Search History?")
+                        .setNegativeButton("No", (dialogInterface, i) -> {
+                            dialogInterface.dismiss();
+                        })
+                        .setNeutralButton("Yes", (dialogInterface, i) -> {
+                            mInternalViewModel.deleteAllHistory();
+                        });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+        });
+
+        mInternalViewModel.getDeletedHistoryResult().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean)
+                    Toast.makeText(SettingActivity.this, "Deleted Successfully", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(SettingActivity.this, "An Error Occurred", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         mTimeSharedViewModel.getTime().observe(this, ints -> {
 
             int hour = ints[0];
             int min = ints[1];
+
+            Log.d(TAG, "onCreate: " + hour + " " + min);
 
             initTextViews(hour, min);
 

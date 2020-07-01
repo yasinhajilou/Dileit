@@ -28,16 +28,17 @@ public interface WordHistoryDao {
     @Delete
     Completable delete(WordHistory wordHistory);
 
-    @Transaction
     @Query("SELECT * FROM WordHistory")
     Flowable<List<WordHistory>> getAllWordHistory();
 
-    @Transaction
     @Query("SELECT * FROM WordHistory where leitnerId LIKE :leitnerId LIMIT 1")
     Flowable<WordHistory> getWordByLeitnerId(int leitnerId);
 
-    @Transaction
+
     @Query("SELECT * FROM  WordHistory where word LIKE :exactWord")
     Flowable<WordHistory> getWordInformation(String exactWord);
+
+    @Query("DELETE FROM WordHistory")
+    Completable deleteAllWordHistory();
 
 }

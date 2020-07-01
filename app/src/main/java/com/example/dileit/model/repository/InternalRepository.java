@@ -127,5 +127,10 @@ public class InternalRepository {
                 .subscribeOn(Schedulers.io());
     }
 
+    public Completable deleteAllHistory() {
+        return mWordHistoryDao.deleteAllWordHistory()
+                .subscribeOn(Schedulers.io());
+    }
+
 
 }

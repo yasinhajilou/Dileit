@@ -40,6 +40,7 @@ public class InternalViewModel extends AndroidViewModel {
 
     //observing cards by their state
     private MutableLiveData<Integer> mBoxState = new MutableLiveData<>();
+
     private LiveData<List<Leitner>> mLearnedCardByBox = Transformations.switchMap(mBoxState, new Function<Integer, LiveData<List<Leitner>>>() {
         @Override
         public LiveData<List<Leitner>> apply(Integer input) {
@@ -47,12 +48,16 @@ public class InternalViewModel extends AndroidViewModel {
         }
     });
 
+
+    //observing delete history res
+    private MutableLiveData<Boolean> mDeletedHistoryStatus = new MutableLiveData<>();
+
     public InternalViewModel(@NonNull Application application) {
         super(application);
         mRepository = new InternalRepository(application);
     }
 
-    public void setBoxState(int state){
+    public void setBoxState(int state) {
         mBoxState.setValue(state);
     }
 
@@ -109,6 +114,11 @@ public class InternalViewModel extends AndroidViewModel {
 
 
     //getData
+
+    public LiveData<Boolean> getDeletedHistoryResult() {
+        return mDeletedHistoryStatus;
+    }
+
     public void getExistedLeitner(String word) {
         mRepository.getExistingLeitner(word)
                 .subscribe(new MaybeObserver<Leitner>() {
@@ -152,6 +162,7 @@ public class InternalViewModel extends AndroidViewModel {
     public LiveData<Leitner> getLeitnerInfoByWord(String word) {
         return LiveDataReactiveStreams.fromPublisher(mRepository.getLeitnerInfoByWord(word));
     }
+
     public LiveData<List<Leitner>> getLearnedCardByBox() {
         return mLearnedCardByBox;
     }
@@ -207,6 +218,26 @@ public class InternalViewModel extends AndroidViewModel {
                         mDeletedItemStatus.postValue(-1);
                     }
                 });
+    }
+
+
+    public void deleteAllHistory() {
+        mRepository.deleteAllHistory().subscribe(new CompletableObserver() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onComplete() {
+                mDeletedHistoryStatus.postValue(true);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mDeletedHistoryStatus.postValue(false);
+            }
+        });
     }
 
 

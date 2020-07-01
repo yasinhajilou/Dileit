@@ -77,8 +77,8 @@
         app:layout_constraintTop_toBottomOf="@+id/linear_layout_time_editor" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/vtn_delete_history"
-        android:padding="8dp"
+        android:id="@+id/btn_delete_history"
+        android:padding="18dp"
         style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -98,6 +98,6 @@
         android:background="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vtn_delete_history" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_delete_history" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

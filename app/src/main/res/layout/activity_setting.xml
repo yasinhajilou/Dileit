@@ -7,22 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.SettingActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar_setting"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:elevation="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
         <androidx.appcompat.widget.Toolbar
+            app:titleTextColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="?attr/colorPrimary"
             android:id="@+id/toolbar_setting"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:theme="@style/ToolBarLight"
             android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize" />
 
-    </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:checked="false"
@@ -35,7 +30,7 @@
         android:text="Reminder Notification(Every day)"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appbar_setting" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_setting" />
 
     <LinearLayout
         android:id="@+id/linear_layout_time_editor"
@@ -82,16 +77,27 @@
         app:layout_constraintTop_toBottomOf="@+id/linear_layout_time_editor" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/vtn_delete_history"
         android:padding="8dp"
         style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginEnd="28dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="18dp"
         android:text="Clear Search History"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_setting" />
+
+    <View
+        android:id="@+id/view_setting_2"
+        android:layout_margin="8dp"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vtn_delete_history" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

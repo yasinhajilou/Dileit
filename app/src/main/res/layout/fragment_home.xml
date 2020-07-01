@@ -91,7 +91,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/productsansregular"
-                android:text="@string/mock_item_leit"
+                tools:text="@string/mock_item_leit"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"

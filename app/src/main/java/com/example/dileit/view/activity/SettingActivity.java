@@ -37,6 +37,11 @@ public class SettingActivity extends AppCompatActivity {
         mBinding = ActivitySettingBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
+        mBinding.toolbarSetting.setTitle(getString(R.string.setting));
+        setSupportActionBar(mBinding.toolbarSetting);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         mSharedPreferences = getSharedPreferences(getString(R.string.shared_preference), MODE_PRIVATE);
 
         mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);

@@ -18,7 +18,9 @@
             android:enabled="true"
             android:exported="false"/>
 
-        <activity android:name=".view.activity.SettingActivity" />
+        <activity
+            android:parentActivityName=".view.activity.MainActivity"
+            android:name=".view.activity.SettingActivity" />
         <activity
             android:name=".view.activity.LeitnerManagerActivity"
             android:parentActivityName=".view.activity.MainActivity">

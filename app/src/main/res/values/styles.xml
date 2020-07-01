@@ -7,4 +7,8 @@
         <item name="android:windowBackground">@color/colorBackground</item>
         <item name="android:fontFamily">@font/dana</item>
     </style>
+    <style name="ToolBarLight" parent="AppTheme">
+        <item name="android:textColorSecondary">@color/colorText</item>
+        <item name="fontFamily">@font/productsansregular</item>
+    </style>
 </resources>

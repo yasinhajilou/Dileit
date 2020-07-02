@@ -10,18 +10,16 @@ import com.example.dileit.utils.SharedPreferenceUtil;
 import com.google.android.gms.common.util.SharedPreferencesUtils;
 
 public class BootReceiver extends BroadcastReceiver {
-    private SharedPreferenceUtil mSharedPreferencesUtils;
-    private AlarmManagerUtils mAlarmManagerUtils;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
-            mSharedPreferencesUtils = new SharedPreferenceUtil(context);
-            int h = mSharedPreferencesUtils.getHour();
-            int m = mSharedPreferencesUtils.getMin();
+            SharedPreferenceUtil sharedPreferencesUtils = new SharedPreferenceUtil(context);
+            int h = sharedPreferencesUtils.getHour();
+            int m = sharedPreferencesUtils.getMin();
             if (h != -1 && m != -1) {
-                mAlarmManagerUtils = new AlarmManagerUtils(context);
-                mAlarmManagerUtils.setAlarm(h, m);
+                AlarmManagerUtils alarmManagerUtils = new AlarmManagerUtils(context);
+                alarmManagerUtils.setAlarm(h, m);
             }
         }
     }

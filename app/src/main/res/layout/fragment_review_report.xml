@@ -1,4 +1,7 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,13 +9,17 @@
     tools:context="com.example.dileit.view.fragment.leitnerreview.ReviewReportFragment">
 
     <com.google.android.material.card.MaterialCardView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="98dp"
         android:layout_gravity="center"
         app:elevation="8dp"
         app:cardCornerRadius="8dp"
         app:backgroundTint="@android:color/white"
         android:layout_marginStart="18dp"
         android:layout_marginEnd="18dp"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:paddingBottom="8dp"
@@ -40,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/productsansregular"
-                android:text="Reviewed Cards"
+                android:text="Reviewed "
                 android:textSize="22sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/productsansregular"
-                android:text="Review Again Cards For Today"
+                android:text="Review Again For Today"
                 android:textSize="22sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -112,4 +119,14 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
-</LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        app:tint="@android:color/white"
+        android:src="@drawable/ic_round_home_24"
+        android:layout_marginBottom="68dp"
+        android:id="@+id/fab_go_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

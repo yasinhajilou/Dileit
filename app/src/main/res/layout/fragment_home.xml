@@ -248,7 +248,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="8dp"
-        android:elevation="8dp"
         android:src="@drawable/ic_add_black_24dp"
         app:tint="@android:color/white"
         app:backgroundTint="@color/colorPrimary"

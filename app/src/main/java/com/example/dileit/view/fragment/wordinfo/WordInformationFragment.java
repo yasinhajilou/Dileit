@@ -198,8 +198,10 @@ public class WordInformationFragment extends Fragment {
                 showRemoveLeitnerDialog(view16);
             } else {
                 builderTranslation = new StringBuilder();
-                for (TranslationWord word : wordList) {
-                    builderTranslation.append(word.getTranslatedWord()).append("\n");
+                if (wordList != null) {
+                    for (TranslationWord word : wordList) {
+                        builderTranslation.append(word.getTranslatedWord()).append("\n");
+                    }
                 }
 
                 //leitner id =0 means we should add brand new card

@@ -42,4 +42,13 @@ public class AlarmManagerUtils {
         mAlarmManager.cancel(pendingIntent);
         pendingIntent.cancel();
     }
+
+
+    public void enableBootReceiver(){
+
+    }
+
+    public void disableBootReceiver(){
+
+    }
 }

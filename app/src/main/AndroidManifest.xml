@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <receiver
-            android:name=".reciever.MyReceiver"
+            android:name=".reciever.BootReceiver"
             android:enabled="false"
             android:exported="false">
             <intent-filter>

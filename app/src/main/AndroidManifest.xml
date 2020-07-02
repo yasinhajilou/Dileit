@@ -15,6 +15,10 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <receiver
+            android:name=".reciever.MyReceiver"
+            android:enabled="false"
+            android:exported="false"></receiver>
+        <receiver
             android:name=".reciever.AlarmReceiver"
             android:enabled="true"
             android:exported="false" />

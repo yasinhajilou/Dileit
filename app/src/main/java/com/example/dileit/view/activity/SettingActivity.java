@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
+import com.example.dileit.utils.SharedPreferenceUtil;
 import com.example.dileit.view.fragment.TimePickerDialogFragment;
 import com.example.dileit.databinding.ActivitySettingBinding;
 import com.example.dileit.reciever.AlarmReceiver;
@@ -33,10 +34,9 @@ public class SettingActivity extends AppCompatActivity {
     private ActivitySettingBinding mBinding;
     private AlarmManager mAlarmManager;
     private final int REQ_CODE_ALARM_REC = 110;
-    private SharedPreferences mSharedPreferences;
-    private SharedPreferences.Editor mEditor;
     private String TAG = SettingActivity.class.getSimpleName();
     private int lastHour, lastMin;
+    private SharedPreferenceUtil mSharedPreferenceUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,15 +49,15 @@ public class SettingActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        mSharedPreferences = getSharedPreferences(getString(R.string.shared_preference), MODE_PRIVATE);
+        mSharedPreferenceUtil = new SharedPreferenceUtil(this);
 
         mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
         mTimeSharedViewModel = ViewModelProviders.of(this).get(TimeSharedViewModel.class);
 
         mAlarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-        lastHour = mSharedPreferences.getInt(KeysValue.SP_HOUR, -1);
-        lastMin = mSharedPreferences.getInt(KeysValue.SP_MIN, -1);
+        lastHour = mSharedPreferenceUtil.getHour();
+        lastMin = mSharedPreferenceUtil.getMin();
         if (lastHour != -1 && lastMin != -1) {
             initTextViews(lastHour, lastMin);
         }
@@ -137,10 +137,7 @@ public class SettingActivity extends AppCompatActivity {
 
             initTextViews(lastHour, lastMin);
 
-            mEditor = mSharedPreferences.edit();
-            mEditor.putInt(KeysValue.SP_HOUR, lastHour);
-            mEditor.putInt(KeysValue.SP_MIN, lastMin);
-            mEditor.apply();
+            mSharedPreferenceUtil.setTime(lastHour, lastMin);
 
             setAlarm(lastHour, lastMin);
         });
@@ -171,8 +168,8 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void initTextViews(int h, int m) {
-        mBinding.tvReminderH.setText(String.valueOf(h));
-        mBinding.tvReminderM.setText(String.valueOf(m));
+        mBinding.tvReminderH.setText(String.format("%02d",h));
+        mBinding.tvReminderM.setText(String.format("%02d" , m));
     }
 
     private void showTimePicker() {

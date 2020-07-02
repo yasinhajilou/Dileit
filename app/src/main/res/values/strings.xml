@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Dileit</string>
-    <string name="shared_preference">DileitSharedPreference</string>
     <string name="input_word">Tap here to start…</string>
     <string name="camera">camera</string>
     <string name="voice">Voice</string>

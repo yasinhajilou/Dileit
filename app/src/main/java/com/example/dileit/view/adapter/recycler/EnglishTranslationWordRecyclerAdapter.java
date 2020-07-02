@@ -57,12 +57,12 @@ public class EnglishTranslationWordRecyclerAdapter extends RecyclerView.Adapter<
 
             cat.setText("(" + englishDef.getCat() + ")");
 
-            if (englishDef.getSynonyms() != null)
+            if (!englishDef.getSynonyms().equals(""))
                 syn.setText(englishDef.getSynonyms());
             else
                 labelSyn.setVisibility(View.GONE);
 
-            if (englishDef.getExamples() != null)
+            if (!englishDef.getExamples().equals(""))
                 exam.setText(englishDef.getExamples());
             else
                 labelExam.setVisibility(View.GONE);

@@ -39,7 +39,7 @@ public class EnglishTranslationWordRecyclerAdapter extends RecyclerView.Adapter<
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView cat, def, syn, exam;
+        TextView cat, def, syn, exam, labelExam, labelSyn;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -47,14 +47,25 @@ public class EnglishTranslationWordRecyclerAdapter extends RecyclerView.Adapter<
             def = itemView.findViewById(R.id.tv_def_item_eng);
             syn = itemView.findViewById(R.id.tv_syn_item_eng);
             exam = itemView.findViewById(R.id.tv_example_item_eng);
+            labelExam = itemView.findViewById(R.id.tv_label_example);
+            labelSyn = itemView.findViewById(R.id.tv_label_synony);
 
         }
 
         void bindData(EnglishDef englishDef) {
             def.setText(englishDef.getDefinition());
-            cat.setText(englishDef.getCat());
-            syn.setText(englishDef.getSynonyms());
-            exam.setText(englishDef.getExamples());
+
+            cat.setText("(" + englishDef.getCat() + ")");
+
+            if (englishDef.getSynonyms() != null)
+                syn.setText(englishDef.getSynonyms());
+            else
+                labelSyn.setVisibility(View.GONE);
+
+            if (englishDef.getExamples() != null)
+                exam.setText(englishDef.getExamples());
+            else
+                labelExam.setVisibility(View.GONE);
         }
     }
 }

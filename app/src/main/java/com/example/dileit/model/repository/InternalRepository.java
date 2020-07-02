@@ -89,12 +89,9 @@ public class InternalRepository {
 
     public Single<Integer> getTodayListSizeSingle() {
         return mLeitnerDao.getAllCards()
-                .map(new Function<List<Leitner>, Integer>() {
-                    @Override
-                    public Integer apply(List<Leitner> leitners) throws Exception {
-                        int todaySize = LeitnerUtils.getPreparedLeitnerItems(leitners).size();
-                        return Math.max(todaySize, 0);
-                    }
+                .map(leitners -> {
+                    int todaySize = LeitnerUtils.getPreparedLeitnerItems(leitners).size();
+                    return Math.max(todaySize, 0);
                 })
                 .subscribeOn(Schedulers.io());
     }

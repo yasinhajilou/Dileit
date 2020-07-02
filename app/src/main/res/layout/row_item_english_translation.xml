@@ -18,34 +18,40 @@
             android:id="@+id/tv_cat_item_eng"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
         <TextView
+            android:textColor="@android:color/black"
             android:fontFamily="@font/productsansregular"
             android:textSize="20sp"
             android:id="@+id/tv_def_item_eng"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
-            android:textSize="18sp"
+            android:id="@+id/tv_label_synony"
+            android:textSize="19sp"
             android:fontFamily="@font/productsansregular"
             android:textStyle="bold"
             android:text="Synonymos:"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
+            android:textColor="@color/colorSecondary"
             android:textSize="18sp"
             android:fontFamily="@font/productsansregular"
             android:id="@+id/tv_syn_item_eng"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
+            android:id="@+id/tv_label_example"
             android:textStyle="bold"
-            android:textSize="18sp"
+            android:textSize="19sp"
             android:fontFamily="@font/productsansregular"
             android:text="Examples:"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
+            android:textColor="@color/colorPrimary"
+            android:textSize="17sp"
             android:id="@+id/tv_example_item_eng"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

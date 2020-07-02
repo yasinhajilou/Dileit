@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
+import com.example.dileit.utils.AlarmManagerUtils;
 import com.example.dileit.utils.SharedPreferenceUtil;
 import com.example.dileit.view.fragment.TimePickerDialogFragment;
 import com.example.dileit.databinding.ActivitySettingBinding;
@@ -32,11 +33,10 @@ public class SettingActivity extends AppCompatActivity {
     private InternalViewModel mInternalViewModel;
     private TimeSharedViewModel mTimeSharedViewModel;
     private ActivitySettingBinding mBinding;
-    private AlarmManager mAlarmManager;
-    private final int REQ_CODE_ALARM_REC = 110;
     private String TAG = SettingActivity.class.getSimpleName();
     private int lastHour, lastMin;
     private SharedPreferenceUtil mSharedPreferenceUtil;
+    private AlarmManagerUtils mAlarmManagerUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +51,10 @@ public class SettingActivity extends AppCompatActivity {
 
         mSharedPreferenceUtil = new SharedPreferenceUtil(this);
 
+        mAlarmManagerUtils = new AlarmManagerUtils(this);
+
         mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
         mTimeSharedViewModel = ViewModelProviders.of(this).get(TimeSharedViewModel.class);
-
-        mAlarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
         lastHour = mSharedPreferenceUtil.getHour();
         lastMin = mSharedPreferenceUtil.getMin();
@@ -62,7 +62,7 @@ public class SettingActivity extends AppCompatActivity {
             initTextViews(lastHour, lastMin);
         }
 
-        if (checkForExistingAlarm() != null) {
+        if (mAlarmManagerUtils.checkForExistingAlarm() != null) {
             mBinding.switchReminder.setChecked(true);
             handleTimePickerEnabling(true);
         } else {
@@ -79,10 +79,8 @@ public class SettingActivity extends AppCompatActivity {
                 }
             } else {
                 handleTimePickerEnabling(false);
-                if (checkForExistingAlarm() != null) {
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(this, REQ_CODE_ALARM_REC, new Intent(this, AlarmReceiver.class), PendingIntent.FLAG_UPDATE_CURRENT);
-                    mAlarmManager.cancel(pendingIntent);
-                    pendingIntent.cancel();
+                if (mAlarmManagerUtils.checkForExistingAlarm() != null) {
+                    mAlarmManagerUtils.cancelAlarm();
                 }
             }
         });
@@ -139,7 +137,7 @@ public class SettingActivity extends AppCompatActivity {
 
             mSharedPreferenceUtil.setTime(lastHour, lastMin);
 
-            setAlarm(lastHour, lastMin);
+            mAlarmManagerUtils.setAlarm(lastHour, lastMin);
         });
     }
 
@@ -149,27 +147,10 @@ public class SettingActivity extends AppCompatActivity {
         mBinding.linearLayoutTimeEditor.setEnabled(b);
     }
 
-    private PendingIntent checkForExistingAlarm() {
-        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
-        return PendingIntent.getBroadcast(this,
-                REQ_CODE_ALARM_REC, alarmIntent, PendingIntent.FLAG_NO_CREATE);
-    }
-
-    private void setAlarm(int h, int m) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, h);
-        calendar.set(Calendar.MINUTE, m);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, REQ_CODE_ALARM_REC,
-                new Intent(this, AlarmReceiver.class),
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-
-    }
 
     private void initTextViews(int h, int m) {
-        mBinding.tvReminderH.setText(String.format("%02d",h));
-        mBinding.tvReminderM.setText(String.format("%02d" , m));
+        mBinding.tvReminderH.setText(String.format("%02d", h));
+        mBinding.tvReminderM.setText(String.format("%02d", m));
     }
 
     private void showTimePicker() {

@@ -17,7 +17,16 @@
         <receiver
             android:name=".reciever.MyReceiver"
             android:enabled="false"
-            android:exported="false"></receiver>
+            android:exported="false">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <!--For HTC devices-->
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
         <receiver
             android:name=".reciever.AlarmReceiver"
             android:enabled="true"

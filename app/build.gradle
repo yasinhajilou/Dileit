@@ -11,6 +11,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "v0.8-alpha"
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -25,7 +26,7 @@ android {
     }
 
     buildFeatures {
-        viewBinding= true
+        viewBinding = true
     }
 }
 
@@ -91,8 +92,13 @@ dependencies {
     //Lottie Animation
     implementation "com.airbnb.android:lottie:3.4.0"
 
-//    //rx
-//    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
-//    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+    // Charts
+    implementation 'com.diogobernardino:williamchart:3.7.1'
+
+    //multi dex
+    implementation 'com.android.support:multidex:1.0.3'
+
+    //circular progress
+    implementation 'com.mikhaellopez:circularprogressbar:3.0.3'
 
 }

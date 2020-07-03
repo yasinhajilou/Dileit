@@ -52,6 +52,8 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
         void onSettingMenuTouched();
 
         void onLeitnerManagerMenuTouched();
+
+        void onReporterMenuTouched();
     }
 
     @Override
@@ -152,6 +154,8 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
                 break;
             case R.id.menu_action_setting:
                 mHomeFragmentInterface.onSettingMenuTouched();
+            case R.id.menu_action_reporter:
+                mHomeFragmentInterface.onReporterMenuTouched();
         }
         return super.onOptionsItemSelected(item);
 

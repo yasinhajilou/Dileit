@@ -52,6 +52,12 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
     }
 
     @Override
+    public void onReporterMenuTouched() {
+        Intent intent = new Intent(MainActivity.this, ReporterActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         mExternalViewModel.closeExternalDbs();

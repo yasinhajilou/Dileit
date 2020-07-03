@@ -109,6 +109,13 @@ public class InternalRepository {
         return mLeitnerDao.getReviewingCardCount();
     }
 
+
+    public Flowable<Integer> getAllCardCount(){
+        return mLeitnerDao.getAllLeitnerCount()
+                .subscribeOn(Schedulers.io());
+    }
+
+
     //insert data
     public Completable insertWordHistory(WordHistory wordHistory) {
         return mWordHistoryDao.Insert(wordHistory)

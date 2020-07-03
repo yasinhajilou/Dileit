@@ -199,6 +199,10 @@ public class InternalViewModel extends AndroidViewModel {
         return LiveDataReactiveStreams.fromPublisher(mRepository.getReviewingCardCount());
     }
 
+    public LiveData<Integer> getAllLeitnerCardCount() {
+        return LiveDataReactiveStreams.fromPublisher(mRepository.getAllCardCount());
+    }
+
     //Delete data
     public void deleteLeitnerItem(Leitner leitner) {
         mRepository.deleteLeitnerItem(leitner)

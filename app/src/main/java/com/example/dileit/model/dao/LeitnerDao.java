@@ -55,4 +55,7 @@ public interface LeitnerDao {
 
     @Query("SELECT COUNT(id) FROM Leitner WHERE state BETWEEN 1 AND 5")
     Flowable<Integer> getReviewingCardCount();
+
+    @Query("SELECT COUNT(id) FROM Leitner")
+    Flowable<Integer> getAllLeitnerCount();
 }

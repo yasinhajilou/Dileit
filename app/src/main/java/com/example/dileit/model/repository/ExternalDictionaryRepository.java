@@ -83,7 +83,6 @@ public class ExternalDictionaryRepository {
     }
 
 
-
     //getting data for word information view
     public Flowable<List<EnglishDef>> getRefById(int engId) {
         return Flowable.fromCallable(() -> {

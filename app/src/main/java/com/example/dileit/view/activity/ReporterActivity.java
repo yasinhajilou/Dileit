@@ -23,18 +23,24 @@ public class ReporterActivity extends AppCompatActivity {
     private ActivityReporterBinding mBinding;
     private long duration = 1000;
     private InternalViewModel mInternalViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = ActivityReporterBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
+        setSupportActionBar(mBinding.toolbarReporter);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
 
 
         mInternalViewModel.getAllLeitnerCardCount().observe(this, this::showAllCountessWithAnimation);
 
-        mInternalViewModel.getLearnedCardsCount().observe(this , this::showLearnedCountessWithAnimation);
+        mInternalViewModel.getLearnedCardsCount().observe(this, this::showLearnedCountessWithAnimation);
 
 
     }

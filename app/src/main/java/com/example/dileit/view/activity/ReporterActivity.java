@@ -1,28 +1,19 @@
 package com.example.dileit.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.animation.ValueAnimator;
 import android.os.Bundle;
-import android.view.animation.Animation;
 
-import com.db.williamchart.data.Frame;
 import com.example.dileit.databinding.ActivityReporterBinding;
-import com.example.dileit.viewmodel.InternalViewModel;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.example.dileit.viewmodel.ReporterViewModel;
 
 public class ReporterActivity extends AppCompatActivity {
 
     private ActivityReporterBinding mBinding;
     private long duration = 1000;
-    private InternalViewModel mInternalViewModel;
+    private ReporterViewModel mReporterViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +26,12 @@ public class ReporterActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
+        mReporterViewModel = ViewModelProviders.of(this).get(ReporterViewModel.class);
 
 
-        mInternalViewModel.getAllLeitnerCardCount().observe(this, this::showAllCountessWithAnimation);
+        mReporterViewModel.getAllLeitnerCardCount().observe(this, this::showAllCountessWithAnimation);
 
-        mInternalViewModel.getLearnedCardsCount().observe(this, this::showLearnedCountessWithAnimation);
+        mReporterViewModel.getLearnedCardsCount().observe(this, this::showLearnedCountessWithAnimation);
 
 
     }

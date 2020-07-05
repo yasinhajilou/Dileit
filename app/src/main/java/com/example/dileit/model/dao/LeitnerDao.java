@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.dileit.model.LeitnerReport;
 import com.example.dileit.model.entity.Leitner;
 
 import java.util.List;
@@ -59,5 +60,9 @@ public interface LeitnerDao {
     @Query("SELECT COUNT(id) FROM Leitner")
     Flowable<Integer> getAllLeitnerCount();
 
+    @Query("select timeAdded,lastReviewTime FROM Leitner WHERE lastReviewTime BETWEEN :start AND :end")
+    Flowable<LeitnerReport> getReviewedCardForReportByRange(long start, long end);
 
+    @Query("select timeAdded,lastReviewTime FROM Leitner WHERE timeAdded BETWEEN :start AND :end")
+    Flowable<LeitnerReport> getAddCardForReportByRange(long start, long end);
 }

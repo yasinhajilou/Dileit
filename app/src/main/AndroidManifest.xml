@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.activity.ReporterActivity"></activity>
+        <activity android:name=".view.activity.ReporterActivity"
+            android:parentActivityName=".view.activity.MainActivity"/>
 
         <receiver
             android:name=".reciever.BootReceiver"

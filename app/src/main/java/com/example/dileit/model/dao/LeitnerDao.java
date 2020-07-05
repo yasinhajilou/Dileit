@@ -58,4 +58,5 @@ public interface LeitnerDao {
 
     @Query("SELECT COUNT(id) FROM Leitner")
     Flowable<Integer> getAllLeitnerCount();
+
 }

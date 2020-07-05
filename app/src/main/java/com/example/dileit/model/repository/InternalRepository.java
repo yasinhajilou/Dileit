@@ -2,6 +2,7 @@ package com.example.dileit.model.repository;
 
 import android.content.Context;
 
+import com.example.dileit.model.LeitnerReport;
 import com.example.dileit.model.dao.LeitnerDao;
 import com.example.dileit.model.dao.WordHistoryDao;
 import com.example.dileit.model.database.InternalRoomDatabase;
@@ -110,11 +111,20 @@ public class InternalRepository {
     }
 
 
-    public Flowable<Integer> getAllCardCount(){
+    public Flowable<Integer> getAllCardCount() {
         return mLeitnerDao.getAllLeitnerCount()
                 .subscribeOn(Schedulers.io());
     }
 
+    public Flowable<List<LeitnerReport>> getReviewedCardByRange(long start, long end) {
+        return mLeitnerDao.getReviewedCardForReportByRange(start, end)
+                .subscribeOn(Schedulers.io());
+    }
+
+    public Flowable<List<LeitnerReport>> getAddedCardByRange(long stat, long end) {
+        return mLeitnerDao.getAddCardForReportByRange(stat, end)
+                .subscribeOn(Schedulers.io());
+    }
 
     //insert data
     public Completable insertWordHistory(WordHistory wordHistory) {

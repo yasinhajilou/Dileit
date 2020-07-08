@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.dileit.constant.TimeReporterFilter;
 import com.example.dileit.databinding.FragmentDatePickerDialogBinding;
 import com.example.dileit.viewmodel.ReporterViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -53,6 +54,7 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.HOUR_OF_DAY, -24);
                 mReporterViewModel.setTimeRange(new long[]{calendar.getTimeInMillis(), System.currentTimeMillis()});
+                mReporterViewModel.setTimeFilter(TimeReporterFilter.DAY);
             }
         });
 
@@ -61,6 +63,7 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DAY_OF_YEAR, -7);
                 mReporterViewModel.setTimeRange(new long[]{calendar.getTimeInMillis(), System.currentTimeMillis()});
+                mReporterViewModel.setTimeFilter(TimeReporterFilter.WEEK);
 
             }
         });
@@ -71,6 +74,8 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.MONTH, -1);
                 mReporterViewModel.setTimeRange(new long[]{calendar.getTimeInMillis(), System.currentTimeMillis()});
+                mReporterViewModel.setTimeFilter(TimeReporterFilter.MONTH);
+
 
             }
         });
@@ -81,6 +86,8 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.YEAR, -1);
                 mReporterViewModel.setTimeRange(new long[]{calendar.getTimeInMillis(), System.currentTimeMillis()});
+                mReporterViewModel.setTimeFilter(TimeReporterFilter.YEAR);
+
             }
         });
     }

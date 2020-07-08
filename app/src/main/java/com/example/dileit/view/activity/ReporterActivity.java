@@ -8,14 +8,19 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.dileit.DatePickerDialogFragment;
+import com.example.dileit.constant.TimeReporterFilter;
 import com.example.dileit.databinding.ActivityReporterBinding;
 import com.example.dileit.viewmodel.ReporterViewModel;
+
+import java.util.Calendar;
 
 public class ReporterActivity extends AppCompatActivity {
 
     private ActivityReporterBinding mBinding;
     private long duration = 1000;
     private ReporterViewModel mReporterViewModel;
+
+    private int allLeitnerWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +36,31 @@ public class ReporterActivity extends AppCompatActivity {
         mReporterViewModel = ViewModelProviders.of(this).get(ReporterViewModel.class);
 
 
-        mReporterViewModel.getAllLeitnerCardCount().observe(this, this::showAllCountessWithAnimation);
+        mReporterViewModel.getAllLeitnerCardCount().observe(this, integer -> {
+            showAllCountessWithAnimation(integer);
+            allLeitnerWord = integer;
+
+            //setting data up
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.MONTH, -1);
+            mReporterViewModel.setTimeRange(new long[]{calendar.getTimeInMillis(), System.currentTimeMillis()});
+        });
 
         mReporterViewModel.getLearnedCardsCount().observe(this, this::showLearnedCountessWithAnimation);
 
-        mBinding.chipHeadFilter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialogFragment datePickerDialogFragment = new DatePickerDialogFragment();
-                datePickerDialogFragment.show(getSupportFragmentManager() , "DatePickerDialogFragment");
-            }
+        mReporterViewModel.getReportAdded().observe(this, leitnerReports -> {
+            mBinding.cpAdded.setProgress((float) leitnerReports.size(), allLeitnerWord);
+            mBinding.tvAddedCards.setText(String.valueOf(leitnerReports.size()));
+        });
+
+        mReporterViewModel.getReportsReviewed().observe(this, leitnerReports -> {
+            mBinding.cpReviewed.setProgress((float) leitnerReports.size(), allLeitnerWord);
+            mBinding.tvReviewedCards.setText(String.valueOf(leitnerReports.size()));
+        });
+
+        mBinding.chipHeadFilter.setOnClickListener(view -> {
+            DatePickerDialogFragment datePickerDialogFragment = new DatePickerDialogFragment();
+            datePickerDialogFragment.show(getSupportFragmentManager(), "DatePickerDialogFragment");
         });
 
     }

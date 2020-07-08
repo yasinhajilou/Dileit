@@ -109,6 +109,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/chip_head_filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -116,7 +117,7 @@
                 app:chipBackgroundColor="@android:color/white"
                 app:chipStrokeColor="@color/colorSecondary"
                 app:chipStrokeWidth="1dp"
-                tools:text="Month" />
+                android:text="@string/month" />
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"

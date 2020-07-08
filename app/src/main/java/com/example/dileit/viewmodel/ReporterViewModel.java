@@ -20,10 +20,15 @@ public class ReporterViewModel extends AndroidViewModel {
     private MutableLiveData<long[]> timeRange = new MutableLiveData<>();
     private LiveData<List<LeitnerReport>> mReportsReviewed = Transformations.switchMap(timeRange, input -> LiveDataReactiveStreams.fromPublisher(mInternalRepository.getReviewedCardByRange(input[0], input[1])));
     private LiveData<List<LeitnerReport>> mReportAdded = Transformations.switchMap(timeRange, input -> LiveDataReactiveStreams.fromPublisher(mInternalRepository.getAddedCardByRange(input[0], input[1])));
+    private MutableLiveData<Integer> mTimeFilter = new MutableLiveData<>();
 
     public ReporterViewModel(@NonNull Application application) {
         super(application);
         mInternalRepository = new InternalRepository(application);
+    }
+
+    public void setTimeFilter(int flag) {
+        mTimeFilter.setValue(flag);
     }
 
     public void setTimeRange(long[] ranges) {
@@ -37,6 +42,10 @@ public class ReporterViewModel extends AndroidViewModel {
 
     public LiveData<List<LeitnerReport>> getReportAdded() {
         return mReportAdded;
+    }
+
+    public LiveData<Integer> getTimeFilterFlag() {
+        return mTimeFilter;
     }
 
     public LiveData<Integer> getAllLeitnerCardCount() {

@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.animation.ValueAnimator;
 import android.os.Bundle;
+import android.view.View;
 
+import com.example.dileit.DatePickerDialogFragment;
 import com.example.dileit.databinding.ActivityReporterBinding;
 import com.example.dileit.viewmodel.ReporterViewModel;
 
@@ -33,6 +35,13 @@ public class ReporterActivity extends AppCompatActivity {
 
         mReporterViewModel.getLearnedCardsCount().observe(this, this::showLearnedCountessWithAnimation);
 
+        mBinding.chipHeadFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialogFragment datePickerDialogFragment = new DatePickerDialogFragment();
+                datePickerDialogFragment.show(getSupportFragmentManager() , "DatePickerDialogFragment");
+            }
+        });
 
     }
 

@@ -29,10 +29,6 @@ public class LeitnerManagerActivity extends AppCompatActivity {
     private LeitnerManagerViewPagerAdapter mAdapter;
     private int[] tabIcons = {R.drawable.ic_new_24dp
             , R.drawable.ic_searched_24dp, R.drawable.ic_done_all_24dp};
-    private int newCardsCounter, learnedCardsCounter, reviewedCardsCounter;
-
-    private int listCounter = 0;
-
     long duration = 1000;
 
     @Override

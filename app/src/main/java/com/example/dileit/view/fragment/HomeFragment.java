@@ -154,8 +154,10 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
                 break;
             case R.id.menu_action_setting:
                 mHomeFragmentInterface.onSettingMenuTouched();
+                break;
             case R.id.menu_action_reporter:
                 mHomeFragmentInterface.onReporterMenuTouched();
+                break;
         }
         return super.onOptionsItemSelected(item);
 

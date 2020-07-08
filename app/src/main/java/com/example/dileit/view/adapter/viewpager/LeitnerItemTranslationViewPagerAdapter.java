@@ -19,11 +19,9 @@ import com.example.dileit.R;
 import java.util.List;
 
 public class LeitnerItemTranslationViewPagerAdapter extends PagerAdapter {
-    private Context mContext;
     private List<String> mStrings;
 
-    public LeitnerItemTranslationViewPagerAdapter(Context context, List<String> strings) {
-        mContext = context;
+    public LeitnerItemTranslationViewPagerAdapter(List<String> strings) {
         mStrings = strings;
     }
 
@@ -45,7 +43,7 @@ public class LeitnerItemTranslationViewPagerAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_leitner_review_translation , container , false);
+        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.item_leitner_review_translation , container , false);
         TextView textView = view.findViewById(R.id.tv_item_view_pager_review_translation);
         textView.setText(mStrings.get(position));
         container.addView(view);
@@ -64,4 +62,5 @@ public class LeitnerItemTranslationViewPagerAdapter extends PagerAdapter {
                 return "Translation";
         }
     }
+
 }

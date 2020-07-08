@@ -76,6 +76,8 @@ public class SettingActivity extends AppCompatActivity {
                 //it's fist time for setting alarm
                 if (lastHour == -1 && lastMin == -1) {
                     showTimePicker();
+                }else {
+
                 }
             } else {
                 handleTimePickerEnabling(false);

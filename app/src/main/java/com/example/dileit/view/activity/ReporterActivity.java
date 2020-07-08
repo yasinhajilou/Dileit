@@ -5,10 +5,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.animation.ValueAnimator;
 import android.os.Bundle;
-import android.view.View;
 
-import com.example.dileit.DatePickerDialogFragment;
-import com.example.dileit.constant.TimeReporterFilter;
+import com.example.dileit.view.fragment.DatePickerDialogFragment;
 import com.example.dileit.databinding.ActivityReporterBinding;
 import com.example.dileit.viewmodel.ReporterViewModel;
 

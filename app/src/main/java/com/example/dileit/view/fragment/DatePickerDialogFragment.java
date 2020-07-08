@@ -1,26 +1,20 @@
-package com.example.dileit;
+package com.example.dileit.view.fragment;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.dileit.constant.TimeReporterFilter;
 import com.example.dileit.databinding.FragmentDatePickerDialogBinding;
 import com.example.dileit.viewmodel.ReporterViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 

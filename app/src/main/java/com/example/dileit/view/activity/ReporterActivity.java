@@ -50,12 +50,10 @@ public class ReporterActivity extends AppCompatActivity {
 
         mReporterViewModel.getReportAdded().observe(this, leitnerReports -> {
             mBinding.cpAdded.setProgress((float) leitnerReports.size(), allLeitnerWord);
-            mBinding.tvAddedCards.setText(String.valueOf(leitnerReports.size()));
         });
 
         mReporterViewModel.getReportsReviewed().observe(this, leitnerReports -> {
             mBinding.cpReviewed.setProgress((float) leitnerReports.size(), allLeitnerWord);
-            mBinding.tvReviewedCards.setText(String.valueOf(leitnerReports.size()));
         });
 
         mBinding.chipHeadFilter.setOnClickListener(view -> {

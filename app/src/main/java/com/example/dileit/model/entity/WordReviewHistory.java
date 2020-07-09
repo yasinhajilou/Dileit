@@ -29,4 +29,13 @@ public class WordReviewHistory {
     public long getReviewedTime() {
         return reviewedTime;
     }
+
+    @Override
+    public String toString() {
+        return "WordReviewHistory{" +
+                "id=" + id +
+                ", cardTitle='" + cardTitle + '\'' +
+                ", reviewedTime=" + reviewedTime +
+                '}';
+    }
 }

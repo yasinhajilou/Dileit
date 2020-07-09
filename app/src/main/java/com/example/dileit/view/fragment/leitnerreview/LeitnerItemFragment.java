@@ -28,6 +28,7 @@ import com.example.dileit.constant.LeitnerModifierConstants;
 import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.FragmentLeitnerItemBinding;
 import com.example.dileit.model.entity.Leitner;
+import com.example.dileit.model.entity.WordReviewHistory;
 import com.example.dileit.utils.LeitnerUtils;
 import com.example.dileit.view.adapter.viewpager.LeitnerItemTranslationViewPagerAdapter;
 import com.example.dileit.view.fragment.leitnercardhandler.LeitnerCardModifierBottomSheet;
@@ -137,6 +138,8 @@ public class LeitnerItemFragment extends Fragment {
 
         {
 
+            addReviewedHistory(mLeitner.getWord());
+
             int nextBox = LeitnerUtils.nextBoxFinder(mLeitner.getState());
             if (nextBox != -1) {
                 mLeitner.setState(nextBox);
@@ -154,11 +157,14 @@ public class LeitnerItemFragment extends Fragment {
         mBinding.btnReviewNo.setOnClickListener(view14 ->
 
         {
+            addReviewedHistory(mLeitner.getWord());
+
 
             mLeitner.setLastReviewTime(System.currentTimeMillis());
             mLeitner.setState(LeitnerStateConstant.BOX_ONE);
             mInternalViewModel.updateLeitnerItem(mLeitner);
             mListener.onNoClicked();
+
 
             handleReviewedCardsCounter();
             handleReviewAgainCardsCounter();
@@ -169,6 +175,11 @@ public class LeitnerItemFragment extends Fragment {
 
         mBinding.ivLeitnerMenuSecond.setOnClickListener(this::setUpMenu);
 
+    }
+
+    private void addReviewedHistory(String word) {
+        WordReviewHistory wordReviewHistory = new WordReviewHistory(0, word, System.currentTimeMillis());
+        mInternalViewModel.insertWordReviewedHistory(wordReviewHistory);
     }
 
     @Override

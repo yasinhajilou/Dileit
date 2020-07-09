@@ -14,9 +14,12 @@ import io.reactivex.Flowable;
 @Dao
 public interface WordReviewHistoryDao {
     @Insert
-    Completable insert();
+    Completable insert(WordReviewHistory wordReviewHistory);
 
-    @Query("SELECT * FROM WordReviewHistory WHERE reviewedTime BETWEEN :start and :end")
+    @Query("SELECT * FROM WordReviewHistory WHERE reviewedTime BETWEEN :start AND :end")
     Flowable<List<WordReviewHistory>> LIST_FLOWABLE(long start, long end);
+
+    @Query("SELECT COUNT(id)  FROM WordReviewHistory")
+    Flowable<Integer> LIST();
 
 }

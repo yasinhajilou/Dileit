@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
 import com.example.dileit.model.LeitnerReport;
+import com.example.dileit.model.entity.WordReviewHistory;
 import com.example.dileit.model.repository.InternalRepository;
 
 import java.util.List;
@@ -18,13 +19,13 @@ import java.util.List;
 public class ReporterViewModel extends AndroidViewModel {
     private InternalRepository mInternalRepository;
     private MutableLiveData<long[]> liveTimeRange = new MutableLiveData<>();
-    private LiveData<List<LeitnerReport>> liveReportsReviewed = Transformations.switchMap(liveTimeRange, input -> LiveDataReactiveStreams.fromPublisher(mInternalRepository.getReviewedCardByRange(input[0], input[1])));
+    private LiveData<List<WordReviewHistory>> liveReportsReviewed = Transformations.switchMap(liveTimeRange, input -> LiveDataReactiveStreams.fromPublisher(mInternalRepository.getWordReviewedHistoryByRange(input[0], input[1])));
     private LiveData<List<LeitnerReport>> liveReportAdded = Transformations.switchMap(liveTimeRange, input -> LiveDataReactiveStreams.fromPublisher(mInternalRepository.getAddedCardByRange(input[0], input[1])));
 
     private MutableLiveData<Integer> mTimeFilter = new MutableLiveData<>();
     private MediatorLiveData<Integer> liveTimeFlag = new MediatorLiveData<>();
     private List<LeitnerReport> listAddeds;
-    private List<LeitnerReport> listRevieweds;
+    private List<WordReviewHistory> listRevieweds;
     private int timeFilter = -1;
 
     public ReporterViewModel(@NonNull Application application) {
@@ -47,7 +48,7 @@ public class ReporterViewModel extends AndroidViewModel {
         });
     }
 
-    private void syncAddedReports(int timeFlag, List<LeitnerReport> reportAdded, List<LeitnerReport> reportReviewed) {
+    private void syncAddedReports(int timeFlag, List<LeitnerReport> reportAdded, List<WordReviewHistory> reportReviewed) {
         if (timeFlag != -1 && reportAdded != null && reportReviewed != null) {
             liveTimeFlag.setValue(timeFlag);
             timeFilter = -1;
@@ -68,7 +69,7 @@ public class ReporterViewModel extends AndroidViewModel {
         return liveTimeFlag;
     }
 
-    public LiveData<List<LeitnerReport>> getLiveReportsReviewed() {
+    public LiveData<List<WordReviewHistory>> getLiveReportsReviewed() {
         return liveReportsReviewed;
     }
 
@@ -86,5 +87,9 @@ public class ReporterViewModel extends AndroidViewModel {
 
     public LiveData<Integer> getLearnedCardsCount() {
         return LiveDataReactiveStreams.fromPublisher(mInternalRepository.getLearnedCardsCount());
+    }
+
+    public LiveData<Integer> getWordReviewedHistoryCount(){
+        return LiveDataReactiveStreams.fromPublisher(mInternalRepository.getWordReviewedHistoryCount());
     }
 }

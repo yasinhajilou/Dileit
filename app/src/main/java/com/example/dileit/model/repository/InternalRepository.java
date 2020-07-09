@@ -5,9 +5,11 @@ import android.content.Context;
 import com.example.dileit.model.LeitnerReport;
 import com.example.dileit.model.dao.LeitnerDao;
 import com.example.dileit.model.dao.WordHistoryDao;
+import com.example.dileit.model.dao.WordReviewHistoryDao;
 import com.example.dileit.model.database.InternalRoomDatabase;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.model.entity.WordHistory;
+import com.example.dileit.model.entity.WordReviewHistory;
 import com.example.dileit.utils.LeitnerUtils;
 import com.example.dileit.viewmodel.InternalViewModel;
 
@@ -23,16 +25,27 @@ import io.reactivex.schedulers.Schedulers;
 public class InternalRepository {
     private WordHistoryDao mWordHistoryDao;
     private LeitnerDao mLeitnerDao;
+    private WordReviewHistoryDao mWordReviewHistoryDao;
     private String TAG = InternalViewModel.class.getSimpleName();
 
     public InternalRepository(Context context) {
         InternalRoomDatabase database = InternalRoomDatabase.getInstance(context);
         mWordHistoryDao = database.mWordHistoryDao();
         mLeitnerDao = database.mLeitnerDao();
+        mWordReviewHistoryDao = database.mWordReviewHistoryDao();
     }
 
 
     //get data(Queries)
+    public Flowable<List<WordReviewHistory>> getWordReviewedHistoryByRange(long s, long e) {
+        return mWordReviewHistoryDao.LIST_FLOWABLE(s, e)
+                .subscribeOn(Schedulers.io());
+    }
+
+    public Flowable<Integer> getWordReviewedHistoryCount() {
+        return mWordReviewHistoryDao.LIST()
+                .subscribeOn(Schedulers.io());
+    }
     public Flowable<List<WordHistory>> getAllWordHistory() {
         return mWordHistoryDao.getAllWordHistory()
                 .subscribeOn(Schedulers.io());
@@ -127,6 +140,11 @@ public class InternalRepository {
     }
 
     //insert data
+    public Completable insetWordReviewedHistory(WordReviewHistory wordReviewHistory){
+        return mWordReviewHistoryDao.insert(wordReviewHistory)
+                .subscribeOn(Schedulers.io());
+    }
+
     public Completable insertWordHistory(WordHistory wordHistory) {
         return mWordHistoryDao.Insert(wordHistory)
                 .subscribeOn(Schedulers.io());

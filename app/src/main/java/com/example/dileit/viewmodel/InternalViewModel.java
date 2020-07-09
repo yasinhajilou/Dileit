@@ -13,6 +13,7 @@ import androidx.lifecycle.Transformations;
 
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.model.entity.WordHistory;
+import com.example.dileit.model.entity.WordReviewHistory;
 import com.example.dileit.model.repository.InternalRepository;
 
 import java.util.List;
@@ -62,6 +63,10 @@ public class InternalViewModel extends AndroidViewModel {
     }
 
     //insert data
+    public void insertWordReviewedHistory(WordReviewHistory wordReviewHistory) {
+        mRepository.insetWordReviewedHistory(wordReviewHistory).subscribe();
+    }
+
     public void insertWordHistory(WordHistory wordHistory) {
         mRepository.insertWordHistory(wordHistory).subscribe();
     }

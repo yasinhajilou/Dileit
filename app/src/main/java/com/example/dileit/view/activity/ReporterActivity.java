@@ -5,8 +5,10 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.animation.ValueAnimator;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.example.dileit.model.entity.WordReviewHistory;
 import com.example.dileit.view.fragment.DatePickerDialogFragment;
 import com.example.dileit.databinding.ActivityReporterBinding;
 import com.example.dileit.viewmodel.ReporterViewModel;
@@ -21,6 +23,7 @@ public class ReporterActivity extends AppCompatActivity {
 
     private String TAG = ReporterActivity.class.getSimpleName();
     private int allLeitnerWord;
+    private int allReviewedCards;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,10 @@ public class ReporterActivity extends AppCompatActivity {
             mReporterViewModel.setLiveTimeRange(new long[]{calendar.getTimeInMillis(), System.currentTimeMillis()});
         });
 
+        mReporterViewModel.getWordReviewedHistoryCount().observe(this , count -> {
+            allReviewedCards = count;
+        });
+
         mReporterViewModel.getLearnedCardsCount().observe(this, this::showLearnedCountessWithAnimation);
 
         mReporterViewModel.getLiveReportAdded().observe(this, leitnerReports -> {
@@ -54,7 +61,7 @@ public class ReporterActivity extends AppCompatActivity {
         });
 
         mReporterViewModel.getLiveReportsReviewed().observe(this, leitnerReports -> {
-            mBinding.cpReviewed.setProgress(leitnerReports.size(), allLeitnerWord);
+            mBinding.cpReviewed.setProgress(leitnerReports.size(), allReviewedCards);
         });
 
         mReporterViewModel.getTimeFilterFlag().observe(this, integer -> {

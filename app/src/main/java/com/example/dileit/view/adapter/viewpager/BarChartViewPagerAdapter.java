@@ -6,40 +6,41 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.PluralsRes;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.dileit.R;
 import com.example.dileit.model.BarChartInfo;
 import com.example.dileit.model.LeitnerReport;
+import com.example.dileit.view.fragment.reporter.AddedReporterFragment;
+import com.example.dileit.view.fragment.reporter.ReviewedReporterFragment;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 
 import java.util.List;
 
-public class BarChartViewPagerAdapter extends PagerAdapter {
-    private List<BarChartInfo> mLeitnerReports;
+public class BarChartViewPagerAdapter extends FragmentPagerAdapter {
 
-    public void addData(List<BarChartInfo> leitnerReports) {
-        mLeitnerReports = leitnerReports;
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public int getCount() {
-        return mLeitnerReports != null ? mLeitnerReports.size() : 0;
-    }
-
-    @Override
-    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view == object;
+    public BarChartViewPagerAdapter(@NonNull FragmentManager fm) {
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
     }
 
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.item_bar_chart, container, false);
-        BarChart barChart = view.findViewById(R.id.bar_chart);
-        BarData barData = new BarData();
-        return view;
+    public Fragment getItem(int position) {
+        switch (position){
+            case 1:
+                return new AddedReporterFragment();
+            case 0:
+            default:
+                return new ReviewedReporterFragment();
+        }
+    }
+
+    @Override
+    public int getCount() {
+        return 2;
     }
 }

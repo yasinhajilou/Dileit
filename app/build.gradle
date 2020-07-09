@@ -93,7 +93,7 @@ dependencies {
     implementation "com.airbnb.android:lottie:3.4.0"
 
     // Charts
-    implementation 'com.diogobernardino:williamchart:3.7.1'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
     //multi dex
     implementation 'com.android.support:multidex:1.0.3'

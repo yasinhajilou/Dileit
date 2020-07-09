@@ -1,6 +1,6 @@
 package com.example.dileit.model;
 
-public class LeitnerReport {
+public class LeitnerReport implements Comparable<LeitnerReport> {
 
     private long lastReviewTime;
 
@@ -17,5 +17,10 @@ public class LeitnerReport {
 
     public long getTimeAdded() {
         return timeAdded;
+    }
+
+    @Override
+    public int compareTo(LeitnerReport leitnerReport) {
+        return Long.compare(leitnerReport.lastReviewTime, this.lastReviewTime);
     }
 }

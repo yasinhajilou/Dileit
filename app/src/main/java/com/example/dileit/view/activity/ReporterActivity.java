@@ -67,6 +67,7 @@ public class ReporterActivity extends AppCompatActivity {
         mReporterViewModel.getTimeFilterFlag().observe(this, integer -> {
             Toast.makeText(this, ""+integer, Toast.LENGTH_SHORT).show();
         });
+
         mBinding.chipHeadFilter.setOnClickListener(view -> {
             DatePickerDialogFragment datePickerDialogFragment = new DatePickerDialogFragment();
             datePickerDialogFragment.show(getSupportFragmentManager(), "DatePickerDialogFragment");

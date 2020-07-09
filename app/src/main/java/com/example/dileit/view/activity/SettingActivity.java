@@ -4,29 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.example.dileit.R;
-import com.example.dileit.constant.KeysValue;
 import com.example.dileit.utils.AlarmManagerUtils;
 import com.example.dileit.utils.SharedPreferenceUtil;
-import com.example.dileit.view.fragment.TimePickerDialogFragment;
+import com.example.dileit.view.fragment.reporter.TimePickerDialogFragment;
 import com.example.dileit.databinding.ActivitySettingBinding;
-import com.example.dileit.reciever.AlarmReceiver;
 import com.example.dileit.viewmodel.InternalViewModel;
 import com.example.dileit.viewmodel.TimeSharedViewModel;
-
-import java.util.Calendar;
 
 public class SettingActivity extends AppCompatActivity {
 

@@ -11,6 +11,8 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.example.dileit.R;
 import com.example.dileit.model.BarChartInfo;
 import com.example.dileit.model.LeitnerReport;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
 
 import java.util.List;
 
@@ -36,7 +38,8 @@ public class BarChartViewPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View view = LayoutInflater.from(container.getContext()).inflate(R.layout.item_bar_chart, container, false);
-
+        BarChart barChart = view.findViewById(R.id.bar_chart);
+        BarData barData = new BarData();
         return view;
     }
 }

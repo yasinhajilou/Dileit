@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.animation.ValueAnimator;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.dileit.view.fragment.DatePickerDialogFragment;
 import com.example.dileit.databinding.ActivityReporterBinding;
@@ -18,6 +19,7 @@ public class ReporterActivity extends AppCompatActivity {
     private long duration = 1000;
     private ReporterViewModel mReporterViewModel;
 
+    private String TAG = ReporterActivity.class.getSimpleName();
     private int allLeitnerWord;
 
     @Override
@@ -40,24 +42,29 @@ public class ReporterActivity extends AppCompatActivity {
 
             //setting data up
             Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.MONTH, -1);
-            mReporterViewModel.setTimeRange(new long[]{calendar.getTimeInMillis(), System.currentTimeMillis()});
+            calendar.add(Calendar.DAY_OF_YEAR, -30);
+            mReporterViewModel.setLiveTimeRange(new long[]{calendar.getTimeInMillis(), System.currentTimeMillis()});
         });
 
         mReporterViewModel.getLearnedCardsCount().observe(this, this::showLearnedCountessWithAnimation);
 
-        mReporterViewModel.getReportAdded().observe(this, leitnerReports -> {
-            mBinding.cpAdded.setProgress((float) leitnerReports.size(), allLeitnerWord);
+        mReporterViewModel.getLiveReportAdded().observe(this, leitnerReports -> {
+            int size = leitnerReports.size();
+            mBinding.cpAdded.setProgress(size, allLeitnerWord);
         });
 
-        mReporterViewModel.getReportsReviewed().observe(this, leitnerReports -> {
-            mBinding.cpReviewed.setProgress((float) leitnerReports.size(), allLeitnerWord);
+        mReporterViewModel.getLiveReportsReviewed().observe(this, leitnerReports -> {
+            mBinding.cpReviewed.setProgress(leitnerReports.size(), allLeitnerWord);
         });
 
+        mReporterViewModel.getTimeFilterFlag().observe(this, integer -> {
+            Toast.makeText(this, ""+integer, Toast.LENGTH_SHORT).show();
+        });
         mBinding.chipHeadFilter.setOnClickListener(view -> {
             DatePickerDialogFragment datePickerDialogFragment = new DatePickerDialogFragment();
             datePickerDialogFragment.show(getSupportFragmentManager(), "DatePickerDialogFragment");
         });
+
 
     }
 

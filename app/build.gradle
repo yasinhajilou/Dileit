@@ -101,4 +101,5 @@ dependencies {
     //circular progress
     implementation 'com.mikhaellopez:circularprogressbar:3.0.3'
 
+    implementation 'com.github.samanzamani.persiandate:PersianDate:0.8'
 }

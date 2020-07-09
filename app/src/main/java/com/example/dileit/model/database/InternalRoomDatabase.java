@@ -10,8 +10,9 @@ import com.example.dileit.model.dao.LeitnerDao;
 import com.example.dileit.model.dao.WordHistoryDao;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.model.entity.WordHistory;
+import com.example.dileit.model.entity.WordReviewHistory;
 
-@Database(entities = {Leitner.class, WordHistory.class}, version = 1, exportSchema = false)
+@Database(entities = {Leitner.class, WordHistory.class, WordReviewHistory.class}, version = 1, exportSchema = false)
 public abstract class InternalRoomDatabase extends RoomDatabase {
     public abstract WordHistoryDao mWordHistoryDao();
     public abstract LeitnerDao mLeitnerDao();

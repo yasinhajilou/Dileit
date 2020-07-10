@@ -45,9 +45,9 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
 
         mBinding.chipReportDay.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.HOUR_OF_DAY, -24);
-                mReporterViewModel.setLiveTimeRange(new long[]{calendar.getTimeInMillis(), System.currentTimeMillis()});
+                long now =  System.currentTimeMillis();
+                long reverseDay = now - (24 * 60 * 60 * 1000);
+                mReporterViewModel.setLiveTimeRange(new long[]{reverseDay,now});
                 mReporterViewModel.setTimeFilter(TimeReporterFilter.DAY);
 
             }

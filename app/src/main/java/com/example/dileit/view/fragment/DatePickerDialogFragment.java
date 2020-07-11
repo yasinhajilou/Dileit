@@ -45,9 +45,10 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
 
         mBinding.chipReportDay.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
-                long now =  System.currentTimeMillis();
-                long reverseDay = now - (24 * 60 * 60 * 1000);
-                mReporterViewModel.setLiveTimeRange(new long[]{reverseDay,now});
+                Calendar calendar = Calendar.getInstance();
+                calendar.clear();
+                calendar.add(Calendar.HOUR_OF_DAY, -24);
+                mReporterViewModel.setLiveTimeRange(new long[]{calendar.getTimeInMillis(),System.currentTimeMillis()});
                 mReporterViewModel.setTimeFilter(TimeReporterFilter.DAY);
 
             }
@@ -56,6 +57,7 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
         mBinding.chipReportWeek.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
                 Calendar calendar = Calendar.getInstance();
+                calendar.clear();
                 calendar.add(Calendar.DAY_OF_YEAR, -7);
                 mReporterViewModel.setLiveTimeRange(new long[]{calendar.getTimeInMillis(), System.currentTimeMillis()});
                 mReporterViewModel.setTimeFilter(TimeReporterFilter.WEEK);
@@ -67,6 +69,7 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
         mBinding.chipReportMonth.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
                 Calendar calendar = Calendar.getInstance();
+                calendar.clear();
                 calendar.add(Calendar.DAY_OF_YEAR, -30);
                 mReporterViewModel.setLiveTimeRange(new long[]{calendar.getTimeInMillis(), System.currentTimeMillis()});
                 mReporterViewModel.setTimeFilter(TimeReporterFilter.MONTH);
@@ -77,6 +80,7 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
         mBinding.chipReportYear.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
                 Calendar calendar = Calendar.getInstance();
+                calendar.clear();
                 calendar.add(Calendar.YEAR, -1);
                 mReporterViewModel.setLiveTimeRange(new long[]{calendar.getTimeInMillis(), System.currentTimeMillis()});
                 mReporterViewModel.setTimeFilter(TimeReporterFilter.YEAR);

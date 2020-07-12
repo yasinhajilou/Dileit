@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.example.dileit.R;
 import com.example.dileit.utils.AlarmManagerUtils;
 import com.example.dileit.utils.SharedPreferenceUtil;
-import com.example.dileit.view.fragment.reporter.TimePickerDialogFragment;
+import com.example.dileit.view.fragment.TimePickerDialogFragment;
 import com.example.dileit.databinding.ActivitySettingBinding;
 import com.example.dileit.viewmodel.InternalViewModel;
 import com.example.dileit.viewmodel.TimeSharedViewModel;

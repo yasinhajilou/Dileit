@@ -9,9 +9,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.dileit.constant.TimeReporterFilter;
-import com.example.dileit.model.entity.WordReviewHistory;
 import com.example.dileit.view.adapter.viewpager.BarChartViewPagerAdapter;
-import com.example.dileit.view.fragment.DatePickerDialogFragment;
+import com.example.dileit.view.fragment.reporter.DatePickerDialogFragment;
 import com.example.dileit.databinding.ActivityReporterBinding;
 import com.example.dileit.viewmodel.ReporterViewModel;
 
@@ -50,9 +49,7 @@ public class ReporterActivity extends AppCompatActivity {
             allLeitnerWord = integer;
 
             //setting data up
-            Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.DAY_OF_YEAR, -30);
-            mReporterViewModel.setLiveTimeRange(new long[]{calendar.getTimeInMillis(), System.currentTimeMillis()});
+            mReporterViewModel.setLiveTimeRange(new long[]{30 * 24 * 60 * 60 * 1000L, System.currentTimeMillis()});
             mReporterViewModel.setTimeFilter(TimeReporterFilter.MONTH);
         });
 

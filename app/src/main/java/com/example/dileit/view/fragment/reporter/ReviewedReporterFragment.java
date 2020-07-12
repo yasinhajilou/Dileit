@@ -32,6 +32,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import saman.zamani.persiandate.PersianDate;
+
 import static com.example.dileit.constant.TimeReporterFilter.DAY;
 import static com.example.dileit.constant.TimeReporterFilter.WEEK;
 import static com.example.dileit.constant.TimeReporterFilter.MONTH;
@@ -48,7 +50,7 @@ public class ReviewedReporterFragment extends Fragment {
 
     private Map<String, Integer> mMapDayReviewCounter = new LinkedHashMap<>();
     private Map<Integer, Integer> mMapWeekReviewCounter = new LinkedHashMap<>();
-    private Map<Integer, Integer> mMapMonthReviewCounter = new LinkedHashMap<>();
+    private Map<String, Integer> mMapMonthReviewCounter = new LinkedHashMap<>();
     private Map<String, Integer> mMapYearReviewCounter = new LinkedHashMap<>();
 
     private int nowHour;
@@ -102,7 +104,7 @@ public class ReviewedReporterFragment extends Fragment {
 
     private void setUpChartDay() {
         //get now hour for getting last 24h
-        int startedHour = mCalendar.get(Calendar.HOUR_OF_DAY);
+        int startedHour = new PersianDate(System.currentTimeMillis()).getHour();
 
         final ArrayList<String> xAxisLabel = new ArrayList<>();
 
@@ -144,7 +146,7 @@ public class ReviewedReporterFragment extends Fragment {
 
         BarData data = new BarData(set);
         mBinding.barChartReviewed.setData(data);
-        mBinding.barChartReviewed.animateXY(1000 , 1000);
+        mBinding.barChartReviewed.animateXY(1000, 1000);
 
         Description description = new Description();
         description.setText("Last 24 hours");
@@ -156,48 +158,55 @@ public class ReviewedReporterFragment extends Fragment {
 
         final ArrayList<String> xAxisLabelWeek = new ArrayList<>();
 
-        for (int i = 1; i <= 7; i++) {
+        int todayIndexOfWeek = new PersianDate(System.currentTimeMillis()).dayOfWeek();
+
+        for (int i = 0; i < 7; i++) {
             String day;
-            switch (i) {
-                case 1:
+            switch (todayIndexOfWeek) {
+                case 0:
                     day = "Sat";
                     xAxisLabelWeek.add(day);
                     break;
-                case 2:
+                case 1:
                     day = "Sun";
                     xAxisLabelWeek.add(day);
                     break;
-                case 3:
+                case 2:
                     day = "Mon";
                     xAxisLabelWeek.add(day);
                     break;
-                case 4:
+                case 3:
                     day = "Tue";
                     xAxisLabelWeek.add(day);
                     break;
-                case 5:
+                case 4:
                     day = "Wed";
                     xAxisLabelWeek.add(day);
                     break;
-                case 6:
+                case 5:
                     day = "Thu";
                     xAxisLabelWeek.add(day);
                     break;
-                case 7:
+                case 6:
                     day = "Fri";
                     xAxisLabelWeek.add(day);
                     break;
             }
 
-            mMapWeekReviewCounter.put(i, 0);
+            mMapWeekReviewCounter.put(todayIndexOfWeek, 0);
+
+            todayIndexOfWeek--;
+
+            if (todayIndexOfWeek < 0)
+                todayIndexOfWeek = 6;
         }
 
         for (WordReviewHistory wordReviewHistory :
                 mHistoryList) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(wordReviewHistory.getReviewedTime());
-            int lastCount = mMapWeekReviewCounter.get(calendar.get(Calendar.DAY_OF_WEEK));
-            mMapWeekReviewCounter.put(calendar.get(Calendar.DAY_OF_WEEK), ++lastCount);
+            PersianDate persianDate = new PersianDate(wordReviewHistory.getReviewedTime());
+            int weekIndex = persianDate.dayOfWeek();
+            int lastCount = mMapWeekReviewCounter.get(weekIndex);
+            mMapWeekReviewCounter.put(weekIndex, ++lastCount);
         }
 
         List<BarEntry> barEntries = new ArrayList<>();
@@ -216,6 +225,8 @@ public class ReviewedReporterFragment extends Fragment {
 
         BarData dataWeek = new BarData(setWeek);
         mBinding.barChartReviewed.setData(dataWeek);
+        mBinding.barChartReviewed.animateXY(1000, 1000);
+
 
         Description descriptionWeek = new Description();
         descriptionWeek.setText("Last Week");
@@ -226,26 +237,64 @@ public class ReviewedReporterFragment extends Fragment {
 
     private void setUpChartMonth() {
 
-        for (int i = 1; i <= 12; i++) {
-            mMapMonthReviewCounter.put(i, 0);
+        final ArrayList<String> xAxisLabelYear = new ArrayList<>();
+
+        long todayTimeStamp = System.currentTimeMillis();
+        PersianDate persianDate = new PersianDate(todayTimeStamp);
+        int todayIndexOfMonth = persianDate.getShDay();
+
+        for (int i = 0; i <30 ; i++) {
+            String day;
+            switch (todayIndexOfMonth) {
+                case 1:
+                    day = "1st";
+                    xAxisLabelYear.add(day);
+                    mMapMonthReviewCounter.put("1", 0);
+                    break;
+                case 2:
+                    day = "2nd";
+                    xAxisLabelYear.add(day);
+                    mMapMonthReviewCounter.put("2", 0);
+                    break;
+                case 3:
+                    day = "3rd";
+                    xAxisLabelYear.add(day);
+                    mMapMonthReviewCounter.put("3", 0);
+                    break;
+                default:
+                    day = todayIndexOfMonth +"th";
+                    xAxisLabelYear.add(day);
+                    mMapMonthReviewCounter.put(todayIndexOfMonth+"", 0);
+            }
+
+
+
+            todayIndexOfMonth--;
+
+            if (todayIndexOfMonth < 0){
+                PersianDate persianDate1 = new PersianDate(todayTimeStamp - 30 * 24 * 60 * 60 * 1000L);
+                todayIndexOfMonth = persianDate1.getMonthLength();
+            }
+
         }
 
         for (WordReviewHistory wordReviewHistory :
                 mHistoryList) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(wordReviewHistory.getReviewedTime());
-            int lastCount = mMapMonthReviewCounter.get(calendar.get(Calendar.DAY_OF_MONTH));
-            mMapMonthReviewCounter.put(calendar.get(Calendar.DAY_OF_MONTH), ++lastCount);
+            PersianDate persianDate2 = new PersianDate(wordReviewHistory.getReviewedTime());
+            int lastCount = mMapMonthReviewCounter.get(persianDate2.getShDay()+"");
+            mMapMonthReviewCounter.put(persianDate2.getShDay() + "", ++lastCount);
         }
 
         List<BarEntry> barEntries = new ArrayList<>();
-        for (Map.Entry<Integer, Integer> entry : mMapMonthReviewCounter.entrySet()) {
-            barEntries.add(new BarEntry(entry.getKey(), entry.getValue()));
+        int a = 0;
+        for (Map.Entry<String, Integer> entry : mMapMonthReviewCounter.entrySet()) {
+            barEntries.add(new BarEntry(a++, entry.getValue()));
         }
 
         XAxis xAxis = mBinding.barChartReviewed.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setLabelCount(28);
+        xAxis.setLabelCount(12);
+        mBinding.barChartReviewed.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xAxisLabelYear));
 
         BarDataSet setWeek = new BarDataSet(barEntries, " ");
         setWeek.setDrawValues(false);
@@ -253,9 +302,11 @@ public class ReviewedReporterFragment extends Fragment {
 
         BarData dataWeek = new BarData(setWeek);
         mBinding.barChartReviewed.setData(dataWeek);
+        mBinding.barChartReviewed.animateXY(1000, 1000);
+
 
         Description descriptionWeek = new Description();
-        descriptionWeek.setText("Last Week");
+        descriptionWeek.setText("Last 30 days");
         mBinding.barChartReviewed.setDescription(descriptionWeek);
         mBinding.barChartReviewed.setFitBars(true);
         mBinding.barChartReviewed.invalidate();

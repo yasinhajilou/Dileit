@@ -1,4 +1,4 @@
-package com.example.dileit.view.fragment.reporter;
+package com.example.dileit.view.fragment;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;

@@ -48,7 +48,7 @@ public class ReviewedReporterFragment extends Fragment {
 
     private Map<String, Integer> mMapDayReviewCounter = new LinkedHashMap<>();
     private Map<Integer, Integer> mMapWeekReviewCounter = new LinkedHashMap<>();
-    private Map<String, Integer> mMapMonthReviewCounter = new LinkedHashMap<>();
+    private Map<Integer, Integer> mMapMonthReviewCounter = new LinkedHashMap<>();
     private Map<String, Integer> mMapYearReviewCounter = new LinkedHashMap<>();
 
     private int nowHour;
@@ -83,14 +83,16 @@ public class ReviewedReporterFragment extends Fragment {
 
         });
 
-        mReporterViewModel.getTimeFilterFlag().observe(getViewLifecycleOwner(), integer -> {
+        mReporterViewModel.getTimeFlag().observe(getViewLifecycleOwner(), integer -> {
             switch (integer) {
                 case DAY:
                     setUpChartDay();
                     break;
                 case WEEK:
+                    setUpChartWeek();
                     break;
                 case MONTH:
+                    setUpChartMonth();
                     break;
                 case YEAR:
                     break;
@@ -142,6 +144,7 @@ public class ReviewedReporterFragment extends Fragment {
 
         BarData data = new BarData(set);
         mBinding.barChartReviewed.setData(data);
+        mBinding.barChartReviewed.animateXY(1000 , 1000);
 
         Description description = new Description();
         description.setText("Last 24 hours");
@@ -205,7 +208,7 @@ public class ReviewedReporterFragment extends Fragment {
         XAxis xAxis = mBinding.barChartReviewed.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         mBinding.barChartReviewed.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xAxisLabelWeek));
-        xAxis.setLabelCount(8);
+        xAxis.setLabelCount(7);
 
         BarDataSet setWeek = new BarDataSet(barEntries, " ");
         setWeek.setDrawValues(false);
@@ -220,4 +223,42 @@ public class ReviewedReporterFragment extends Fragment {
         mBinding.barChartReviewed.setFitBars(true);
         mBinding.barChartReviewed.invalidate();
     }
+
+    private void setUpChartMonth() {
+
+        for (int i = 1; i <= 12; i++) {
+            mMapMonthReviewCounter.put(i, 0);
+        }
+
+        for (WordReviewHistory wordReviewHistory :
+                mHistoryList) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(wordReviewHistory.getReviewedTime());
+            int lastCount = mMapMonthReviewCounter.get(calendar.get(Calendar.DAY_OF_MONTH));
+            mMapMonthReviewCounter.put(calendar.get(Calendar.DAY_OF_MONTH), ++lastCount);
+        }
+
+        List<BarEntry> barEntries = new ArrayList<>();
+        for (Map.Entry<Integer, Integer> entry : mMapMonthReviewCounter.entrySet()) {
+            barEntries.add(new BarEntry(entry.getKey(), entry.getValue()));
+        }
+
+        XAxis xAxis = mBinding.barChartReviewed.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setLabelCount(28);
+
+        BarDataSet setWeek = new BarDataSet(barEntries, " ");
+        setWeek.setDrawValues(false);
+        setWeek.setColors(ColorTemplate.VORDIPLOM_COLORS);
+
+        BarData dataWeek = new BarData(setWeek);
+        mBinding.barChartReviewed.setData(dataWeek);
+
+        Description descriptionWeek = new Description();
+        descriptionWeek.setText("Last Week");
+        mBinding.barChartReviewed.setDescription(descriptionWeek);
+        mBinding.barChartReviewed.setFitBars(true);
+        mBinding.barChartReviewed.invalidate();
+    }
+
 }

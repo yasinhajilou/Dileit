@@ -45,10 +45,9 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
 
         mBinding.chipReportDay.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.clear();
-                calendar.add(Calendar.HOUR_OF_DAY, -24);
-                mReporterViewModel.setLiveTimeRange(new long[]{calendar.getTimeInMillis(),System.currentTimeMillis()});
+                long today = System.currentTimeMillis();
+                long startTime = today -  24 * 60 * 60 * 1000;
+                mReporterViewModel.setLiveTimeRange(new long[]{startTime, today});
                 mReporterViewModel.setTimeFilter(TimeReporterFilter.DAY);
 
             }
@@ -56,10 +55,9 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
 
         mBinding.chipReportWeek.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.clear();
-                calendar.add(Calendar.DAY_OF_YEAR, -7);
-                mReporterViewModel.setLiveTimeRange(new long[]{calendar.getTimeInMillis(), System.currentTimeMillis()});
+                long today = System.currentTimeMillis();
+                long startTime = today - 7 * 24 * 60 * 60 * 1000;
+                mReporterViewModel.setLiveTimeRange(new long[]{startTime, today });
                 mReporterViewModel.setTimeFilter(TimeReporterFilter.WEEK);
 
             }
@@ -68,10 +66,9 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
 
         mBinding.chipReportMonth.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.clear();
-                calendar.add(Calendar.DAY_OF_YEAR, -30);
-                mReporterViewModel.setLiveTimeRange(new long[]{calendar.getTimeInMillis(), System.currentTimeMillis()});
+                long today = System.currentTimeMillis();
+                long startTime = today - 30 * 24 * 60 * 60 * 1000L;
+                mReporterViewModel.setLiveTimeRange(new long[]{startTime , today});
                 mReporterViewModel.setTimeFilter(TimeReporterFilter.MONTH);
             }
         });
@@ -79,10 +76,9 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
 
         mBinding.chipReportYear.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.clear();
-                calendar.add(Calendar.YEAR, -1);
-                mReporterViewModel.setLiveTimeRange(new long[]{calendar.getTimeInMillis(), System.currentTimeMillis()});
+                long today = System.currentTimeMillis();
+                long startTime = today - 365 * 24 * 60 * 60 * 1000L;
+                mReporterViewModel.setLiveTimeRange(new long[]{startTime , today});
                 mReporterViewModel.setTimeFilter(TimeReporterFilter.YEAR);
 
             }

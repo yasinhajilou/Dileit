@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.dileit.constant.TimeReporterFilter;
 import com.example.dileit.model.entity.WordReviewHistory;
 import com.example.dileit.view.adapter.viewpager.BarChartViewPagerAdapter;
 import com.example.dileit.view.fragment.DatePickerDialogFragment;
@@ -52,6 +53,7 @@ public class ReporterActivity extends AppCompatActivity {
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.DAY_OF_YEAR, -30);
             mReporterViewModel.setLiveTimeRange(new long[]{calendar.getTimeInMillis(), System.currentTimeMillis()});
+            mReporterViewModel.setTimeFilter(TimeReporterFilter.MONTH);
         });
 
         mReporterViewModel.getWordReviewedHistoryCount().observe(this, count -> {

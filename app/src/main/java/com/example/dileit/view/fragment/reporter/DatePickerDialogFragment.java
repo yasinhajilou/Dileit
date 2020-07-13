@@ -15,6 +15,11 @@ import com.example.dileit.databinding.FragmentDatePickerDialogBinding;
 import com.example.dileit.viewmodel.ReporterViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import static com.example.dileit.constant.TimeReporterFilter.DAY;
+import static com.example.dileit.constant.TimeReporterFilter.MONTH;
+import static com.example.dileit.constant.TimeReporterFilter.WEEK;
+import static com.example.dileit.constant.TimeReporterFilter.YEAR;
+
 
 public class DatePickerDialogFragment extends BottomSheetDialogFragment {
     private ReporterViewModel mReporterViewModel;
@@ -46,7 +51,7 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
                 long today = System.currentTimeMillis();
                 long startTime = today -  24 * 60 * 60 * 1000;
                 mReporterViewModel.setLiveTimeRange(new long[]{startTime, today});
-                mReporterViewModel.setTimeFilter(TimeReporterFilter.DAY);
+                mReporterViewModel.setSelectedTime(TimeReporterFilter.DAY);
 
             }
         });
@@ -56,7 +61,7 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
                 long today = System.currentTimeMillis();
                 long startTime = today - 7 * 24 * 60 * 60 * 1000;
                 mReporterViewModel.setLiveTimeRange(new long[]{startTime, today });
-                mReporterViewModel.setTimeFilter(TimeReporterFilter.WEEK);
+                mReporterViewModel.setSelectedTime(TimeReporterFilter.WEEK);
 
             }
         });
@@ -67,7 +72,7 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
                 long today = System.currentTimeMillis();
                 long startTime = today - 30 * 24 * 60 * 60 * 1000L;
                 mReporterViewModel.setLiveTimeRange(new long[]{startTime , today});
-                mReporterViewModel.setTimeFilter(TimeReporterFilter.MONTH);
+                mReporterViewModel.setSelectedTime(TimeReporterFilter.MONTH);
             }
         });
 
@@ -77,8 +82,25 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
                 long today = System.currentTimeMillis();
                 long startTime = today - 365 * 24 * 60 * 60 * 1000L;
                 mReporterViewModel.setLiveTimeRange(new long[]{startTime , today});
-                mReporterViewModel.setTimeFilter(TimeReporterFilter.YEAR);
+                mReporterViewModel.setSelectedTime(TimeReporterFilter.YEAR);
 
+            }
+        });
+
+        mReporterViewModel.getTimeFilterFlag().observe(getViewLifecycleOwner(), integer -> {
+            switch (integer) {
+                case DAY:
+                    mBinding.chipReportDay.setChecked(true);
+                    break;
+                case WEEK:
+                    mBinding.chipReportWeek.setChecked(true);
+                    break;
+                case MONTH:
+                    mBinding.chipReportMonth.setChecked(true);
+                    break;
+                case YEAR:
+                    mBinding.chipReportYear.setChecked(true);
+                    break;
             }
         });
     }

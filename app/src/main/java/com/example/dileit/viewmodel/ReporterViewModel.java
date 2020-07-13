@@ -22,8 +22,8 @@ public class ReporterViewModel extends AndroidViewModel {
     private LiveData<List<WordReviewHistory>> liveReportsReviewed = Transformations.switchMap(liveTimeRange, input -> LiveDataReactiveStreams.fromPublisher(mInternalRepository.getWordReviewedHistoryByRange(input[0], input[1])));
     private LiveData<List<LeitnerReport>> liveReportAdded = Transformations.switchMap(liveTimeRange, input -> LiveDataReactiveStreams.fromPublisher(mInternalRepository.getAddedCardByRange(input[0], input[1])));
 
-    private MutableLiveData<Integer> mTimeFilter = new MutableLiveData<>();
-    private MediatorLiveData<Integer> liveTimeFlag = new MediatorLiveData<>();
+    private MutableLiveData<Integer> mSelectedTime = new MutableLiveData<>();
+    private MediatorLiveData<Integer> liveSyncedTimeLists = new MediatorLiveData<>();
     private List<LeitnerReport> listAddeds;
     private List<WordReviewHistory> listRevieweds;
     private int timeFilter = -1;
@@ -32,17 +32,17 @@ public class ReporterViewModel extends AndroidViewModel {
         super(application);
         mInternalRepository = new InternalRepository(application);
 
-        liveTimeFlag.addSource(mTimeFilter, integer -> {
+        liveSyncedTimeLists.addSource(mSelectedTime, integer -> {
             timeFilter = integer;
             syncAddedReports(timeFilter, listAddeds, listRevieweds);
         });
 
-        liveTimeFlag.addSource(liveReportAdded, leitnerReports -> {
+        liveSyncedTimeLists.addSource(liveReportAdded, leitnerReports -> {
             listAddeds = leitnerReports;
             syncAddedReports(timeFilter, listAddeds, listRevieweds);
         });
 
-        liveTimeFlag.addSource(liveReportsReviewed, leitnerReports -> {
+        liveSyncedTimeLists.addSource(liveReportsReviewed, leitnerReports -> {
             listRevieweds = leitnerReports;
             syncAddedReports(timeFilter, listAddeds, listRevieweds);
         });
@@ -50,23 +50,23 @@ public class ReporterViewModel extends AndroidViewModel {
 
     private void syncAddedReports(int timeFlag, List<LeitnerReport> reportAdded, List<WordReviewHistory> reportReviewed) {
         if (timeFlag != -1 && reportAdded != null && reportReviewed != null) {
-            liveTimeFlag.setValue(timeFlag);
+            liveSyncedTimeLists.setValue(timeFlag);
             timeFilter = -1;
             listAddeds = null;
             listRevieweds = null;
         }
     }
 
-    public void setTimeFilter(int flag) {
-        mTimeFilter.setValue(flag);
+    public void setSelectedTime(int flag) {
+        mSelectedTime.setValue(flag);
     }
 
     public void setLiveTimeRange(long[] ranges) {
         liveTimeRange.setValue(ranges);
     }
 
-    public LiveData<Integer> getTimeFlag() {
-        return liveTimeFlag;
+    public LiveData<Integer> getLiveSyncedTimeLists() {
+        return liveSyncedTimeLists;
     }
 
     public LiveData<List<WordReviewHistory>> getLiveReportsReviewed() {
@@ -78,7 +78,7 @@ public class ReporterViewModel extends AndroidViewModel {
     }
 
     public LiveData<Integer> getTimeFilterFlag() {
-        return mTimeFilter;
+        return mSelectedTime;
     }
 
     public LiveData<Integer> getAllLeitnerCardCount() {

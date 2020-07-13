@@ -81,12 +81,11 @@ public class ReviewedReporterFragment extends Fragment {
 
         mReporterViewModel.getLiveReportsReviewed().observe(getViewLifecycleOwner(), wordReviewHistories -> {
             mHistoryList = wordReviewHistories;
-            mCalendar = Calendar.getInstance();
-            mCalendar.setTimeInMillis(System.currentTimeMillis());
-
+            Log.d(TAG, "getLiveReportsReviewed onViewCreated: ************************");
         });
 
-        mReporterViewModel.getTimeFlag().observe(getViewLifecycleOwner(), integer -> {
+        mReporterViewModel.getLiveSyncedTimeLists().observe(getViewLifecycleOwner(), integer -> {
+            Log.d(TAG, "onViewCreated: getLiveSyncedTimeLists ************************");
             switch (integer) {
                 case DAY:
                     setUpChartDay();

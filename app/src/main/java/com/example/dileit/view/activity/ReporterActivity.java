@@ -14,7 +14,10 @@ import com.example.dileit.view.fragment.reporter.DatePickerDialogFragment;
 import com.example.dileit.databinding.ActivityReporterBinding;
 import com.example.dileit.viewmodel.ReporterViewModel;
 
-import java.util.Calendar;
+import static com.example.dileit.constant.TimeReporterFilter.DAY;
+import static com.example.dileit.constant.TimeReporterFilter.MONTH;
+import static com.example.dileit.constant.TimeReporterFilter.WEEK;
+import static com.example.dileit.constant.TimeReporterFilter.YEAR;
 
 public class ReporterActivity extends AppCompatActivity {
 
@@ -50,7 +53,7 @@ public class ReporterActivity extends AppCompatActivity {
 
             //setting data up
             mReporterViewModel.setLiveTimeRange(new long[]{30 * 24 * 60 * 60 * 1000L, System.currentTimeMillis()});
-            mReporterViewModel.setTimeFilter(TimeReporterFilter.MONTH);
+            mReporterViewModel.setSelectedTime(TimeReporterFilter.MONTH);
         });
 
         mReporterViewModel.getWordReviewedHistoryCount().observe(this, count -> {
@@ -67,7 +70,6 @@ public class ReporterActivity extends AppCompatActivity {
 
         mReporterViewModel.getLiveReportsReviewed().observe(this, leitnerReports -> {
             int size = leitnerReports.size();
-            Log.d(TAG, "onCreate: " + size);
             mBinding.cpReviewed.setProgress(size, allReviewedCards);
         });
 
@@ -80,6 +82,22 @@ public class ReporterActivity extends AppCompatActivity {
             datePickerDialogFragment.show(getSupportFragmentManager(), "DatePickerDialogFragment");
         });
 
+        mReporterViewModel.getTimeFilterFlag().observe( this , integer -> {
+            switch (integer) {
+                case DAY:
+                    mBinding.chipHeadFilter.setText("Day");
+                    break;
+                case WEEK:
+                    mBinding.chipHeadFilter.setText("Week");
+                    break;
+                case MONTH:
+                    mBinding.chipHeadFilter.setText("Month");
+                    break;
+                case YEAR:
+                    mBinding.chipHeadFilter.setText("Year");
+                    break;
+            }
+        });
 
     }
 

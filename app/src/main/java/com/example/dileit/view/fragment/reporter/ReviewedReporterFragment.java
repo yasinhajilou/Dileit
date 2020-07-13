@@ -17,11 +17,13 @@ import com.example.dileit.databinding.FragmentRelatedIdiomsBinding;
 import com.example.dileit.databinding.FragmentReviewedReporterBinding;
 import com.example.dileit.model.entity.WordReviewHistory;
 import com.example.dileit.viewmodel.ReporterViewModel;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
@@ -53,7 +55,6 @@ public class ReviewedReporterFragment extends Fragment {
     private Map<String, Integer> mMapMonthReviewCounter = new LinkedHashMap<>();
     private Map<String, Integer> mMapYearReviewCounter = new LinkedHashMap<>();
 
-    private int nowHour;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -97,6 +98,7 @@ public class ReviewedReporterFragment extends Fragment {
                     setUpChartMonth();
                     break;
                 case YEAR:
+                    setUpChartYear();
                     break;
             }
         });
@@ -210,8 +212,10 @@ public class ReviewedReporterFragment extends Fragment {
         }
 
         List<BarEntry> barEntries = new ArrayList<>();
+        int m = 0;
         for (Map.Entry<Integer, Integer> entry : mMapWeekReviewCounter.entrySet()) {
-            barEntries.add(new BarEntry(entry.getKey(), entry.getValue()));
+            barEntries.add(new BarEntry(m, entry.getValue()));
+            m++;
         }
 
         XAxis xAxis = mBinding.barChartReviewed.getXAxis();
@@ -237,41 +241,39 @@ public class ReviewedReporterFragment extends Fragment {
 
     private void setUpChartMonth() {
 
-        final ArrayList<String> xAxisLabelYear = new ArrayList<>();
+        final ArrayList<String> xAxisLabelMonth = new ArrayList<>();
 
         long todayTimeStamp = System.currentTimeMillis();
         PersianDate persianDate = new PersianDate(todayTimeStamp);
         int todayIndexOfMonth = persianDate.getShDay();
-
-        for (int i = 0; i <30 ; i++) {
+        for (int i = 0; i < 30; i++) {
             String day;
             switch (todayIndexOfMonth) {
                 case 1:
                     day = "1st";
-                    xAxisLabelYear.add(day);
+                    xAxisLabelMonth.add(day);
                     mMapMonthReviewCounter.put("1", 0);
                     break;
                 case 2:
                     day = "2nd";
-                    xAxisLabelYear.add(day);
+                    xAxisLabelMonth.add(day);
                     mMapMonthReviewCounter.put("2", 0);
                     break;
                 case 3:
                     day = "3rd";
-                    xAxisLabelYear.add(day);
+                    xAxisLabelMonth.add(day);
                     mMapMonthReviewCounter.put("3", 0);
                     break;
                 default:
-                    day = todayIndexOfMonth +"th";
-                    xAxisLabelYear.add(day);
-                    mMapMonthReviewCounter.put(todayIndexOfMonth+"", 0);
+                    day = todayIndexOfMonth + "th";
+                    xAxisLabelMonth.add(day);
+                    mMapMonthReviewCounter.put(todayIndexOfMonth + "", 0);
             }
-
 
 
             todayIndexOfMonth--;
 
-            if (todayIndexOfMonth < 0){
+            if (todayIndexOfMonth < 0) {
                 PersianDate persianDate1 = new PersianDate(todayTimeStamp - 30 * 24 * 60 * 60 * 1000L);
                 todayIndexOfMonth = persianDate1.getMonthLength();
             }
@@ -281,7 +283,7 @@ public class ReviewedReporterFragment extends Fragment {
         for (WordReviewHistory wordReviewHistory :
                 mHistoryList) {
             PersianDate persianDate2 = new PersianDate(wordReviewHistory.getReviewedTime());
-            int lastCount = mMapMonthReviewCounter.get(persianDate2.getShDay()+"");
+            int lastCount = mMapMonthReviewCounter.get(persianDate2.getShDay() + "");
             mMapMonthReviewCounter.put(persianDate2.getShDay() + "", ++lastCount);
         }
 
@@ -294,7 +296,7 @@ public class ReviewedReporterFragment extends Fragment {
         XAxis xAxis = mBinding.barChartReviewed.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setLabelCount(12);
-        mBinding.barChartReviewed.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xAxisLabelYear));
+        mBinding.barChartReviewed.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xAxisLabelMonth));
 
         BarDataSet setWeek = new BarDataSet(barEntries, " ");
         setWeek.setDrawValues(false);
@@ -310,6 +312,72 @@ public class ReviewedReporterFragment extends Fragment {
         mBinding.barChartReviewed.setDescription(descriptionWeek);
         mBinding.barChartReviewed.setFitBars(true);
         mBinding.barChartReviewed.invalidate();
+
     }
+
+    private void setUpChartYear() {
+
+        final ArrayList<String> xAxisLabelYear = new ArrayList<>();
+
+        long todayTimeStamp = System.currentTimeMillis();
+        PersianDate persianDate = new PersianDate(todayTimeStamp);
+        int todayIndexOfMonths = persianDate.getShMonth();
+
+        Log.d(TAG, "setUpChartMonth: " + todayIndexOfMonths);
+
+        for (int i = 0; i < 12; i++) {
+            Log.d(TAG, "setUpChartYear: month name " + todayIndexOfMonths + " - " + persianDate.monthName(todayIndexOfMonths));
+
+            xAxisLabelYear.add(persianDate.monthName(todayIndexOfMonths));
+            mMapYearReviewCounter.put(String.valueOf(todayIndexOfMonths), 0);
+
+            todayIndexOfMonths--;
+            if (todayIndexOfMonths == 0) {
+                todayIndexOfMonths = 12;
+            }
+
+        }
+
+        for (
+                WordReviewHistory wordReviewHistory :
+                mHistoryList) {
+            PersianDate persianDate2 = new PersianDate(wordReviewHistory.getReviewedTime());
+            int date = persianDate2.getShMonth() ;
+            int lastCount = mMapYearReviewCounter.get(date+ "");
+            mMapYearReviewCounter.put( date +"", ++lastCount);
+            Log.d(TAG, "setUpChartYear Reviewed: " + persianDate2.getShMonth() + "--" + lastCount);
+            Log.d(TAG, "setUpChartYear: " + xAxisLabelYear.get(date));
+
+        }
+
+        List<BarEntry> barEntries = new ArrayList<>();
+        int a = 0 ;
+        for (
+                Map.Entry<String, Integer> entry : mMapYearReviewCounter.entrySet()) {
+            barEntries.add(new BarEntry(a, entry.getValue()));
+            a++;
+        }
+
+        XAxis xAxis = mBinding.barChartReviewed.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        mBinding.barChartReviewed.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xAxisLabelYear));
+        xAxis.setLabelCount(8);
+
+        BarDataSet setWeek = new BarDataSet(barEntries, " ");
+        setWeek.setDrawValues(false);
+        setWeek.setColors(ColorTemplate.VORDIPLOM_COLORS);
+
+        BarData dataWeek = new BarData(setWeek);
+        mBinding.barChartReviewed.setData(dataWeek);
+        mBinding.barChartReviewed.animateXY(1000, 1000);
+
+
+        Description descriptionWeek = new Description();
+        descriptionWeek.setText("Last 12 month");
+        mBinding.barChartReviewed.setDescription(descriptionWeek);
+        mBinding.barChartReviewed.setFitBars(true);
+        mBinding.barChartReviewed.invalidate();
+    }
+
 
 }

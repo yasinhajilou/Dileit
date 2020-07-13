@@ -131,7 +131,6 @@ public class WordInformationFragment extends Fragment {
 
                 engPagerIndex = mAdapter.addPage(new EnglishTranslatedFragment());
                 chipEnglish.setVisibility(View.VISIBLE);
-                selectEnglishChip();
 
                 mSharedViewModel.setEngDefList(englishDefs);
                 builderEnglish = new StringBuilder();

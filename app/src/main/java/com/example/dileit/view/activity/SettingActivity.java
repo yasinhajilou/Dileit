@@ -66,7 +66,8 @@ public class SettingActivity extends AppCompatActivity {
                 if (lastHour == -1 && lastMin == -1) {
                     showTimePicker();
                 }else {
-
+                    mAlarmManagerUtils.setAlarm(lastHour , lastMin);
+                    initTextViews(lastHour , lastMin);
                 }
             } else {
                 handleTimePickerEnabling(false);

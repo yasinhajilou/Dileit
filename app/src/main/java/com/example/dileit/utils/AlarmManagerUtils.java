@@ -40,7 +40,6 @@ public class AlarmManagerUtils {
         mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
         enableBootReceiver();
-
     }
 
     public void cancelAlarm() {

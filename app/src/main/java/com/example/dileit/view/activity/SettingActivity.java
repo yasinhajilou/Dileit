@@ -1,12 +1,10 @@
 package com.example.dileit.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.dileit.R;
@@ -65,59 +63,56 @@ public class SettingActivity extends AppCompatActivity {
                 //it's fist time for setting alarm
                 if (lastHour == -1 && lastMin == -1) {
                     showTimePicker();
-                }else {
-                    mAlarmManagerUtils.setAlarm(lastHour , lastMin);
-                    initTextViews(lastHour , lastMin);
+                } else {
+                    mAlarmManagerUtils.setAlarm(lastHour, lastMin);
+                    mSharedPreferenceUtil.setTime(lastHour, lastMin);
+                    mSharedPreferenceUtil.setAlarmManagerStatus(true);
+                    initTextViews(lastHour, lastMin);
+                    Toast.makeText(this, "Alarm enabled for " + lastHour + ":" + lastMin, Toast.LENGTH_LONG).show();
                 }
             } else {
                 handleTimePickerEnabling(false);
                 if (mAlarmManagerUtils.checkForExistingAlarm() != null) {
                     mAlarmManagerUtils.cancelAlarm();
+                    mSharedPreferenceUtil.setAlarmManagerStatus(false);
                 }
             }
         });
+
         mBinding.linearLayoutTimeEditor.setOnClickListener(view -> {
             showTimePicker();
         });
 
-        mBinding.btnDeleteHistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this)
-                        .setTitle("Delete History")
-                        .setMessage("Are you want to delete Search History?")
-                        .setNegativeButton("No", (dialogInterface, i) -> {
-                            dialogInterface.dismiss();
-                        })
-                        .setNeutralButton("Yes", (dialogInterface, i) -> {
-                            mInternalViewModel.deleteAllHistory();
-                        });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            }
+        mBinding.btnDeleteHistory.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this)
+                    .setTitle("Delete History")
+                    .setMessage("Are you want to delete Search History?")
+                    .setNegativeButton("No", (dialogInterface, i) -> {
+                        dialogInterface.dismiss();
+                    })
+                    .setNeutralButton("Yes", (dialogInterface, i) -> {
+                        mInternalViewModel.deleteAllHistory();
+                    });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
         });
 
-        mTimeSharedViewModel.getCancelListener().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
+        mTimeSharedViewModel.getCancelListener().observe(this, aBoolean -> {
 
-                //check for is it first time for setting reminder or not
-                //if not we use default values in SP
-                if (lastHour == -1 && lastMin == -1) {
-                    //we should swicth back because time picking canceled
-                    if (aBoolean)
-                        mBinding.switchReminder.setChecked(false);
-                }
-            }
-        });
-        mInternalViewModel.getDeletedHistoryResult().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
+            //check for is it first time for setting reminder or not
+            //if not we use default values in SP
+            if (lastHour == -1 && lastMin == -1) {
+                //we should swicth back because time picking canceled
                 if (aBoolean)
-                    Toast.makeText(SettingActivity.this, "Deleted Successfully", Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(SettingActivity.this, "An Error Occurred", Toast.LENGTH_SHORT).show();
+                    mBinding.switchReminder.setChecked(false);
             }
+        });
+
+        mInternalViewModel.getDeletedHistoryResult().observe(this, aBoolean -> {
+            if (aBoolean)
+                Toast.makeText(SettingActivity.this, "Deleted Successfully", Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(SettingActivity.this, "An Error Occurred", Toast.LENGTH_SHORT).show();
         });
 
         mTimeSharedViewModel.getTime().observe(this, ints -> {
@@ -128,8 +123,10 @@ public class SettingActivity extends AppCompatActivity {
             initTextViews(lastHour, lastMin);
 
             mSharedPreferenceUtil.setTime(lastHour, lastMin);
-
+            mSharedPreferenceUtil.setAlarmManagerStatus(true);
             mAlarmManagerUtils.setAlarm(lastHour, lastMin);
+            Toast.makeText(this, "Alarm enabled for " + lastHour + ":" + lastMin, Toast.LENGTH_LONG).show();
+
         });
     }
 

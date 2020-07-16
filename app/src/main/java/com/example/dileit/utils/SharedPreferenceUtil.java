@@ -13,6 +13,15 @@ public class SharedPreferenceUtil {
         mSharedPreferences = context.getSharedPreferences(KeysValue.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
     }
 
+    public void setAlarmManagerStatus(boolean b) {
+        mEditor.putBoolean(KeysValue.SP_ALARM_STATUS, b);
+        mEditor.apply();
+    }
+
+    public boolean getAlarmStatus() {
+        return mSharedPreferences.getBoolean(KeysValue.SP_ALARM_STATUS, false);
+    }
+
     public int getHour() {
         return mSharedPreferences.getInt(KeysValue.SP_HOUR, -1);
     }

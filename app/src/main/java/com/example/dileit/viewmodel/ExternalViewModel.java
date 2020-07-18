@@ -72,6 +72,9 @@ public class ExternalViewModel extends AndroidViewModel {
         return mGetPer;
     }
 
+    public void removeSearchResults(){
+        mSyncedSearchList.setValue(new ArrayList<>());
+    }
     public void closeExternalDbs() {
         mRepository.closeExternalDatabases();
     }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -18,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
@@ -46,7 +48,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         super.onCreate(savedInstanceState);
         mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         mInternalViewModel = ViewModelProviders.of(getActivity()).get(InternalViewModel.class);
-        mExternalViewModel = ViewModelProviders.of(getActivity()).get(ExternalViewModel.class);
+        mExternalViewModel = ViewModelProviders.of(this).get(ExternalViewModel.class);
     }
 
     @Override
@@ -60,24 +62,24 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mBinding.edtSearchWord.requestFocus();
+
         inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.showSoftInput(mBinding.edtSearchWord, InputMethodManager.SHOW_IMPLICIT);
+
+        mBinding.edtSearchWord.requestFocus();
+
+        showSoftInput(view.findFocus());
+
         setUpRecyclerView();
 
         mExternalViewModel.getSyncedSearchResult().observe(getViewLifecycleOwner(), searchDictionaries -> {
+                mAdapter.setData(null);
             mAdapter.setData(searchDictionaries);
         });
 
         mSharedViewModel.getVoiceWord().observe(getViewLifecycleOwner(), s -> {
-            if (!s.equals(""))
-                mBinding.edtSearchWord.setText(s);
-        });
-
-
-        mBinding.btnClearEditSearch.setOnClickListener(view1 -> {
-            mBinding.edtSearchWord.setText("");
-            mBinding.btnClearEditSearch.setVisibility(View.GONE);
+            if (!s.equals("")) {
+                mBinding.edtSearchWord.setQuery(s , false);
+            }
         });
 
         mBinding.btnBackwardSearch.setOnClickListener(view12 -> {
@@ -86,34 +88,24 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
 
         });
 
-        mBinding.edtSearchWord.addTextChangedListener(new TextWatcher() {
+        mBinding.edtSearchWord.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+            public boolean onQueryTextSubmit(String query) {
+                return false;
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String word = mBinding.edtSearchWord.getText().toString();
-                if (!isTypedYet) {
-                    isTypedYet = true;
-                }
-                if (!word.equals("")) {
-                    mExternalViewModel.getSearchEng(word);
-                    mExternalViewModel.getSearchPer(word);
-                    mBinding.btnClearEditSearch.setVisibility(View.VISIBLE);
+            public boolean onQueryTextChange(String newText) {
+                if (!newText.equals("")) {
+                    mExternalViewModel.getSearchEng(newText);
+                    mExternalViewModel.getSearchPer(newText);
                 } else {
                     mAdapter.setData(null);
-                    isTypedYet = false;
+                    mExternalViewModel.removeSearchResults();
                 }
+                return false;
             }
         });
-
     }
 
     private void setUpRecyclerView() {
@@ -130,7 +122,11 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         mBinding = null;
 
         mSharedViewModel.resetVoiceWord();
-//        mSearchViewModel.reset();
+    }
+
+    public void showSoftInput(View view){
+        if (inputMethodManager !=null)
+            inputMethodManager.showSoftInput(view , 0);
     }
 
     @Override
@@ -140,13 +136,6 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         bundle.putInt(KeysValue.KEY_BUNDLE_WORD_REF_ID, engId);
         WordHistory wordHistory = new WordHistory(actualWord.trim(), engId, 0, System.currentTimeMillis());
         mInternalViewModel.insertWordHistory(wordHistory);
-
-        char[] chars = actualWord.toCharArray();
-        for (int i = 0; i < chars.length; i++) {
-            int c = chars[i];
-            Log.d(TAG, "" + c);
-        }
-        Log.d(TAG, "------------------------");
 
         Navigation.findNavController(getView()).navigate(R.id.action_wordSearchFragment_to_wordInformationFragment, bundle);
 

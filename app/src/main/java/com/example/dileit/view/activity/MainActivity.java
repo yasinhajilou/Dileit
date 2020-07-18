@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         mExternalViewModel = ViewModelProviders.of(this).get(ExternalViewModel.class);
+
     }
 
 

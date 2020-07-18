@@ -49,7 +49,7 @@ public class ExternalDictionaryRepository {
                 .subscribeOn(Schedulers.io());
     }
 
-    public Flowable<List<SearchDictionary>> doPersianSearch(String word)                                                                                                        {
+    public Flowable<List<SearchDictionary>> doPersianSearch(String word) {
         return Flowable.fromCallable(() -> {
             // ORDER BY word COLLATE NOCASE ASC
             mPersianDatabaseAccess.openDatabase();
@@ -64,24 +64,6 @@ public class ExternalDictionaryRepository {
             return wordsList;
         }).subscribeOn(Schedulers.io());
     }
-
-    public Flowable<List<Word>> getAllWords() {
-        return Flowable.fromCallable(() -> {
-            List<Word> wordsList = new ArrayList<>();
-            mPersianDatabaseAccess.openDatabase();
-            Cursor cursor = mPersianDatabaseAccess.getDatabase().rawQuery("SELECT word,def FROM dictionary LIMIT 50", null);
-            while (cursor.moveToNext()) {
-                String word = cursor.getString(0).trim();
-                String def = cursor.getString(1);
-                Word dictionary = new Word(word, def);
-                wordsList.add(dictionary);
-            }
-            cursor.close();
-            mPersianDatabaseAccess.closeDatabase();
-            return wordsList;
-        }).subscribeOn(Schedulers.io());
-    }
-
 
     //getting data for word information view
     public Flowable<List<EnglishDef>> getRefById(int engId) {

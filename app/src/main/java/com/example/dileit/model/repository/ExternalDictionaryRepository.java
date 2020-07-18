@@ -30,7 +30,7 @@ public class ExternalDictionaryRepository {
             mEnglishDatabaseAccess.openDatabase();
             List<SearchDictionary> wordEnglishDics = new ArrayList<>();
 
-            Cursor cursor = mEnglishDatabaseAccess.getDatabase().rawQuery("SELECT _idref,word FROM keys WHERE word like ?", new String[]{word + "%"});
+            Cursor cursor = mEnglishDatabaseAccess.getDatabase().rawQuery("SELECT _idref,word FROM keys WHERE word like ? LIMIT 75", new String[]{word + "%"});
             if (cursor != null) {
                 while (cursor.moveToNext()) {
                     int refrenceId = cursor.getInt(0);
@@ -54,7 +54,7 @@ public class ExternalDictionaryRepository {
             // ORDER BY word COLLATE NOCASE ASC
             mPersianDatabaseAccess.openDatabase();
             List<SearchDictionary> wordsList = new ArrayList<>();
-            Cursor cursor = mPersianDatabaseAccess.getDatabase().rawQuery("SELECT word from dictionary WHERE word LIKE ? ORDER BY LOWER(word) LIMIT 50 ", new String[]{word + "%"});
+            Cursor cursor = mPersianDatabaseAccess.getDatabase().rawQuery("SELECT word from dictionary WHERE word LIKE ? ORDER BY LOWER(word) LIMIT 75 ", new String[]{word + "%"});
             while (cursor.moveToNext()) {
                 String actualWord = cursor.getString(0).trim();
                 SearchDictionary searchDictionary = new SearchDictionary(actualWord, 0);

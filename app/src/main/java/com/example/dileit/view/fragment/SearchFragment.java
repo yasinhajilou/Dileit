@@ -72,13 +72,15 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         setUpRecyclerView();
 
         mExternalViewModel.getSyncedSearchResult().observe(getViewLifecycleOwner(), searchDictionaries -> {
-                mAdapter.setData(null);
-            mAdapter.setData(searchDictionaries);
+            if (!mBinding.edtSearchWord.getQuery().equals("")) {
+                mAdapter.setData(searchDictionaries);
+                Log.d(TAG, "onViewCreated: ");
+            }
         });
 
         mSharedViewModel.getVoiceWord().observe(getViewLifecycleOwner(), s -> {
             if (!s.equals("")) {
-                mBinding.edtSearchWord.setQuery(s , false);
+                mBinding.edtSearchWord.setQuery(s, false);
             }
         });
 
@@ -100,8 +102,9 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
                     mExternalViewModel.getSearchEng(newText);
                     mExternalViewModel.getSearchPer(newText);
                 } else {
+                    mExternalViewModel.getSearchEng("");
+                    mExternalViewModel.getSearchPer("");
                     mAdapter.setData(null);
-                    mExternalViewModel.removeSearchResults();
                 }
                 return false;
             }
@@ -120,13 +123,12 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         super.onDestroyView();
 
         mBinding = null;
-
         mSharedViewModel.resetVoiceWord();
     }
 
-    public void showSoftInput(View view){
-        if (inputMethodManager !=null)
-            inputMethodManager.showSoftInput(view , 0);
+    public void showSoftInput(View view) {
+        if (inputMethodManager != null)
+            inputMethodManager.showSoftInput(view, 0);
     }
 
     @Override

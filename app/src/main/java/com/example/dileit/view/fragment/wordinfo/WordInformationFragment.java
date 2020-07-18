@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
@@ -65,12 +64,17 @@ public class WordInformationFragment extends Fragment {
 
     private int engPagerIndex, idiomsPagerIndex, perPagerIndex = -1;
 
+    boolean shouldRefreshLivesPer = true;
+    boolean shouldRefreshLivesEng = true;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: ");
         mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
-        mExternalViewModel = ViewModelProviders.of(this).get(ExternalViewModel.class);
+        mExternalViewModel = ViewModelProviders.of(getActivity()).get(ExternalViewModel.class);
+        mAdapter = new WordsInformationViewPagerAdapter(getChildFragmentManager());
         if (getArguments() != null) {
             actualWord = getArguments().getString(KeysValue.KEY_BUNDLE_ACTUAL_WORD);
             engId = getArguments().getInt(KeysValue.KEY_BUNDLE_WORD_REF_ID);
@@ -82,7 +86,6 @@ public class WordInformationFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mBinding = FragmentWordInformationBinding.inflate(inflater, container, false);
-        mAdapter = new WordsInformationViewPagerAdapter(getChildFragmentManager());
         chipPersian = mBinding.chipsTranslatedOnly;
         chipEnglish = mBinding.chipsTranslatedEnglish;
         chipIdioms = mBinding.chipsIdiomsOnly;
@@ -90,15 +93,22 @@ public class WordInformationFragment extends Fragment {
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.d(TAG, "onActivityCreated: ");
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Log.d(TAG, "onViewCreated: ");
         mBinding.viewPagerWordInfo.setAdapter(mAdapter);
 
         mBinding.tvWordTitle.setText(actualWord);
 
         mExternalViewModel.searchForExactWord(actualWord).observe(getViewLifecycleOwner(), s -> {
-            if (!s.equals("Error")) {
+            if (shouldRefreshLivesPer) {
                 perPagerIndex = mAdapter.addPage(new TranslationFragment());
                 chipPersian.setVisibility(View.VISIBLE);
                 selectPersianChip();
@@ -123,22 +133,25 @@ public class WordInformationFragment extends Fragment {
                     idiomsPagerIndex = mAdapter.addPage(new RelatedIdiomsFragment());
                     mSharedViewModel.setIdiom(idioms);
                 }
+                shouldRefreshLivesPer = false;
             }
         });
 
         mExternalViewModel.searchEngWordById(engId).observe(getViewLifecycleOwner(), englishDefs -> {
-            if (englishDefs.size() > 0) {
+            if (shouldRefreshLivesEng) {
+                if (englishDefs.size() > 0) {
 
-                engPagerIndex = mAdapter.addPage(new EnglishTranslatedFragment());
-                chipEnglish.setVisibility(View.VISIBLE);
+                    engPagerIndex = mAdapter.addPage(new EnglishTranslatedFragment());
+                    chipEnglish.setVisibility(View.VISIBLE);
 
-                mSharedViewModel.setEngDefList(englishDefs);
-                builderEnglish = new StringBuilder();
-                for (EnglishDef englishDef : englishDefs) {
-                    builderEnglish.append(englishDef.getDefinition()).append("\n");
+                    mSharedViewModel.setEngDefList(englishDefs);
+                    builderEnglish = new StringBuilder();
+                    for (EnglishDef englishDef : englishDefs) {
+                        builderEnglish.append(englishDef.getDefinition()).append("\n");
+                    }
                 }
+                shouldRefreshLivesEng = false;
             }
-
         });
 
         mInternalViewModel.getLeitnerInfoByWord(actualWord).observe(getViewLifecycleOwner(), leitner -> {

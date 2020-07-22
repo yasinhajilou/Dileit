@@ -81,11 +81,9 @@ public class ReviewedReporterFragment extends Fragment {
 
         mReporterViewModel.getLiveReportsReviewed().observe(getViewLifecycleOwner(), wordReviewHistories -> {
             mHistoryList = wordReviewHistories;
-            Log.d(TAG, "getLiveReportsReviewed onViewCreated: ************************");
         });
 
         mReporterViewModel.getLiveSyncedTimeLists().observe(getViewLifecycleOwner(), integer -> {
-            Log.d(TAG, "onViewCreated: getLiveSyncedTimeLists ************************");
             switch (integer) {
                 case DAY:
                     setUpChartDay();

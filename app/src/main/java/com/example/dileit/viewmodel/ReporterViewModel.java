@@ -18,6 +18,7 @@ import java.util.List;
 
 public class ReporterViewModel extends AndroidViewModel {
     private InternalRepository mInternalRepository;
+
     private MutableLiveData<long[]> liveTimeRange = new MutableLiveData<>();
     private LiveData<List<WordReviewHistory>> liveReportsReviewed = Transformations.switchMap(liveTimeRange, input -> LiveDataReactiveStreams.fromPublisher(mInternalRepository.getWordReviewedHistoryByRange(input[0], input[1])));
     private LiveData<List<LeitnerReport>> liveReportAdded = Transformations.switchMap(liveTimeRange, input -> LiveDataReactiveStreams.fromPublisher(mInternalRepository.getAddedCardByRange(input[0], input[1])));
@@ -49,11 +50,13 @@ public class ReporterViewModel extends AndroidViewModel {
     }
 
     private void syncAddedReports(int timeFlag, List<LeitnerReport> reportAdded, List<WordReviewHistory> reportReviewed) {
-        if (timeFlag != -1 && reportAdded != null && reportReviewed != null) {
-            liveSyncedTimeLists.setValue(timeFlag);
-            timeFilter = -1;
-            listAddeds = null;
-            listRevieweds = null;
+        if (timeFlag != -1) {
+            if (reportAdded != null && reportReviewed != null) {
+                liveSyncedTimeLists.setValue(timeFlag);
+                timeFilter = -1;
+                listAddeds = null;
+                listRevieweds = null;
+            }
         }
     }
 
@@ -89,7 +92,7 @@ public class ReporterViewModel extends AndroidViewModel {
         return LiveDataReactiveStreams.fromPublisher(mInternalRepository.getLearnedCardsCount());
     }
 
-    public LiveData<Integer> getWordReviewedHistoryCount(){
+    public LiveData<Integer> getWordReviewedHistoryCount() {
         return LiveDataReactiveStreams.fromPublisher(mInternalRepository.getWordReviewedHistoryCount());
     }
 }

@@ -64,17 +64,12 @@ public class ReporterActivity extends AppCompatActivity {
 
         mReporterViewModel.getLiveReportAdded().observe(this, leitnerReports -> {
             int size = leitnerReports.size();
-            Log.d(TAG, "onCreate: " + size);
             mBinding.cpAdded.setProgress(size, allLeitnerWord);
         });
 
         mReporterViewModel.getLiveReportsReviewed().observe(this, leitnerReports -> {
             int size = leitnerReports.size();
             mBinding.cpReviewed.setProgress(size, allReviewedCards);
-        });
-
-        mReporterViewModel.getTimeFilterFlag().observe(this, integer -> {
-            Toast.makeText(this, "" + integer, Toast.LENGTH_SHORT).show();
         });
 
         mBinding.chipHeadFilter.setOnClickListener(view -> {

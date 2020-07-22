@@ -11,6 +11,7 @@ import com.example.dileit.model.database.persiandb.PersianDatabaseAccess;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Flowable;
 import io.reactivex.schedulers.Schedulers;
@@ -55,14 +56,19 @@ public class ExternalDictionaryRepository {
             mPersianDatabaseAccess.openDatabase();
             List<SearchDictionary> wordsList = new ArrayList<>();
             Cursor cursor = mPersianDatabaseAccess.getDatabase().rawQuery("SELECT word from dictionary WHERE word LIKE ? ORDER BY LOWER(word) LIMIT 75 ", new String[]{word + "%"});
-            while (cursor.moveToNext()) {
-                String actualWord = cursor.getString(0).trim();
-                SearchDictionary searchDictionary = new SearchDictionary(actualWord, 0);
-                wordsList.add(searchDictionary);
+            if (cursor != null) {
+                while (cursor.moveToNext()) {
+                    String actualWord = cursor.getString(0).trim();
+                    SearchDictionary searchDictionary = new SearchDictionary(actualWord, 0);
+                    wordsList.add(searchDictionary);
+                }
             }
-            cursor.close();
+            if (cursor != null) {
+                cursor.close();
+            }
             return wordsList;
-        }).subscribeOn(Schedulers.io());
+        }).debounce(1000, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io());
     }
 
     //getting data for word information view
@@ -88,7 +94,8 @@ public class ExternalDictionaryRepository {
                 cursor.close();
             }
             return englishDefs;
-        }).subscribeOn(Schedulers.io());
+        }).debounce(1000, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io());
     }
 
     public Flowable<String> getExactWord(String word) {
@@ -106,7 +113,7 @@ public class ExternalDictionaryRepository {
                 .subscribeOn(Schedulers.io());
     }
 
-    public void closeExternalDatabases(){
+    public void closeExternalDatabases() {
         mEnglishDatabaseAccess.closeDatabase();
         mPersianDatabaseAccess.closeDatabase();
     }

@@ -66,25 +66,19 @@ public class ExternalViewModel extends AndroidViewModel {
 
 
     public void getSearchEng(String word) {
-        if (!word.equals("")) {
             mGetEng = LiveDataReactiveStreams.fromPublisher(mRepository.doEngSearch(word));
             mSyncedSearchList.addSource(mGetEng, searchDictionaries -> {
                 syncSearchedData(mGetPer, mGetEng);
             });
-        }
+
     }
 
     public void getSearchPer(String word) {
-        if (!word.equals("")) {
             mGetPer = LiveDataReactiveStreams.fromPublisher(mRepository.doPersianSearch(word));
             mSyncedSearchList.addSource(mGetPer, searchDictionaries -> {
                 syncSearchedData(mGetPer, mGetEng);
             });
-        }
-    }
 
-    public void removeSearchResults() {
-        mSyncedSearchList.setValue(null);
     }
 
     public void closeExternalDbs() {

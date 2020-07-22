@@ -119,7 +119,7 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
                 Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-        mBinding.tvHomeWord.setOnClickListener(this::goToSearchView);
+        mBinding.tvHomeWord.setOnClickListener(view1 -> goToSearchView());
 
         mBinding.fabAddLeitner.setOnClickListener(view1 -> {
             DialogAddCostumeLeitner dialogAddCostumeLeitner = new DialogAddCostumeLeitner();
@@ -171,7 +171,7 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
                 ArrayList<String> res = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 if (res != null) {
                     mSharedViewModel.setVoiceWord(res.get(0));
-                    goToSearchView(getView());
+                    goToSearchView();
                 } else {
                     Toast.makeText(getContext(), "is null", Toast.LENGTH_SHORT).show();
                 }
@@ -179,8 +179,8 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
         }
     }
 
-    private void goToSearchView(View view) {
-        Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_wordSearchFragment);
+    private void goToSearchView() {
+        Navigation.findNavController(getView()).navigate(R.id.action_homeFragment_to_wordSearchFragment);
     }
 
     @Override

@@ -34,6 +34,7 @@ import com.example.dileit.viewmodel.InternalViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
 import com.google.android.material.chip.Chip;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -109,30 +110,33 @@ public class WordInformationFragment extends Fragment {
 
         mExternalViewModel.searchForExactWord(actualWord).observe(getViewLifecycleOwner(), s -> {
             if (shouldRefreshLivesPer) {
-                perPagerIndex = mAdapter.addPage(new TranslationFragment());
-                chipPersian.setVisibility(View.VISIBLE);
-                selectPersianChip();
 
 
                 JsonUtils jsonUtils = new JsonUtils();
-                WordInformation[] wordInformations = jsonUtils.getWordDefinition(s);
-                List<Idiom> idioms = new ArrayList<>();
-                wordList = new ArrayList<>();
-                for (WordInformation information : wordInformations) {
-                    wordList.addAll(information.getTranslationWords());
-                    if (information.getIdioms() != null)
-                        idioms.addAll(information.getIdioms());
+                if (jsonUtils.getWordDefinition(s) != null) {
+                    perPagerIndex = mAdapter.addPage(new TranslationFragment());
+                    chipPersian.setVisibility(View.VISIBLE);
+                    selectPersianChip();
+                    WordInformation[] wordInformations = jsonUtils.getWordDefinition(s);
+                    List<Idiom> idioms = new ArrayList<>();
+                    wordList = new ArrayList<>();
+                    for (WordInformation information : wordInformations) {
+                        wordList.addAll(information.getTranslationWords());
+                        if (information.getIdioms() != null)
+                            idioms.addAll(information.getIdioms());
+                    }
+
+
+                    mSharedViewModel.setTranslationWord(wordList);
+
+
+                    if (idioms.size() > 0) {
+                        chipIdioms.setVisibility(View.VISIBLE);
+                        idiomsPagerIndex = mAdapter.addPage(new RelatedIdiomsFragment());
+                        mSharedViewModel.setIdiom(idioms);
+                    }
                 }
 
-
-                mSharedViewModel.setTranslationWord(wordList);
-
-
-                if (idioms.size() > 0) {
-                    chipIdioms.setVisibility(View.VISIBLE);
-                    idiomsPagerIndex = mAdapter.addPage(new RelatedIdiomsFragment());
-                    mSharedViewModel.setIdiom(idioms);
-                }
                 shouldRefreshLivesPer = false;
             }
         });

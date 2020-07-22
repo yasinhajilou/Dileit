@@ -1,8 +1,8 @@
 package com.example.dileit.utils;
 
+
 import android.util.Log;
 
-import com.example.dileit.model.Word;
 import com.example.dileit.model.WordInformation;
 import com.google.gson.Gson;
 
@@ -17,8 +17,12 @@ public class JsonUtils {
     //Convert word data to wordDefinition class
     // wordDefinition : whole information of a word(idioms,means...)
     public WordInformation[] getWordDefinition(String data) {
-        WordInformation[] info = mGson.fromJson(data, WordInformation[].class);
-        return info;
+        Log.d(TAG, "getWordDefinition: " + data);
+        if (!data.equals("Error"))
+            return mGson.fromJson(data, WordInformation[].class);
+        else
+            return null;
+
     }
 
 

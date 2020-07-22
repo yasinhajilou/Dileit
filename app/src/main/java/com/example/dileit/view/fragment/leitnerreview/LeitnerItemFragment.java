@@ -65,7 +65,7 @@ public class LeitnerItemFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
+        mInternalViewModel = ViewModelProviders.of(getActivity()).get(InternalViewModel.class);
         mReviewLeitnerSharedViewModel = ViewModelProviders.of(getActivity()).get(ReviewLeitnerSharedViewModel.class);
         if (getArguments() != null)
             listId = getArguments().getInt(KeysValue.KEY_BUNDLE_LEITNER_ITEM_ID);
@@ -148,13 +148,12 @@ public class LeitnerItemFragment extends Fragment {
             addReviewedHistory(mLeitner.getWord());
 
             int nextBox = LeitnerUtils.nextBoxFinder(mLeitner.getState());
-            if (nextBox != -1) {
-                mLeitner.setState(nextBox);
-                mLeitner.setLastReviewTime(System.currentTimeMillis());
-            } else
-                Toast.makeText(view15.getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+
+            mLeitner.setState(nextBox);
+            mLeitner.setLastReviewTime(System.currentTimeMillis());
 
             mInternalViewModel.updateLeitnerItem(mLeitner);
+
             mListener.onYesClicked();
 
             handleReviewedCardsCounter();

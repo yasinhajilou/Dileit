@@ -1,7 +1,6 @@
 package com.example.dileit.viewmodel;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.arch.core.util.Function;
@@ -18,12 +17,8 @@ import com.example.dileit.model.repository.InternalRepository;
 
 import java.util.List;
 
-import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
-import io.reactivex.Flowable;
-import io.reactivex.Maybe;
 import io.reactivex.MaybeObserver;
-import io.reactivex.MaybeSource;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
 
@@ -35,7 +30,7 @@ public class InternalViewModel extends AndroidViewModel {
     //observe for updated item status
     private MutableLiveData<Boolean> mUpdatedItemStatus = new MutableLiveData<>();
     //observe for deleted item status
-    private MutableLiveData<Integer> mDeletedItemStatus = new MutableLiveData<>();
+    private MutableLiveData<Integer> mDeletedLeitnerItemStatus = new MutableLiveData<>();
     //observe for existed item result
     private MutableLiveData<Boolean> mExistedItem = new MutableLiveData<>();
 
@@ -160,8 +155,8 @@ public class InternalViewModel extends AndroidViewModel {
         return mUpdatedItemStatus;
     }
 
-    public LiveData<Integer> getDeletedItemStatus() {
-        return mDeletedItemStatus;
+    public LiveData<Integer> getDeletedLeitnerItemStatus() {
+        return mDeletedLeitnerItemStatus;
     }
 
     public LiveData<Leitner> getLeitnerInfoByWord(String word) {
@@ -219,12 +214,12 @@ public class InternalViewModel extends AndroidViewModel {
 
                     @Override
                     public void onSuccess(Integer integer) {
-                        mDeletedItemStatus.postValue(integer);
+                        mDeletedLeitnerItemStatus.postValue(integer);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        mDeletedItemStatus.postValue(-1);
+                        mDeletedLeitnerItemStatus.postValue(-1);
                     }
                 });
     }

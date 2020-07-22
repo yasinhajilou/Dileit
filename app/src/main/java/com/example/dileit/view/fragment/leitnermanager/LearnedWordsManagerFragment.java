@@ -59,7 +59,7 @@ public class LearnedWordsManagerFragment extends Fragment implements LeitnerMana
         });
 
 
-        mInternalViewModel.getDeletedItemStatus().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+        mInternalViewModel.getDeletedLeitnerItemStatus().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
                 if (integer > 0) {

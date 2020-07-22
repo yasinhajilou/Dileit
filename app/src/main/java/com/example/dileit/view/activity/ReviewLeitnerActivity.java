@@ -92,10 +92,10 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
                 mAdapter.addData(fragments);
                 isStartUp = false;
             }
+        });
 
-
-            if (leitners.size() < cardsSize) {
-                cardsSize = leitners.size();
+        viewModel.getDeletedLeitnerItemStatus().observe(this, integer -> {
+            if (integer > 0) {
                 int fragmentSizeIndex = fragments.size() - 1;
                 if (++currentPosIndex <= fragmentSizeIndex) {
                     mBinding.viewPagerReviewLeitner.setCurrentItem(currentPosIndex);
@@ -103,9 +103,9 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
                 } else {
                     goToReviewedCardReporter();
                 }
+
             }
         });
-
         mTextToSpeechUK = new TextToSpeech(this, i -> {
             if (i == TextToSpeech.SUCCESS) {
                 int res = mTextToSpeechUS.setLanguage(Locale.UK);

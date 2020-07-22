@@ -25,6 +25,7 @@
             tools:text="Title" />
 
         <RadioGroup
+            style="@style/Widget.AppCompat.CompoundButton.RadioButton"
             app:layout_constraintBottom_toTopOf="@+id/view_pager_add_new_leitner"
             android:id="@+id/radio_gp_dialog"
             android:layout_width="0dp"
@@ -36,6 +37,7 @@
             app:layout_constraintTop_toBottomOf="@+id/edt_title_dialog_add_leitner">
 
             <RadioButton
+                android:textColor="@android:color/black"
                 android:id="@+id/rb_dic_bottom_sheet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -45,6 +47,7 @@
                 android:text="@string/from_dictionary" />
 
             <RadioButton
+                android:textColor="@android:color/black"
                 android:id="@+id/rb_costume_bottom_sheet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -64,6 +67,9 @@
             app:layout_constraintTop_toBottomOf="@+id/radio_gp_dialog">
 
             <com.google.android.material.tabs.TabLayout
+                app:tabSelectedTextColor="@color/colorPrimary"
+                app:tabBackground="@android:color/white"
+                app:tabTextColor="@android:color/darker_gray"
                 android:id="@+id/tab_add_new_leitner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -81,6 +87,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view_pager_add_new_leitner" />
 
         <TextView
+            android:textColor="@android:color/black"
             app:layout_constraintBottom_toTopOf="@+id/edt_dialog_guide"
             android:id="@+id/tv_label_guide"
             android:layout_width="wrap_content"
@@ -93,6 +100,7 @@
             app:layout_constraintTop_toBottomOf="@+id/view_pager_add_new_leitner" />
 
     <EditText
+        android:textColorHint="@android:color/darker_gray"
         android:id="@+id/edt_dialog_guide"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -109,6 +117,8 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_label_guide" />
 
     <com.google.android.material.button.MaterialButton
+        android:textColor="@android:color/white"
+        style="@style/Widget.MaterialComponents.Button"
         android:id="@+id/btn_save_item_leitner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

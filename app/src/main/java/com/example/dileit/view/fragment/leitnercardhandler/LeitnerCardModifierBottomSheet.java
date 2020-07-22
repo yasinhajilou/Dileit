@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
 import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.BottomSheetAddNewLeitnerBinding;
@@ -185,5 +186,8 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
         }
     }
 
-
+    @Override
+    public int getTheme() {
+        return R.style.AppBottomSheetDialogTheme;
+    }
 }

@@ -22,6 +22,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:textColorHint="@android:color/darker_gray"
+        app:boxStrokeColor="@android:color/darker_gray"
         android:id="@+id/txt_layout_leitner_title"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
@@ -43,6 +45,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        app:boxStrokeColor="@android:color/darker_gray"
+        android:textColorHint="@android:color/darker_gray"
         android:id="@+id/txt_layout_leitner_def"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
@@ -60,13 +64,15 @@
             android:hint="@string/translation_or_definition"
             android:lines="4"
             android:maxLines="6"
-            android:inputType="text"
+            android:inputType="textMultiLine"
             android:imeOptions="actionNext"
             android:nextFocusDown="@+id/edt_input_guide" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
+        app:boxStrokeColor="@android:color/darker_gray"
+        android:textColorHint="@android:color/darker_gray"
         android:id="@+id/txt_layout_leitner_guide"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
@@ -87,6 +93,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
+        android:textColor="@android:color/white"
         android:id="@+id/btn_save_costume_leitner"
         style="?attr/materialButtonStyle"
         android:layout_width="wrap_content"

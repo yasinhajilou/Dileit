@@ -125,7 +125,7 @@ public class SettingActivity extends AppCompatActivity {
             mSharedPreferenceUtil.setTime(lastHour, lastMin);
             mSharedPreferenceUtil.setAlarmManagerStatus(true);
             mAlarmManagerUtils.setAlarm(lastHour, lastMin);
-            Toast.makeText(this, "Alarm enabled for " + lastHour + ":" + lastMin, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Alarm enabled for " + String.format("%02d"  , lastHour) + ":" + String.format("%02d"  , lastMin), Toast.LENGTH_LONG).show();
 
         });
     }

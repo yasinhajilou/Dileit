@@ -38,7 +38,6 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     private SharedViewModel mSharedViewModel;
     private String TAG = SearchFragment.class.getSimpleName();
     private InternalViewModel mInternalViewModel;
-    private boolean isTypedYet = false;
     private FragmentWordSearchBinding mBinding;
     private ExternalViewModel mExternalViewModel;
     private InputMethodManager inputMethodManager;

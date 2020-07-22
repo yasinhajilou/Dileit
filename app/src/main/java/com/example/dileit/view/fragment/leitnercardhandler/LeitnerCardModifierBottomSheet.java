@@ -180,10 +180,11 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
     }
 
     private void handleViewPagerItems(String mainTranslation, String secondTranslation) {
-        mAdapter.addData("Translation", TranslationDialogFragment.newInstance(mainTranslation, KeysValue.FRAGMENT_HEADER_TRANSLATION));
-        if (secondTranslation != null) {
-            mAdapter.addData("Second Translation", TranslationDialogFragment.newInstance(secondTranslation, KeysValue.FRAGMENT_HEADER_SECOND_TRANSLATION));
-        }
+//        if (mainTranslation != null)
+            mAdapter.addData("Translation", TranslationDialogFragment.newInstance(mainTranslation, KeysValue.FRAGMENT_HEADER_TRANSLATION));
+//        if (secondTranslation != null)
+            mAdapter.addData("English Definition", TranslationDialogFragment.newInstance(secondTranslation, KeysValue.FRAGMENT_HEADER_SECOND_TRANSLATION));
+
     }
 
     @Override

@@ -213,8 +213,8 @@ public class WordInformationFragment extends Fragment {
             if (mLeitner != null) {
                 showRemoveLeitnerDialog(view16);
             } else {
-                builderTranslation = new StringBuilder();
                 if (wordList != null) {
+                    builderTranslation = new StringBuilder();
                     for (TranslationWord word : wordList) {
                         builderTranslation.append(word.getTranslatedWord()).append("\n");
                     }
@@ -226,10 +226,13 @@ public class WordInformationFragment extends Fragment {
 
                 String[] strings = new String[3];
                 strings[0] = actualWord;
-                strings[1] = builderTranslation.toString();
-                if (builderEnglish != null) {
+
+                if (builderTranslation != null)
+                    strings[1] = builderTranslation.toString();
+
+                if (builderEnglish != null)
                     strings[2] = builderEnglish.toString();
-                }
+
                 mSharedViewModel.setLeitnerItemData(strings);
 
             }

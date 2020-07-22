@@ -36,6 +36,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"/>
             <androidx.appcompat.widget.SearchView
+
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 app:searchIcon="@null"
@@ -49,6 +50,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 app:queryHint="@string/type_your_word"
+                app:queryBackground="@android:color/transparent"
                 android:imeOptions="actionDone"
                 android:inputType="textFilter"
                 android:maxLines="1" />

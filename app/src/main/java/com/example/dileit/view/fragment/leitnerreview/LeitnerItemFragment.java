@@ -103,10 +103,17 @@ public class LeitnerItemFragment extends Fragment {
                         mBinding.tvGuideLeitnerCard.setText(leitner.getGuide());
 
                     List<String> strings = new ArrayList<>();
-                    strings.add(leitner.getDef());
-                    if (leitner.getSecondDef() != null)
+
+                    if (!leitner.getDef().equals("")) {
+                        strings.add(leitner.getDef());
+                        mBinding.btnTabTranslation.setVisibility(View.VISIBLE);
+                    } else
+                        mBinding.btnTabTranslation.setVisibility(View.GONE);
+
+                    if (!leitner.getSecondDef().equals("")) {
                         strings.add(leitner.getSecondDef());
-                    else
+                        mBinding.btnTabEnglishTrans.setVisibility(View.VISIBLE);
+                    } else
                         mBinding.btnTabEnglishTrans.setVisibility(View.GONE);
 
                     mBinding.viewPagerLeitnerItemTranslation.setAdapter(new LeitnerItemTranslationViewPagerAdapter(strings));

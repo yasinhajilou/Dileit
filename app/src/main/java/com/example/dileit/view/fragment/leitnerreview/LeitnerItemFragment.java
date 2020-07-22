@@ -110,7 +110,7 @@ public class LeitnerItemFragment extends Fragment {
                     } else
                         mBinding.btnTabTranslation.setVisibility(View.GONE);
 
-                    if (!leitner.getSecondDef().equals("")) {
+                    if (leitner.getSecondDef() != null) {
                         strings.add(leitner.getSecondDef());
                         mBinding.btnTabEnglishTrans.setVisibility(View.VISIBLE);
                     } else

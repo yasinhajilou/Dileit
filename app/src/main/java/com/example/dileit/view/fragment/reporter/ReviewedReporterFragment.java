@@ -45,7 +45,6 @@ import static com.example.dileit.constant.TimeReporterFilter.YEAR;
 public class ReviewedReporterFragment extends Fragment {
 
     private FragmentReviewedReporterBinding mBinding;
-    private ReporterViewModel mReporterViewModel;
     private List<WordReviewHistory> mHistoryList;
     private Calendar mCalendar;
     private String TAG = ReviewedReporterFragment.class.getSimpleName();
@@ -74,16 +73,16 @@ public class ReviewedReporterFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mReporterViewModel = ViewModelProviders.of(getActivity()).get(ReporterViewModel.class);
+        ReporterViewModel reporterViewModel = ViewModelProviders.of(getActivity()).get(ReporterViewModel.class);
 
         mBinding.barChartReviewed.setScaleEnabled(false);
         mBinding.barChartReviewed.setFitBars(true); // make the x-axis fit exactly all bars
 
-        mReporterViewModel.getLiveReportsReviewed().observe(getViewLifecycleOwner(), wordReviewHistories -> {
+        reporterViewModel.getLiveReportsReviewed().observe(getViewLifecycleOwner(), wordReviewHistories -> {
             mHistoryList = wordReviewHistories;
         });
 
-        mReporterViewModel.getLiveSyncedTimeLists().observe(getViewLifecycleOwner(), integer -> {
+        reporterViewModel.getLiveSyncedTimeLists().observe(getViewLifecycleOwner(), integer -> {
             switch (integer) {
                 case DAY:
                     setUpChartDay();
@@ -119,9 +118,8 @@ public class ReviewedReporterFragment extends Fragment {
 
         for (WordReviewHistory wordReviewHistory :
                 mHistoryList) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(wordReviewHistory.getReviewedTime());
-            String hour = String.format("%02d", calendar.get(Calendar.HOUR_OF_DAY));
+            PersianDate persianDate = new PersianDate(wordReviewHistory.getReviewedTime());
+            String hour = String.format("%02d", persianDate.getHour());
             int lastCount = mMapDayReviewCounter.get(hour);
             mMapDayReviewCounter.put(hour, ++lastCount);
         }
@@ -339,16 +337,16 @@ public class ReviewedReporterFragment extends Fragment {
                 WordReviewHistory wordReviewHistory :
                 mHistoryList) {
             PersianDate persianDate2 = new PersianDate(wordReviewHistory.getReviewedTime());
-            int date = persianDate2.getShMonth() ;
-            int lastCount = mMapYearReviewCounter.get(date+ "");
-            mMapYearReviewCounter.put( date +"", ++lastCount);
+            int date = persianDate2.getShMonth();
+            int lastCount = mMapYearReviewCounter.get(date + "");
+            mMapYearReviewCounter.put(date + "", ++lastCount);
             Log.d(TAG, "setUpChartYear Reviewed: " + persianDate2.getShMonth() + "--" + lastCount);
             Log.d(TAG, "setUpChartYear: " + xAxisLabelYear.get(date));
 
         }
 
         List<BarEntry> barEntries = new ArrayList<>();
-        int a = 0 ;
+        int a = 0;
         for (
                 Map.Entry<String, Integer> entry : mMapYearReviewCounter.entrySet()) {
             barEntries.add(new BarEntry(a, entry.getValue()));

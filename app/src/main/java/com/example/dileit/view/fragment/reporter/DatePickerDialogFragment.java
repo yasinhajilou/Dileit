@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,7 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
             if (b) {
                 long today = System.currentTimeMillis();
                 long startTime = today -  24 * 60 * 60 * 1000;
+                Log.d(TAG, "onViewCreated: " + startTime);
                 mReporterViewModel.setLiveTimeRange(new long[]{startTime, today});
                 mReporterViewModel.setSelectedTime(TimeReporterFilter.DAY);
 

@@ -8,6 +8,7 @@
 
 
     <TextView
+        android:textColor="@android:color/black"
         android:id="@+id/tv_time_report"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,6 +33,7 @@
         app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
+            app:chipBackgroundColor="@android:color/darker_gray"
             android:id="@+id/chip_report_year"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
@@ -39,6 +41,7 @@
             android:text="@string/year" />
 
         <com.google.android.material.chip.Chip
+            app:chipBackgroundColor="@android:color/darker_gray"
             android:id="@+id/chip_report_month"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
@@ -46,6 +49,7 @@
             android:text="@string/month" />
 
         <com.google.android.material.chip.Chip
+            app:chipBackgroundColor="@android:color/darker_gray"
             android:id="@+id/chip_report_week"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
@@ -53,6 +57,7 @@
             android:text="@string/week" />
 
         <com.google.android.material.chip.Chip
+            app:chipBackgroundColor="@android:color/darker_gray"
             android:id="@+id/chip_report_day"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"

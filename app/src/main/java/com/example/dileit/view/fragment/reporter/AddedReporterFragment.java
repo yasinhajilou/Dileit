@@ -41,7 +41,6 @@ import static com.example.dileit.constant.TimeReporterFilter.YEAR;
 
 public class AddedReporterFragment extends Fragment {
     private FragmentAddedReporterBinding mBinding;
-    private ReporterViewModel mReporterViewModel;
     private List<LeitnerReport> mLeitnerReportList;
     private Map<String, Integer> mMapDayReviewCounter = new LinkedHashMap<>();
     private Map<Integer, Integer> mMapWeekReviewCounter = new LinkedHashMap<>();
@@ -67,17 +66,18 @@ public class AddedReporterFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mReporterViewModel = ViewModelProviders.of(getActivity()).get(ReporterViewModel.class);
+        ReporterViewModel reporterViewModel = ViewModelProviders.of(getActivity()).get(ReporterViewModel.class);
 
         mBinding.barChartAdded.setScaleEnabled(false);
         mBinding.barChartAdded.setFitBars(true); // make the x-axis fit exactly all bars
 
-        mReporterViewModel.getLiveReportAdded().observe(getViewLifecycleOwner(), leitnerReports -> {
+        reporterViewModel.getLiveReportAdded().observe(getViewLifecycleOwner(), leitnerReports -> {
             mLeitnerReportList = leitnerReports;
-            Log.d(TAG, "onViewCreated: " + leitnerReports.size());
+            Log.d(TAG, "onViewCreated: list" + leitnerReports.size());
         });
 
-        mReporterViewModel.getLiveSyncedTimeLists().observe(getViewLifecycleOwner(), integer -> {
+        reporterViewModel.getLiveSyncedTimeLists().observe(getViewLifecycleOwner(), integer -> {
+            Log.d(TAG, "onViewCreated: time filter" + integer);
             switch (integer) {
                 case DAY:
                     setUpChartDay();
@@ -114,9 +114,8 @@ public class AddedReporterFragment extends Fragment {
 
         for (LeitnerReport leitnerReport :
                 mLeitnerReportList) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(leitnerReport.getTimeAdded());
-            String hour = String.format("%02d", calendar.get(Calendar.HOUR_OF_DAY));
+            PersianDate persianDate = new PersianDate(leitnerReport.getTimeAdded());
+            String hour = String.format("%02d", persianDate.getHour());
             int lastCount = mMapDayReviewCounter.get(hour);
             mMapDayReviewCounter.put(hour, ++lastCount);
         }

@@ -1,6 +1,7 @@
 package com.example.dileit.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -18,6 +19,8 @@ import java.util.List;
 
 public class ReporterViewModel extends AndroidViewModel {
     private InternalRepository mInternalRepository;
+
+    private String TAG = ReporterViewModel.class.getSimpleName();
 
     private MutableLiveData<long[]> liveTimeRange = new MutableLiveData<>();
     private LiveData<List<WordReviewHistory>> liveReportsReviewed = Transformations.switchMap(liveTimeRange, input -> LiveDataReactiveStreams.fromPublisher(mInternalRepository.getWordReviewedHistoryByRange(input[0], input[1])));
@@ -50,13 +53,11 @@ public class ReporterViewModel extends AndroidViewModel {
     }
 
     private void syncAddedReports(int timeFlag, List<LeitnerReport> reportAdded, List<WordReviewHistory> reportReviewed) {
-        if (timeFlag != -1) {
-            if (reportAdded != null && reportReviewed != null) {
-                liveSyncedTimeLists.setValue(timeFlag);
-                timeFilter = -1;
-                listAddeds = null;
-                listRevieweds = null;
-            }
+        if (timeFlag != -1 && reportAdded != null && reportReviewed != null) {
+            timeFilter = -1;
+            listAddeds = null;
+            listRevieweds = null;
+            liveSyncedTimeLists.setValue(timeFlag);
         }
     }
 

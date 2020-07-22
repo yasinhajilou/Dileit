@@ -8,4 +8,5 @@
     <color name="colorTextTitle">#000000</color>
     <color name="colorRed">#A51C30</color>
     <color name="colorOrange">#FF4E00</color>
+    <color name="darkGrey">#aaa</color>
 </resources>

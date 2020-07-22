@@ -2,12 +2,16 @@ package com.example.dileit.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.ViewPager;
 
 import android.animation.ValueAnimator;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.widget.Toast;
 
+import com.example.dileit.R;
 import com.example.dileit.constant.TimeReporterFilter;
 import com.example.dileit.view.adapter.viewpager.BarChartViewPagerAdapter;
 import com.example.dileit.view.fragment.reporter.DatePickerDialogFragment;
@@ -94,6 +98,44 @@ public class ReporterActivity extends AppCompatActivity {
             }
         });
 
+        mBinding.tvVpHandlerAdded.setOnClickListener(view -> {
+            mBinding.vpBarChart.setCurrentItem(1);
+        });
+
+        mBinding.tvVpHandlerReview.setOnClickListener(view -> {
+            mBinding.vpBarChart.setCurrentItem(0);
+        });
+
+        mBinding.vpBarChart.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position){
+                    case 0:
+                        mBinding.tvVpHandlerReview.setTextSize(TypedValue.COMPLEX_UNIT_SP , 24f);
+                        mBinding.tvVpHandlerAdded.setTextSize(TypedValue.COMPLEX_UNIT_SP , 20f);
+                        mBinding.tvVpHandlerReview.setTextColor(getResources().getColor(R.color.colorSecondary));
+                        mBinding.tvVpHandlerAdded.setTextColor(getResources().getColor(R.color.darkGrey));
+                        break;
+                    case 1:
+                        mBinding.tvVpHandlerReview.setTextSize(TypedValue.COMPLEX_UNIT_SP , 20f);
+                        mBinding.tvVpHandlerAdded.setTextSize(TypedValue.COMPLEX_UNIT_SP , 24f);
+                        mBinding.tvVpHandlerReview.setTextColor(getResources().getColor(R.color.darkGrey));
+                        mBinding.tvVpHandlerAdded.setTextColor(getResources().getColor(R.color.colorSecondary));
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private void showAllCountessWithAnimation(int allCardsCount) {

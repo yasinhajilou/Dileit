@@ -259,7 +259,7 @@
                     <TextView
                         android:clickable="true"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="10dp"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintEnd_toStartOf="@+id/tv_vp_handler_added"
                         android:id="@+id/tv_vp_handler_review"
@@ -274,7 +274,7 @@
                     <TextView
                         android:clickable="true"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="10dp"
                         app:layout_constraintHorizontal_weight="1"
                         android:id="@+id/tv_vp_handler_added"
                         app:layout_constraintStart_toEndOf="@+id/tv_vp_handler_review"

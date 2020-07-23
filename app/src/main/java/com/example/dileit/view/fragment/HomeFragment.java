@@ -122,10 +122,8 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
         mBinding.tvHomeWord.setOnClickListener(view1 -> goToSearchView());
 
         mBinding.fabAddLeitner.setOnClickListener(view1 -> {
-            throw new RuntimeException("Error Yasin");
-
-//            DialogAddCostumeLeitner dialogAddCostumeLeitner = new DialogAddCostumeLeitner();
-//            dialogAddCostumeLeitner.show(getChildFragmentManager(), "tag_dialog_costume_leitner");
+            DialogAddCostumeLeitner dialogAddCostumeLeitner = new DialogAddCostumeLeitner();
+            dialogAddCostumeLeitner.show(getChildFragmentManager(), "tag_dialog_costume_leitner");
         });
 
         mBinding.imgMenuBurgerHome.setOnClickListener(view13 -> {

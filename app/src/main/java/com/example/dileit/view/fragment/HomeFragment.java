@@ -26,7 +26,7 @@ import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
 import com.example.dileit.databinding.FragmentHomeBinding;
 import com.example.dileit.view.adapter.recycler.WordHistoryRecyclerAdapter;
-import com.example.dileit.view.fragment.leitnercardhandler.DialogAddCostumeLeitner;
+import com.example.dileit.view.fragment.leitnercardhandler.BottomSheetAddCostumeLeitner;
 import com.example.dileit.view.viewinterface.WordsRecyclerViewInterface;
 import com.example.dileit.viewmodel.InternalViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
@@ -122,8 +122,8 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
         mBinding.tvHomeWord.setOnClickListener(view1 -> goToSearchView());
 
         mBinding.fabAddLeitner.setOnClickListener(view1 -> {
-            DialogAddCostumeLeitner dialogAddCostumeLeitner = new DialogAddCostumeLeitner();
-            dialogAddCostumeLeitner.show(getChildFragmentManager(), "tag_dialog_costume_leitner");
+            BottomSheetAddCostumeLeitner bottomSheetAddCostumeLeitner = new BottomSheetAddCostumeLeitner();
+            bottomSheetAddCostumeLeitner.show(getChildFragmentManager(), "tag_dialog_costume_leitner");
         });
 
         mBinding.imgMenuBurgerHome.setOnClickListener(view13 -> {

@@ -73,7 +73,6 @@ public class AddedReporterFragment extends Fragment {
 
         reporterViewModel.getLiveReportAdded().observe(getViewLifecycleOwner(), leitnerReports -> {
             mLeitnerReportList = leitnerReports;
-            Log.d(TAG, "onViewCreated: list" + leitnerReports.size());
         });
 
         reporterViewModel.getLiveSyncedTimeLists().observe(getViewLifecycleOwner(), integer -> {

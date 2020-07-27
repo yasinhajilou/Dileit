@@ -7,13 +7,18 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.dileit.R;
 import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.BottomSheetAddCostumeLeitnerBinding;
 import com.example.dileit.model.entity.Leitner;
@@ -31,10 +36,11 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class DialogAddCostumeLeitner extends BottomSheetDialogFragment {
+public class BottomSheetAddCostumeLeitner extends BottomSheetDialogFragment {
     private InternalViewModel mViewModel;
     private BottomSheetAddCostumeLeitnerBinding mBinding;
     private Leitner mLeitner;
+    private String[] dropDownItems = {"Verb", "Noun", "Adjective", "Adverb", "Phrase", "Other"};
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,21 +69,33 @@ public class DialogAddCostumeLeitner extends BottomSheetDialogFragment {
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         });
 
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(), R.layout.drop_down_card_cat, dropDownItems);
+
+        mBinding.filledExposedDropdown.setAdapter(arrayAdapter);
+
+        mBinding.filledExposedDropdown.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
         mBinding.btnSaveCostumeLeitner.setOnClickListener(view1 -> {
 
             String cardTitle = mBinding.edtInputTitle.getText().toString().toLowerCase();
             String cardDef = mBinding.edtInputDef.getText().toString().trim();
             if (!Objects.equals(cardTitle, "") && !Objects.equals(cardDef, "")) {
-                String guide = null;
-                if (mBinding.edtInputGuide.getText() != null)
-                    guide = mBinding.edtInputGuide.getText().toString().trim();
+                String cat = mBinding.filledExposedDropdown.getText().toString();
+                if (!cat.equals("")) {
+                    String guide = null;
+                    if (mBinding.edtInputGuide.getText() != null)
+                        guide = mBinding.edtInputGuide.getText().toString().trim();
 
-                mLeitner = new Leitner(0, cardTitle, cardDef, null, "bug", guide, LeitnerStateConstant.STARTED,
-                        0, 0, System.currentTimeMillis());
+                    mLeitner = new Leitner(0, cardTitle, cardDef, null, cat, guide, LeitnerStateConstant.STARTED,
+                            0, 0, System.currentTimeMillis());
 
-                mViewModel.getExistedLeitner(cardTitle);
+                    mViewModel.getExistedLeitner(cardTitle);
+                } else {
+                    Toast.makeText(getContext(), "please add cart category!", Toast.LENGTH_LONG).show();
+                }
+
             } else {
-                Toast.makeText(getContext(), "please fill fields", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "please fill word title & definition!", Toast.LENGTH_LONG).show();
             }
 
         });

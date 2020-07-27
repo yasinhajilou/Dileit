@@ -22,6 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:textAlignment="center"
         android:id="@+id/tv_word_title_review_leitner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,6 +34,17 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Hiiiiii" />
+
+    <TextView
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="10dp"
+        tools:text="(Noun)"
+        android:id="@+id/tv_leitner_cat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tv_word_title_review_leitner" />
 
     <TextView
         android:id="@+id/tv_guide_leitner_card"
@@ -74,16 +86,41 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_title_leitner"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:fontFamily="@font/productsansregular"
-            android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/tab_review_leitner"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" >
+
+            <TextView
+                tools:text="Title"
+                android:id="@+id/tv_title_leitner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/productsansregular"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/tab_review_leitner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
+                android:layout_gravity="center"
+                tools:text="-noun-"
+                android:id="@+id/tv_leitner_cat_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/productsansregular"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@+id/tab_review_leitner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/tab_review_leitner"
@@ -93,7 +130,6 @@
             android:layout_marginTop="124dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/view_pager_leitner_item_translation"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -135,6 +171,7 @@
                     app:layout_constraintStart_toEndOf="@id/btn_tab_translation"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.viewpager.widget.ViewPager
@@ -145,8 +182,7 @@
             app:layout_constraintBottom_toTopOf="@+id/layout_review_leitner_controller"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tab_review_leitner"
-            app:layout_constraintVertical_weight="4" />
+            app:layout_constraintTop_toBottomOf="@+id/tab_review_leitner" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_review_leitner_controller"

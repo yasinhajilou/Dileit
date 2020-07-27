@@ -99,6 +99,12 @@ public class LeitnerItemFragment extends Fragment {
                     mBinding.tvWordTitleReviewLeitner.setText(mWord);
                     //second title in second view
                     mBinding.tvTitleLeitner.setText(mWord);
+
+                    mBinding.tvLeitnerCat.setText(leitner.getWordAct());
+
+                    //second cat in second view
+                    mBinding.tvLeitnerCatSecond.setText("-"+leitner.getWordAct().toLowerCase()+"-");
+
                     if (leitner.getGuide() != null)
                         mBinding.tvGuideLeitnerCard.setText(leitner.getGuide());
 

@@ -33,8 +33,8 @@ public class PersianDatabaseAccess {
     }
 
     public void closeDatabase() {
-        if (this.mDatabase != null)
-            mHelper.close();
+//        if (this.mDatabase != null)
+//            mHelper.close();
     }
 
     @Override

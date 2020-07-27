@@ -36,4 +36,13 @@ public class EnglishDatabaseAccess {
         if (this.mDatabase != null)
             mHelper.close();
     }
+
+    @Override
+    protected void finalize() throws Throwable {
+        if (null != mHelper)
+            mHelper.close();
+        if (null != mDatabase)
+            mDatabase.close();
+        super.finalize();
+    }
 }

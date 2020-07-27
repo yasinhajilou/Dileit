@@ -103,10 +103,14 @@ public class ExternalDictionaryRepository {
             mPersianDatabaseAccess.openDatabase();
             Cursor cursor = mPersianDatabaseAccess.getDatabase().rawQuery("SELECT def from dictionary WHERE word LIKE ?  ", new String[]{word});
             String data = null;
-            while (cursor.moveToNext()) {
-                data = cursor.getString(0);
+            if (cursor != null) {
+                while (cursor.moveToNext()) {
+                    data = cursor.getString(0);
+                }
             }
-            cursor.close();
+
+            if (cursor != null)
+                cursor.close();
             mPersianDatabaseAccess.closeDatabase();
             return data;
         }).onErrorReturnItem("Error")

@@ -114,6 +114,9 @@ public class WordInformationFragment extends Fragment {
 
                 JsonUtils jsonUtils = new JsonUtils();
                 if (jsonUtils.getWordDefinition(s) != null) {
+
+                    mBinding.progressWordInfo.setVisibility(View.GONE);
+
                     perPagerIndex = mAdapter.addPage(new TranslationFragment());
                     chipPersian.setVisibility(View.VISIBLE);
                     selectPersianChip();
@@ -145,6 +148,7 @@ public class WordInformationFragment extends Fragment {
             if (shouldRefreshLivesEng) {
                 if (englishDefs.size() > 0) {
 
+                    mBinding.progressWordInfo.setVisibility(View.GONE);
                     engPagerIndex = mAdapter.addPage(new EnglishTranslatedFragment());
                     chipEnglish.setVisibility(View.VISIBLE);
 

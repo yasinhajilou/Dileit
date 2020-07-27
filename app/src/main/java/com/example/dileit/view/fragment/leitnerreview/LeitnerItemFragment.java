@@ -110,14 +110,14 @@ public class LeitnerItemFragment extends Fragment {
 
                     List<String> strings = new ArrayList<>();
 
-                    if (leitner.getDef() == null) {
+                    if (leitner.getDef() == null || leitner.getDef().equals("")) {
                         mBinding.btnTabTranslation.setVisibility(View.GONE);
                     } else {
                         strings.add(leitner.getDef());
                         mBinding.btnTabTranslation.setVisibility(View.VISIBLE);
                     }
 
-                    if (leitner.getSecondDef() == null) {
+                    if (leitner.getSecondDef() == null || leitner.getSecondDef().equals("")) {
                         mBinding.btnTabEnglishTrans.setVisibility(View.GONE);
                     } else {
                         strings.add(leitner.getSecondDef());

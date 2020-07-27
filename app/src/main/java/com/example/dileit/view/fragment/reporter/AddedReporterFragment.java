@@ -263,7 +263,7 @@ public class AddedReporterFragment extends Fragment {
 
             todayIndexOfMonth--;
 
-            if (todayIndexOfMonth < 0) {
+            if (todayIndexOfMonth == 0) {
                 PersianDate persianDate1 = new PersianDate(todayTimeStamp - 30 * 24 * 60 * 60 * 1000L);
                 todayIndexOfMonth = persianDate1.getMonthLength();
             }

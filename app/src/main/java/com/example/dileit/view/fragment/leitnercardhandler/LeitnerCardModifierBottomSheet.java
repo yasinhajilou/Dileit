@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
     private LeitnerModifierConstants mConstants;
     private int cardId;
     private Leitner mLeitner;
+    private String[] dropDownItems = {"Verb", "Noun", "Adjective", "Adverb", "Phrase", "Other"};
 
     public static LeitnerCardModifierBottomSheet onNewInstance(LeitnerModifierConstants constants, int cardId) {
         LeitnerCardModifierBottomSheet bottomSheet = new LeitnerCardModifierBottomSheet();
@@ -81,6 +83,9 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         });
 
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(), R.layout.drop_down_card_cat, dropDownItems);
+
+        mBinding.dropdownText.setAdapter(arrayAdapter);
         //this class will call in two way:
         //1- when user wants to add a brand new card
         //2- when user wants to edit a card
@@ -103,92 +108,97 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
             mSharedViewModel.setSaveBtnCheck(true);
             String edtTitle = mBinding.edtTitleDialogAddLeitner.getText().toString().trim();
             String edtGuide = mBinding.edtDialogGuide.getText().toString().trim();
-            switch (mConstants) {
-                case ADD:
-                    mLeitner = new Leitner(0, title, mSharedViewModel.getTranslation(), mSharedViewModel.getSecondTranslation(),
-                            "bug", edtGuide, LeitnerStateConstant.STARTED, 0, 0, System.currentTimeMillis());
-                    mInternalViewModel.insertLeitnerItem(mLeitner);
+            String edtCat = mBinding.dropdownText.getText().toString();
+            if (!edtTitle.equals("") && !edtCat.equals("")) {
+                switch (mConstants) {
+                    case ADD:
 
-                    break;
-                case EDIT:
-                    if (!edtTitle.equals("")) {
+                        mLeitner = new Leitner(0, title, mSharedViewModel.getTranslation(), mSharedViewModel.getSecondTranslation(),
+                                edtCat, edtGuide, LeitnerStateConstant.STARTED, 0, 0, System.currentTimeMillis());
+                        mInternalViewModel.insertLeitnerItem(mLeitner);
+
+                        break;
+                    case EDIT:
+
                         mLeitner.setDef(mSharedViewModel.getTranslation());
                         mLeitner.setSecondDef(mSharedViewModel.getSecondTranslation());
                         mLeitner.setWord(edtTitle);
+                        mLeitner.setWordAct(edtCat);
                         if (!edtGuide.equals(""))
                             mLeitner.setGuide(edtGuide);
+
                         mInternalViewModel.updateLeitnerItem(mLeitner);
-
-                    } else
-                        Toast.makeText(view1.getContext(), "You Should fill title field!", Toast.LENGTH_SHORT).show();
-
-                    break;
-            }
-
-        });
-
-
-        mInternalViewModel.getAddedLeitnerItemId().observe(getViewLifecycleOwner(), new Observer<Long>() {
-            @Override
-            public void onChanged(Long aLong) {
-                if (aLong > 0) {
-                    Toast.makeText(getContext(), "Added To leitner!", Toast.LENGTH_SHORT).show();
-                    dismiss();
-                } else {
-                    Toast.makeText(getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+                        break;
                 }
+            }else {
+                Toast.makeText(getContext(), "please fill required fields!", Toast.LENGTH_LONG).show();
             }
-        });
-        mInternalViewModel.getUpdateItemStatus().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean) {
-                    Toast.makeText(getContext(), "Leitner Card Updated!", Toast.LENGTH_SHORT).show();
-                    dismiss();
-                } else {
-                    Toast.makeText(getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+            });
+
+
+            mInternalViewModel.getAddedLeitnerItemId().observe(getViewLifecycleOwner(), new Observer<Long>() {
+                @Override
+                public void onChanged(Long aLong) {
+                    if (aLong > 0) {
+                        Toast.makeText(getContext(), "Added To leitner!", Toast.LENGTH_SHORT).show();
+                        dismiss();
+                    } else {
+                        Toast.makeText(getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
-    }
+            });
+            mInternalViewModel.getUpdateItemStatus().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean aBoolean) {
+                    if (aBoolean) {
+                        Toast.makeText(getContext(), "Leitner Card Updated!", Toast.LENGTH_SHORT).show();
+                        dismiss();
+                    } else {
+                        Toast.makeText(getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
 
-    private void setUpViewForEditing() {
-        mInternalViewModel.getLeitnerCardById(cardId).observe(getViewLifecycleOwner(), leitner -> {
-            mBinding.edtTitleDialogAddLeitner.setText(leitner.getWord());
-            mBinding.edtDialogGuide.setText(leitner.getGuide());
-            mBinding.edtTitleDialogAddLeitner.setText(leitner.getWord());
+        private void setUpViewForEditing () {
+            mInternalViewModel.getLeitnerCardById(cardId).observe(getViewLifecycleOwner(), leitner -> {
 
-            handleViewPagerItems(leitner.getDef(), leitner.getSecondDef());
+                mBinding.edtTitleDialogAddLeitner.setText(leitner.getWord());
+                mBinding.dropdownText.setText(leitner.getWordAct(), false);
+                mBinding.edtDialogGuide.setText(leitner.getGuide());
+                mBinding.edtTitleDialogAddLeitner.setText(leitner.getWord());
 
-            mLeitner = leitner;
-        });
-    }
+                handleViewPagerItems(leitner.getDef(), leitner.getSecondDef());
 
-    private void setUpViewForAdding() {
-        mSharedViewModel.getLeitnerItemData().observe(getViewLifecycleOwner(), strings -> {
-            title = strings[0];
-            mBinding.edtTitleDialogAddLeitner.setText(title);
-            mainTranslation = strings[1];
-            secondTranslation = strings[2];
+                mLeitner = leitner;
+            });
+        }
 
-            handleViewPagerItems(mainTranslation, secondTranslation);
+        private void setUpViewForAdding () {
+            mSharedViewModel.getLeitnerItemData().observe(getViewLifecycleOwner(), strings -> {
+                title = strings[0];
+                mBinding.edtTitleDialogAddLeitner.setText(title);
+                mainTranslation = strings[1];
+                secondTranslation = strings[2];
 
-        });
+                handleViewPagerItems(mainTranslation, secondTranslation);
 
-        mBinding.rbCostumeBottomSheet.setOnCheckedChangeListener((compoundButton, b) -> mSharedViewModel.setCostumeCheck(b));
+            });
 
-    }
+            mBinding.rbCostumeBottomSheet.setOnCheckedChangeListener((compoundButton, b) -> mSharedViewModel.setCostumeCheck(b));
 
-    private void handleViewPagerItems(String mainTranslation, String secondTranslation) {
+        }
+
+        private void handleViewPagerItems (String mainTranslation, String secondTranslation){
 //        if (mainTranslation != null)
             mAdapter.addData("Translation", TranslationDialogFragment.newInstance(mainTranslation, KeysValue.FRAGMENT_HEADER_TRANSLATION));
 //        if (secondTranslation != null)
             mAdapter.addData("English Definition", TranslationDialogFragment.newInstance(secondTranslation, KeysValue.FRAGMENT_HEADER_SECOND_TRANSLATION));
 
-    }
+        }
 
-    @Override
-    public int getTheme() {
-        return R.style.AppBottomSheetDialogTheme;
+        @Override
+        public int getTheme () {
+            return R.style.AppBottomSheetDialogTheme;
+        }
     }
-}

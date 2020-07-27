@@ -103,24 +103,26 @@ public class LeitnerItemFragment extends Fragment {
                     mBinding.tvLeitnerCat.setText(leitner.getWordAct());
 
                     //second cat in second view
-                    mBinding.tvLeitnerCatSecond.setText("-"+leitner.getWordAct().toLowerCase()+"-");
+                    mBinding.tvLeitnerCatSecond.setText("-" + leitner.getWordAct().toLowerCase() + "-");
 
                     if (leitner.getGuide() != null)
                         mBinding.tvGuideLeitnerCard.setText(leitner.getGuide());
 
                     List<String> strings = new ArrayList<>();
 
-                    if (!leitner.getDef().equals("")) {
+                    if (leitner.getDef() == null) {
+                        mBinding.btnTabTranslation.setVisibility(View.GONE);
+                    } else {
                         strings.add(leitner.getDef());
                         mBinding.btnTabTranslation.setVisibility(View.VISIBLE);
-                    } else
-                        mBinding.btnTabTranslation.setVisibility(View.GONE);
+                    }
 
-                    if (leitner.getSecondDef() != null) {
+                    if (leitner.getSecondDef() == null) {
+                        mBinding.btnTabEnglishTrans.setVisibility(View.GONE);
+                    } else {
                         strings.add(leitner.getSecondDef());
                         mBinding.btnTabEnglishTrans.setVisibility(View.VISIBLE);
-                    } else
-                        mBinding.btnTabEnglishTrans.setVisibility(View.GONE);
+                    }
 
                     mBinding.viewPagerLeitnerItemTranslation.setAdapter(new LeitnerItemTranslationViewPagerAdapter(strings));
                     mLeitner = leitner;

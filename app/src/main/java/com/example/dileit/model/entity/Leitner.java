@@ -70,6 +70,9 @@ public class Leitner implements Comparable {
         this.lastReviewTime = lastReviewTime;
     }
 
+    public void setWordAct(String wordAct) {
+        this.wordAct = wordAct;
+    }
 
     public String getWordAct() {
         return wordAct;

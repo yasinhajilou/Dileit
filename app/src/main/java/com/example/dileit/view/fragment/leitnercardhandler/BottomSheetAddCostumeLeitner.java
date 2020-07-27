@@ -73,8 +73,6 @@ public class BottomSheetAddCostumeLeitner extends BottomSheetDialogFragment {
 
         mBinding.filledExposedDropdown.setAdapter(arrayAdapter);
 
-        mBinding.filledExposedDropdown.setImeOptions(EditorInfo.IME_ACTION_DONE);
-
         mBinding.btnSaveCostumeLeitner.setOnClickListener(view1 -> {
 
             String cardTitle = mBinding.edtInputTitle.getText().toString().toLowerCase();

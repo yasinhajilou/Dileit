@@ -49,7 +49,7 @@ public class InternalRepository {
                 .subscribeOn(Schedulers.io());
     }
 
-    public Flowable<List<WordReviewHistory>> getWordReviewedHistoryByRange(long s, long e) {
+    public Maybe<List<WordReviewHistory>> getWordReviewedHistoryByRange(long s, long e) {
         return mWordReviewHistoryDao.LIST_FLOWABLE(s, e)
                 .subscribeOn(Schedulers.io());
     }
@@ -147,7 +147,7 @@ public class InternalRepository {
                 .subscribeOn(Schedulers.io());
     }
 
-    public Flowable<List<LeitnerReport>> getAddedCardByRange(long stat, long end) {
+    public Maybe<List<LeitnerReport>> getAddedCardByRange(long stat, long end) {
         return mLeitnerDao.getAddCardForReportByRange(stat, end)
                 .subscribeOn(Schedulers.io());
     }

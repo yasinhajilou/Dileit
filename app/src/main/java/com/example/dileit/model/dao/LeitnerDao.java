@@ -64,7 +64,7 @@ public interface LeitnerDao {
     Flowable<List<LeitnerReport>> getReviewedCardForReportByRange(long start, long end);
 
     @Query("select timeAdded,lastReviewTime FROM Leitner WHERE timeAdded BETWEEN :start AND :end")
-    Flowable<List<LeitnerReport>> getAddCardForReportByRange(long start, long end);
+    Maybe<List<LeitnerReport>> getAddCardForReportByRange(long start, long end);
 
     @Query("SELECT COUNT(id) FROM Leitner WHERE timeAdded BETWEEN :start AND :end")
     Maybe<Integer> getAddedCardsCountByTimeRange(long start , long end);

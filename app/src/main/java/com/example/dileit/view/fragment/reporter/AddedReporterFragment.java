@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.example.dileit.R;
 import com.example.dileit.databinding.FragmentAddedReporterBinding;
 import com.example.dileit.model.LeitnerReport;
 import com.example.dileit.model.entity.WordReviewHistory;
+import com.example.dileit.viewmodel.ChartsReporterViewModel;
 import com.example.dileit.viewmodel.ReporterViewModel;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
@@ -49,6 +51,8 @@ public class AddedReporterFragment extends Fragment {
 
     private String TAG = AddedReporterFragment.class.getSimpleName();
 
+    private int selectedTime = -1;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,30 +71,50 @@ public class AddedReporterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ReporterViewModel reporterViewModel = ViewModelProviders.of(getActivity()).get(ReporterViewModel.class);
+        ChartsReporterViewModel chartsReporterViewModel = ViewModelProviders.of(this).get(ChartsReporterViewModel.class);
 
         mBinding.barChartAdded.setScaleEnabled(false);
         mBinding.barChartAdded.setFitBars(true); // make the x-axis fit exactly all bars
 
-        reporterViewModel.getLiveReportAdded().observe(getViewLifecycleOwner(), leitnerReports -> {
-            mLeitnerReportList = leitnerReports;
+        reporterViewModel.getSelectedTimeRange().observe(getViewLifecycleOwner(), times -> {
+            //divide on complete day (24 hour)
+            long longTime = (times[1] - times[0]) / (24 * 60 * 60 * 1000);
+            int time = (int) longTime;
+            switch (time) {
+                case 1:
+                    selectedTime = DAY;
+                    break;
+                case 7:
+                    selectedTime = WEEK;
+                    break;
+                case 30:
+                    selectedTime = MONTH;
+                    break;
+                case 365:
+                    selectedTime = YEAR;
+                    break;
+            }
+
+            chartsReporterViewModel.setTimeForAddedList(times);
         });
 
-        reporterViewModel.getLiveSyncedTimeLists().observe(getViewLifecycleOwner(), integer -> {
-            Log.d(TAG, "onViewCreated: time filter" + integer);
-//            switch (integer) {
-//                case DAY:
-//                    setUpChartDay();
-//                    break;
-//                case WEEK:
-//                    setUpChartWeek();
-//                    break;
-//                case MONTH:
-//                    setUpChartMonth();
-//                    break;
-//                case YEAR:
-//                    setUpChartYear();
-//                    break;
-//            }
+        chartsReporterViewModel.getLiveListAdded().observe(getViewLifecycleOwner(), leitnerReports -> {
+            mLeitnerReportList = leitnerReports;
+            switch (selectedTime) {
+                case DAY:
+                    setUpChartDay();
+                    break;
+                case WEEK:
+                    setUpChartWeek();
+                    break;
+                case MONTH:
+                    setUpChartMonth();
+                    break;
+                case YEAR:
+                    setUpChartYear();
+                    break;
+            }
+
         });
     }
 

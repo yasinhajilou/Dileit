@@ -30,14 +30,8 @@ public class ReporterViewModel extends AndroidViewModel {
     private String TAG = ReporterViewModel.class.getSimpleName();
 
     private MutableLiveData<long[]> liveTimeRange = new MutableLiveData<>();
-    private LiveData<List<WordReviewHistory>> liveReportsReviewed = Transformations.switchMap(liveTimeRange, input -> LiveDataReactiveStreams.fromPublisher(mInternalRepository.getWordReviewedHistoryByRange(input[0], input[1])));
-    private LiveData<List<LeitnerReport>> liveReportAdded = Transformations.switchMap(liveTimeRange, input -> LiveDataReactiveStreams.fromPublisher(mInternalRepository.getAddedCardByRange(input[0], input[1])));
 
     private MutableLiveData<Integer> mSelectedTime = new MutableLiveData<>();
-    private MediatorLiveData<Integer> liveSyncedTimeLists = new MediatorLiveData<>();
-    private List<LeitnerReport> listAddeds;
-    private List<WordReviewHistory> listRevieweds;
-    private int timeFilter = -1;
 
     private MutableLiveData<Integer> mLiveAddedCardCount = new MutableLiveData<>();
     private MutableLiveData<Integer> mLiveReviewedCardCount = new MutableLiveData<>();
@@ -46,29 +40,6 @@ public class ReporterViewModel extends AndroidViewModel {
         super(application);
         mInternalRepository = new InternalRepository(application);
 
-        liveSyncedTimeLists.addSource(mSelectedTime, integer -> {
-            timeFilter = integer;
-            syncAddedReports(timeFilter, listAddeds, listRevieweds);
-        });
-
-        liveSyncedTimeLists.addSource(liveReportAdded, leitnerReports -> {
-            listAddeds = leitnerReports;
-            syncAddedReports(timeFilter, listAddeds, listRevieweds);
-        });
-
-        liveSyncedTimeLists.addSource(liveReportsReviewed, leitnerReports -> {
-            listRevieweds = leitnerReports;
-            syncAddedReports(timeFilter, listAddeds, listRevieweds);
-        });
-    }
-
-    private void syncAddedReports(int timeFlag, List<LeitnerReport> reportAdded, List<WordReviewHistory> reportReviewed) {
-        if (timeFlag != -1 && reportAdded != null && reportReviewed != null) {
-            timeFilter = -1;
-            listAddeds = null;
-            listRevieweds = null;
-            liveSyncedTimeLists.setValue(timeFlag);
-        }
     }
 
     public void setSelectedTime(int flag) {
@@ -79,33 +50,6 @@ public class ReporterViewModel extends AndroidViewModel {
         liveTimeRange.setValue(ranges);
     }
 
-    public LiveData<Integer> getLiveSyncedTimeLists() {
-        return liveSyncedTimeLists;
-    }
-
-    public LiveData<List<WordReviewHistory>> getLiveReportsReviewed() {
-        return liveReportsReviewed;
-    }
-
-    public LiveData<List<LeitnerReport>> getLiveReportAdded() {
-        return liveReportAdded;
-    }
-
-    public LiveData<Integer> getTimeFilterFlag() {
-        return mSelectedTime;
-    }
-
-    public LiveData<Integer> getAllLeitnerCardCount() {
-        return LiveDataReactiveStreams.fromPublisher(mInternalRepository.getAllCardCount());
-    }
-
-    public LiveData<Integer> getLearnedCardsCount() {
-        return LiveDataReactiveStreams.fromPublisher(mInternalRepository.getLearnedCardsCount());
-    }
-
-    public LiveData<Integer> getWordReviewedHistoryCount() {
-        return LiveDataReactiveStreams.fromPublisher(mInternalRepository.getWordReviewedHistoryCount());
-    }
 
     public void setAddedCardsTimeRange(long start , long end){
         mInternalRepository.getAddedCardsCountByTimeRange(start , end).subscribe(new MaybeObserver<Integer>() {
@@ -152,6 +96,22 @@ public class ReporterViewModel extends AndroidViewModel {
         });
     }
 
+
+    public LiveData<Integer> getTimeFilterFlag() {
+        return mSelectedTime;
+    }
+
+    public LiveData<Integer> getAllLeitnerCardCount() {
+        return LiveDataReactiveStreams.fromPublisher(mInternalRepository.getAllCardCount());
+    }
+
+    public LiveData<Integer> getLearnedCardsCount() {
+        return LiveDataReactiveStreams.fromPublisher(mInternalRepository.getLearnedCardsCount());
+    }
+
+    public LiveData<Integer> getWordReviewedHistoryCount() {
+        return LiveDataReactiveStreams.fromPublisher(mInternalRepository.getWordReviewedHistoryCount());
+    }
 
     public LiveData<Integer> getLiveAddedCardCount() {
         return mLiveAddedCardCount;

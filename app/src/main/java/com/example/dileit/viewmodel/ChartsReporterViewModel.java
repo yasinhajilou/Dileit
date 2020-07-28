@@ -18,6 +18,8 @@ import org.reactivestreams.Subscription;
 import java.util.List;
 
 import io.reactivex.FlowableSubscriber;
+import io.reactivex.MaybeObserver;
+import io.reactivex.disposables.Disposable;
 
 public class ChartsReporterViewModel extends AndroidViewModel {
     private InternalRepository mInternalRepository;
@@ -33,19 +35,19 @@ public class ChartsReporterViewModel extends AndroidViewModel {
 
     public void setTimeForReviewedList(long[] time) {
 
-        mInternalRepository.getWordReviewedHistoryByRange(time[0], time[1]).subscribe(new FlowableSubscriber<List<WordReviewHistory>>() {
+        mInternalRepository.getWordReviewedHistoryByRange(time[0], time[1]).subscribe(new MaybeObserver<List<WordReviewHistory>>() {
             @Override
-            public void onSubscribe(Subscription s) {
+            public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onNext(List<WordReviewHistory> wordReviewHistories) {
+            public void onSuccess(List<WordReviewHistory> wordReviewHistories) {
                 mLiveListReviewed.postValue(wordReviewHistories);
             }
 
             @Override
-            public void onError(Throwable t) {
+            public void onError(Throwable e) {
 
             }
 
@@ -58,19 +60,19 @@ public class ChartsReporterViewModel extends AndroidViewModel {
 
 
     public void setTimeForAddedList(long[] time) {
-        mInternalRepository.getAddedCardByRange(time[0], time[1]).subscribe(new FlowableSubscriber<List<LeitnerReport>>() {
+        mInternalRepository.getAddedCardByRange(time[0], time[1]).subscribe(new MaybeObserver<List<LeitnerReport>>() {
             @Override
-            public void onSubscribe(Subscription s) {
+            public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onNext(List<LeitnerReport> leitnerReports) {
+            public void onSuccess(List<LeitnerReport> leitnerReports) {
                 mLiveListAdded.postValue(leitnerReports);
             }
 
             @Override
-            public void onError(Throwable t) {
+            public void onError(Throwable e) {
 
             }
 

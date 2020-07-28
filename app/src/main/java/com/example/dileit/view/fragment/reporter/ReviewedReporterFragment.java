@@ -16,6 +16,7 @@ import com.example.dileit.R;
 import com.example.dileit.databinding.FragmentRelatedIdiomsBinding;
 import com.example.dileit.databinding.FragmentReviewedReporterBinding;
 import com.example.dileit.model.entity.WordReviewHistory;
+import com.example.dileit.viewmodel.ChartsReporterViewModel;
 import com.example.dileit.viewmodel.ReporterViewModel;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -54,6 +55,7 @@ public class ReviewedReporterFragment extends Fragment {
     private Map<String, Integer> mMapMonthReviewCounter = new LinkedHashMap<>();
     private Map<String, Integer> mMapYearReviewCounter = new LinkedHashMap<>();
 
+    private int selectedTime = -1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,16 +76,37 @@ public class ReviewedReporterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ReporterViewModel reporterViewModel = ViewModelProviders.of(getActivity()).get(ReporterViewModel.class);
+        ChartsReporterViewModel chartsReporterViewModel = ViewModelProviders.of(this).get(ChartsReporterViewModel.class);
+
 
         mBinding.barChartReviewed.setScaleEnabled(false);
         mBinding.barChartReviewed.setFitBars(true); // make the x-axis fit exactly all bars
 
-        reporterViewModel.getLiveReportsReviewed().observe(getViewLifecycleOwner(), wordReviewHistories -> {
-            mHistoryList = wordReviewHistories;
+        reporterViewModel.getSelectedTimeRange().observe(getViewLifecycleOwner(), times -> {
+            //divide on complete day (24 hour)
+            long longTime = (times[1] - times[0]) / (24 * 60 * 60 * 1000);
+            int time = (int) longTime;
+            switch (time) {
+                case 1:
+                    selectedTime = DAY;
+                    break;
+                case 7:
+                    selectedTime = WEEK;
+                    break;
+                case 30:
+                    selectedTime = MONTH;
+                    break;
+                case 365:
+                    selectedTime = YEAR;
+                    break;
+            }
+
+            chartsReporterViewModel.setTimeForReviewedList(times);
         });
 
-        reporterViewModel.getLiveSyncedTimeLists().observe(getViewLifecycleOwner(), integer -> {
-            switch (integer) {
+        chartsReporterViewModel.getLiveListReviewed().observe(getViewLifecycleOwner(), leitnerReports -> {
+            mHistoryList = leitnerReports;
+            switch (selectedTime) {
                 case DAY:
                     setUpChartDay();
                     break;
@@ -97,7 +120,9 @@ public class ReviewedReporterFragment extends Fragment {
                     setUpChartYear();
                     break;
             }
+
         });
+
     }
 
     private void setUpChartDay() {

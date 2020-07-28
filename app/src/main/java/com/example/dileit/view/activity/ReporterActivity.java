@@ -57,7 +57,9 @@ public class ReporterActivity extends AppCompatActivity {
             allLeitnerWord = integer;
 
             //first init for month
-            mReporterViewModel.setLiveTimeRange(new long[]{30 * 24 * 60 * 60 * 1000L, System.currentTimeMillis()});
+            long today = System.currentTimeMillis();
+            long pastMonth = today - 30 * 24 * 60 * 60 * 1000L;
+            mReporterViewModel.setLiveTimeRange(new long[]{pastMonth, today });
             mReporterViewModel.setSelectedTime(TimeReporterFilter.MONTH);
         });
 

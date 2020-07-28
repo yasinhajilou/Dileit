@@ -18,7 +18,7 @@ public interface WordReviewHistoryDao {
     Completable insert(WordReviewHistory wordReviewHistory);
 
     @Query("SELECT * FROM WordReviewHistory WHERE reviewedTime BETWEEN :start AND :end")
-    Flowable<List<WordReviewHistory>> LIST_FLOWABLE(long start, long end);
+    Maybe<List<WordReviewHistory>> LIST_FLOWABLE(long start, long end);
 
     @Query("SELECT COUNT(id)  FROM WordReviewHistory")
     Flowable<Integer> LIST();

@@ -2,6 +2,8 @@ package com.example.dileit.model.repository;
 
 import android.content.Context;
 
+import androidx.annotation.MainThread;
+
 import com.example.dileit.model.LeitnerReport;
 import com.example.dileit.model.dao.LeitnerDao;
 import com.example.dileit.model.dao.WordHistoryDao;
@@ -37,12 +39,12 @@ public class InternalRepository {
 
 
     //get data(Queries)
-    public Flowable<Integer> getAddedCardsCountByTimeRange(long start, long end) {
+    public Maybe<Integer> getAddedCardsCountByTimeRange(long start, long end) {
         return mLeitnerDao.getAddedCardsCountByTimeRange(start, end)
                 .subscribeOn(Schedulers.io());
     }
 
-    public Flowable<Integer> getReviewedCardsCountByTimeRange(long start, long end) {
+    public Maybe<Integer> getReviewedCardsCountByTimeRange(long start, long end) {
         return mWordReviewHistoryDao.getReviewedCardsCountByTimeRange(start, end)
                 .subscribeOn(Schedulers.io());
     }

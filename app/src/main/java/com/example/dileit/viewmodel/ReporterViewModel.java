@@ -15,11 +15,14 @@ import com.example.dileit.model.LeitnerReport;
 import com.example.dileit.model.entity.WordReviewHistory;
 import com.example.dileit.model.repository.InternalRepository;
 
+import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
 import java.util.List;
 
 import io.reactivex.FlowableSubscriber;
+import io.reactivex.MaybeObserver;
+import io.reactivex.disposables.Disposable;
 
 public class ReporterViewModel extends AndroidViewModel {
     private InternalRepository mInternalRepository;
@@ -105,19 +108,19 @@ public class ReporterViewModel extends AndroidViewModel {
     }
 
     public void setAddedCardsTimeRange(long start , long end){
-        mInternalRepository.getAddedCardsCountByTimeRange(start , end).subscribe(new FlowableSubscriber<Integer>() {
+        mInternalRepository.getAddedCardsCountByTimeRange(start , end).subscribe(new MaybeObserver<Integer>() {
             @Override
-            public void onSubscribe(Subscription s) {
+            public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onNext(Integer integer) {
+            public void onSuccess(Integer integer) {
                 mLiveAddedCardCount.postValue(integer);
             }
 
             @Override
-            public void onError(Throwable t) {
+            public void onError(Throwable e) {
 
             }
 
@@ -129,25 +132,22 @@ public class ReporterViewModel extends AndroidViewModel {
     }
 
     public void setReviewedCardsTimeRange(long start , long end){
-        mInternalRepository.getReviewedCardsCountByTimeRange(start , end).subscribe(new FlowableSubscriber<Integer>() {
+        mInternalRepository.getReviewedCardsCountByTimeRange(start , end).subscribe(new MaybeObserver<Integer>() {
             @Override
-            public void onSubscribe(Subscription s) {
-
+            public void onSubscribe(Disposable d) {
             }
 
             @Override
-            public void onNext(Integer integer) {
+            public void onSuccess(Integer integer) {
                 mLiveReviewedCardCount.postValue(integer);
             }
 
             @Override
-            public void onError(Throwable t) {
-
+            public void onError(Throwable e) {
             }
 
             @Override
             public void onComplete() {
-
             }
         });
     }
@@ -159,5 +159,9 @@ public class ReporterViewModel extends AndroidViewModel {
 
     public LiveData<Integer> getLiveReviewedCardCount() {
         return mLiveReviewedCardCount;
+    }
+
+    public LiveData<long[]> getSelectedTimeRange(){
+        return liveTimeRange;
     }
 }

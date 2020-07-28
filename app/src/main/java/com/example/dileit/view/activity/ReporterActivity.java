@@ -1,6 +1,7 @@
 package com.example.dileit.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
@@ -55,7 +56,7 @@ public class ReporterActivity extends AppCompatActivity {
             showAllCountessWithAnimation(integer);
             allLeitnerWord = integer;
 
-            //setting data up
+            //first init for month
             mReporterViewModel.setLiveTimeRange(new long[]{30 * 24 * 60 * 60 * 1000L, System.currentTimeMillis()});
             mReporterViewModel.setSelectedTime(TimeReporterFilter.MONTH);
         });
@@ -64,15 +65,21 @@ public class ReporterActivity extends AppCompatActivity {
             allReviewedCards = count;
         });
 
+        mReporterViewModel.getSelectedTimeRange().observe(this, new Observer<long[]>() {
+            @Override
+            public void onChanged(long[] longs) {
+                mReporterViewModel.setAddedCardsTimeRange(longs[0] , longs[1]);
+                mReporterViewModel.setReviewedCardsTimeRange(longs[0] , longs[1]);
+            }
+        });
+
         mReporterViewModel.getLearnedCardsCount().observe(this, this::showLearnedCountessWithAnimation);
 
-        mReporterViewModel.getLiveReportAdded().observe(this, leitnerReports -> {
-            int size = leitnerReports.size();
+        mReporterViewModel.getLiveAddedCardCount().observe(this, size -> {
             mBinding.cpAdded.setProgress(size, allLeitnerWord);
         });
 
-        mReporterViewModel.getLiveReportsReviewed().observe(this, leitnerReports -> {
-            int size = leitnerReports.size();
+        mReporterViewModel.getLiveReviewedCardCount().observe(this, size -> {
             mBinding.cpReviewed.setProgress(size, allReviewedCards);
         });
 
@@ -81,7 +88,7 @@ public class ReporterActivity extends AppCompatActivity {
             datePickerDialogFragment.show(getSupportFragmentManager(), "DatePickerDialogFragment");
         });
 
-        mReporterViewModel.getTimeFilterFlag().observe( this , integer -> {
+        mReporterViewModel.getTimeFilterFlag().observe(this, integer -> {
             switch (integer) {
                 case DAY:
                     mBinding.chipHeadFilter.setText("Day");
@@ -114,16 +121,16 @@ public class ReporterActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                switch (position){
+                switch (position) {
                     case 0:
-                        mBinding.tvVpHandlerReview.setTextSize(TypedValue.COMPLEX_UNIT_SP , 24f);
-                        mBinding.tvVpHandlerAdded.setTextSize(TypedValue.COMPLEX_UNIT_SP , 20f);
+                        mBinding.tvVpHandlerReview.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24f);
+                        mBinding.tvVpHandlerAdded.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f);
                         mBinding.tvVpHandlerReview.setTextColor(getResources().getColor(R.color.colorSecondary));
                         mBinding.tvVpHandlerAdded.setTextColor(getResources().getColor(R.color.darkGrey));
                         break;
                     case 1:
-                        mBinding.tvVpHandlerReview.setTextSize(TypedValue.COMPLEX_UNIT_SP , 20f);
-                        mBinding.tvVpHandlerAdded.setTextSize(TypedValue.COMPLEX_UNIT_SP , 24f);
+                        mBinding.tvVpHandlerReview.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f);
+                        mBinding.tvVpHandlerAdded.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24f);
                         mBinding.tvVpHandlerReview.setTextColor(getResources().getColor(R.color.darkGrey));
                         mBinding.tvVpHandlerAdded.setTextColor(getResources().getColor(R.color.colorSecondary));
                         break;

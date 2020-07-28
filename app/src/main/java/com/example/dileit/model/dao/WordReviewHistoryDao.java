@@ -10,6 +10,7 @@ import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.Maybe;
 
 @Dao
 public interface WordReviewHistoryDao {
@@ -23,7 +24,7 @@ public interface WordReviewHistoryDao {
     Flowable<Integer> LIST();
 
     @Query("SELECT COUNT(id) FROM WordReviewHistory WHERE reviewedTime BETWEEN :start AND :end")
-    Flowable<Integer> getReviewedCardsCountByTimeRange(long start, long end);
+    Maybe<Integer> getReviewedCardsCountByTimeRange(long start, long end);
 
     @Query("Delete FROM WordReviewHistory WHERE cardTitle LIKE :cardTitle")
     Completable deleteByCardTitle(String cardTitle);

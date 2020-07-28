@@ -77,20 +77,20 @@ public class AddedReporterFragment extends Fragment {
 
         reporterViewModel.getLiveSyncedTimeLists().observe(getViewLifecycleOwner(), integer -> {
             Log.d(TAG, "onViewCreated: time filter" + integer);
-            switch (integer) {
-                case DAY:
-                    setUpChartDay();
-                    break;
-                case WEEK:
-                    setUpChartWeek();
-                    break;
-                case MONTH:
-                    setUpChartMonth();
-                    break;
-                case YEAR:
-                    setUpChartYear();
-                    break;
-            }
+//            switch (integer) {
+//                case DAY:
+//                    setUpChartDay();
+//                    break;
+//                case WEEK:
+//                    setUpChartWeek();
+//                    break;
+//                case MONTH:
+//                    setUpChartMonth();
+//                    break;
+//                case YEAR:
+//                    setUpChartYear();
+//                    break;
+//            }
         });
     }
 

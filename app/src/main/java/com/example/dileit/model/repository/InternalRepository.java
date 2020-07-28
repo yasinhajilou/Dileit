@@ -37,6 +37,14 @@ public class InternalRepository {
 
 
     //get data(Queries)
+    public Flowable<Integer> getAddedCardsCountByTimeRange(long start, long end) {
+        return mLeitnerDao.getAddedCardsCountByTimeRange(start, end);
+    }
+
+    public Flowable<Integer> getReviewedCardsCountByTimeRange(long start, long end) {
+        return mWordReviewHistoryDao.getReviewedCardsCountByTimeRange(start, end);
+    }
+
     public Flowable<List<WordReviewHistory>> getWordReviewedHistoryByRange(long s, long e) {
         return mWordReviewHistoryDao.LIST_FLOWABLE(s, e)
                 .subscribeOn(Schedulers.io());
@@ -46,6 +54,7 @@ public class InternalRepository {
         return mWordReviewHistoryDao.LIST()
                 .subscribeOn(Schedulers.io());
     }
+
     public Flowable<List<WordHistory>> getAllWordHistory() {
         return mWordHistoryDao.getAllWordHistory()
                 .subscribeOn(Schedulers.io());
@@ -140,7 +149,7 @@ public class InternalRepository {
     }
 
     //insert data
-    public Completable insetWordReviewedHistory(WordReviewHistory wordReviewHistory){
+    public Completable insetWordReviewedHistory(WordReviewHistory wordReviewHistory) {
         return mWordReviewHistoryDao.insert(wordReviewHistory)
                 .subscribeOn(Schedulers.io());
     }

@@ -15,7 +15,11 @@ import com.example.dileit.model.LeitnerReport;
 import com.example.dileit.model.entity.WordReviewHistory;
 import com.example.dileit.model.repository.InternalRepository;
 
+import org.reactivestreams.Subscription;
+
 import java.util.List;
+
+import io.reactivex.FlowableSubscriber;
 
 public class ReporterViewModel extends AndroidViewModel {
     private InternalRepository mInternalRepository;
@@ -31,6 +35,9 @@ public class ReporterViewModel extends AndroidViewModel {
     private List<LeitnerReport> listAddeds;
     private List<WordReviewHistory> listRevieweds;
     private int timeFilter = -1;
+
+    private MutableLiveData<Integer> mLiveAddedCardCount = new MutableLiveData<>();
+    private MutableLiveData<Integer> mLiveReviewedCardCount = new MutableLiveData<>();
 
     public ReporterViewModel(@NonNull Application application) {
         super(application);
@@ -95,5 +102,62 @@ public class ReporterViewModel extends AndroidViewModel {
 
     public LiveData<Integer> getWordReviewedHistoryCount() {
         return LiveDataReactiveStreams.fromPublisher(mInternalRepository.getWordReviewedHistoryCount());
+    }
+
+    public void setAddedCardsTimeRange(long start , long end){
+        mInternalRepository.getAddedCardsCountByTimeRange(start , end).subscribe(new FlowableSubscriber<Integer>() {
+            @Override
+            public void onSubscribe(Subscription s) {
+
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+                mLiveAddedCardCount.postValue(integer);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    public void setReviewedCardsTimeRange(long start , long end){
+        mInternalRepository.getReviewedCardsCountByTimeRange(start , end).subscribe(new FlowableSubscriber<Integer>() {
+            @Override
+            public void onSubscribe(Subscription s) {
+
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+                mLiveReviewedCardCount.postValue(integer);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+
+    public LiveData<Integer> getLiveAddedCardCount() {
+        return mLiveAddedCardCount;
+    }
+
+    public LiveData<Integer> getLiveReviewedCardCount() {
+        return mLiveReviewedCardCount;
     }
 }

@@ -38,11 +38,13 @@ public class InternalRepository {
 
     //get data(Queries)
     public Flowable<Integer> getAddedCardsCountByTimeRange(long start, long end) {
-        return mLeitnerDao.getAddedCardsCountByTimeRange(start, end);
+        return mLeitnerDao.getAddedCardsCountByTimeRange(start, end)
+                .subscribeOn(Schedulers.io());
     }
 
     public Flowable<Integer> getReviewedCardsCountByTimeRange(long start, long end) {
-        return mWordReviewHistoryDao.getReviewedCardsCountByTimeRange(start, end);
+        return mWordReviewHistoryDao.getReviewedCardsCountByTimeRange(start, end)
+                .subscribeOn(Schedulers.io());
     }
 
     public Flowable<List<WordReviewHistory>> getWordReviewedHistoryByRange(long s, long e) {

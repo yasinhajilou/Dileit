@@ -25,6 +25,8 @@ public class SharedViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> mCostumeCheck;
     private MutableLiveData<Boolean> mSaveBtnCheck;
 
+    private MutableLiveData<String> mWordCatInTranslation = new MutableLiveData<>();
+
     private MutableLiveData<List<EnglishDef>> mEngDefList;
 
     private String translation;
@@ -138,5 +140,13 @@ public class SharedViewModel extends AndroidViewModel {
 
     public void setActualWord(String actualWord) {
         mActualWord.setValue(actualWord);
+    }
+
+    public LiveData<String> getWordCatInTranslation() {
+        return mWordCatInTranslation;
+    }
+
+    public void setWordCatInTranslation(String wordCatInTranslation) {
+        mWordCatInTranslation.setValue(wordCatInTranslation);
     }
 }

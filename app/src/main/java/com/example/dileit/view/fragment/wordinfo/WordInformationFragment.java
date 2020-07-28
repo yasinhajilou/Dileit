@@ -34,7 +34,6 @@ import com.example.dileit.viewmodel.InternalViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
 import com.google.android.material.chip.Chip;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -114,7 +113,6 @@ public class WordInformationFragment extends Fragment {
 
                 JsonUtils jsonUtils = new JsonUtils();
                 if (jsonUtils.getWordDefinition(s) != null) {
-
                     mBinding.progressWordInfo.setVisibility(View.GONE);
 
                     perPagerIndex = mAdapter.addPage(new TranslationFragment());
@@ -123,13 +121,15 @@ public class WordInformationFragment extends Fragment {
                     WordInformation[] wordInformations = jsonUtils.getWordDefinition(s);
                     List<Idiom> idioms = new ArrayList<>();
                     wordList = new ArrayList<>();
+                    StringBuilder builder = new StringBuilder();
                     for (WordInformation information : wordInformations) {
+                        builder.append(information.getType());
                         wordList.addAll(information.getTranslationWords());
                         if (information.getIdioms() != null)
                             idioms.addAll(information.getIdioms());
                     }
 
-
+                    mSharedViewModel.setWordCatInTranslation(builder.toString());
                     mSharedViewModel.setTranslationWord(wordList);
 
 

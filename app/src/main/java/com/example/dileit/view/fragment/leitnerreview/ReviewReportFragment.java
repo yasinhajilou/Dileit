@@ -67,11 +67,19 @@ public class ReviewReportFragment extends Fragment {
             }
         });
 
-        mBinding.fabGoHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().finish();
+        mSharedViewModel.getSyncedCards().observe(getViewLifecycleOwner() , ints -> {
+            int allReviewed = ints[0];
+            int reviewAgain = ints[1];
+
+            if (reviewAgain > 0){
+                mBinding.animClap.setVisibility(View.VISIBLE);
+                mBinding.animTrophy.setVisibility(View.GONE);
+            }else {
+                mBinding.animClap.setVisibility(View.GONE);
+                mBinding.animTrophy.setVisibility(View.VISIBLE);
             }
         });
+
+        mBinding.fabGoHome.setOnClickListener(view1 -> getActivity().finish());
     }
 }

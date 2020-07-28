@@ -22,4 +22,9 @@ public interface WordReviewHistoryDao {
     @Query("SELECT COUNT(id)  FROM WordReviewHistory")
     Flowable<Integer> LIST();
 
+    @Query("SELECT COUNT(id) FROM WordReviewHistory WHERE reviewedTime BETWEEN :start AND :end")
+    Flowable<Integer> getReviewedCardsCountByTimeRange(long start, long end);
+
+    @Query("Delete FROM WordReviewHistory WHERE cardTitle LIKE :cardTitle")
+    Completable deleteByCardTitle(String cardTitle);
 }

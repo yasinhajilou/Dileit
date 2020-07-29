@@ -1,6 +1,7 @@
 package com.example.dileit.view.activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -8,13 +9,16 @@ import androidx.lifecycle.ViewModelProviders;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ScrollView;
 
 import com.example.dileit.R;
 import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.ActivityLeitnerManagerBinding;
+import com.example.dileit.databinding.DialogGuideBinding;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.view.adapter.viewpager.LeitnerManagerViewPagerAdapter;
 import com.example.dileit.viewmodel.InternalViewModel;
@@ -75,6 +79,25 @@ public class LeitnerManagerActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.menu_help_manager:
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                DialogGuideBinding dialogGuideBinding = DialogGuideBinding.inflate(getLayoutInflater());
+//                View view = getLayoutInflater().inflate(R.layout.dialog_guide, null);
+                alertDialog.setView(dialogGuideBinding.getRoot());
+                AlertDialog alertDialog1 = alertDialog.create();
+                dialogGuideBinding.btnTabGuideEng.setOnClickListener(view -> {
+                    dialogGuideBinding.scrollPerGuide.setVisibility(View.GONE);
+                    dialogGuideBinding.scrollEngGuide.setVisibility(View.VISIBLE);
+                });
+                dialogGuideBinding.btnTabGuidePer.setOnClickListener(view -> {
+                    dialogGuideBinding.scrollPerGuide.setVisibility(View.VISIBLE);
+                    dialogGuideBinding.scrollEngGuide.setVisibility(View.GONE);
+                });
+                alertDialog1.show();
+                break;
+        }
         return true;
     }
 

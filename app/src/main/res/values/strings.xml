@@ -43,4 +43,40 @@
     <string name="year">Year</string>
     <string name="card_content_category">Card Category</string>
 
+    <string name="leitner_guide_per">لایتنر چیه؟\n\n
+یکی از بهترین استراتژی‌های به خاطرسپردن مطالب پیرَوی از سیستم لایتنره. \"دیلایت\" اینجاست که به شما کمک کنه \"لغات دیکشنری\" ویا \"موارد دلخواه اضافه شدتون\" رو طبق این سیستم به خاطر بسپرین.\n\n
+چطور کار می‌کنه؟\n\n
+هربار که شما کارت جدیدی به جعبه لایتنر اضافه میکنید، به دسته \"New\" انتقال پیدا میکنه.در واقع این دسته، کارت‌هایی هستن که تاحالا مرور
+نشدن.\n
+زمانی که این دسته کارت ها مرور بشن وارد بخش \"Review\" میشن، اگر شما جواب کارت رو ندونید به قسمت \"box1\" میره و اگه جواب کارت رو بدونید، به همون بخش و قسمت \"box2\" میره.\n\n
+زمان مرور کردن کارت‌ها، در هر \"box\" که باشید، هر بار که جواب کارتی رو ندونید به \"box1\" برمیگرده و اگر جواب اون رو بدونید به \"box\" بعدی انتقال پیدا میکنه.\n
+\n
+اگر هنگام مرور، جواب کارت‌های جعبه پنجم رو میدونستید به بخش بعدی یعنی \"Learned\" انتقال پیدا می‌کنه، که به این معنیه که شما محتوای اون کارت رو یاد گرفتید.\n
+زمان دقیق مرور هر جعبه که \"دیلایت\" برای شما به صورت خودکار مدیریت می‌کنه:\n
+جعبه اول: هر روز\n
+جعبه دوم: هر ۲ روز\n
+جعبه سوم: هر ۴ روز\n
+جعبه چهارم: هر ۹ روز\n
+جعبه پنجم: هر ۱۴ روز\n</string>
+
+    <string name="leitner_guide_eng">
+        What is Leitner?
+        \n
+\nOne of the best strategies for memorizing words and phrases is following Leitner system principles. "\Dileit"\ is here to helps you memorizing "\Dictionary words"\ and "Customised items" in order to Leitner principles.
+\n\n
+How does it work?\n\n
+Each time you adding a new card in Leitner Box, it will found in the "\New"\ section. In fact, in this section, There are cards which you have never reviewed.
+ \n \n
+When cards of this section reviewed, they will move to "\Review"\ section, while you are reviewing this section, if you don\'t know the answer of card it will place in "\Box1"\ and if you know the answer of card it will place in "\Box2"\.
+\n\nwhile reviewing cards, in each "\Box"\, if you know the answer of card it will move to the next box and if you don\'t know the answer, it will back to "\Box1\".
+\n
+\nIn the time of reviewing if you know the answer to "\Box5"\ it will move to the next section called "\Learned"\. It means you learned that card.
+\nYou should review each "\box"\ in a specific time which "\Dileit"\ handles it for you:
+        \n
+\nBox1: every day
+\nBox2: every 2 days
+\nBox1: every 4 days
+\nBox1: every 9 days
+\nBox1: every 14 days
+    </string>
 </resources>

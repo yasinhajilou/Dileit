@@ -25,15 +25,12 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
         setContentView(R.layout.activity_main);
         FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-            @Override
-            public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                if (!task.isSuccessful()){
-                    return;
-                }
-
-
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()){
+                return;
             }
+
+
         });
     }
 

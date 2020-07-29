@@ -62,13 +62,13 @@
     <string name="leitner_guide_eng">
         What is Leitner?
         \n
-\nOne of the best strategies for memorizing words and phrases is following Leitner system principles. "\Dileit"\ is here to helps you memorizing "\Dictionary words"\ and "Customised items" in order to Leitner principles.
+\nOne of the best strategies for memorizing words and phrases is following Leitner system principles. "\Dileit"\ is here to helps you memorizing "\Dictionary words"\ and "\Customised items"\ in order to Leitner principles.
 \n\n
 How does it work?\n\n
 Each time you adding a new card in Leitner Box, it will found in the "\New"\ section. In fact, in this section, There are cards which you have never reviewed.
  \n \n
 When cards of this section reviewed, they will move to "\Review"\ section, while you are reviewing this section, if you don\'t know the answer of card it will place in "\Box1"\ and if you know the answer of card it will place in "\Box2"\.
-\n\nwhile reviewing cards, in each "\Box"\, if you know the answer of card it will move to the next box and if you don\'t know the answer, it will back to "\Box1\".
+\n\nwhile reviewing cards, in each "\Box"\, if you know the answer of card it will move to the next box and if you don\'t know the answer, it will back to "\Box1"\.
 \n
 \nIn the time of reviewing if you know the answer to "\Box5"\ it will move to the next section called "\Learned"\. It means you learned that card.
 \nYou should review each "\box"\ in a specific time which "\Dileit"\ handles it for you:

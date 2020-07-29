@@ -10,8 +10,8 @@ android {
         applicationId "com.example.dileit"
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 1
-        versionName "v0.8-alpha"
+        versionCode 2
+        versionName "v1.0-alpha01"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

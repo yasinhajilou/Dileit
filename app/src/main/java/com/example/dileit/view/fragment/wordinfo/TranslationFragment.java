@@ -35,7 +35,7 @@ public class TranslationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding = FragmentPersianTranslatedBinding.inflate(inflater , container , false );
+        mBinding = FragmentPersianTranslatedBinding.inflate(inflater, container, false);
         return mBinding.getRoot();
     }
 
@@ -52,7 +52,8 @@ public class TranslationFragment extends Fragment {
         mSharedViewModel.getWordCatInTranslation().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                mBinding.tvWordCatTranslation.setText(s);
+                if (s != null && !s.equals(""))
+                    mBinding.tvWordCatTranslation.setText(s);
             }
         });
     }

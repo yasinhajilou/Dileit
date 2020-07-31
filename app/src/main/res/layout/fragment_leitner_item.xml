@@ -22,11 +22,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:textAlignment="center"
         android:id="@+id/tv_word_title_review_leitner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/productsansregular"
+        android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="52sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,15 +36,15 @@
         tools:text="Hiiiiii" />
 
     <TextView
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="10dp"
-        tools:text="(Noun)"
         android:id="@+id/tv_leitner_cat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/tv_word_title_review_leitner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/tv_word_title_review_leitner" />
+        tools:text="(Noun)" />
 
     <TextView
         android:id="@+id/tv_guide_leitner_card"
@@ -87,16 +87,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/tab_review_leitner"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" >
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
-                tools:text="Title"
                 android:id="@+id/tv_title_leitner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -104,21 +103,22 @@
                 android:textSize="24sp"
                 app:layout_constraintBottom_toTopOf="@+id/tab_review_leitner"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Title" />
 
             <TextView
-                android:paddingEnd="15dp"
-                android:paddingStart="15dp"
-                android:layout_gravity="center"
-                tools:text="-noun-"
                 android:id="@+id/tv_leitner_cat_second"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:fontFamily="@font/productsansregular"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toTopOf="@+id/tab_review_leitner"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="-noun-" />
 
         </LinearLayout>
 
@@ -214,7 +214,7 @@
                 android:fontFamily="@font/productsansregular"
                 android:text="@string/know"
                 android:textAllCaps="false"
-                app:backgroundTint="?attr/colorAccent"
+                app:backgroundTint="@color/colorSecondary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

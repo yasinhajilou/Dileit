@@ -1,60 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    android:layout_margin="2dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="2dp"
     android:orientation="vertical">
+
     <LinearLayout
-        android:orientation="vertical"
-        android:padding="4dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="4dp">
 
         <TextView
-            android:fontFamily="@font/productsansregular"
-            android:textAlignment="center"
             android:id="@+id/tv_cat_item_eng"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp" />
-        <TextView
-            android:textColor="@android:color/black"
             android:fontFamily="@font/productsansregular"
-            android:textSize="20sp"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+        <TextView
             android:id="@+id/tv_def_item_eng"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/productsansregular"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
         <TextView
             android:id="@+id/tv_label_synony"
-            android:textSize="19sp"
-            android:fontFamily="@font/productsansregular"
-            android:textStyle="bold"
-            android:text="Synonyms:"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:textAlignment="center"
-            android:textColor="@color/colorSecondary"
-            android:textSize="18sp"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/productsansregular"
+            android:text="Synonyms:"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/tv_syn_item_eng"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/productsansregular"
+            android:textAlignment="center"
+            android:textColor="@color/colorSecondary"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_label_similar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/productsansregular"
+            android:text="Similar:"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_item_similar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/productsansregular"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_label_antonyms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/productsansregular"
+            android:text="Antonyms:"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_item_antonyms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/productsansregular"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
         <TextView
             android:id="@+id/tv_label_example"
-            android:textStyle="bold"
-            android:textSize="19sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/productsansregular"
             android:text="Examples:"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
         <TextView
-            android:textColor="@color/colorPrimary"
-            android:textSize="17sp"
             android:id="@+id/tv_example_item_eng"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:textSize="17sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -77,14 +77,16 @@ public class ExternalDictionaryRepository {
             mEnglishDatabaseAccess.openDatabase();
             List<EnglishDef> englishDefs = new ArrayList<>();
 
-            Cursor cursor = mEnglishDatabaseAccess.getDatabase().rawQuery("SELECT definition,category,synonyms,examples FROM description WHERE _id like ?", new String[]{String.valueOf(engId)});
+            Cursor cursor = mEnglishDatabaseAccess.getDatabase().rawQuery("SELECT definition,category,synonyms,examples,antonyms,similar FROM description WHERE _id like ?", new String[]{String.valueOf(engId)});
             if (cursor != null) {
                 while (cursor.moveToNext()) {
                     String def = cursor.getString(0);
                     String cat = cursor.getString(1);
                     String syn = cursor.getString(2);
                     String exam = cursor.getString(3);
-                    EnglishDef englishDic = new EnglishDef(cat, def, syn, exam);
+                    String antonyms = cursor.getString(4);
+                    String similar = cursor.getString(5);
+                    EnglishDef englishDic = new EnglishDef(cat, def, syn, exam, antonyms, similar);
                     englishDefs.add(englishDic);
                 }
             }

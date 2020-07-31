@@ -39,7 +39,7 @@ public class EnglishTranslationWordRecyclerAdapter extends RecyclerView.Adapter<
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView cat, def, syn, exam, labelExam, labelSyn;
+        TextView cat, def, syn, exam, labelExam, labelSyn, labelAnto, labelSimilar, similar, antonyms;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -49,13 +49,31 @@ public class EnglishTranslationWordRecyclerAdapter extends RecyclerView.Adapter<
             exam = itemView.findViewById(R.id.tv_example_item_eng);
             labelExam = itemView.findViewById(R.id.tv_label_example);
             labelSyn = itemView.findViewById(R.id.tv_label_synony);
-
+            labelAnto = itemView.findViewById(R.id.tv_label_antonyms);
+            labelSimilar = itemView.findViewById(R.id.tv_label_similar);
+            similar = itemView.findViewById(R.id.tv_item_similar);
+            antonyms = itemView.findViewById(R.id.tv_item_antonyms);
         }
 
         void bindData(EnglishDef englishDef) {
             def.setText(englishDef.getDefinition());
 
-            cat.setText("(" + englishDef.getCat() + ")");
+            String sCat = null;
+            switch (englishDef.getCat()){
+                case "a" :
+                    sCat = "Adjective";
+                    break;
+                case "v":
+                    sCat = "Verb";
+                    break;
+                case "r":
+                    sCat = "Adverb";
+                    break;
+                default:
+                    sCat = englishDef.getCat();
+            }
+
+            cat.setText("(" + sCat + ")");
 
             if (!englishDef.getSynonyms().equals(""))
                 syn.setText(englishDef.getSynonyms());
@@ -66,6 +84,16 @@ public class EnglishTranslationWordRecyclerAdapter extends RecyclerView.Adapter<
                 exam.setText(englishDef.getExamples());
             else
                 labelExam.setVisibility(View.GONE);
+
+            if (!englishDef.getAntonyms().equals(""))
+                antonyms.setText(englishDef.getAntonyms());
+            else
+                labelAnto.setVisibility(View.GONE);
+
+            if (!englishDef.getSimilar().equals(""))
+                similar.setText(englishDef.getSimilar());
+            else
+                labelSimilar.setVisibility(View.GONE);
         }
     }
 }

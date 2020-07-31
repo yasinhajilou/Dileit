@@ -90,7 +90,6 @@ public class ExternalDictionaryRepository {
                     englishDefs.add(englishDic);
                 }
             }
-
             mEnglishDatabaseAccess.closeDatabase();
             if (cursor != null) {
                 cursor.close();

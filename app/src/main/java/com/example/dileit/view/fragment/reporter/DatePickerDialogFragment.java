@@ -51,9 +51,9 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
             if (b) {
                 long today = System.currentTimeMillis();
                 long startTime = today -  24 * 60 * 60 * 1000;
-                Log.d(TAG, "onViewCreated: " + startTime);
                 mReporterViewModel.setLiveTimeRange(new long[]{startTime, today});
                 mReporterViewModel.setSelectedTime(TimeReporterFilter.DAY);
+                mBinding.tvTimeReport.setText(TimeReporterFilter.DAY_SPECIFIER);
 
             }
         });
@@ -64,6 +64,8 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
                 long startTime = today - 7 * 24 * 60 * 60 * 1000;
                 mReporterViewModel.setLiveTimeRange(new long[]{startTime, today });
                 mReporterViewModel.setSelectedTime(TimeReporterFilter.WEEK);
+                mBinding.tvTimeReport.setText(TimeReporterFilter.WEEK_SPECIFIER);
+
 
             }
         });
@@ -75,6 +77,8 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
                 long startTime = today - 30 * 24 * 60 * 60 * 1000L;
                 mReporterViewModel.setLiveTimeRange(new long[]{startTime , today});
                 mReporterViewModel.setSelectedTime(TimeReporterFilter.MONTH);
+                mBinding.tvTimeReport.setText(TimeReporterFilter.MONTH_SPECIFIER);
+
             }
         });
 
@@ -85,6 +89,7 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
                 long startTime = today - 365 * 24 * 60 * 60 * 1000L;
                 mReporterViewModel.setLiveTimeRange(new long[]{startTime , today});
                 mReporterViewModel.setSelectedTime(TimeReporterFilter.YEAR);
+                mBinding.tvTimeReport.setText(TimeReporterFilter.YEAR_SPECIFIER);
 
             }
         });

@@ -224,7 +224,9 @@ public class LeitnerItemFragment extends Fragment {
             mBinding.layoutSecondReview.setVisibility(View.VISIBLE);
 
 
-            anim.start();
+            if (anim != null) {
+                anim.start();
+            }
 
             isHeaderOpen = false;
 

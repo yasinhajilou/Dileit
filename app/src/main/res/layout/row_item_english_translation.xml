@@ -56,11 +56,12 @@
             android:textStyle="bold" />
 
         <TextView
+            android:textAlignment="center"
             android:id="@+id/tv_item_similar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/productsansregular"
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorSecondary"
             android:textSize="18sp" />
 
         <TextView
@@ -73,11 +74,12 @@
             android:textStyle="bold" />
 
         <TextView
+            android:textAlignment="center"
             android:id="@+id/tv_item_antonyms"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/productsansregular"
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorSecondary"
             android:textSize="18sp" />
 
         <TextView

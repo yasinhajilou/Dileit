@@ -59,8 +59,8 @@ public class EnglishTranslationWordRecyclerAdapter extends RecyclerView.Adapter<
             def.setText(englishDef.getDefinition());
 
             String sCat = null;
-            switch (englishDef.getCat()){
-                case "a" :
+            switch (englishDef.getCat()) {
+                case "a":
                     sCat = "Adjective";
                     break;
                 case "v":
@@ -68,6 +68,9 @@ public class EnglishTranslationWordRecyclerAdapter extends RecyclerView.Adapter<
                     break;
                 case "r":
                     sCat = "Adverb";
+                    break;
+                case "n":
+                    sCat = "Noun";
                     break;
                 default:
                     sCat = englishDef.getCat();

@@ -86,7 +86,7 @@ public class ExternalDictionaryRepository {
                     String exam = cursor.getString(3);
                     String antonyms = cursor.getString(4);
                     String similar = cursor.getString(5);
-                    EnglishDef englishDic = new EnglishDef(cat, def, syn, exam, antonyms, similar);
+                    EnglishDef englishDic = new EnglishDef(cat, def, syn, exam, similar, antonyms);
                     englishDefs.add(englishDic);
                 }
             }

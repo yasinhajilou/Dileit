@@ -1,4 +1,5 @@
-![icon](images/icon.jpg)
+ <img src="images/icon.jpg" width="180" height="180">
+
 
 # Dileit
 `Dileit` is an android dictionary which helps you to memmorize its words! (totally free and open-source)
@@ -8,13 +9,19 @@
 
 **1-MainPage**
 eyes on anything! start-up page.
-![main](images/main.png)
+<p float="left">
+ <img src="images/main.png" width="280" height="560">
+</p>
 
 **2-Dileit**
 `Dileit` has two dictionary database with more than 300k words in each one!
-![dic](images/word_information.png)
-![dic](images/word_information2.png)
-![dic](images/word_information3.png)
+<p float="left">
+ <img src="images/word_information.png" width="280" height="560">
+ <img src="images/word_information2.png" width="280" height="560">
+ <img src="images/word_information3.png" width="280" height="560">
+ </p>
+
+
 
 
 **3-Add to Leitner System**

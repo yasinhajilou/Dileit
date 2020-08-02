@@ -14,7 +14,7 @@ find all paths here! start-up page.
  <img src="images/main.png" width="280" height="560">
 </p>
 
-**2-Dileit**
+**2-Dictionary**
 
 `Dileit` has two dictionary database with more than 300k records in each one!
 <p float="left">
@@ -28,7 +28,7 @@ find all paths here! start-up page.
 
 **3-Add to Leitner System**
 
-In each word page, you can easily add a word in the Leitner system to learning it.
+in each word page, you can easily add a word in the Leitner system to learn it.
 <p float="left">
  <img src="images/add_leitner.png" width="280" height="560">
  <img src="images/add_leitner2.png" width="280" height="560">
@@ -44,7 +44,7 @@ you can add phrases,words, idioms (which do not exist in the dictionary) or anyt
 
 **4-Review Cards**
 
-For learning words you should review added cards in specific times, `Dileit` handles it for you ;)
+for learning words you should review added cards in specific times, `Dileit` handles it for you ;)
 <p float="left">
  <img src="images/review_leitner.png" width="280" height="560">
  <img src="images/review_leitner2.png" width="280" height="560">
@@ -71,7 +71,7 @@ you can edit, remove and watch all Leitner cards and see the state of them in th
 
 **7-Reporter**
 
-It has always been good to track your progress!
+it has always been good to track your progress!
 <p float="left">
  <img src="images/reporter.png" width="280" height="560">
 </p>

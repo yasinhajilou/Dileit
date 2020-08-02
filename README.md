@@ -2,21 +2,21 @@
 
 
 # Dileit
-`Dileit` is an android dictionary app which helps you to memmorize its words! (totally free and open-source)
+`Dileit` is an android dictionary app which helps you to memorize its words! (totally free and open-source)
 
 **Overview**
 ---
 
 **1-MainPage**
 
-eyes on anything! start-up page.
+find all paths here! start-up page.
 <p float="left">
  <img src="images/main.png" width="280" height="560">
 </p>
 
 **2-Dileit**
 
-`Dileit` has two dictionary database with more than 300k words in each one!
+`Dileit` has two dictionary database with more than 300k records in each one!
 <p float="left">
  <img src="images/word_information.png" width="280" height="560">
  <img src="images/word_information2.png" width="280" height="560">
@@ -28,7 +28,7 @@ eyes on anything! start-up page.
 
 **3-Add to Leitner System**
 
-In each word page you can easily add word in Leitner system in order to learning it.
+In each word page, you can easily add a word in the Leitner system to learning it.
 <p float="left">
  <img src="images/add_leitner.png" width="280" height="560">
  <img src="images/add_leitner2.png" width="280" height="560">
@@ -37,14 +37,14 @@ In each word page you can easily add word in Leitner system in order to learning
 
 **4-Add costumized card**
 
-Sometimes There are words specifically for you, you can add costumized pharase,words ,idioms etc in Leitner.
+you can add phrases,words, idioms (which do not exist in the dictionary) or anything you want to learn by Leitner system.
 <p float="left">
  <img src="images/costum.png" width="280" height="560">
  </p>
 
 **4-Review Cards**
 
-For learning words you should reviewe added cards in specific times, `Dileit` handles it for you ;)
+For learning words you should review added cards in specific times, `Dileit` handles it for you ;)
 <p float="left">
  <img src="images/review_leitner.png" width="280" height="560">
  <img src="images/review_leitner2.png" width="280" height="560">
@@ -52,7 +52,7 @@ For learning words you should reviewe added cards in specific times, `Dileit` ha
 
 **5-Reminder**
 
-If you like, you can add a reminder for reviwing Leitner cards and `Dileit` remindes you by App Notification.
+If you like it, you can add a reminder for reviewing Leitner cards and `Dileit` reminds you by App Notification.
 <p float="left">
  <img src="images/reminder.png" width="280" height="560">
  <img src="images/reminder2.png" width="280" height="560">
@@ -61,7 +61,8 @@ If you like, you can add a reminder for reviwing Leitner cards and `Dileit` remi
 
 **6-Manage cards**
 
-you can edit,remove and watch all Leitner cards and see state of them in progress of learning.
+you can edit, remove and watch all Leitner cards and see the state of them in the progress of learning.
+
 <p float="left">
  <img src="images/manager.png" width="280" height="560">
  <img src="images/manager2.png" width="280" height="560">

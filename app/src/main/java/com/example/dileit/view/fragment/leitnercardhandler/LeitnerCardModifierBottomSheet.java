@@ -147,15 +147,12 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
                     }
                 }
             });
-            mInternalViewModel.getUpdateItemStatus().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-                @Override
-                public void onChanged(Boolean aBoolean) {
-                    if (aBoolean) {
-                        Toast.makeText(getContext(), "Leitner Card Updated!", Toast.LENGTH_SHORT).show();
-                        dismiss();
-                    } else {
-                        Toast.makeText(getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
-                    }
+            mInternalViewModel.getUpdateItemStatus().observe(getViewLifecycleOwner(), aBoolean -> {
+                if (aBoolean) {
+                    Toast.makeText(getContext(), "Leitner Card Updated!", Toast.LENGTH_SHORT).show();
+                    dismiss();
+                } else {
+                    Toast.makeText(getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
                 }
             });
         }

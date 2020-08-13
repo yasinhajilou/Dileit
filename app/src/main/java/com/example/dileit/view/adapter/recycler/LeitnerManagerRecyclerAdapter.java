@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,7 +54,7 @@ public class LeitnerManagerRecyclerAdapter extends RecyclerView.Adapter<LeitnerM
         return mLeitners != null ? mLeitners.size() : 0;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView mTextView;
         ImageView imgEdit, imgDelete;
 
@@ -62,6 +63,7 @@ public class LeitnerManagerRecyclerAdapter extends RecyclerView.Adapter<LeitnerM
             mTextView = itemView.findViewById(R.id.tv_item_leitner_manager);
             imgDelete = itemView.findViewById(R.id.img_remove_leitner_manager_item);
             imgEdit = itemView.findViewById(R.id.img_edit_leitner_manager_item);
+            itemView.setOnClickListener(this);
         }
 
         void bindData(Leitner leitner) {
@@ -94,6 +96,11 @@ public class LeitnerManagerRecyclerAdapter extends RecyclerView.Adapter<LeitnerM
 
                 }
             });
+        }
+
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(view.getContext(), mLeitners.get(getAdapterPosition()).getState() + "", Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -84,6 +84,7 @@ public class LeitnerItemFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //handle
         if (savedInstanceState != null) {
             isHeaderOpen = savedInstanceState.getBoolean(KeysValue.BUNDLE_KEY_FOR_BOOL_ROTATION);
             if (isHeaderOpen)
@@ -93,41 +94,40 @@ public class LeitnerItemFragment extends Fragment {
         }
 
         mInternalViewModel.getLeitnerCardById(listId).observe(getViewLifecycleOwner(), leitner -> {
-            if (leitner != null) {
-                if (leitner.getId() == listId) {
-                    mWord = leitner.getWord();
-                    mBinding.tvWordTitleReviewLeitner.setText(mWord);
-                    //second title in second view
-                    mBinding.tvTitleLeitner.setText(mWord);
+            if (leitner.getId() == listId) {
+                mLeitner = leitner;
+                mWord = leitner.getWord();
+                mBinding.tvWordTitleReviewLeitner.setText(mWord);
+                //second title in second view
+                mBinding.tvTitleLeitner.setText(mWord);
 
-                    mBinding.tvLeitnerCat.setText(leitner.getWordAct());
+                mBinding.tvLeitnerCat.setText(leitner.getWordAct());
 
-                    //second cat in second view
-                    mBinding.tvLeitnerCatSecond.setText("-" + leitner.getWordAct().toLowerCase() + "-");
+                //second cat in second view
+                mBinding.tvLeitnerCatSecond.setText("-" + leitner.getWordAct().toLowerCase() + "-");
 
-                    if (leitner.getGuide() != null)
-                        mBinding.tvGuideLeitnerCard.setText(leitner.getGuide());
+                if (leitner.getGuide() != null)
+                    mBinding.tvGuideLeitnerCard.setText(leitner.getGuide());
 
-                    List<String> strings = new ArrayList<>();
+                List<String> strings = new ArrayList<>();
 
-                    if (leitner.getDef() == null || leitner.getDef().equals("")) {
-                        mBinding.btnTabTranslation.setVisibility(View.GONE);
-                    } else {
-                        strings.add(leitner.getDef());
-                        mBinding.btnTabTranslation.setVisibility(View.VISIBLE);
-                    }
-
-                    if (leitner.getSecondDef() == null || leitner.getSecondDef().equals("")) {
-                        mBinding.btnTabEnglishTrans.setVisibility(View.GONE);
-                    } else {
-                        strings.add(leitner.getSecondDef());
-                        mBinding.btnTabEnglishTrans.setVisibility(View.VISIBLE);
-                    }
-
-                    mBinding.viewPagerLeitnerItemTranslation.setAdapter(new LeitnerItemTranslationViewPagerAdapter(strings));
-                    mLeitner = leitner;
+                if (leitner.getDef() == null || leitner.getDef().equals("")) {
+                    mBinding.btnTabTranslation.setVisibility(View.GONE);
+                } else {
+                    strings.add(leitner.getDef());
+                    mBinding.btnTabTranslation.setVisibility(View.VISIBLE);
                 }
+
+                if (leitner.getSecondDef() == null || leitner.getSecondDef().equals("")) {
+                    mBinding.btnTabEnglishTrans.setVisibility(View.GONE);
+                } else {
+                    strings.add(leitner.getSecondDef());
+                    mBinding.btnTabEnglishTrans.setVisibility(View.VISIBLE);
+                }
+
+                mBinding.viewPagerLeitnerItemTranslation.setAdapter(new LeitnerItemTranslationViewPagerAdapter(strings));
             }
+
         });
 
 
@@ -138,10 +138,6 @@ public class LeitnerItemFragment extends Fragment {
         mBinding.layoutContainerReview.setOnTouchListener((view13, motionEvent) ->
 
         {
-            int currentRepeat = mLeitner.getRepeatCounter();
-            mLeitner.setRepeatCounter(++currentRepeat);
-            mLeitner.setLastReviewTime(System.currentTimeMillis());
-            mLeitner.setState(LeitnerStateConstant.BOX_ONE);
 
             showSecondView((int) motionEvent.getX(), (int) motionEvent.getY());
 
@@ -155,10 +151,16 @@ public class LeitnerItemFragment extends Fragment {
 
             addReviewedHistory(mLeitner.getWord());
 
+            Toast.makeText(getContext(), mLeitner.getState() + "", Toast.LENGTH_SHORT).show();
+
             int nextBox = LeitnerUtils.nextBoxFinder(mLeitner.getState());
 
+            Toast.makeText(getContext(), nextBox + "", Toast.LENGTH_SHORT).show();
             mLeitner.setState(nextBox);
             mLeitner.setLastReviewTime(System.currentTimeMillis());
+
+            int currentRepeat = mLeitner.getRepeatCounter();
+            mLeitner.setRepeatCounter(++currentRepeat);
 
             mInternalViewModel.updateLeitnerItem(mLeitner);
 
@@ -173,6 +175,8 @@ public class LeitnerItemFragment extends Fragment {
         {
             addReviewedHistory(mLeitner.getWord());
 
+            int currentRepeat = mLeitner.getRepeatCounter();
+            mLeitner.setRepeatCounter(++currentRepeat);
 
             mLeitner.setLastReviewTime(System.currentTimeMillis());
             mLeitner.setState(LeitnerStateConstant.BOX_ONE);
@@ -189,6 +193,13 @@ public class LeitnerItemFragment extends Fragment {
 
         mBinding.ivLeitnerMenuSecond.setOnClickListener(this::setUpMenu);
 
+        //TODO(1) : WTF IS HAPPENING HERE?
+//        mInternalViewModel.getUpdateItemStatus().observe(getViewLifecycleOwner(), aBoolean -> {
+//            if (aBoolean)
+//                Toast.makeText(getContext(), "Ok", Toast.LENGTH_SHORT).show();
+//            else
+//                Toast.makeText(getContext(), "false", Toast.LENGTH_SHORT).show();
+//        });
     }
 
     private void addReviewedHistory(String word) {

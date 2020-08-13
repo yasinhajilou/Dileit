@@ -2,6 +2,8 @@ package com.example.dileit.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -18,6 +20,9 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
         setContentView(R.layout.activity_main);
         FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
+        //remove notification if is available
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancelAll();
     }
 
 

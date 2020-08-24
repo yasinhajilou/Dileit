@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="2dp">
+
+
+    <EditText
+        android:id="@+id/edt_title_dialog_add_leitner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/productsansregular"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/drop_down_layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Title" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/drop_down_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:background="@color/colorBackground"
+        android:textColorHint="@android:color/darker_gray"
+        app:boxBackgroundColor="@color/colorBackground"
+        app:boxStrokeColor="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@+id/edt_title_dialog_add_leitner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <AutoCompleteTextView
+            android:id="@+id/dropdown_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:hint="@string/card_content_category"
+            android:inputType="none"
+            android:lines="1"
+            android:maxLines="1"
+            android:popupBackground="#ffffff"
+            android:textColor="@android:color/black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <RadioGroup
+        android:id="@+id/radio_gp_dialog"
+        style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/view_pager_add_new_leitner"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/drop_down_layout">
+
+        <RadioButton
+            android:id="@+id/rb_dic_bottom_sheet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:checked="true"
+            android:fontFamily="@font/productsansregular"
+            android:text="@string/from_dictionary"
+            android:textColor="@android:color/black" />
+
+        <RadioButton
+            android:id="@+id/rb_costume_bottom_sheet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:fontFamily="@font/productsansregular"
+            android:text="@string/costume_meaning"
+            android:textColor="@android:color/black" />
+    </RadioGroup>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager_add_new_leitner"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_margin="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_label_guide"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radio_gp_dialog">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_add_new_leitner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            app:tabBackground="@android:color/white"
+            app:tabIndicatorColor="@android:color/white"
+            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabTextColor="@android:color/darker_gray" />
+    </androidx.viewpager.widget.ViewPager>
+
+    <ImageView
+        android:id="@+id/img_bubble_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:layout_marginBottom="2dp"
+        android:src="@drawable/ic_bubble_chart_black_24dp"
+        app:layout_constraintBottom_toTopOf="@+id/edt_dialog_guide"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_pager_add_new_leitner" />
+
+    <TextView
+        android:id="@+id/tv_label_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:fontFamily="@font/productsansregular"
+        android:text="@string/guide"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/edt_dialog_guide"
+        app:layout_constraintLeft_toRightOf="@id/img_bubble_dialog"
+        app:layout_constraintTop_toBottomOf="@+id/view_pager_add_new_leitner" />
+
+    <EditText
+        android:id="@+id/edt_dialog_guide"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:background="@android:color/white"
+        android:fontFamily="@font/productsansregular"
+        android:hint="@string/simple_sentence_which_helps_you_to_remember"
+        android:maxLines="2"
+        android:padding="6dp"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/darker_gray"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_save_item_leitner"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_guide" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save_item_leitner"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:fontFamily="@font/productsansregular"
+        android:text="@string/save"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_dialog_guide" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -93,6 +93,8 @@
             android:textStyle="bold" />
 
         <TextView
+            android:padding="4dp"
+            android:fontFamily="@font/productsansregular"
             android:id="@+id/tv_example_item_eng"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

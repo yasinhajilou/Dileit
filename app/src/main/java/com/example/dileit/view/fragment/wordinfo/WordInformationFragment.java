@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
 import android.speech.tts.TextToSpeech;
@@ -238,8 +239,11 @@ public class WordInformationFragment extends Fragment {
             }
         });
 
-        mBinding.imgCloseToolBar.setOnClickListener(view12 -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
+        mBinding.imgCloseToolBar.setOnClickListener(view12 -> Navigation.findNavController(view12).navigate(R.id.action_wordInformationFragment_to_homeFragment));
 
+        mBinding.ivBackWordInfo.setOnClickListener(view1 -> {
+            requireActivity().getOnBackPressedDispatcher().onBackPressed();
+        });
 
         chipEnglish.setOnClickListener(view15 -> {
             selectEnglishChip();

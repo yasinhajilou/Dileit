@@ -68,6 +68,8 @@ public class WordInformationFragment extends Fragment {
     boolean shouldRefreshLivesPer = true;
     boolean shouldRefreshLivesEng = true;
 
+    boolean isFromHistory = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +81,7 @@ public class WordInformationFragment extends Fragment {
         if (getArguments() != null) {
             actualWord = getArguments().getString(KeysValue.KEY_BUNDLE_ACTUAL_WORD);
             engId = getArguments().getInt(KeysValue.KEY_BUNDLE_WORD_REF_ID);
+            isFromHistory = getArguments().getBoolean(KeysValue.KEY_BUNDLE_TRANSITION_HISTORY);
         }
     }
 
@@ -103,8 +106,11 @@ public class WordInformationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Log.d(TAG, "onViewCreated: ");
+        if (isFromHistory)
+            mBinding.ivBackWordInfo.setVisibility(View.GONE);
+
         mBinding.viewPagerWordInfo.setAdapter(mAdapter);
+
 
         mBinding.tvWordTitle.setText(actualWord);
 

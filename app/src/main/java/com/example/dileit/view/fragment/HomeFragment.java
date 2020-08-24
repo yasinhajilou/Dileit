@@ -188,6 +188,7 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
         Bundle bundle = new Bundle();
         bundle.putString(KeysValue.KEY_BUNDLE_ACTUAL_WORD, actualWord.trim());
         bundle.putInt(KeysValue.KEY_BUNDLE_WORD_REF_ID, engId);
+        bundle.putBoolean(KeysValue.KEY_BUNDLE_TRANSITION_HISTORY,true );
         Navigation.findNavController(getView()).navigate(R.id.action_homeFragment_to_wordInformationFragment, bundle);
     }
 

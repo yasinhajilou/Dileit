@@ -10,6 +10,9 @@ public class WordCatSplitter {
     }
 
     public static String decoratedString(String string) {
+        if (string.equals(""))
+            return "";
+
         StringBuilder builder = new StringBuilder();
         String splitter = " / ";
         int a = 0;

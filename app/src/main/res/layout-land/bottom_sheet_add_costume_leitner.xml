@@ -1,0 +1,148 @@
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        tools:context="com.example.dileit.view.fragment.leitnercardhandler.BottomSheetAddCostumeLeitner">
+
+        <TextView
+            android:id="@+id/tv_costume_leitner_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/productsansregular"
+            android:text="@string/add_new_word_or_phrase_in_leitner"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txt_layout_leitner_title"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:textColorHint="@android:color/darker_gray"
+            app:boxStrokeColor="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_costume_leitner_info">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_input_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/productsansregular"
+                android:hint="@string/word_or_phrase"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="@android:color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/drop_down_card_category"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:background="@color/colorBackground"
+            app:boxBackgroundColor="@color/colorBackground"
+            android:textColorHint="@android:color/darker_gray"
+            app:boxStrokeColor="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_layout_leitner_title">
+
+            <AutoCompleteTextView
+                android:popupBackground="#ffffff"
+                android:background="@android:color/transparent"
+                android:hint="@string/card_content_category"
+                android:textColor="@android:color/black"
+                android:inputType="none"
+                android:lines="1"
+                android:maxLines="1"
+                android:id="@+id/filled_exposed_dropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txt_layout_leitner_def"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textColorHint="@android:color/darker_gray"
+            app:boxStrokeColor="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/drop_down_card_category">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_input_def"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/productsansregular"
+                android:gravity="start"
+                android:hint="@string/translation_or_definition"
+                android:imeOptions="actionDone"
+                android:inputType="textMultiLine"
+                android:lines="4"
+                android:maxLines="6"
+                android:nextFocusDown="@+id/edt_input_guide"
+                android:textColor="@android:color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txt_layout_leitner_guide"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textColorHint="@android:color/darker_gray"
+            app:boxStrokeColor="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_layout_leitner_def">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_input_guide"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/productsansregular"
+                android:gravity="start"
+                android:hint="@string/simple_sentence_which_helps_you_to_remember"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:textColor="@android:color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_save_costume_leitner"
+            style="?attr/materialButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/productsansregular"
+            android:text="@string/save"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_layout_leitner_guide" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

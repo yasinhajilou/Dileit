@@ -33,6 +33,7 @@
         android:textColorHint="@android:color/darker_gray"
         app:boxBackgroundColor="@color/colorBackground"
         app:boxStrokeColor="@android:color/darker_gray"
+        app:layout_constraintBottom_toTopOf="@+id/radio_gp_dialog"
         app:layout_constraintTop_toBottomOf="@+id/edt_title_dialog_add_leitner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">

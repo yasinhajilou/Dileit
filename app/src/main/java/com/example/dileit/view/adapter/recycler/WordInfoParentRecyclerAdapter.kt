@@ -38,7 +38,9 @@ class WordInfoParentRecyclerAdapter() : RecyclerView.Adapter<WordInfoParentRecyc
         val rv: RecyclerView = itemView.findViewById(R.id.rv_parent_word_info)
         val tvCat: TextView = itemView.findViewById(R.id.tv_item_information_cat)
         fun bindData(wordInfo: WordInformation?) {
-            tvCat.text = WordCatSplitter.decoratedString(wordInfo!!.type)
+            if (wordInfo?.type != null)
+                tvCat.text = WordCatSplitter.decoratedString(wordInfo.type)
+
             val childLayoutManager = LinearLayoutManager(itemView.context)
             val childAdapter = TranslationWordRecyclerAdapter()
 
@@ -47,7 +49,7 @@ class WordInfoParentRecyclerAdapter() : RecyclerView.Adapter<WordInfoParentRecyc
                 layoutManager = childLayoutManager
                 setRecycledViewPool(rvPool)
             }
-            childAdapter.setData(wordInfo.translationWords)
+            childAdapter.setData(wordInfo?.translationWords)
         }
     }
 }

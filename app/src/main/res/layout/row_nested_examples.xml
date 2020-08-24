@@ -9,6 +9,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:padding="4dp"
         android:id="@+id/tv_example_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,6 +20,7 @@
         tools:text="A sample of word" />
 
     <TextView
+        android:padding="4dp"
         android:id="@+id/tv_example_translation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -10,12 +10,16 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.dileit.databinding.FragmentPersianTranslatedBinding;
+import com.example.dileit.model.WordInformation;
 import com.example.dileit.view.adapter.recycler.TranslationWordRecyclerAdapter;
+import com.example.dileit.view.adapter.recycler.WordInfoParentRecyclerAdapter;
 import com.example.dileit.viewmodel.SharedViewModel;
 
 
@@ -23,7 +27,6 @@ public class TranslationFragment extends Fragment {
     private FragmentPersianTranslatedBinding mBinding;
     private SharedViewModel mSharedViewModel;
     private String TAG = TranslationFragment.class.getSimpleName();
-    private TranslationWordRecyclerAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,19 +45,17 @@ public class TranslationFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        adapter = new TranslationWordRecyclerAdapter();
-        mBinding.rvPersianTranslationWord.setAdapter(adapter);
-        mBinding.rvPersianTranslationWord.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        WordInfoParentRecyclerAdapter wordInfoParentRecyclerAdapter = new WordInfoParentRecyclerAdapter();
+        mBinding.rvWordInformation.setAdapter(wordInfoParentRecyclerAdapter);
+        mBinding.rvWordInformation.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        mSharedViewModel.getTranslationWord().observe(getViewLifecycleOwner(), translationWords -> {
-            adapter.setData(translationWords);
-        });
-        mSharedViewModel.getWordCatInTranslation().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                if (s != null && !s.equals(""))
-                    mBinding.tvWordCatTranslation.setText(s);
+        mSharedViewModel.getTranslationWord().observe(getViewLifecycleOwner(), wordInfos -> {
+            for (WordInformation wordInformation:
+                 wordInfos) {
+                Log.d(TAG, "onViewCreated: " + wordInformation.getType());
+                Log.d(TAG, "onViewCreated: " + wordInformation.getTranslationWords().size());
             }
+            wordInfoParentRecyclerAdapter.setData(wordInfos);
         });
     }
 

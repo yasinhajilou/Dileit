@@ -35,6 +35,7 @@ import com.example.dileit.viewmodel.SharedViewModel;
 import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -51,7 +52,6 @@ public class WordInformationFragment extends Fragment {
     private FragmentWordInformationBinding mBinding;
     private Chip chipPersian, chipEnglish, chipIdioms;
     private WordsInformationViewPagerAdapter mAdapter;
-    private List<TranslationWord> wordList;
     private InternalViewModel mInternalViewModel;
 
     private StringBuilder builderEnglish;
@@ -120,17 +120,12 @@ public class WordInformationFragment extends Fragment {
                     selectPersianChip();
                     WordInformation[] wordInformations = jsonUtils.getWordDefinition(s);
                     List<Idiom> idioms = new ArrayList<>();
-                    wordList = new ArrayList<>();
-                    StringBuilder builder = new StringBuilder();
                     for (WordInformation information : wordInformations) {
-                        builder.append(information.getType());
-                        wordList.addAll(information.getTranslationWords());
                         if (information.getIdioms() != null)
                             idioms.addAll(information.getIdioms());
                     }
 
-                    mSharedViewModel.setWordCatInTranslation(builder.toString());
-                    mSharedViewModel.setTranslationWord(wordList);
+                    mSharedViewModel.setTranslationWord(Arrays.asList(wordInformations));
 
 
                     if (idioms.size() > 0) {
@@ -217,12 +212,13 @@ public class WordInformationFragment extends Fragment {
             if (mLeitner != null) {
                 showRemoveLeitnerDialog(view16);
             } else {
-                if (wordList != null) {
-                    builderTranslation = new StringBuilder();
-                    for (TranslationWord word : wordList) {
-                        builderTranslation.append(word.getTranslatedWord()).append("\n");
-                    }
-                }
+                //TODO WTF
+//                if (wordList != null) {
+//                    builderTranslation = new StringBuilder();
+//                    for (TranslationWord word : wordList) {
+//                        builderTranslation.append(word.getTranslatedWord()).append("\n");
+//                    }
+//                }
 
                 //leitner id =0 means we should add brand new card
                 LeitnerCardModifierBottomSheet dialog = LeitnerCardModifierBottomSheet.onNewInstance(LeitnerModifierConstants.ADD, 0);

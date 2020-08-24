@@ -5,22 +5,13 @@
     android:layout_height="match_parent"
     tools:context="com.example.dileit.view.fragment.wordinfo.TranslationFragment">
 
-    <TextView
-        android:textSize="18sp"
-        tools:text="Hi check"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/tv_word_cat_translation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_persian_translation_word"
+        android:id="@+id/rv_word_information"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_word_cat_translation" />
+        app:layout_constraintTop_toTopOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 

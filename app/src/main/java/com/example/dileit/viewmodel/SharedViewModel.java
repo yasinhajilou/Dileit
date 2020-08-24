@@ -18,7 +18,7 @@ public class SharedViewModel extends AndroidViewModel {
 
     private MutableLiveData<String> mActualWord;
     private MutableLiveData<WordInformation[]> mWordInformation;
-    private MutableLiveData<List<TranslationWord>> mTranslationWord;
+    private MutableLiveData<List<WordInformation>> mTranslationWord;
     private MutableLiveData<List<Idiom>> mIdiom;
     private MutableLiveData<String> mVoiceWord;
     private MutableLiveData<String[]> mLeitnerItemData;
@@ -122,11 +122,11 @@ public class SharedViewModel extends AndroidViewModel {
         return mWordInformation;
     }
 
-    public MutableLiveData<List<TranslationWord>> getTranslationWord() {
+    public LiveData<List<WordInformation>> getTranslationWord() {
         return mTranslationWord;
     }
 
-    public void setTranslationWord(List<TranslationWord> translationWord) {
+    public void setTranslationWord(List<WordInformation> translationWord) {
         mTranslationWord.setValue(translationWord);
     }
 

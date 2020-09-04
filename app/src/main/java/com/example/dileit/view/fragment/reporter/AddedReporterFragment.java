@@ -297,8 +297,10 @@ public class AddedReporterFragment extends Fragment {
         for (LeitnerReport leitnerReport :
                 mLeitnerReportList) {
             PersianDate persianDate2 = new PersianDate(leitnerReport.getTimeAdded());
-            int lastCount = mMapMonthReviewCounter.get(persianDate2.getShDay() + "");
-            mMapMonthReviewCounter.put(persianDate2.getShDay() + "", ++lastCount);
+            if (mMapMonthReviewCounter.get(persianDate2.getShDay() + "") != null) {
+                int lastCount = mMapMonthReviewCounter.get(persianDate2.getShDay() + "");
+                mMapMonthReviewCounter.put(persianDate2.getShDay() + "", ++lastCount);
+            }
         }
 
         List<BarEntry> barEntries = new ArrayList<>();

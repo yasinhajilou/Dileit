@@ -170,7 +170,7 @@ public class WordInformationFragment extends Fragment {
         mInternalViewModel.getLeitnerInfoByWord(actualWord).observe(getViewLifecycleOwner(), leitner -> {
             if (leitner != null) {
                 mLeitner = leitner;
-                mBinding.imgBtnAddToLeitner.setImageResource(R.drawable.leitner_added);
+                mBinding.imgBtnAddToLeitner.setImageResource(R.drawable.brain_1);
             }
         });
 
@@ -373,7 +373,7 @@ public class WordInformationFragment extends Fragment {
                 .setPositiveButton("Yes", (dialogInterface, i) -> {
 
                     mInternalViewModel.deleteLeitnerItem(mLeitner);
-                    mBinding.imgBtnAddToLeitner.setImageResource(R.drawable.leitner);
+                    mBinding.imgBtnAddToLeitner.setImageResource(R.drawable.knowledge_1);
                     mLeitner = null;
 
                     dialogInterface.dismiss();

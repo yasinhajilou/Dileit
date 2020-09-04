@@ -51,6 +51,7 @@ public class ReporterActivity extends AppCompatActivity {
         mBarChartViewPagerAdapter = new BarChartViewPagerAdapter(getSupportFragmentManager());
 
         mBinding.vpBarChart.setAdapter(mBarChartViewPagerAdapter);
+        mBinding.vpBarChart.setOffscreenPageLimit(1);
 
         mReporterViewModel.getAllLeitnerCardCount().observe(this, integer -> {
             showAllCountessWithAnimation(integer);

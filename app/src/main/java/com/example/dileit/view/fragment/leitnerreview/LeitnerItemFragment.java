@@ -192,14 +192,6 @@ public class LeitnerItemFragment extends Fragment {
         mBinding.ivLeitnerMenu.setOnClickListener(this::setUpMenu);
 
         mBinding.ivLeitnerMenuSecond.setOnClickListener(this::setUpMenu);
-
-        //TODO(1) : WTF IS HAPPENING HERE?
-//        mInternalViewModel.getUpdateItemStatus().observe(getViewLifecycleOwner(), aBoolean -> {
-//            if (aBoolean)
-//                Toast.makeText(getContext(), "Ok", Toast.LENGTH_SHORT).show();
-//            else
-//                Toast.makeText(getContext(), "false", Toast.LENGTH_SHORT).show();
-//        });
     }
 
     private void addReviewedHistory(String word) {

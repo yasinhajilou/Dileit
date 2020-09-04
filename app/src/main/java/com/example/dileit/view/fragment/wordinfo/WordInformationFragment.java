@@ -70,6 +70,8 @@ public class WordInformationFragment extends Fragment {
 
     boolean isFromHistory = false;
 
+    private List<TranslationWord> translationList = new ArrayList<>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,6 +130,7 @@ public class WordInformationFragment extends Fragment {
                     WordInformation[] wordInformations = jsonUtils.getWordDefinition(s);
                     List<Idiom> idioms = new ArrayList<>();
                     for (WordInformation information : wordInformations) {
+                        translationList.addAll(information.getTranslationWords());
                         if (information.getIdioms() != null)
                             idioms.addAll(information.getIdioms());
                     }
@@ -219,13 +222,14 @@ public class WordInformationFragment extends Fragment {
             if (mLeitner != null) {
                 showRemoveLeitnerDialog(view16);
             } else {
-                //TODO WTF
-//                if (wordList != null) {
-//                    builderTranslation = new StringBuilder();
-//                    for (TranslationWord word : wordList) {
-//                        builderTranslation.append(word.getTranslatedWord()).append("\n");
-//                    }
-//                }
+
+                //creating translation section for showing in text view
+                if (translationList != null) {
+                    builderTranslation = new StringBuilder();
+                    for (TranslationWord word : translationList) {
+                        builderTranslation.append(word.getTranslatedWord()).append(".\n");
+                    }
+                }
 
                 //leitner id =0 means we should add brand new card
                 LeitnerCardModifierBottomSheet dialog = LeitnerCardModifierBottomSheet.onNewInstance(LeitnerModifierConstants.ADD, 0);

@@ -1,6 +1,5 @@
 package com.example.dileit.view.adapter.recycler
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dileit.R
 import com.example.dileit.model.WordInformation
-import com.example.dileit.utils.WordCatSplitter
+import com.example.dileit.utils.StringUtils
 
 class WordInfoParentRecyclerAdapter() : RecyclerView.Adapter<WordInfoParentRecyclerAdapter.ViewHolder>() {
     private var wordInfos: List<WordInformation>? = null
@@ -39,7 +38,7 @@ class WordInfoParentRecyclerAdapter() : RecyclerView.Adapter<WordInfoParentRecyc
         val tvCat: TextView = itemView.findViewById(R.id.tv_item_information_cat)
         fun bindData(wordInfo: WordInformation?) {
             if (wordInfo?.type != null)
-                tvCat.text = WordCatSplitter.decoratedString(wordInfo.type)
+                tvCat.text = StringUtils.decoratedString(wordInfo.type)
 
             val childLayoutManager = LinearLayoutManager(itemView.context)
             val childAdapter = TranslationWordRecyclerAdapter()

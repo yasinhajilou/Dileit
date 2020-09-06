@@ -22,6 +22,7 @@ import com.example.dileit.R;
 import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.BottomSheetAddCostumeLeitnerBinding;
 import com.example.dileit.model.entity.Leitner;
+import com.example.dileit.utils.StringUtils;
 import com.example.dileit.viewmodel.InternalViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -40,7 +41,6 @@ public class BottomSheetAddCostumeLeitner extends BottomSheetDialogFragment {
     private InternalViewModel mViewModel;
     private BottomSheetAddCostumeLeitnerBinding mBinding;
     private Leitner mLeitner;
-    private String[] dropDownItems = {getString(R.string.verb), getString(R.string.noun), getString(R.string.adjective), getString(R.string.adverb), getString(R.string.phrase), getString(R.string.other)};
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class BottomSheetAddCostumeLeitner extends BottomSheetDialogFragment {
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         });
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(), R.layout.drop_down_card_cat, dropDownItems);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(), R.layout.drop_down_card_cat, StringUtils.dropDownItem(getContext()));
 
         mBinding.filledExposedDropdown.setAdapter(arrayAdapter);
 

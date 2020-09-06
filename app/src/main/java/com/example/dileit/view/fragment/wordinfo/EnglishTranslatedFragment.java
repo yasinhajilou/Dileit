@@ -32,7 +32,7 @@ public class EnglishTranslatedFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
-        mAdapter = new EnglishTranslationWordRecyclerAdapter();
+        mAdapter = new EnglishTranslationWordRecyclerAdapter(getContext());
     }
 
     @Override

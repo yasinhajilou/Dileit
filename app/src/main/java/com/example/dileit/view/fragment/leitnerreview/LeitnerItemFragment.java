@@ -125,7 +125,7 @@ public class LeitnerItemFragment extends Fragment {
                     mBinding.btnTabEnglishTrans.setVisibility(View.VISIBLE);
                 }
 
-                mBinding.viewPagerLeitnerItemTranslation.setAdapter(new LeitnerItemTranslationViewPagerAdapter(strings));
+                mBinding.viewPagerLeitnerItemTranslation.setAdapter(new LeitnerItemTranslationViewPagerAdapter(strings , getContext()) );
             }
 
         });

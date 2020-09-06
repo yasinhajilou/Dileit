@@ -20,9 +20,12 @@ import java.util.List;
 
 public class LeitnerItemTranslationViewPagerAdapter extends PagerAdapter {
     private List<String> mStrings;
+    private Context mContext;
 
-    public LeitnerItemTranslationViewPagerAdapter(List<String> strings) {
+    
+    public LeitnerItemTranslationViewPagerAdapter(List<String> strings , Context context) {
         mStrings = strings;
+        mContext = context;
     }
 
     @Override
@@ -54,12 +57,10 @@ public class LeitnerItemTranslationViewPagerAdapter extends PagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position){
-            case 0 :
-                return "Translation";
             case 1:
-                return "Second Translation";
+                return mContext.getString(R.string.sec_translation);
             default:
-                return "Translation";
+                return mContext.getString(R.string.translation);
         }
     }
 

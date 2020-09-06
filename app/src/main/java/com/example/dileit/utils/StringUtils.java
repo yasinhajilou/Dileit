@@ -1,9 +1,11 @@
 package com.example.dileit.utils;
 
-import android.util.Log;
+import android.content.Context;
 
-public class WordCatSplitter {
-    static String TAG = WordCatSplitter.class.getSimpleName();
+import com.example.dileit.R;
+
+public class StringUtils {
+    static String TAG = StringUtils.class.getSimpleName();
 
     public static String[] catSplitter(String string) {
         return string.trim().split("\\W");
@@ -49,5 +51,10 @@ public class WordCatSplitter {
             builder.append(s);
         }
         return builder.toString();
+    }
+
+    public static String[] dropDownItem(Context context){
+        return new String[]{context.getString(R.string.verb), context.getString(R.string.noun), context.getString(R.string.adjective), context.getString(R.string.adverb), context.getString(R.string.phrase), context.getString(R.string.other)};
+
     }
 }

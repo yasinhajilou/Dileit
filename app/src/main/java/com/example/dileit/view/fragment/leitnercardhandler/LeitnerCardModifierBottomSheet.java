@@ -19,6 +19,7 @@ import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.BottomSheetAddNewLeitnerBinding;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.constant.LeitnerModifierConstants;
+import com.example.dileit.utils.StringUtils;
 import com.example.dileit.view.adapter.viewpager.AddNewLeitnerViewPagerAdapter;
 import com.example.dileit.viewmodel.InternalViewModel;
 import com.example.dileit.viewmodel.SharedViewModel;
@@ -38,7 +39,6 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
     private LeitnerModifierConstants mConstants;
     private int cardId;
     private Leitner mLeitner;
-    private String[] dropDownItems = {"Verb", "Noun", "Adjective", "Adverb", "Phrase", "Other"};
 
     public static LeitnerCardModifierBottomSheet onNewInstance(LeitnerModifierConstants constants, int cardId) {
         LeitnerCardModifierBottomSheet bottomSheet = new LeitnerCardModifierBottomSheet();
@@ -83,7 +83,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         });
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(), R.layout.drop_down_card_cat, dropDownItems);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(), R.layout.drop_down_card_cat, StringUtils.dropDownItem(getContext()));
 
         mBinding.dropdownText.setAdapter(arrayAdapter);
         //this class will call in two way:
@@ -131,7 +131,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
                         break;
                 }
             }else {
-                Toast.makeText(getContext(), "please fill required fields!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.pl_fill_fields), Toast.LENGTH_LONG).show();
             }
             });
 
@@ -140,19 +140,19 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
                 @Override
                 public void onChanged(Long aLong) {
                     if (aLong > 0) {
-                        Toast.makeText(getContext(), "Added To leitner!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.added), Toast.LENGTH_SHORT).show();
                         dismiss();
                     } else {
-                        Toast.makeText(getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.error), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
             mInternalViewModel.getUpdateItemStatus().observe(getViewLifecycleOwner(), aBoolean -> {
                 if (aBoolean) {
-                    Toast.makeText(getContext(), "Leitner Card Updated!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.leitner_updated, Toast.LENGTH_SHORT).show();
                     dismiss();
                 } else {
-                    Toast.makeText(getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.error), Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -188,9 +188,9 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
 
         private void handleViewPagerItems (String mainTranslation, String secondTranslation){
 //        if (mainTranslation != null)
-            mAdapter.addData("Translation", TranslationDialogFragment.newInstance(mainTranslation, KeysValue.FRAGMENT_HEADER_TRANSLATION));
+            mAdapter.addData(getString(R.string.translation), TranslationDialogFragment.newInstance(mainTranslation, KeysValue.FRAGMENT_HEADER_TRANSLATION));
 //        if (secondTranslation != null)
-            mAdapter.addData("English Definition", TranslationDialogFragment.newInstance(secondTranslation, KeysValue.FRAGMENT_HEADER_SECOND_TRANSLATION));
+            mAdapter.addData(getString(R.string.enf_def), TranslationDialogFragment.newInstance(secondTranslation, KeysValue.FRAGMENT_HEADER_SECOND_TRANSLATION));
 
         }
 

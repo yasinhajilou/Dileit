@@ -73,9 +73,9 @@ When cards of this section reviewed, they will move to "\Review"\ section, while
         \n
 \nBox1: every day
 \nBox2: every 2 days
-\nBox1: every 4 days
-\nBox1: every 9 days
-\nBox1: every 14 days
+\nBox3: every 4 days
+\nBox4: every 9 days
+\nBox5: every 14 days
     </string>
     <string name="last_24_h">Last 24 hours</string>
     <string name="sat">Sat</string>
@@ -116,4 +116,7 @@ When cards of this section reviewed, they will move to "\Review"\ section, while
     <string name="nees_speak">Need to speak</string>
     <string name="no_card_for_review">There is no card for reviewing :)</string>
     <string name="item_deleted">Item deleted</string>
+    <string name="leitner_updated">Leitner Card Updated!</string>
+    <string name="enf_def">English Definition</string>
+    <string name="sec_translation">Second Translation</string>
 </resources>

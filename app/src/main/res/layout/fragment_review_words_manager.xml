@@ -27,35 +27,35 @@
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_filtered_box_one"
                 style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:text="Box 1"
+                android:text="@string/box_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_filtered_box_two"
                 style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:text="Box 2"
+                android:text="@string/box_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_filtered_box_three"
                 style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:text="Box 3"
+                android:text="@string/box_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_filtered_box_four"
                 style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:text="Box 4"
+                android:text="@string/box_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_filtered_box_five"
                 style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:text="Box 5"
+                android:text="@string/box_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.chip.ChipGroup>
@@ -72,16 +72,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scroll_horiz_review"/>
 
-    <TextView
-        android:id="@+id/tv_no_data_review_man"
+    <ImageView
+        android:src="@drawable/ic_box"
+        android:id="@+id/iv_no_data_review_man"
         app:layout_constraintTop_toBottomOf="@+id/scroll_horiz_review"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textColor="@color/colorOrange"
-        android:textSize="18sp"
+        android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="There is no card in this box!" />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

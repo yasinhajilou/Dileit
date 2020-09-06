@@ -6,14 +6,11 @@
     android:layout_height="match_parent"
     tools:context="com.example.dileit.view.fragment.leitnermanager.NewWordsManagerFragment">
 
-    <TextView
-        android:textSize="18sp"
-        android:textAlignment="center"
-        android:text="There is no new card yet!"
-        android:textColor="@color/colorOrange"
-        android:id="@+id/tv_no_data_new"
+    <ImageView
+        android:id="@+id/iv_no_data_new"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_box"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

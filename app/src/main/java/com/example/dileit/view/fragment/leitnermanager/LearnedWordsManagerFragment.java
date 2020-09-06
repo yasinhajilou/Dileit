@@ -53,7 +53,7 @@ public class LearnedWordsManagerFragment extends Fragment implements LeitnerMana
         mInternalViewModel.getCardsByState(LeitnerStateConstant.LEARNED).observe(getViewLifecycleOwner(), leitnerList -> {
             if (leitnerList.size() > 0) {
                 mBinding.rvLearnedCardManager.setVisibility(View.VISIBLE);
-                mBinding.tvNoDataLearned.setVisibility(View.GONE);
+                mBinding.ivNoDataLearned.setVisibility(View.GONE);
                 mAdapter.setData(leitnerList);
             }
 
@@ -83,7 +83,7 @@ public class LearnedWordsManagerFragment extends Fragment implements LeitnerMana
         mInternalViewModel.deleteLeitnerItem(leitner);
         if (mAdapter.getItemCount() == 0) {
             mBinding.rvLearnedCardManager.setVisibility(View.GONE);
-            mBinding.tvNoDataLearned.setVisibility(View.VISIBLE);
+            mBinding.ivNoDataLearned.setVisibility(View.VISIBLE);
         }
     }
 

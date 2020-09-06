@@ -52,7 +52,7 @@ public class NewWordsManagerFragment extends Fragment implements LeitnerManagerR
         mInternalViewModel.getCardsByState(LeitnerStateConstant.STARTED).observe(getViewLifecycleOwner(), leitnerList -> {
             if (leitnerList.size() > 0) {
                 mBinding.rvNewWordManager.setVisibility(View.VISIBLE);
-                mBinding.tvNoDataNew.setVisibility(View.GONE);
+                mBinding.ivNoDataNew.setVisibility(View.GONE);
                 adapter.setData(leitnerList);
             }
 
@@ -79,7 +79,7 @@ public class NewWordsManagerFragment extends Fragment implements LeitnerManagerR
         mInternalViewModel.deleteLeitnerItem(leitner);
         if (adapter.getItemCount() == 0) {
             mBinding.rvNewWordManager.setVisibility(View.GONE);
-            mBinding.tvNoDataNew.setVisibility(View.VISIBLE);
+            mBinding.ivNoDataNew.setVisibility(View.VISIBLE);
         }
     }
 

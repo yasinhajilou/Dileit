@@ -5,14 +5,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.dileit.view.fragment.leitnermanager.LearnedWordsManagerFragment">
 
-    <TextView
-        android:id="@+id/tv_no_data_learned"
-        android:textSize="18sp"
-        android:textAlignment="center"
-        android:textColor="@color/colorOrange"
-        android:text="You haven't learned any card yet!"
+    <ImageView
+        android:id="@+id/iv_no_data_learned"
+        android:src="@drawable/ic_box"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"

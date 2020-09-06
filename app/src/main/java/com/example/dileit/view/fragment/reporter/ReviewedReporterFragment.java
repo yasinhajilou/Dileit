@@ -171,7 +171,7 @@ public class ReviewedReporterFragment extends Fragment {
         mBinding.barChartReviewed.animateXY(1000, 1000);
 
         Description description = new Description();
-        description.setText("Last 24 hours");
+        description.setText(getString(R.string.last_24_h));
         mBinding.barChartReviewed.setDescription(description);
         mBinding.barChartReviewed.invalidate();
     }
@@ -253,7 +253,7 @@ public class ReviewedReporterFragment extends Fragment {
 
 
         Description descriptionWeek = new Description();
-        descriptionWeek.setText("Last Week");
+        descriptionWeek.setText(getString(R.string.last_week));
         mBinding.barChartReviewed.setDescription(descriptionWeek);
         mBinding.barChartReviewed.setFitBars(true);
         mBinding.barChartReviewed.invalidate();
@@ -270,22 +270,22 @@ public class ReviewedReporterFragment extends Fragment {
             String day;
             switch (todayIndexOfMonth) {
                 case 1:
-                    day = "1st";
+                    day = getString(R.string.first);
                     xAxisLabelMonth.add(day);
                     mMapMonthReviewCounter.put("1", 0);
                     break;
                 case 2:
-                    day = "2nd";
+                    day = getString(R.string.second);
                     xAxisLabelMonth.add(day);
                     mMapMonthReviewCounter.put("2", 0);
                     break;
                 case 3:
-                    day = "3rd";
+                    day = getString(R.string.third);
                     xAxisLabelMonth.add(day);
                     mMapMonthReviewCounter.put("3", 0);
                     break;
                 default:
-                    day = todayIndexOfMonth + "th";
+                    day = todayIndexOfMonth + getString(R.string.th_date);
                     xAxisLabelMonth.add(day);
                     mMapMonthReviewCounter.put(todayIndexOfMonth + "", 0);
             }
@@ -330,7 +330,7 @@ public class ReviewedReporterFragment extends Fragment {
 
 
         Description descriptionWeek = new Description();
-        descriptionWeek.setText("Last 30 days");
+        descriptionWeek.setText(getString(R.string.last_month));
         mBinding.barChartReviewed.setDescription(descriptionWeek);
         mBinding.barChartReviewed.setFitBars(true);
         mBinding.barChartReviewed.invalidate();
@@ -345,10 +345,8 @@ public class ReviewedReporterFragment extends Fragment {
         PersianDate persianDate = new PersianDate(todayTimeStamp);
         int todayIndexOfMonths = persianDate.getShMonth();
 
-        Log.d(TAG, "setUpChartMonth: " + todayIndexOfMonths);
 
         for (int i = 0; i < 12; i++) {
-            Log.d(TAG, "setUpChartYear: month name " + todayIndexOfMonths + " - " + persianDate.monthName(todayIndexOfMonths));
 
             xAxisLabelYear.add(persianDate.monthName(todayIndexOfMonths));
             mMapYearReviewCounter.put(String.valueOf(todayIndexOfMonths), 0);
@@ -367,8 +365,6 @@ public class ReviewedReporterFragment extends Fragment {
             int date = persianDate2.getShMonth();
             int lastCount = mMapYearReviewCounter.get(date + "");
             mMapYearReviewCounter.put(date + "", ++lastCount);
-            Log.d(TAG, "setUpChartYear Reviewed: " + persianDate2.getShMonth() + "--" + lastCount);
-            Log.d(TAG, "setUpChartYear: " + xAxisLabelYear.get(date));
 
         }
 
@@ -395,7 +391,7 @@ public class ReviewedReporterFragment extends Fragment {
 
 
         Description descriptionWeek = new Description();
-        descriptionWeek.setText("Last 12 month");
+        descriptionWeek.setText(getString(R.string.last_year));
         mBinding.barChartReviewed.setDescription(descriptionWeek);
         mBinding.barChartReviewed.setFitBars(true);
         mBinding.barChartReviewed.invalidate();

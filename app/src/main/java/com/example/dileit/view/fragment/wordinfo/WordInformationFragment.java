@@ -75,7 +75,6 @@ public class WordInformationFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: ");
         mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
         mExternalViewModel = ViewModelProviders.of(getActivity()).get(ExternalViewModel.class);
@@ -101,7 +100,6 @@ public class WordInformationFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.d(TAG, "onActivityCreated: ");
     }
 
     @Override
@@ -178,28 +176,13 @@ public class WordInformationFragment extends Fragment {
         mTextToSpeechUK = new TextToSpeech(view.getContext(), i -> {
             if (i == TextToSpeech.SUCCESS) {
                 int res = mTextToSpeechUS.setLanguage(Locale.UK);
-                if (res == TextToSpeech.LANG_MISSING_DATA
-                        || res == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Log.e("TTS", "Language not supported");
-                } else {
-                    // prepare ui
-                }
-            } else {
-                Log.d(TAG, "onViewCreated: " + "TTS init failed...");
+                // prepare ui
             }
         });
 
         mTextToSpeechUS = new TextToSpeech(view.getContext(), i -> {
             if (i == TextToSpeech.SUCCESS) {
                 int res = mTextToSpeechUS.setLanguage(Locale.ENGLISH);
-                if (res == TextToSpeech.LANG_MISSING_DATA
-                        || res == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Log.e("TTS", "Language not supported");
-                } else {
-
-                }
-            } else {
-                Log.d(TAG, "onViewCreated: " + "TTS init failed...");
             }
         });
 
@@ -367,10 +350,10 @@ public class WordInformationFragment extends Fragment {
 
     private void showRemoveLeitnerDialog(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext())
-                .setTitle("Remove Word")
-                .setMessage("This word exists in leitner box, do you want to remove it?")
-                .setNeutralButton("No", (dialogInterface, i) -> dialogInterface.dismiss())
-                .setPositiveButton("Yes", (dialogInterface, i) -> {
+                .setTitle(R.string.remove_leitner)
+                .setMessage(R.string.remove_leitner_cap)
+                .setNeutralButton(getString(R.string.no), (dialogInterface, i) -> dialogInterface.dismiss())
+                .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {
 
                     mInternalViewModel.deleteLeitnerItem(mLeitner);
                     mBinding.imgBtnAddToLeitner.setImageResource(R.drawable.knowledge_1);
@@ -386,13 +369,11 @@ public class WordInformationFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop: ");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.d(TAG, "onPause: ");
     }
 
     @Override
@@ -409,13 +390,11 @@ public class WordInformationFragment extends Fragment {
         }
         super.onDestroy();
 
-        Log.d(TAG, "onDestroy: ");
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mBinding = null;
-        Log.d(TAG, "onDestroyView: ");
     }
 }

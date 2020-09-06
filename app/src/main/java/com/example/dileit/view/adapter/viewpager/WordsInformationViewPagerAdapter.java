@@ -26,7 +26,6 @@ public class WordsInformationViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        Log.d(TAG, "WordsInformationViewPagerAdapter: " + mFragments.size());
         return mFragments.size();
     }
 

@@ -68,7 +68,7 @@ public class SettingActivity extends AppCompatActivity {
                     mSharedPreferenceUtil.setTime(lastHour, lastMin);
                     mSharedPreferenceUtil.setAlarmManagerStatus(true);
                     initTextViews(lastHour, lastMin);
-                    Toast.makeText(this, "Alarm enabled for " + lastHour + ":" + lastMin, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, getString(R.string.alarm_cap) + lastHour + ":" + lastMin, Toast.LENGTH_LONG).show();
                 }
             } else {
                 handleTimePickerEnabling(false);
@@ -85,12 +85,12 @@ public class SettingActivity extends AppCompatActivity {
 
         mBinding.btnDeleteHistory.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this)
-                    .setTitle("Delete History")
-                    .setMessage("Are you want to delete Search History?")
-                    .setNegativeButton("No", (dialogInterface, i) -> {
+                    .setTitle(R.string.delete_his)
+                    .setMessage(R.string.delete_his_cap)
+                    .setNegativeButton(getString(R.string.no), (dialogInterface, i) -> {
                         dialogInterface.dismiss();
                     })
-                    .setNeutralButton("Yes", (dialogInterface, i) -> {
+                    .setNeutralButton(getString(R.string.yes), (dialogInterface, i) -> {
                         mInternalViewModel.deleteAllHistory();
                     });
             AlertDialog alertDialog = builder.create();
@@ -110,9 +110,9 @@ public class SettingActivity extends AppCompatActivity {
 
         mInternalViewModel.getDeletedHistoryResult().observe(this, aBoolean -> {
             if (aBoolean)
-                Toast.makeText(SettingActivity.this, "Deleted Successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SettingActivity.this, R.string.deleted_successfully, Toast.LENGTH_SHORT).show();
             else
-                Toast.makeText(SettingActivity.this, "An Error Occurred", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SettingActivity.this, R.string.error, Toast.LENGTH_SHORT).show();
         });
 
         mTimeSharedViewModel.getTime().observe(this, ints -> {
@@ -127,7 +127,7 @@ public class SettingActivity extends AppCompatActivity {
             mAlarmManagerUtils.setAlarm(lastHour, lastMin);
             String hour = String.format("%02d", lastHour);
             String min = String.format("%02d", lastMin);
-            Toast.makeText(this, "Alarm enabled for " + hour + ":" + min , Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.alarm_cap + hour + ":" + min , Toast.LENGTH_LONG).show();
 
         });
     }

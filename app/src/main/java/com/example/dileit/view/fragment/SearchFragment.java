@@ -73,7 +73,6 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
         mExternalViewModel.getSyncedSearchResult().observe(getViewLifecycleOwner(), searchDictionaries -> {
             if (!mBinding.edtSearchWord.getQuery().equals("")) {
                 mAdapter.setData(searchDictionaries);
-                Log.d(TAG, "onViewCreated: ");
             }
         });
 

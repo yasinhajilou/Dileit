@@ -111,26 +111,15 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
                 int res = mTextToSpeechUS.setLanguage(Locale.UK);
                 if (res == TextToSpeech.LANG_MISSING_DATA
                         || res == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Log.e("TTS", "Language not supported");
                 } else {
                     // prepare ui
                 }
-            } else {
-                Log.d(TAG, "onViewCreated: " + "TTS init failed...");
             }
         });
 
         mTextToSpeechUS = new TextToSpeech(this, i -> {
             if (i == TextToSpeech.SUCCESS) {
                 int res = mTextToSpeechUS.setLanguage(Locale.ENGLISH);
-                if (res == TextToSpeech.LANG_MISSING_DATA
-                        || res == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Log.e("TTS", "Language not supported");
-                } else {
-
-                }
-            } else {
-                Log.d(TAG, "onViewCreated: " + "TTS init failed...");
             }
         });
 

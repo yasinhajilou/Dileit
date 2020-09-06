@@ -50,11 +50,6 @@ public class TranslationFragment extends Fragment {
         mBinding.rvWordInformation.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         mSharedViewModel.getTranslationWord().observe(getViewLifecycleOwner(), wordInfos -> {
-            for (WordInformation wordInformation:
-                 wordInfos) {
-                Log.d(TAG, "onViewCreated: " + wordInformation.getType());
-                Log.d(TAG, "onViewCreated: " + wordInformation.getTranslationWords().size());
-            }
             wordInfoParentRecyclerAdapter.setData(wordInfos);
         });
     }

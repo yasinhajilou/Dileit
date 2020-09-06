@@ -123,4 +123,11 @@ When cards of this section reviewed, they will move to "\Review"\ section, while
     <string name="delete_leitner_caption">Do you want to delete this leitner card?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="alarm_cap">\"Alarm enabled for  \"</string>
+    <string name="delete_his">Delete History</string>
+    <string name="delete_his_cap">Are you want to delete Search History?</string>
+    <string name="deleted_successfully">Deleted Successfully</string>
+    <string name="remove_leitner">Remove Word</string>
+    <string name="remove_leitner_cap">This word exists in Leitner box, do you want to remove it?</string>
+    <string name="last_seven_day">Last 7 day.</string>
 </resources>

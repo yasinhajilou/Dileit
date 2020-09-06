@@ -56,8 +56,8 @@ public class AlarmReceiver extends BroadcastReceiver {
                     if (Build.VERSION.SDK_INT >=
                             Build.VERSION_CODES.O) {
                         NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID,
-                                "Leitner Review Reminder", NotificationManager.IMPORTANCE_HIGH);
-                        notificationChannel.setDescription("Reminds Reviewing Leitner Cards By Specific Time.");
+                                context.getString(R.string.leitner_review_reminder), NotificationManager.IMPORTANCE_HIGH);
+                        notificationChannel.setDescription(context.getString(R.string.reminder_descriotion));
                         notificationChannel.enableLights(true);
                         notificationChannel.setLightColor(Color.GREEN);
                         notificationChannel.enableVibration(true);
@@ -66,16 +66,16 @@ public class AlarmReceiver extends BroadcastReceiver {
                     }
 
                     Intent intentLeitnerReviewing = new Intent(context, ReviewLeitnerActivity.class);
-                    String safeVerb = todayCardSize > 1 ? "are " : "is ";
-                    String safeNoun = todayCardSize > 1 ? "cards " : "card ";
+                    String safeVerb = todayCardSize > 1 ? context.getString(R.string.are) : context.getString(R.string.is) ;
+                    String safeNoun = todayCardSize > 1 ? context.getString(R.string.cards) : context.getString(R.string.card);
                     NotificationCompat.Builder builder =
                             new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
                                     .setPriority(NotificationManager.IMPORTANCE_MAX)
                                     .setAutoCancel(true)
                                     .setContentIntent(PendingIntent.getActivity(
                                             context, NOTIFICATION_ID, intentLeitnerReviewing, PendingIntent.FLAG_UPDATE_CURRENT))
-                                    .setContentText("There " + safeVerb + todayCardSize + " Leitner " + safeNoun + " for reviewing.")
-                                    .setContentTitle("Review Today Cards!")
+                                    .setContentText(context.getString(R.string.there) + safeVerb + todayCardSize + " "+context.getString(R.string.leitner)+" " + safeNoun + " "+ context.getString(R.string.for_reviwing))
+                                    .setContentTitle(context.getString(R.string.review_today_cards))
                                     .setSmallIcon(R.drawable.ic_leitner_reminder);
 
                     notificationManager.notify(NOTIFICATION_ID, builder.build());

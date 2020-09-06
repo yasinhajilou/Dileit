@@ -165,7 +165,7 @@ public class AddedReporterFragment extends Fragment {
         mBinding.barChartAdded.animateXY(1000, 1000);
 
         Description description = new Description();
-        description.setText("Last 24 hours");
+        description.setText(getString(R.string.last_24_h));
         mBinding.barChartAdded.setDescription(description);
         mBinding.barChartAdded.invalidate();
     }
@@ -180,31 +180,31 @@ public class AddedReporterFragment extends Fragment {
             String day;
             switch (todayIndexOfWeek) {
                 case 0:
-                    day = "Sat";
+                    day = getString(R.string.sat);
                     xAxisLabelWeek.add(day);
                     break;
                 case 1:
-                    day = "Sun";
+                    day = getString(R.string.sun);
                     xAxisLabelWeek.add(day);
                     break;
                 case 2:
-                    day = "Mon";
+                    day = getString(R.string.mon);
                     xAxisLabelWeek.add(day);
                     break;
                 case 3:
-                    day = "Tue";
+                    day = getString(R.string.tue);
                     xAxisLabelWeek.add(day);
                     break;
                 case 4:
-                    day = "Wed";
+                    day = getString(R.string.wed);
                     xAxisLabelWeek.add(day);
                     break;
                 case 5:
-                    day = "Thu";
+                    day = getString(R.string.thu);
                     xAxisLabelWeek.add(day);
                     break;
                 case 6:
-                    day = "Fri";
+                    day = getString(R.string.fri);
                     xAxisLabelWeek.add(day);
                     break;
             }
@@ -247,7 +247,7 @@ public class AddedReporterFragment extends Fragment {
 
 
         Description descriptionWeek = new Description();
-        descriptionWeek.setText("Last Week");
+        descriptionWeek.setText(getString(R.string.last_week));
         mBinding.barChartAdded.setDescription(descriptionWeek);
         mBinding.barChartAdded.setFitBars(true);
         mBinding.barChartAdded.invalidate();
@@ -264,22 +264,22 @@ public class AddedReporterFragment extends Fragment {
             String day;
             switch (todayIndexOfMonth) {
                 case 1:
-                    day = "1st";
+                    day = getString(R.string.first);
                     xAxisLabelMonth.add(day);
                     mMapMonthReviewCounter.put("1", 0);
                     break;
                 case 2:
-                    day = "2nd";
+                    day = getString(R.string.second);
                     xAxisLabelMonth.add(day);
                     mMapMonthReviewCounter.put("2", 0);
                     break;
                 case 3:
-                    day = "3rd";
+                    day = getString(R.string.third);
                     xAxisLabelMonth.add(day);
                     mMapMonthReviewCounter.put("3", 0);
                     break;
                 default:
-                    day = todayIndexOfMonth + "th";
+                    day = todayIndexOfMonth + getString(R.string.th_date);
                     xAxisLabelMonth.add(day);
                     mMapMonthReviewCounter.put(todayIndexOfMonth + "", 0);
             }
@@ -324,7 +324,7 @@ public class AddedReporterFragment extends Fragment {
 
 
         Description descriptionWeek = new Description();
-        descriptionWeek.setText("Last 30 days");
+        descriptionWeek.setText(getString(R.string.last_month));
         mBinding.barChartAdded.setDescription(descriptionWeek);
         mBinding.barChartAdded.setFitBars(true);
         mBinding.barChartAdded.invalidate();
@@ -385,7 +385,7 @@ public class AddedReporterFragment extends Fragment {
 
 
         Description descriptionWeek = new Description();
-        descriptionWeek.setText("Last 12 month");
+        descriptionWeek.setText(getString(R.string.last_year));
         mBinding.barChartAdded.setDescription(descriptionWeek);
         mBinding.barChartAdded.setFitBars(true);
         mBinding.barChartAdded.invalidate();

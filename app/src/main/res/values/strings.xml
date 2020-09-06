@@ -77,4 +77,40 @@ When cards of this section reviewed, they will move to "\Review"\ section, while
 \nBox1: every 9 days
 \nBox1: every 14 days
     </string>
+    <string name="last_24_h">Last 24 hours</string>
+    <string name="sat">Sat</string>
+    <string name="sun">Sun</string>
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="thu">Thu</string>
+    <string name="fri">Fri</string>
+    <string name="last_week">Last Week</string>
+    <string name="first">1st</string>
+    <string name="second">2nd</string>
+    <string name="third">3rd</string>
+    <string name="th_date">th</string>
+    <string name="last_month">Last 30 days</string>
+    <string name="last_year">Last 12 month</string>
+    <string name="leitner_review_reminder">Leitner Review Reminder</string>
+    <string name="reminder_descriotion">Reminds Reviewing Leitner Cards By Specific Time.</string>
+    <string name="are">are</string>
+    <string name="is">"is "</string>
+    <string name="cards">cards</string>
+    <string name="card">card</string>
+    <string name="there">\"There \"</string>
+    <string name="leitner">Leitner</string>
+    <string name="for_reviwing">for reviewing.</string>
+    <string name="review_today_cards">Review Today Cards!</string>
+    <string name="verb">Verb</string>
+    <string name="noun">Noun</string>
+    <string name="adjective">Adjective</string>
+    <string name="adverb">Adverb</string>
+    <string name="phrase">Phrase</string>
+    <string name="other">Other</string>
+    <string name="pl_add_cat">please add cart category!</string>
+    <string name="pl_fill_fields"><![CDATA[please fill word title & definition!]]></string>
+    <string name="card_duplicated">A card with title title exist! Please change Word/Phrase.</string>
+    <string name="added">Added.</string>
+    <string name="error">An error occurred.</string>
 </resources>

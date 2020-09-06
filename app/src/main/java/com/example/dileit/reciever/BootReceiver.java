@@ -18,9 +18,7 @@ public class BootReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         SharedPreferenceUtil sharedPreferencesUtils = new SharedPreferenceUtil(context);
         boolean alarmStatus = sharedPreferencesUtils.getAlarmStatus();
-        Log.d(TAG, "onReceive: ");
         if (alarmStatus) {
-            Log.d(TAG, "onReceive: " + alarmStatus);
             int h = sharedPreferencesUtils.getHour();
             int m = sharedPreferencesUtils.getMin();
             AlarmManagerUtils alarmManagerUtils = new AlarmManagerUtils(context);

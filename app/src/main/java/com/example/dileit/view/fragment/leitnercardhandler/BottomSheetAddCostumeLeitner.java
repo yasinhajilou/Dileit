@@ -40,7 +40,7 @@ public class BottomSheetAddCostumeLeitner extends BottomSheetDialogFragment {
     private InternalViewModel mViewModel;
     private BottomSheetAddCostumeLeitnerBinding mBinding;
     private Leitner mLeitner;
-    private String[] dropDownItems = {"Verb", "Noun", "Adjective", "Adverb", "Phrase", "Other"};
+    private String[] dropDownItems = {getString(R.string.verb), getString(R.string.noun), getString(R.string.adjective), getString(R.string.adverb), getString(R.string.phrase), getString(R.string.other)};
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,11 +89,11 @@ public class BottomSheetAddCostumeLeitner extends BottomSheetDialogFragment {
 
                     mViewModel.getExistedLeitner(cardTitle);
                 } else {
-                    Toast.makeText(getContext(), "please add cart category!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), R.string.pl_add_cat, Toast.LENGTH_LONG).show();
                 }
 
             } else {
-                Toast.makeText(getContext(), "please fill word title & definition!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), R.string.pl_fill_fields, Toast.LENGTH_LONG).show();
             }
 
         });
@@ -101,7 +101,7 @@ public class BottomSheetAddCostumeLeitner extends BottomSheetDialogFragment {
 
         mViewModel.getBooleanExistedCard().observe(this, aBoolean -> {
             if (aBoolean)
-                Toast.makeText(getContext(), "A card with title title exist! Please change Word/Phrase.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), R.string.card_duplicated, Toast.LENGTH_LONG).show();
             else
                 mViewModel.insertLeitnerItem(mLeitner);
 
@@ -110,9 +110,9 @@ public class BottomSheetAddCostumeLeitner extends BottomSheetDialogFragment {
         mViewModel.getAddedLeitnerItemId().observe(getViewLifecycleOwner(), aLong -> {
             if (aLong > 0) {
                 dismiss();
-                Toast.makeText(getContext(), "Added.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.added, Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getContext(), "An error occurred.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.error, Toast.LENGTH_SHORT).show();
             }
         });
     }

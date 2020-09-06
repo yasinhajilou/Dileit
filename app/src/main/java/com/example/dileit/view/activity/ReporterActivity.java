@@ -94,16 +94,16 @@ public class ReporterActivity extends AppCompatActivity {
         mReporterViewModel.getTimeFilterFlag().observe(this, integer -> {
             switch (integer) {
                 case DAY:
-                    mBinding.chipHeadFilter.setText("Day");
+                    mBinding.chipHeadFilter.setText(R.string.day);
                     break;
                 case WEEK:
-                    mBinding.chipHeadFilter.setText("Week");
+                    mBinding.chipHeadFilter.setText(R.string.week);
                     break;
                 case MONTH:
-                    mBinding.chipHeadFilter.setText("Month");
+                    mBinding.chipHeadFilter.setText(R.string.month);
                     break;
                 case YEAR:
-                    mBinding.chipHeadFilter.setText("Year");
+                    mBinding.chipHeadFilter.setText(R.string.year);
                     break;
             }
         });

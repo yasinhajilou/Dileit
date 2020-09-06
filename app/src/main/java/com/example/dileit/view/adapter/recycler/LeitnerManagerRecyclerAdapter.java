@@ -82,14 +82,14 @@ public class LeitnerManagerRecyclerAdapter extends RecyclerView.Adapter<LeitnerM
                 public void onClick(View view) {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext())
-                            .setTitle("Delete Leitner Card")
-                            .setMessage("Do you want to delete this leitner card?")
-                            .setNeutralButton("Yes", (dialogInterface, i) -> {
+                            .setTitle(R.string.delete_leitner_title)
+                            .setMessage(R.string.delete_leitner_caption)
+                            .setNeutralButton(R.string.yes, (dialogInterface, i) -> {
                                 mLeitners.remove(leitner);
                                 notifyItemRemoved(getAdapterPosition());
                                 mInterface.onDeleteSelected(leitner);
                             })
-                            .setNegativeButton("No", (dialogInterface, i) -> {
+                            .setNegativeButton(R.string.no, (dialogInterface, i) -> {
                                 dialogInterface.dismiss();
                             });
                     builder.show();

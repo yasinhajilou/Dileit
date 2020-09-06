@@ -51,7 +51,7 @@ public class LeitnerManagerActivity extends AppCompatActivity {
 
         mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
 
-        mAdapter = new LeitnerManagerViewPagerAdapter(getSupportFragmentManager());
+        mAdapter = new LeitnerManagerViewPagerAdapter(getSupportFragmentManager() , this);
 
         mBinding.viewPagerLeitnerManager.setAdapter(mAdapter);
         mBinding.tabLeitnerManager.setupWithViewPager(mBinding.viewPagerLeitnerManager);
@@ -84,7 +84,6 @@ public class LeitnerManagerActivity extends AppCompatActivity {
             case R.id.menu_help_manager:
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
                 DialogGuideBinding dialogGuideBinding = DialogGuideBinding.inflate(getLayoutInflater());
-//                View view = getLayoutInflater().inflate(R.layout.dialog_guide, null);
                 alertDialog.setView(dialogGuideBinding.getRoot());
                 AlertDialog alertDialog1 = alertDialog.create();
                 dialogGuideBinding.btnTabGuideEng.setOnClickListener(view -> {

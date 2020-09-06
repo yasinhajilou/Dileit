@@ -1,5 +1,7 @@
 package com.example.dileit.view.adapter.viewpager;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -14,10 +16,10 @@ import com.example.dileit.view.fragment.leitnermanager.ReviewWordsManagerFragmen
 
 public class LeitnerManagerViewPagerAdapter extends FragmentStatePagerAdapter {
 
-
-    public LeitnerManagerViewPagerAdapter(@NonNull FragmentManager fm) {
+    private Context mContext;
+    public LeitnerManagerViewPagerAdapter(@NonNull FragmentManager fm , Context context) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-
+        mContext = context;
     }
 
     @NonNull
@@ -45,13 +47,13 @@ public class LeitnerManagerViewPagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "New";
+                return mContext.getString(R.string.new_);
             case 1:
-                return "Review";
+                return mContext.getString(R.string.review);
             case 2:
-                return  "Learned";
+                return  mContext.getString(R.string.learned);
             default:
-                return  "New";
+                return  "null";
         }
     }
 }

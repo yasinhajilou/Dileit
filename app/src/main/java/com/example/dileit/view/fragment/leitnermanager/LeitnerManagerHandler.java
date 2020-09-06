@@ -17,16 +17,4 @@ public class LeitnerManagerHandler {
         bottomSheet.show(fragment.getChildFragmentManager() , "fragment_edit");
     }
 
-    static void showDeleteMessage(Context context , InternalViewModel internalViewModel , Leitner leitner){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context)
-                .setTitle("Delete Leitner Card")
-                .setMessage("Do you want to delete this leitner card?")
-                .setNeutralButton("Yes" , (dialogInterface, i) -> {
-                    internalViewModel.deleteLeitnerItem(leitner);
-                })
-                .setNegativeButton("No" , (dialogInterface, i) -> {
-                   dialogInterface.dismiss();
-                });
-        builder.show();
-    }
 }

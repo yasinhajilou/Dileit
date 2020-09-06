@@ -303,8 +303,10 @@ public class ReviewedReporterFragment extends Fragment {
         for (WordReviewHistory wordReviewHistory :
                 mHistoryList) {
             PersianDate persianDate2 = new PersianDate(wordReviewHistory.getReviewedTime());
-            int lastCount = mMapMonthReviewCounter.get(persianDate2.getShDay() + "");
-            mMapMonthReviewCounter.put(persianDate2.getShDay() + "", ++lastCount);
+            if (mMapMonthReviewCounter.get(persianDate2.getShDay() + "") != null) {
+                int lastCount = mMapMonthReviewCounter.get(persianDate2.getShDay() + "");
+                mMapMonthReviewCounter.put(persianDate2.getShDay() + "", ++lastCount);
+            }
         }
 
         List<BarEntry> barEntries = new ArrayList<>();

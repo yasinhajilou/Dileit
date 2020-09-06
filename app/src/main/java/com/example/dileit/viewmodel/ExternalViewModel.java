@@ -42,7 +42,6 @@ public class ExternalViewModel extends AndroidViewModel {
 
     private void syncSearchedData(LiveData<List<SearchDictionary>> getPer, LiveData<List<SearchDictionary>> getEng) {
         if (getPer.getValue() != null && getEng.getValue() != null) {
-            Log.d(TAG, "syncSearchedData: " + getEng.getValue().size() + " " + getPer.getValue().size());
             Set<SearchDictionary> set = new TreeSet<>();
             set.addAll(getEng.getValue());
             set.addAll(getPer.getValue());

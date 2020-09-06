@@ -102,9 +102,9 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
         mViewModel.getTodayListSize().observe(getViewLifecycleOwner(), size -> {
             todayCardsSize = size;
             if (todayCardsSize <= 1)
-                mBinding.tvTodayWordsHome.setText(size + " Card");
+                mBinding.tvTodayWordsHome.setText(size + getString(R.string.card));
             else
-                mBinding.tvTodayWordsHome.setText(size + " Cards");
+                mBinding.tvTodayWordsHome.setText(size + getString(R.string.cards));
         });
 
         mBinding.linearLayoutVoice.setOnClickListener(view12 -> {
@@ -112,7 +112,7 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                     RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Need to speak");
+            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.nees_speak));
             try {
                 startActivityForResult(intent, REQ_CODE_SPEECH_TO_TEXT);
             } catch (ActivityNotFoundException e) {
@@ -140,7 +140,7 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
                 if (todayCardsSize > 0)
                     mHomeFragmentInterface.onLeitnerReviewButtonTouched();
                 else
-                    Toast.makeText(view.getContext(), "There is no card for reviewing :)", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.getContext(), R.string.no_card_for_review, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -172,8 +172,6 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
                 if (res != null) {
                     mSharedViewModel.setVoiceWord(res.get(0));
                     goToSearchView();
-                } else {
-                    Toast.makeText(getContext(), "is null", Toast.LENGTH_SHORT).show();
                 }
             }
         }

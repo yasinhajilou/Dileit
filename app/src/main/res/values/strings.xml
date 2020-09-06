@@ -113,4 +113,7 @@ When cards of this section reviewed, they will move to "\Review"\ section, while
     <string name="card_duplicated">A card with title title exist! Please change Word/Phrase.</string>
     <string name="added">Added.</string>
     <string name="error">An error occurred.</string>
+    <string name="nees_speak">Need to speak</string>
+    <string name="no_card_for_review">There is no card for reviewing :)</string>
+    <string name="item_deleted">Item deleted</string>
 </resources>

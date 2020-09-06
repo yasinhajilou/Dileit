@@ -17,7 +17,6 @@ public class JsonUtils {
     //Convert word data to wordDefinition class
     // wordDefinition : whole information of a word(idioms,means...)
     public WordInformation[] getWordDefinition(String data) {
-        Log.d(TAG, "getWordDefinition: " + data);
         if (!data.equals("Error"))
             return mGson.fromJson(data, WordInformation[].class);
         else

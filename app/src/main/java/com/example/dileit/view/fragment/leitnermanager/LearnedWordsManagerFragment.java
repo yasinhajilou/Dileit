@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.dileit.R;
 import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.FragmentLearnedWordsManagerBinding;
 import com.example.dileit.model.entity.Leitner;
@@ -63,9 +64,9 @@ public class LearnedWordsManagerFragment extends Fragment implements LeitnerMana
             @Override
             public void onChanged(Integer integer) {
                 if (integer > 0) {
-                    Toast.makeText(getContext(), "Item deleted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.item_deleted, Toast.LENGTH_SHORT).show();
                 } else
-                    Toast.makeText(getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.error), Toast.LENGTH_SHORT).show();
 
             }
         });

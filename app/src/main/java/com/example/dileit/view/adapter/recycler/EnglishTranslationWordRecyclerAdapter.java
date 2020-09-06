@@ -1,5 +1,6 @@
 package com.example.dileit.view.adapter.recycler;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,11 @@ import java.util.List;
 
 public class EnglishTranslationWordRecyclerAdapter extends RecyclerView.Adapter<EnglishTranslationWordRecyclerAdapter.ViewHolder> {
     List<EnglishDef> mList;
+    private Context mContext;
+
+    public EnglishTranslationWordRecyclerAdapter(Context context) {
+        mContext = context;
+    }
 
     public void setData(List<EnglishDef> data) {
         mList = data;
@@ -61,16 +67,16 @@ public class EnglishTranslationWordRecyclerAdapter extends RecyclerView.Adapter<
             String sCat = null;
             switch (englishDef.getCat()) {
                 case "a":
-                    sCat = "Adjective";
+                    sCat = mContext.getString(R.string.adjective);
                     break;
                 case "v":
-                    sCat = "Verb";
+                    sCat = mContext.getString(R.string.verb);
                     break;
                 case "r":
-                    sCat = "Adverb";
+                    sCat = mContext.getString(R.string.adverb);
                     break;
                 case "n":
-                    sCat = "Noun";
+                    sCat = mContext.getString(R.string.noun);
                     break;
                 default:
                     sCat = englishDef.getCat();

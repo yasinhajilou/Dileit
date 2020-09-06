@@ -70,10 +70,6 @@ public class IdiomRecyclerAdapter extends RecyclerView.Adapter<IdiomRecyclerAdap
                 stringBuilder.append(idiom.getIdiomInformation().get(i).getIdiomTranslation()).append(".");
                 if (idiom.getIdiomInformation().get(i).getIdiomExamples() != null)
                     mIdiomExamples.addAll(idiom.getIdiomInformation().get(i).getIdiomExamples());
-                else{
-                    Log.d(TAG, "bindData: " + "list is null " + i);
-
-                }
             }
             tvTranslation.setText(stringBuilder.toString());
             adapter.setData(mIdiomExamples);

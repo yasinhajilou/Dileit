@@ -1,0 +1,137 @@
+<resources>
+    <string name="app_name">دیلایت</string>
+    <string name="input_word">برای جست و جو اینجا بزنید</string>
+    <string name="camera">camera</string>
+    <string name="voice">صوت</string>
+    <string name="english">انگلیسی</string>
+    <string name="persian">فارسی</string>
+    <string name="drawing">Drawing</string>
+    <string name="history">تاریخچه</string>
+    <string name="your_search_history_is_empty">تاریخچه جست و جوی شما خالیست.</string>
+    <string name="review_leitner_box">مرور جعبه لایتنر</string>
+    <string name="mock_item_leit"><u>24 کارت</u></string>
+    <string name="type_your_word">کلمه مورد نظر</string>
+    <string name="words">کلمات</string>
+    <string name="transition_card_fragment">transitionCardView</string>
+    <string name="from_dictionary">از دیکشنری</string>
+    <string name="costume_meaning">سفارشی</string>
+    <string name="guide">اضافه کردن راهنما:</string>
+    <string name="simple_sentence_which_helps_you_to_remember">یک راهنما برای بخاطر آوردن(دلخواه)</string>
+    <string name="save">Save</string>
+
+    <string name="add_new_word_or_phrase_in_leitner">اضافه کردن کلمه یا عبارت دلخواه به جعبه لایتنر</string>
+    <string name="word_or_phrase">کلمه یا عبارت</string>
+    <string name="translation_or_definition">ترجمه یا توضیحات</string>
+    <string name="leitner_manager">مدیریت لایتنر</string>
+    <string name="know">بلدم</string>
+    <string name="don_t_know">بلد نیستم</string>
+    <string name="today_s_words">کلمات امروز</string>
+    <string name="new_words">کلمات جدید</string>
+    <string name="translation">ترجمه</string>
+    <string name="new_">جدید</string>
+    <string name="review">مرور</string>
+    <string name="learned">یادگرفته</string>
+    <string name="help">کمک</string>
+    <string name="setting">تنظیمات</string>
+    <string name="reporter">گزارش </string>
+    <string name="day">روز</string>
+    <string name="week">هفته</string>
+    <string name="month">ماه</string>
+    <string name="year">سال</string>
+    <string name="card_content_category">دسته ی کارت</string>
+
+    <string name="leitner_guide_per">لایتنر چیه؟\n\n
+یکی از بهترین استراتژی‌های به خاطرسپردن مطالب پیرَوی از سیستم لایتنره. \"دیلایت\" اینجاست که به شما کمک کنه \"لغات دیکشنری\" ویا \"موارد دلخواه اضافه شدتون\" رو طبق این سیستم به خاطر بسپرین.\n\n
+چطور کار می‌کنه؟\n\n
+هربار که شما کارت جدیدی به جعبه لایتنر اضافه میکنید، به دسته \"New\" انتقال پیدا میکنه.در واقع این دسته، کارت‌هایی هستن که تاحالا مرور
+نشدن.\n
+زمانی که این دسته کارت ها مرور بشن وارد بخش \"Review\" میشن، اگر شما جواب کارت رو ندونید به قسمت \"box1\" میره و اگه جواب کارت رو بدونید، به همون بخش و قسمت \"box2\" میره.\n\n
+زمان مرور کردن کارت‌ها، در هر \"box\" که باشید، هر بار که جواب کارتی رو ندونید به \"box1\" برمیگرده و اگر جواب اون رو بدونید به \"box\" بعدی انتقال پیدا میکنه.\n
+\n
+اگر هنگام مرور، جواب کارت‌های جعبه پنجم رو میدونستید به بخش بعدی یعنی \"Learned\" انتقال پیدا می‌کنه، که به این معنیه که شما محتوای اون کارت رو یاد گرفتید.\n
+زمان دقیق مرور هر جعبه که \"دیلایت\" برای شما به صورت خودکار مدیریت می‌کنه:\n
+جعبه اول: هر روز\n
+جعبه دوم: هر ۲ روز\n
+جعبه سوم: هر ۴ روز\n
+جعبه چهارم: هر ۹ روز\n
+جعبه پنجم: هر ۱۴ روز\n</string>
+
+    <string name="leitner_guide_eng">
+        What is Leitner?
+        \n
+\nOne of the best strategies for memorizing words and phrases is following Leitner system principles. "\Dileit"\ is here to helps you memorizing "\Dictionary words"\ and "\Customised items"\ in order to Leitner principles.
+\n\n
+How does it work?\n\n
+Each time you adding a new card in Leitner Box, it will found in the "\New"\ section. In fact, in this section, There are cards which you have never reviewed.
+ \n \n
+When cards of this section reviewed, they will move to "\Review"\ section, while you are reviewing this section, if you don\'t know the answer of card it will place in "\Box1"\ and if you know the answer of card it will place in "\Box2"\.
+\n\nwhile reviewing cards, in each "\Box"\, if you know the answer of card it will move to the next box and if you don\'t know the answer, it will back to "\Box1"\.
+\n
+\nIn the time of reviewing if you know the answer to "\Box5"\ it will move to the next section called "\Learned"\. It means you learned that card.
+\nYou should review each "\box"\ in a specific time which "\Dileit"\ handles it for you:
+        \n
+\nBox1: every day
+\nBox2: every 2 days
+\nBox3: every 4 days
+\nBox4: every 9 days
+\nBox5: every 14 days
+    </string>
+    <string name="last_24_h">24 ساعت گذشته</string>
+    <string name="sat">شنیه</string>
+    <string name="sun">یکشنبه</string>
+    <string name="mon">دوشنبه</string>
+    <string name="tue">سه شنبه</string>
+    <string name="wed">چهارشنبه</string>
+    <string name="thu">پنجشنبه</string>
+    <string name="fri">جمعه</string>
+    <string name="last_week">هفته گذشته</string>
+    <string name="first">اول</string>
+    <string name="second">دوم</string>
+    <string name="third">سوم</string>
+    <string name="th_date">م</string>
+    <string name="last_month">30 روز گذشته</string>
+    <string name="last_year">12 ماه گذشته</string>
+    <string name="leitner_review_reminder">یادآور مرور لایتنر</string>
+    <string name="reminder_descriotion">یادآور مرور آیتم های لایتنر در زمان مشخص شده.</string>
+    <string name="are">are</string>
+    <string name="is">"is "</string>
+    <string name="cards">cards</string>
+    <string name="card">card</string>
+    <string name="there">\"There \"</string>
+    <string name="leitner">Leitner</string>
+    <string name="for_reviwing">for reviewing.</string>
+    <string name="review_today_cards">مرور کارت های امروز</string>
+    <string name="verb">Verb</string>
+    <string name="noun">Noun</string>
+    <string name="adjective">Adjective</string>
+    <string name="adverb">Adverb</string>
+    <string name="phrase">Phrase</string>
+    <string name="other">Other</string>
+    <string name="pl_add_cat">لطفا دسته کارت را مشخص کنید</string>
+    <string name="pl_fill_fields"><![CDATA[لطفا عنوان یا توضیحات رو کامل پر کنید!]]></string>
+    <string name="card_duplicated">کارتی با این عنوان وجود داره، لطفا عنوان را تغییر بدید.</string>
+    <string name="added">اضافه شد</string>
+    <string name="error">خطایی رخ داد</string>
+    <string name="nees_speak">نیازه که صحبت کنید</string>
+    <string name="no_card_for_review">کارتی برای مرور وجود نداره :)</string>
+    <string name="item_deleted">آیتم حذف شد.</string>
+    <string name="leitner_updated">کارت بروزشد</string>
+    <string name="enf_def">توضیحات انگلیسی</string>
+    <string name="sec_translation">ترجمه دوم</string>
+    <string name="delete_leitner_title">حذف کارت لایتنر</string>
+    <string name="delete_leitner_caption"> میخوای که کارت را حذف کنی؟</string>
+    <string name="yes">بله</string>
+    <string name="no">نه</string>
+    <string name="alarm_cap">\"یادآور فعال شد برای  \"</string>
+    <string name="delete_his">حذف تاریخچه</string>
+    <string name="delete_his_cap">مبخوای که تاریخچه جستوجو رو حذف کنی؟</string>
+    <string name="deleted_successfully">با موفقیت حذف شد.</string>
+    <string name="remove_leitner">حذف کلمه از لایتنر</string>
+    <string name="remove_leitner_cap">این کلمه تو لایتنر وجود داره، قصد حذف کردنش رو داری؟</string>
+    <string name="last_seven_day">هفت روز گذشته</string>
+    <string name="box_1">جعبه اول</string>
+    <string name="box_2">جعبه دوم</string>
+    <string name="box_3">جعبه سوم</string>
+    <string name="box_4">جعبه چهارم</string>
+    <string name="box_5">جعبه پنجم</string>
+</resources>

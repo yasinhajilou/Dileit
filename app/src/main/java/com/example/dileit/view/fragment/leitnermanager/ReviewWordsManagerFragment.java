@@ -109,11 +109,11 @@ public class ReviewWordsManagerFragment extends Fragment implements LeitnerManag
         if (leitnerList.size() > 0) {
             mBinding.rvReviewManager.setVisibility(View.GONE);
             mBinding.rvReviewManager.setVisibility(View.VISIBLE);
-            mBinding.tvNoDataReviewMan.setVisibility(View.GONE);
+            mBinding.ivNoDataReviewMan.setVisibility(View.GONE);
             adapter.setData(leitnerList);
         } else {
             mBinding.rvReviewManager.setVisibility(View.GONE);
-            mBinding.tvNoDataReviewMan.setVisibility(View.VISIBLE);
+            mBinding.ivNoDataReviewMan.setVisibility(View.VISIBLE);
         }
     }
 
@@ -128,7 +128,7 @@ public class ReviewWordsManagerFragment extends Fragment implements LeitnerManag
         mInternalViewModel.deleteLeitnerItem(leitner);
         if (adapter.getItemCount() == 0) {
             mBinding.rvReviewManager.setVisibility(View.GONE);
-            mBinding.tvNoDataReviewMan.setVisibility(View.VISIBLE);
+            mBinding.ivNoDataReviewMan.setVisibility(View.VISIBLE);
         }
     }
 

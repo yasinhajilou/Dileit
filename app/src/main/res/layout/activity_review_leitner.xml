@@ -133,7 +133,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/productsansregular"
             android:gravity="center"
-            android:text="British"
+            android:text="@string/british"
             android:textColor="?attr/colorAccent"
             android:textSize="14sp" />
 
@@ -147,7 +147,7 @@
             android:src="@drawable/volumeup" />
 
         <TextView
-            android:text="American"
+            android:text="@string/american"
             android:padding="4dp"
             android:id="@+id/tv_american_pronounce_leitner_rev"
             android:layout_width="wrap_content"

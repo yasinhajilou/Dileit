@@ -106,7 +106,7 @@
                     android:layout_marginLeft="6dp"
                     android:fontFamily="@font/productsansregular"
                     android:gravity="center"
-                    android:text="British"
+                    android:text="@string/british"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
 
@@ -125,7 +125,7 @@
                     android:layout_marginLeft="6dp"
                     android:fontFamily="@font/productsansregular"
                     android:gravity="center"
-                    android:text="American"
+                    android:text="@string/american"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
             </LinearLayout>

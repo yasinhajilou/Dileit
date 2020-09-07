@@ -40,7 +40,7 @@
                     android:layout_marginStart="28dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/productsansregular"
-                    android:text="Total Cards:"
+                    android:text="@string/total_cards"
                     android:textColor="@android:color/white"
                     android:textSize="26sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +66,7 @@
                     android:layout_marginStart="28dp"
                     android:layout_marginTop="28dp"
                     android:fontFamily="@font/productsansregular"
-                    android:text="Learned:"
+                    android:text="@string/learned_"
                     android:textColor="@android:color/white"
                     android:textSize="22sp"
                     app:layout_constraintEnd_toStartOf="@+id/tv_learned_cards_count"
@@ -151,7 +151,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="18dp"
                             android:fontFamily="@font/productsansregular"
-                            android:text="Reviewed Cards"
+                            android:text="@string/reviewed_cards"
                             android:textSize="18sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -209,7 +209,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="18dp"
                             android:fontFamily="@font/productsansregular"
-                            android:text="Added Cards        "
+                            android:text="@string/added_cards"
                             android:textSize="18sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -269,7 +269,7 @@
                         android:fontFamily="@font/productsansregular"
                         android:textColor="@color/colorSecondary"
                         android:textSize="24sp"
-                        android:text="Reviewed"
+                        android:text="@string/reviewed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <TextView
@@ -284,7 +284,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         android:fontFamily="@font/productsansregular"
                         android:textSize="20sp"
-                        android:text="Added"
+                        android:text="@string/added"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 

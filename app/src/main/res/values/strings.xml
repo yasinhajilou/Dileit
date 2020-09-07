@@ -134,4 +134,14 @@ When cards of this section reviewed, they will move to "\Review"\ section, while
     <string name="box_3">Box 3</string>
     <string name="box_4">Box 4</string>
     <string name="box_5">Box 5</string>
+    <string name="reviewed_cards">Reviewed Cards</string>
+    <string name="added_cards">Added Cards</string>
+    <string name="learned_">Learned:</string>
+    <string name="total_cards">Total Cards:</string>
+    <string name="reviewed">Reviewed</string>
+    <string name="american">American</string>
+    <string name="british">British</string>
+    <string name="nothing_reviewed">Nothing Reviewed :(</string>
+    <string name="review_again_for_today">Review Again For Today</string>
+    <string name="reviewed">Reviewed</string>
 </resources>

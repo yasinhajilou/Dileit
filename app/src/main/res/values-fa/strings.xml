@@ -110,7 +110,7 @@ When cards of this section reviewed, they will move to "\Review"\ section, while
     <string name="pl_add_cat">لطفا دسته کارت را مشخص کنید</string>
     <string name="pl_fill_fields"><![CDATA[لطفا عنوان یا توضیحات رو کامل پر کنید!]]></string>
     <string name="card_duplicated">کارتی با این عنوان وجود داره، لطفا عنوان را تغییر بدید.</string>
-    <string name="added">اضافه شد</string>
+    <string name="added">اضافه شده</string>
     <string name="error">خطایی رخ داد</string>
     <string name="nees_speak">نیازه که صحبت کنید</string>
     <string name="no_card_for_review">کارتی برای مرور وجود نداره :)</string>

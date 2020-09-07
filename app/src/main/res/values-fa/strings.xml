@@ -134,4 +134,16 @@ When cards of this section reviewed, they will move to "\Review"\ section, while
     <string name="box_3">جعبه سوم</string>
     <string name="box_4">جعبه چهارم</string>
     <string name="box_5">جعبه پنجم</string>
+
+    <string name="reviewed_cards">کارت های مرور شده</string>
+    <string name="added_cards">کارت های اضافه شده</string>
+    <string name="learned_">یادگرفته:</string>
+    <string name="total_cards">همه کارت ها:</string>
+    <string name="american">آمریکایی</string>
+    <string name="british">بریتانیایی</string>
+    <string name="nothing_reviewed">چیزی مرور نشد :(</string>
+    <string name="review_again_for_today">مرور مجدد برای امروز</string>
+    <string name="reviewed">مرور شده</string>
+    <string name="delete">حذف</string>
+    <string name="edit">ویرایش</string>
 </resources>

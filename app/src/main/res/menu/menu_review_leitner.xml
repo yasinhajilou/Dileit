@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/menu_delete_leitner"
-        android:title="Delete"/>
-    <item android:title="Edit"
+    <item
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_delete_24dp"
+        android:id="@+id/menu_delete_leitner"
+        android:title="@string/delete"/>
+    <item
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_edit_24dp"
+        android:title="@string/edit"
         android:id="@+id/menu_edit_leitner"/>
 </menu>

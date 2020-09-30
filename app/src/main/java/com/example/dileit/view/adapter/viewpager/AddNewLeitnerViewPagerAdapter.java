@@ -1,31 +1,44 @@
 package com.example.dileit.view.adapter.viewpager;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
+
+import com.example.dileit.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddNewLeitnerViewPagerAdapter extends FragmentPagerAdapter {
+public class AddNewLeitnerViewPagerAdapter extends PagerAdapter {
     List<String> titles = new ArrayList<>();
-    List<Fragment> mFragments = new ArrayList<>();
-
-    public AddNewLeitnerViewPagerAdapter(@NonNull FragmentManager fm) {
-        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-    }
-
-    @NonNull
-    @Override
-    public Fragment getItem(int position) {
-        return mFragments.get(position);
-    }
+    List<String> mInformation = new ArrayList<>();
 
     @Override
     public int getCount() {
         return titles.size();
+    }
+
+    @NonNull
+    @Override
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.item_leitner_review_translation, container, false);
+        TextView textView = view.findViewById(R.id.tv_item_view_pager_review_translation);
+        textView.setText(mInformation.get(position));
+        container.addView(view);
+        return view;
+    }
+
+    @Override
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
+        return view == object;
     }
 
     @Nullable
@@ -36,9 +49,9 @@ public class AddNewLeitnerViewPagerAdapter extends FragmentPagerAdapter {
         else return null;
     }
 
-    public void addData(String title, Fragment fragment) {
-        mFragments.add(fragment);
+    public void addData(String title, String info) {
         titles.add(title);
+        mInformation.add(info);
         notifyDataSetChanged();
     }
 

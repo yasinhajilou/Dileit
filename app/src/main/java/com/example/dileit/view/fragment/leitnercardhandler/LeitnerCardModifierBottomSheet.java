@@ -31,14 +31,12 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
     private final String TAG = LeitnerCardModifierBottomSheet.class.getSimpleName();
     private BottomSheetAddNewLeitnerBinding mBinding;
     private SharedViewModel mSharedViewModel;
-    private String title;
     private AddNewLeitnerViewPagerAdapter mAdapter;
-    private String mainTranslation;
-    private String secondTranslation;
     private InternalViewModel mInternalViewModel;
     private LeitnerModifierConstants mConstants;
     private int cardId;
     private Leitner mLeitner;
+    private String title;
 
     public static LeitnerCardModifierBottomSheet onNewInstance(LeitnerModifierConstants constants, int cardId) {
         LeitnerCardModifierBottomSheet bottomSheet = new LeitnerCardModifierBottomSheet();
@@ -84,8 +82,8 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
         });
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(), R.layout.drop_down_card_cat, StringUtils.dropDownItem(getContext()));
-
         mBinding.dropdownText.setAdapter(arrayAdapter);
+
         //this class will call in two ways:
         //1- when user wants to add a brand new card
         //2- when user wants to edit a card
@@ -130,69 +128,77 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
                         mInternalViewModel.updateLeitnerItem(mLeitner);
                         break;
                 }
-            }else {
+            } else {
                 Toast.makeText(getContext(), getString(R.string.pl_fill_fields), Toast.LENGTH_LONG).show();
             }
-            });
+        });
 
 
-            mInternalViewModel.getAddedLeitnerItemId().observe(getViewLifecycleOwner(), aLong -> {
-                if (aLong > 0) {
-                    Toast.makeText(getContext(), getString(R.string.added), Toast.LENGTH_SHORT).show();
-                    dismiss();
-                } else {
-                    Toast.makeText(getContext(), getString(R.string.error), Toast.LENGTH_SHORT).show();
-                }
-            });
-            mInternalViewModel.getUpdateItemStatus().observe(getViewLifecycleOwner(), aBoolean -> {
-                if (aBoolean) {
-                    Toast.makeText(getContext(), R.string.leitner_updated, Toast.LENGTH_SHORT).show();
-                    dismiss();
-                } else {
-                    Toast.makeText(getContext(), getString(R.string.error), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-
-        private void setUpViewForEditing () {
-            mInternalViewModel.getLeitnerCardById(cardId).observe(getViewLifecycleOwner(), leitner -> {
-
-                mBinding.edtTitleDialogAddLeitner.setText(leitner.getWord());
-                mBinding.dropdownText.setText(leitner.getWordAct(), false);
-                mBinding.edtDialogGuide.setText(leitner.getGuide());
-                mBinding.edtTitleDialogAddLeitner.setText(leitner.getWord());
-
-                handleViewPagerItems(leitner.getDef(), leitner.getSecondDef());
-
-                mLeitner = leitner;
-            });
-        }
-
-        private void setUpViewForAdding () {
-            mSharedViewModel.getLeitnerItemData().observe(getViewLifecycleOwner(), strings -> {
-                title = strings[0];
-                mBinding.edtTitleDialogAddLeitner.setText(title);
-                mainTranslation = strings[1];
-                secondTranslation = strings[2];
-
-                handleViewPagerItems(mainTranslation, secondTranslation);
-
-            });
-
-            mBinding.rbCostumeBottomSheet.setOnCheckedChangeListener((compoundButton, b) -> mSharedViewModel.setCostumeCheck(b));
-
-        }
-
-        private void handleViewPagerItems (String mainTranslation, String secondTranslation){
-//        if (mainTranslation != null)
-            mAdapter.addData(getString(R.string.translation), TranslationDialogFragment.newInstance(mainTranslation, KeysValue.FRAGMENT_HEADER_TRANSLATION));
-//        if (secondTranslation != null)
-            mAdapter.addData(getString(R.string.enf_def), TranslationDialogFragment.newInstance(secondTranslation, KeysValue.FRAGMENT_HEADER_SECOND_TRANSLATION));
-
-        }
-
-        @Override
-        public int getTheme () {
-            return R.style.AppBottomSheetDialogTheme;
-        }
+        mSharedViewModel.getActualWord().observe(getViewLifecycleOwner() , s -> {
+            title = s;
+        });
+        mInternalViewModel.getAddedLeitnerItemId().observe(getViewLifecycleOwner(), aLong -> {
+            if (aLong > 0) {
+                Toast.makeText(getContext(), getString(R.string.added), Toast.LENGTH_SHORT).show();
+                dismiss();
+            } else {
+                Toast.makeText(getContext(), getString(R.string.error), Toast.LENGTH_SHORT).show();
+            }
+        });
+        mInternalViewModel.getUpdateItemStatus().observe(getViewLifecycleOwner(), aBoolean -> {
+            if (aBoolean) {
+                Toast.makeText(getContext(), R.string.leitner_updated, Toast.LENGTH_SHORT).show();
+                dismiss();
+            } else {
+                Toast.makeText(getContext(), getString(R.string.error), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
+    private void setUpViewForEditing() {
+        mInternalViewModel.getLeitnerCardById(cardId).observe(getViewLifecycleOwner(), leitner -> {
+
+            mBinding.edtTitleDialogAddLeitner.setText(leitner.getWord());
+            mBinding.dropdownText.setText(leitner.getWordAct(), false);
+            mBinding.edtDialogGuide.setText(leitner.getGuide());
+            mBinding.edtTitleDialogAddLeitner.setText(leitner.getWord());
+
+            handleViewPagerItems(leitner.getDef(), leitner.getSecondDef());
+
+            mLeitner = leitner;
+        });
+    }
+
+    private void setUpViewForAdding() {
+//        mSharedViewModel.getLeitnerItemData().observe(getViewLifecycleOwner(), strings -> {
+//
+//            handleViewPagerItems(mainTranslation, secondTranslation);
+//
+//        });
+
+
+        mSharedViewModel.getTranslationWord().observe(getViewLifecycleOwner(), wordInformations -> {
+
+        });
+
+        mSharedViewModel.getEngDefList().observe(getViewLifecycleOwner(), englishDefs -> {
+
+        });
+
+        mBinding.rbCostumeBottomSheet.setOnCheckedChangeListener((compoundButton, b) -> mSharedViewModel.setCostumeCheck(b));
+
+    }
+
+    private void handleViewPagerItems(String mainTranslation, String secondTranslation) {
+//        if (mainTranslation != null)
+        mAdapter.addData(getString(R.string.translation), TranslationDialogFragment.newInstance(mainTranslation, KeysValue.FRAGMENT_HEADER_TRANSLATION));
+//        if (secondTranslation != null)
+        mAdapter.addData(getString(R.string.enf_def), TranslationDialogFragment.newInstance(secondTranslation, KeysValue.FRAGMENT_HEADER_SECOND_TRANSLATION));
+
+    }
+
+    @Override
+    public int getTheme() {
+        return R.style.AppBottomSheetDialogTheme;
+    }
+}

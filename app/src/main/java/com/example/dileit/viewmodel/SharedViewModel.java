@@ -51,7 +51,7 @@ public class SharedViewModel extends AndroidViewModel {
     public LiveData<List<EnglishDef>> getEngDefList(){
         return mEngDefList;
     }
-    public void setTranslation(String translation) {
+    public void setPerEngTranslation(String translation) {
         this.translation = translation;
     }
 
@@ -117,6 +117,13 @@ public class SharedViewModel extends AndroidViewModel {
         mTranslationWord.setValue(translationWord);
     }
 
+    public void setActualWord(String s){
+        mActualWord.setValue(s);
+    }
+
+    public LiveData<String> getActualWord(){
+        return mActualWord;
+    }
 
 //    public MutableLiveData<String[]> getLeitnerItemData() {
 //        return mLeitnerItemData;

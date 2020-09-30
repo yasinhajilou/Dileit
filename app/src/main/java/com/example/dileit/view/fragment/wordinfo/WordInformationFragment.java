@@ -55,9 +55,6 @@ public class WordInformationFragment extends Fragment {
     private WordsInformationViewPagerAdapter mAdapter;
     private InternalViewModel mInternalViewModel;
 
-    private StringBuilder builderEnglish;
-    private StringBuilder builderTranslation;
-
     private String actualWord;
     private int engId;
 
@@ -156,10 +153,6 @@ public class WordInformationFragment extends Fragment {
                     chipEnglish.setVisibility(View.VISIBLE);
 
                     mSharedViewModel.setEngDefList(englishDefs);
-                    builderEnglish = new StringBuilder();
-                    for (EnglishDef englishDef : englishDefs) {
-                        builderEnglish.append(englishDef.getDefinition()).append("\n");
-                    }
                 }
                 shouldRefreshLivesEng = false;
             }
@@ -206,28 +199,9 @@ public class WordInformationFragment extends Fragment {
                 showRemoveLeitnerDialog(view16);
             } else {
 
-                //creating translation section for showing in text view
-                if (translationList != null) {
-                    builderTranslation = new StringBuilder();
-                    for (TranslationWord word : translationList) {
-                        builderTranslation.append(word.getTranslatedWord()).append(".\n");
-                    }
-                }
-
                 //leitner id =0 means we should add brand new card
                 LeitnerCardModifierBottomSheet dialog = LeitnerCardModifierBottomSheet.onNewInstance(LeitnerModifierConstants.ADD, 0);
                 dialog.show(getChildFragmentManager(), "tag_dialog_add_leitner");
-
-                String[] strings = new String[3];
-                strings[0] = actualWord;
-
-                if (builderTranslation != null)
-                    strings[1] = builderTranslation.toString();
-
-                if (builderEnglish != null)
-                    strings[2] = builderEnglish.toString();
-
-                mSharedViewModel.setLeitnerItemData(strings);
 
             }
         });

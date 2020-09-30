@@ -5,14 +5,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
@@ -84,7 +82,7 @@ public class TranslationDialogFragment extends Fragment {
                 String trns = mEditText.getText().toString();
                 switch (mHeader){
                     case 1:
-                        mSharedViewModel.setTranslation(trns);
+                        mSharedViewModel.setPerEngTranslation(trns);
                         break;
                     case 2:
                         mSharedViewModel.setSecondTranslation(trns);

@@ -26,8 +26,6 @@ public class LeitnerManagerViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position){
-            case 0:
-                return new NewWordsManagerFragment();
             case 1:
                 return new ReviewWordsManagerFragment();
             case 2:

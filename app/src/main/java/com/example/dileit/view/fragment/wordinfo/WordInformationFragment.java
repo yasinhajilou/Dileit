@@ -110,6 +110,7 @@ public class WordInformationFragment extends Fragment {
 
 
         mBinding.tvWordTitle.setText(actualWord);
+        mSharedViewModel.setActualWord(actualWord);
 
         mExternalViewModel.searchForExactWord(actualWord).observe(getViewLifecycleOwner(), s -> {
             if (shouldRefreshLivesPer) {

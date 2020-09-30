@@ -25,14 +25,6 @@ public class TranslationDialogFragment extends Fragment {
         // Required empty public constructor
     }
 
-     static TranslationDialogFragment newInstance(String s, byte header) {
-        TranslationDialogFragment fragment = new TranslationDialogFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(KeysValue.KEY_BUNDLE_WORD_TRANSLATION, s);
-        bundle.putByte(KeysValue.KEY_BUNDLE_TRANS_HEADER, header);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

@@ -136,6 +136,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
 
         mSharedViewModel.getActualWord().observe(getViewLifecycleOwner() , s -> {
             title = s;
+            mBinding.edtTitleDialogAddLeitner.setText(s);
         });
         mInternalViewModel.getAddedLeitnerItemId().observe(getViewLifecycleOwner(), aLong -> {
             if (aLong > 0) {

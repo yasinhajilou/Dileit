@@ -86,15 +86,15 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(), R.layout.drop_down_card_cat, StringUtils.dropDownItem(getContext()));
 
         mBinding.dropdownText.setAdapter(arrayAdapter);
-        //this class will call in two way:
+        //this class will call in two ways:
         //1- when user wants to add a brand new card
         //2- when user wants to edit a card
 
-        //it calls for adding
+        //1:it calls for adding
         if (mConstants == LeitnerModifierConstants.ADD) {
             setUpViewForAdding();
         } else {
-            //it calls for editing
+            //2:it calls for editing
             if (mConstants == LeitnerModifierConstants.EDIT) {
                 setUpViewForEditing();
                 mBinding.radioGpDialog.setVisibility(View.INVISIBLE);

@@ -34,9 +34,9 @@
         app:boxBackgroundColor="@color/colorBackground"
         app:boxStrokeColor="@android:color/darker_gray"
         app:layout_constraintBottom_toTopOf="@+id/radio_gp_dialog"
-        app:layout_constraintTop_toBottomOf="@+id/edt_title_dialog_add_leitner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_title_dialog_add_leitner">
 
         <AutoCompleteTextView
             android:id="@+id/dropdown_text"
@@ -89,7 +89,6 @@
         android:layout_width="0dp"
         android:layout_height="200dp"
         android:layout_margin="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_label_guide"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radio_gp_dialog">
@@ -105,6 +104,36 @@
             app:tabTextColor="@android:color/darker_gray" />
     </androidx.viewpager.widget.ViewPager>
 
+    <com.google.android.material.chip.ChipGroup
+        app:singleSelection="false"
+        android:id="@+id/radio_gp_leitner_extension"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_pager_add_new_leitner">
+
+        <com.google.android.material.chip.Chip
+            android:checked="true"
+            android:id="@+id/chip_eng_synonyms"
+            android:textColor="@android:color/white"
+            app:chipBackgroundColor="@color/colorAccent"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/english_synonyms" />
+
+        <com.google.android.material.chip.Chip
+            android:checked="true"
+            android:id="@+id/chip_example"
+            android:textColor="@android:color/white"
+            app:chipBackgroundColor="@color/colorAccent"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/examples" />
+    </com.google.android.material.chip.ChipGroup>
+
     <ImageView
         android:id="@+id/img_bubble_dialog"
         android:layout_width="wrap_content"
@@ -114,7 +143,7 @@
         android:src="@drawable/ic_bubble_chart_black_24dp"
         app:layout_constraintBottom_toTopOf="@+id/edt_dialog_guide"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_pager_add_new_leitner" />
+        app:layout_constraintTop_toBottomOf="@+id/radio_gp_leitner_extension" />
 
     <TextView
         android:id="@+id/tv_label_guide"
@@ -127,7 +156,7 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/edt_dialog_guide"
         app:layout_constraintLeft_toRightOf="@id/img_bubble_dialog"
-        app:layout_constraintTop_toBottomOf="@+id/view_pager_add_new_leitner" />
+        app:layout_constraintTop_toBottomOf="@+id/radio_gp_leitner_extension" />
 
     <EditText
         android:id="@+id/edt_dialog_guide"

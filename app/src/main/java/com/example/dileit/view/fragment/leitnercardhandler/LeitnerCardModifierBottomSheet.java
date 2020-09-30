@@ -51,7 +51,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
-        mAdapter = new AddNewLeitnerViewPagerAdapter(getChildFragmentManager());
+        mAdapter = new AddNewLeitnerViewPagerAdapter();
         mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
     }
 
@@ -178,11 +178,11 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
 
 
         mSharedViewModel.getTranslationWord().observe(getViewLifecycleOwner(), wordInformations -> {
-
+            mAdapter.addData(getString(R.string.translation),wordInformations.get(0).getTranslationWords().get(0).getTranslatedWord());
         });
 
         mSharedViewModel.getEngDefList().observe(getViewLifecycleOwner(), englishDefs -> {
-
+            mAdapter.addData(getString(R.string.enf_def) , englishDefs.get(0).getDefinition());
         });
 
         mBinding.rbCostumeBottomSheet.setOnCheckedChangeListener((compoundButton, b) -> mSharedViewModel.setCostumeCheck(b));
@@ -191,9 +191,9 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
 
     private void handleViewPagerItems(String mainTranslation, String secondTranslation) {
 //        if (mainTranslation != null)
-        mAdapter.addData(getString(R.string.translation), TranslationDialogFragment.newInstance(mainTranslation, KeysValue.FRAGMENT_HEADER_TRANSLATION));
-//        if (secondTranslation != null)
-        mAdapter.addData(getString(R.string.enf_def), TranslationDialogFragment.newInstance(secondTranslation, KeysValue.FRAGMENT_HEADER_SECOND_TRANSLATION));
+//        mAdapter.addData(getString(R.string.translation), TranslationDialogFragment.newInstance(mainTranslation, KeysValue.FRAGMENT_HEADER_TRANSLATION));
+////        if (secondTranslation != null)
+//        mAdapter.addData(getString(R.string.enf_def), TranslationDialogFragment.newInstance(secondTranslation, KeysValue.FRAGMENT_HEADER_SECOND_TRANSLATION));
 
     }
 

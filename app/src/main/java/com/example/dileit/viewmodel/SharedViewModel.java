@@ -21,11 +21,9 @@ public class SharedViewModel extends AndroidViewModel {
     private MutableLiveData<List<WordInformation>> mTranslationWord;
     private MutableLiveData<List<Idiom>> mIdiom;
     private MutableLiveData<String> mVoiceWord;
-    private MutableLiveData<String[]> mLeitnerItemData;
+//    private MutableLiveData<String[]> mLeitnerItemData;
     private MutableLiveData<Boolean> mCostumeCheck;
     private MutableLiveData<Boolean> mSaveBtnCheck;
-
-    private MutableLiveData<String> mWordCatInTranslation = new MutableLiveData<>();
 
     private MutableLiveData<List<EnglishDef>> mEngDefList;
 
@@ -39,7 +37,7 @@ public class SharedViewModel extends AndroidViewModel {
         mActualWord = new MutableLiveData<>();
         mIdiom = new MutableLiveData<>();
         mVoiceWord = new MutableLiveData<>();
-        mLeitnerItemData = new MutableLiveData<>();
+//        mLeitnerItemData = new MutableLiveData<>();
         mCostumeCheck = new MutableLiveData<>();
         mSaveBtnCheck = new MutableLiveData<>();
         mEngDefList = new MutableLiveData<>();
@@ -69,10 +67,6 @@ public class SharedViewModel extends AndroidViewModel {
         return secondTranslation;
     }
 
-    public void resetTranslations() {
-        translation = null;
-        secondTranslation = null;
-    }
 
     public void setSaveBtnCheck(boolean saveBtnCheck) {
         mSaveBtnCheck.setValue(saveBtnCheck);
@@ -90,9 +84,9 @@ public class SharedViewModel extends AndroidViewModel {
         return mCostumeCheck;
     }
 
-    public void setLeitnerItemData(String[] leitnerItemData) {
-        mLeitnerItemData.setValue(leitnerItemData);
-    }
+//    public void setLeitnerItemData(String[] leitnerItemData) {
+//        mLeitnerItemData.setValue(leitnerItemData);
+//    }
 
     public void setVoiceWord(String s) {
         mVoiceWord.setValue(s);
@@ -114,13 +108,6 @@ public class SharedViewModel extends AndroidViewModel {
         mIdiom.setValue(idiom);
     }
 
-    public void setWordInformation(WordInformation[] wordInformation) {
-        this.mWordInformation.setValue(wordInformation);
-    }
-
-    public MutableLiveData<WordInformation[]> getWordInformation() {
-        return mWordInformation;
-    }
 
     public LiveData<List<WordInformation>> getTranslationWord() {
         return mTranslationWord;
@@ -130,23 +117,10 @@ public class SharedViewModel extends AndroidViewModel {
         mTranslationWord.setValue(translationWord);
     }
 
-    public MutableLiveData<String> getActualWord() {
-        return mActualWord;
-    }
 
-    public MutableLiveData<String[]> getLeitnerItemData() {
-        return mLeitnerItemData;
-    }
+//    public MutableLiveData<String[]> getLeitnerItemData() {
+//        return mLeitnerItemData;
+//    }
 
-    public void setActualWord(String actualWord) {
-        mActualWord.setValue(actualWord);
-    }
 
-    public LiveData<String> getWordCatInTranslation() {
-        return mWordCatInTranslation;
-    }
-
-    public void setWordCatInTranslation(String wordCatInTranslation) {
-        mWordCatInTranslation.setValue(wordCatInTranslation);
-    }
 }

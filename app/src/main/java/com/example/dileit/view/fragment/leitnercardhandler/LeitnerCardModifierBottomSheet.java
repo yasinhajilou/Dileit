@@ -49,7 +49,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
     private List<WordInformation> mWordInformations = new ArrayList<>();
     private List<EnglishDef> mEngDefs = new ArrayList<>();
 
-    private boolean showExamples= true, showSynonyms = true;
+    private boolean showExamples = true, showSynonyms = true;
 
     public static LeitnerCardModifierBottomSheet onNewInstance(LeitnerModifierConstants constants, int cardId) {
         LeitnerCardModifierBottomSheet bottomSheet = new LeitnerCardModifierBottomSheet();
@@ -196,7 +196,12 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
             mAdapter.addData(getString(R.string.enf_def), getEngDefData(showExamples, showSynonyms, mEngDefs));
         });
 
-        mBinding.rbCostumeBottomSheet.setOnCheckedChangeListener((compoundButton, b) -> mSharedViewModel.setCostumeCheck(b));
+        mBinding.rbCostumeBottomSheet.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (translationEdtText() != null)
+                translationEdtText().setEnabled(b);
+            if (engEditText() != null)
+                engEditText().setEnabled(b);
+        });
 
         if (mBinding.chipEngSynonyms != null) {
             mBinding.chipEngSynonyms.setOnCheckedChangeListener((buttonView, isChecked) -> {

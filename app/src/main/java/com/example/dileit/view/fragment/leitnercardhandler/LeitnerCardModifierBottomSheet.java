@@ -184,12 +184,6 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
     }
 
     private void setUpViewForAdding() {
-//        mSharedViewModel.getLeitnerItemData().observe(getViewLifecycleOwner(), strings -> {
-//
-//            handleViewPagerItems(mainTranslation, secondTranslation);
-//
-//        });
-
 
         mSharedViewModel.getTranslationWord().observe(getViewLifecycleOwner(), wordInformations -> {
             mWordInformations = wordInformations;
@@ -209,31 +203,18 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
 
         if (mBinding.chipEngSynonyms != null) {
             mBinding.chipEngSynonyms.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                if (isChecked) {
-                    Toast.makeText(getContext(), "is", Toast.LENGTH_SHORT).show();
-                } else {
-                    //get edittext texts
-                    View engView = mBinding.viewPagerAddNewLeitner.findViewWithTag(getString(R.string.enf_def));
-                    View translationView = mBinding.viewPagerAddNewLeitner.findViewWithTag(getString(R.string.translation));
 
-                    if (engView != null) {
-                        EditText editText = engView.findViewById(R.id.edt_pager_leitner_info);
-                        StringBuilder stringBuilder = new StringBuilder();
-                        for (EnglishDef englishDef :
-                                mEngDefs) {
-                            stringBuilder.append("*").append(englishDef.getDefinition()).append("\n");
-                            stringBuilder.append(englishDef.getExamples()).append("\n");
-                        }
-                        editText.setText(stringBuilder.toString());
-                    }
+                showSynonyms = isChecked;
+                if (engEditText() != null)
+                    engEditText().setText(getEngDefData(showExamples, showSynonyms, mEngDefs));
 
-                    if (translationView != null) {
-                        EditText editText2 = translationView.findViewById(R.id.edt_pager_leitner_info);
-                        editText2.setText("hi");
-                    }
-                }
+
             });
         }
+        assert mBinding.chipExamples != null;
+        mBinding.chipExamples.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
+        });
     }
 
     private void handleViewPagerItems(String mainTranslation, String secondTranslation) {
@@ -254,6 +235,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
             if (showExamples)
                 stringBuilder.append(englishDef.getExamples()).append("\n");
         }
+        return stringBuilder.toString();
     }
 
     private String getTranslationData(boolean showExamples, List<WordInformation> wordList) {
@@ -273,6 +255,22 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
             }
         }
         return stringBuilder.toString();
+    }
+
+    private EditText engEditText() {
+        View engView = mBinding.viewPagerAddNewLeitner.findViewWithTag(getString(R.string.enf_def));
+        if (engView != null) {
+            return engView.findViewById(R.id.edt_pager_leitner_info);
+        }
+        return null;
+    }
+
+    private EditText translationEdtText(){
+        View translationView = mBinding.viewPagerAddNewLeitner.findViewWithTag(getString(R.string.translation));
+        if (translationView != null) {
+            return translationView.findViewById(R.id.edt_pager_leitner_info);
+        }
+        return null;
     }
 
     @Override

@@ -85,6 +85,7 @@
     </RadioGroup>
 
     <androidx.viewpager.widget.ViewPager
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:id="@+id/view_pager_add_new_leitner"
         android:layout_width="0dp"
         android:layout_height="200dp"

@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <EditText
-        android:id="@+id/edt_pager_leitner_info"
-        android:textColor="@android:color/black"
-        android:background="@android:color/transparent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-</androidx.core.widget.NestedScrollView>
+<EditText xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/edt_pager_leitner_info"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:enabled="false"
+    android:inputType="textMultiLine"
+    android:textColor="@android:color/darker_gray">
+
+    <!--    <EditText-->
+    <!--        android:inputType="textMultiLine"-->
+    <!--        android:enabled="false"-->
+    <!--        android:id="@+id/edt_pager_leitner_info"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:background="@android:color/transparent"-->
+    <!--        android:textColor="@android:color/black" />-->
+</EditText>

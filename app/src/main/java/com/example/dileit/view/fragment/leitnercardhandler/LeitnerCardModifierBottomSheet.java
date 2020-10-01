@@ -49,7 +49,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
     private List<WordInformation> mWordInformations = new ArrayList<>();
     private List<EnglishDef> mEngDefs = new ArrayList<>();
 
-    private boolean showExamples, showSynonyms = true;
+    private boolean showExamples= true, showSynonyms = true;
 
     public static LeitnerCardModifierBottomSheet onNewInstance(LeitnerModifierConstants constants, int cardId) {
         LeitnerCardModifierBottomSheet bottomSheet = new LeitnerCardModifierBottomSheet();

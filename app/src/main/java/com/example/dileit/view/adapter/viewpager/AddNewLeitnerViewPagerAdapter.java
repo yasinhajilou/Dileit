@@ -29,8 +29,9 @@ public class AddNewLeitnerViewPagerAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.item_leitner_review_translation, container, false);
-        TextView textView = view.findViewById(R.id.tv_item_view_pager_review_translation);
+        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.item_pager_leitner_info, container, false);
+        view.setTag(titles.get(position));
+        TextView textView = view.findViewById(R.id.edt_pager_leitner_info);
         textView.setText(mInformation.get(position));
         container.addView(view);
         return view;
@@ -54,5 +55,6 @@ public class AddNewLeitnerViewPagerAdapter extends PagerAdapter {
         mInformation.add(info);
         notifyDataSetChanged();
     }
+
 
 }

@@ -125,7 +125,7 @@
 
         <com.google.android.material.chip.Chip
             android:checked="true"
-            android:id="@+id/chip_example"
+            android:id="@+id/chip_examples"
             android:textColor="@android:color/white"
             app:chipBackgroundColor="@color/colorAccent"
             style="@style/Widget.MaterialComponents.Chip.Filter"

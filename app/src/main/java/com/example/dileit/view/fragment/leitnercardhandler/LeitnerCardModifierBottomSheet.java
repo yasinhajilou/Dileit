@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -17,6 +18,10 @@ import com.example.dileit.R;
 import com.example.dileit.constant.KeysValue;
 import com.example.dileit.constant.LeitnerStateConstant;
 import com.example.dileit.databinding.BottomSheetAddNewLeitnerBinding;
+import com.example.dileit.model.EnglishDef;
+import com.example.dileit.model.TranslationExample;
+import com.example.dileit.model.TranslationWord;
+import com.example.dileit.model.WordInformation;
 import com.example.dileit.model.entity.Leitner;
 import com.example.dileit.constant.LeitnerModifierConstants;
 import com.example.dileit.utils.StringUtils;
@@ -26,6 +31,9 @@ import com.example.dileit.viewmodel.SharedViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
     private final String TAG = LeitnerCardModifierBottomSheet.class.getSimpleName();
@@ -37,6 +45,9 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
     private int cardId;
     private Leitner mLeitner;
     private String title;
+
+    private List<WordInformation> mWordInformations = new ArrayList<>();
+    private List<EnglishDef> mEngDefs = new ArrayList<>();
 
     public static LeitnerCardModifierBottomSheet onNewInstance(LeitnerModifierConstants constants, int cardId) {
         LeitnerCardModifierBottomSheet bottomSheet = new LeitnerCardModifierBottomSheet();
@@ -134,7 +145,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
         });
 
 
-        mSharedViewModel.getActualWord().observe(getViewLifecycleOwner() , s -> {
+        mSharedViewModel.getActualWord().observe(getViewLifecycleOwner(), s -> {
             title = s;
             mBinding.edtTitleDialogAddLeitner.setText(s);
         });
@@ -179,15 +190,48 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
 
 
         mSharedViewModel.getTranslationWord().observe(getViewLifecycleOwner(), wordInformations -> {
-            mAdapter.addData(getString(R.string.translation),wordInformations.get(0).getTranslationWords().get(0).getTranslatedWord());
+            mWordInformations = wordInformations;
+
+
+            mAdapter.addData(getString(R.string.translation), stringBuilder.toString());
+
         });
 
         mSharedViewModel.getEngDefList().observe(getViewLifecycleOwner(), englishDefs -> {
-            mAdapter.addData(getString(R.string.enf_def) , englishDefs.get(0).getDefinition());
+            mEngDefs = englishDefs;
+
+            mAdapter.addData(getString(R.string.enf_def), stringBuilder.toString());
         });
 
         mBinding.rbCostumeBottomSheet.setOnCheckedChangeListener((compoundButton, b) -> mSharedViewModel.setCostumeCheck(b));
 
+        if (mBinding.chipEngSynonyms != null) {
+            mBinding.chipEngSynonyms.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    Toast.makeText(getContext(), "is", Toast.LENGTH_SHORT).show();
+                } else {
+                    //get edittext texts
+                    View engView = mBinding.viewPagerAddNewLeitner.findViewWithTag(getString(R.string.enf_def));
+                    View translationView = mBinding.viewPagerAddNewLeitner.findViewWithTag(getString(R.string.translation));
+
+                    if (engView != null) {
+                        EditText editText = engView.findViewById(R.id.edt_pager_leitner_info);
+                        StringBuilder stringBuilder = new StringBuilder();
+                        for (EnglishDef englishDef :
+                                mEngDefs) {
+                            stringBuilder.append("*").append(englishDef.getDefinition()).append("\n");
+                            stringBuilder.append(englishDef.getExamples()).append("\n");
+                        }
+                        editText.setText(stringBuilder.toString());
+                    }
+
+                    if (translationView != null) {
+                        EditText editText2 = translationView.findViewById(R.id.edt_pager_leitner_info);
+                        editText2.setText("hi");
+                    }
+                }
+            });
+        }
     }
 
     private void handleViewPagerItems(String mainTranslation, String secondTranslation) {
@@ -196,6 +240,37 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
 ////        if (secondTranslation != null)
 //        mAdapter.addData(getString(R.string.enf_def), TranslationDialogFragment.newInstance(secondTranslation, KeysValue.FRAGMENT_HEADER_SECOND_TRANSLATION));
 
+    }
+
+    private String getEngDefData(boolean showExamples, boolean showSynonyms, List<EnglishDef> engDefList) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (EnglishDef englishDef :
+                engDefList) {
+            stringBuilder.append("*").append(englishDef.getDefinition()).append("\n");
+            if (showSynonyms)
+                stringBuilder.append(englishDef.getSynonyms()).append("\n");
+            if (showExamples)
+                stringBuilder.append(englishDef.getExamples()).append("\n");
+        }
+    }
+
+    private String getTranslationData(boolean showExamples, List<WordInformation> wordList) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (WordInformation wordInformation : wordList) {
+            for (TranslationWord translationWord : wordInformation.getTranslationWords()) {
+                stringBuilder.append("*").append(translationWord.getTranslatedWord()).append("\n");
+                if (translationWord.getTranslationExamples() != null) {
+                    if (showExamples) {
+                        for (TranslationExample translationExample :
+                                translationWord.getTranslationExamples()) {
+                            stringBuilder.append(translationExample.getSentence()).append("\n");
+                        }
+                    }
+                }
+
+            }
+        }
+        return stringBuilder.toString();
     }
 
     @Override

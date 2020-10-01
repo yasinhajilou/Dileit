@@ -177,7 +177,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
             mBinding.edtDialogGuide.setText(leitner.getGuide());
             mBinding.edtTitleDialogAddLeitner.setText(leitner.getWord());
 
-            handleViewPagerItems(leitner.getDef(), leitner.getSecondDef());
+//            handleViewPagerItems(leitner.getDef(), leitner.getSecondDef());
 
             mLeitner = leitner;
         });
@@ -187,16 +187,13 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
 
         mSharedViewModel.getTranslationWord().observe(getViewLifecycleOwner(), wordInformations -> {
             mWordInformations = wordInformations;
-
-
-            mAdapter.addData(getString(R.string.translation), stringBuilder.toString());
+            mAdapter.addData(getString(R.string.translation), getTranslationData(showExamples, mWordInformations));
 
         });
 
         mSharedViewModel.getEngDefList().observe(getViewLifecycleOwner(), englishDefs -> {
             mEngDefs = englishDefs;
-
-            mAdapter.addData(getString(R.string.enf_def), stringBuilder.toString());
+            mAdapter.addData(getString(R.string.enf_def), getEngDefData(showExamples, showSynonyms, mEngDefs));
         });
 
         mBinding.rbCostumeBottomSheet.setOnCheckedChangeListener((compoundButton, b) -> mSharedViewModel.setCostumeCheck(b));
@@ -213,16 +210,13 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
         }
         assert mBinding.chipExamples != null;
         mBinding.chipExamples.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            showExamples = isChecked;
+            if (engEditText() != null)
+                engEditText().setText(getEngDefData(showExamples, showSynonyms, mEngDefs));
+            if (translationEdtText() != null)
+                translationEdtText().setText(getEngDefData(showExamples, showSynonyms, mEngDefs));
 
         });
-    }
-
-    private void handleViewPagerItems(String mainTranslation, String secondTranslation) {
-//        if (mainTranslation != null)
-//        mAdapter.addData(getString(R.string.translation), TranslationDialogFragment.newInstance(mainTranslation, KeysValue.FRAGMENT_HEADER_TRANSLATION));
-////        if (secondTranslation != null)
-//        mAdapter.addData(getString(R.string.enf_def), TranslationDialogFragment.newInstance(secondTranslation, KeysValue.FRAGMENT_HEADER_SECOND_TRANSLATION));
-
     }
 
     private String getEngDefData(boolean showExamples, boolean showSynonyms, List<EnglishDef> engDefList) {
@@ -265,7 +259,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
         return null;
     }
 
-    private EditText translationEdtText(){
+    private EditText translationEdtText() {
         View translationView = mBinding.viewPagerAddNewLeitner.findViewWithTag(getString(R.string.translation));
         if (translationView != null) {
             return translationView.findViewById(R.id.edt_pager_leitner_info);

@@ -214,7 +214,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
             if (engEditText() != null)
                 engEditText().setText(getEngDefData(showExamples, showSynonyms, mEngDefs));
             if (translationEdtText() != null)
-                translationEdtText().setText(getEngDefData(showExamples, showSynonyms, mEngDefs));
+                translationEdtText().setText(getTranslationData(showExamples, mWordInformations));
 
         });
     }

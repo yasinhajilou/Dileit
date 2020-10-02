@@ -1,5 +1,6 @@
 package com.example.dileit.view.fragment.leitnercardhandler;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -229,10 +230,14 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
         for (EnglishDef englishDef :
                 engDefList) {
             stringBuilder.append("*").append(englishDef.getDefinition()).append("\n");
-            if (showSynonyms)
+            if (showSynonyms) {
+                showSynonymsChipFilter();
                 stringBuilder.append(englishDef.getSynonyms()).append("\n");
-            if (showExamples)
+            }
+            if (showExamples) {
+                showExamplesChipFilter();
                 stringBuilder.append(englishDef.getExamples()).append("\n");
+            }
         }
         return stringBuilder.toString();
     }
@@ -244,6 +249,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
                 stringBuilder.append("*").append(translationWord.getTranslatedWord()).append("\n");
                 if (translationWord.getTranslationExamples() != null) {
                     if (showExamples) {
+                        showExamplesChipFilter();
                         for (TranslationExample translationExample :
                                 translationWord.getTranslationExamples()) {
                             stringBuilder.append(translationExample.getSentence()).append("\n");
@@ -270,6 +276,16 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
             return translationView.findViewById(R.id.edt_pager_leitner_info);
         }
         return null;
+    }
+
+    private void showSynonymsChipFilter() {
+        if (mBinding.chipEngSynonyms.getVisibility() == View.GONE)
+            mBinding.chipEngSynonyms.setVisibility(View.VISIBLE);
+    }
+
+    private void showExamplesChipFilter() {
+        if (mBinding.chipExamples.getVisibility() == View.GONE)
+            mBinding.chipExamples.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -56,5 +56,11 @@ public class AddNewLeitnerViewPagerAdapter extends PagerAdapter {
         notifyDataSetChanged();
     }
 
+    public void addDataAll(List<String> titles , List<String> info){
+        titles.addAll(titles);
+        mInformation.addAll(info);
+        notifyDataSetChanged();
+    }
+
 
 }

@@ -1,6 +1,7 @@
 package com.example.dileit.view.fragment.leitnercardhandler;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,30 +109,28 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
             if (mConstants == LeitnerModifierConstants.EDIT) {
                 setUpViewForEditing();
                 mBinding.radioGpDialog.setVisibility(View.INVISIBLE);
-                // set edit texts available
-                mSharedViewModel.setCostumeCheck(true);
             }
         }
 
 
         mBinding.btnSaveItemLeitner.setOnClickListener(view1 -> {
-            mSharedViewModel.setSaveBtnCheck(true);
             String edtTitle = mBinding.edtTitleDialogAddLeitner.getText().toString().trim();
             String edtGuide = mBinding.edtDialogGuide.getText().toString().trim();
             String edtCat = mBinding.dropdownText.getText().toString();
+            String translation = translationEdtText() != null ? translationEdtText().getText().toString() : "";
+            String defenition = engEditText() != null ? engEditText().getText().toString() : "";
             if (!edtTitle.equals("") && !edtCat.equals("")) {
                 switch (mConstants) {
                     case ADD:
-
-                        mLeitner = new Leitner(0, title, mSharedViewModel.getTranslation(), mSharedViewModel.getSecondTranslation(),
+                        mLeitner = new Leitner(0, title, translation, defenition,
                                 edtCat, edtGuide, LeitnerStateConstant.STARTED, 0, 0, System.currentTimeMillis());
                         mInternalViewModel.insertLeitnerItem(mLeitner);
 
                         break;
                     case EDIT:
 
-                        mLeitner.setDef(mSharedViewModel.getTranslation());
-                        mLeitner.setSecondDef(mSharedViewModel.getSecondTranslation());
+                        mLeitner.setDef(translation);
+                        mLeitner.setSecondDef(defenition);
                         mLeitner.setWord(edtTitle);
                         mLeitner.setWordAct(edtCat);
                         if (!edtGuide.equals(""))
@@ -150,6 +149,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
             title = s;
             mBinding.edtTitleDialogAddLeitner.setText(s);
         });
+
         mInternalViewModel.getAddedLeitnerItemId().observe(getViewLifecycleOwner(), aLong -> {
             if (aLong > 0) {
                 Toast.makeText(getContext(), getString(R.string.added), Toast.LENGTH_SHORT).show();
@@ -175,9 +175,9 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
             mBinding.dropdownText.setText(leitner.getWordAct(), false);
             mBinding.edtDialogGuide.setText(leitner.getGuide());
             mBinding.edtTitleDialogAddLeitner.setText(leitner.getWord());
-
-//            handleViewPagerItems(leitner.getDef(), leitner.getSecondDef());
-
+            mAdapter.addData(getResources().getString(R.string.translation), leitner.getDef());
+            mAdapter.addData(getResources().getString(R.string.enf_def), leitner.getSecondDef());
+            Log.d(TAG, "setUpViewForEditing: " + leitner.getDef());
             mLeitner = leitner;
         });
     }

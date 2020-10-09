@@ -66,18 +66,19 @@ class ReviewedReporterFragment : Fragment() {
         })
         chartsReporterViewModel.liveListReviewed.observe(viewLifecycleOwner, Observer { leitnerReports: List<WordReviewHistory>? ->
             mHistoryList = leitnerReports
-            when (selectedTime) {
-                TimeReporterFilter.DAY -> lifecycleScope.launch(Dispatchers.Default) {
-                    setUpChartDay(mHistoryList)
+            lifecycleScope.launch(Dispatchers.Default) {
+                when (selectedTime) {
+                    TimeReporterFilter.DAY -> setUpChartDay()
+                    TimeReporterFilter.WEEK -> setUpChartWeek()
+                    TimeReporterFilter.MONTH -> setUpChartMonth()
+                    TimeReporterFilter.YEAR -> setUpChartYear()
                 }
-//                TimeReporterFilter.WEEK -> setUpChartWeek()
-//                TimeReporterFilter.MONTH -> setUpChartMonth()
-//                TimeReporterFilter.YEAR -> setUpChartYear()
+
             }
         })
     }
 
-    private fun setUpChartDay(list: List<WordReviewHistory>?) {
+    private fun setUpChartDay() {
         //get now hour for getting last 24h
         val mMapDayReviewCounter: MutableMap<String, Int> = LinkedHashMap()
         var startedHour = PersianDate(System.currentTimeMillis()).hour
@@ -90,7 +91,7 @@ class ReviewedReporterFragment : Fragment() {
             mMapDayReviewCounter[reversedHour] = 0
             xAxisLabel.add(reversedHour)
         }
-        for (wordReviewHistory in list!!) {
+        for (wordReviewHistory in mHistoryList!!) {
             val persianDate = PersianDate(wordReviewHistory.reviewedTime)
             val hour = String.format("%02d", persianDate.hour)
             var lastCount = mMapDayReviewCounter[hour]!!
@@ -122,7 +123,7 @@ class ReviewedReporterFragment : Fragment() {
         mBinding!!.barChartReviewed.invalidate()
     }
 
-    private suspend fun setUpChartWeek() {
+    private  fun setUpChartWeek() {
         val xAxisLabelWeek = ArrayList<String>()
         var todayIndexOfWeek = PersianDate(System.currentTimeMillis()).dayOfWeek()
         for (i in 0..6) {
@@ -190,7 +191,7 @@ class ReviewedReporterFragment : Fragment() {
         mBinding!!.barChartReviewed.invalidate()
     }
 
-    private suspend fun setUpChartMonth() {
+    private  fun setUpChartMonth() {
         val xAxisLabelMonth = ArrayList<String>()
         val todayTimeStamp = System.currentTimeMillis()
         val persianDate = PersianDate(todayTimeStamp)
@@ -254,7 +255,7 @@ class ReviewedReporterFragment : Fragment() {
         mBinding!!.barChartReviewed.invalidate()
     }
 
-    private suspend fun setUpChartYear() {
+    private  fun setUpChartYear() {
         val xAxisLabelYear = ArrayList<String>()
         val todayTimeStamp = System.currentTimeMillis()
         val persianDate = PersianDate(todayTimeStamp)

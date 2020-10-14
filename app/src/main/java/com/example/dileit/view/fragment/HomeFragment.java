@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -67,8 +68,8 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = ViewModelProviders.of(getActivity()).get(InternalViewModel.class);
-        mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        mViewModel = new ViewModelProvider(getActivity()).get(InternalViewModel.class);
+        mSharedViewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
         mAdapter = new WordHistoryRecyclerAdapter(this);
     }
 

@@ -1,6 +1,7 @@
 package com.example.dileit.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.AlertDialog;
@@ -40,8 +41,8 @@ public class SettingActivity extends AppCompatActivity {
 
         mAlarmManagerUtils = new AlarmManagerUtils(this);
 
-        mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
-        mTimeSharedViewModel = ViewModelProviders.of(this).get(TimeSharedViewModel.class);
+        mInternalViewModel = new ViewModelProvider(this).get(InternalViewModel.class);
+        mTimeSharedViewModel = new ViewModelProvider(this).get(TimeSharedViewModel.class);
 
         lastHour = mSharedPreferenceUtil.getHour();
         lastMin = mSharedPreferenceUtil.getMin();

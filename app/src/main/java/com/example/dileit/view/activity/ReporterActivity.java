@@ -2,6 +2,7 @@ package com.example.dileit.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
@@ -46,7 +47,7 @@ public class ReporterActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        mReporterViewModel = ViewModelProviders.of(this).get(ReporterViewModel.class);
+        mReporterViewModel = new ViewModelProvider(this).get(ReporterViewModel.class);
 
         mBarChartViewPagerAdapter = new BarChartViewPagerAdapter(getSupportFragmentManager());
 

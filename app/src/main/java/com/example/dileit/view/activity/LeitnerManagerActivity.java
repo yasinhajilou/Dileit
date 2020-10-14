@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.animation.ValueAnimator;
 import android.os.Bundle;
@@ -49,7 +49,7 @@ public class LeitnerManagerActivity extends AppCompatActivity {
 
         mBinding.toolbarLeitnerManager.setNavigationOnClickListener(view -> finish());
 
-        mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
+        mInternalViewModel = new ViewModelProvider(this).get(InternalViewModel.class);
 
         mAdapter = new LeitnerManagerViewPagerAdapter(getSupportFragmentManager() , this);
 

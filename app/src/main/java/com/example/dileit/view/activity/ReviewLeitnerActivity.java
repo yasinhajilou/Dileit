@@ -3,6 +3,7 @@ package com.example.dileit.view.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -51,7 +52,7 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
         mBinding = ActivityReviewLeitnerBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
-        InternalViewModel viewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
+        InternalViewModel viewModel = new ViewModelProvider(this).get(InternalViewModel.class);
 
         mAdapter = new LeitnerReviewViewPagerAdapter(getSupportFragmentManager());
         mBinding.viewPagerReviewLeitner.setAdapter(mAdapter);

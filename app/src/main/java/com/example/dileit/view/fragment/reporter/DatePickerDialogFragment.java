@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.util.Log;
@@ -45,7 +46,7 @@ public class DatePickerDialogFragment extends BottomSheetDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mReporterViewModel = ViewModelProviders.of(getActivity()).get(ReporterViewModel.class);
+        mReporterViewModel = new ViewModelProvider(getActivity()).get(ReporterViewModel.class);
 
         mBinding.chipReportDay.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {

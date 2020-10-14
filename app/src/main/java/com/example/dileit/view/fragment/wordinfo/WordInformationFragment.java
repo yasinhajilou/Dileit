@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
@@ -72,9 +73,9 @@ public class WordInformationFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
-        mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
-        mExternalViewModel = ViewModelProviders.of(getActivity()).get(ExternalViewModel.class);
+        mSharedViewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
+        mInternalViewModel = new ViewModelProvider(this).get(InternalViewModel.class);
+        mExternalViewModel = new ViewModelProvider(getActivity()).get(ExternalViewModel.class);
         mAdapter = new WordsInformationViewPagerAdapter(getChildFragmentManager());
         if (getArguments() != null) {
             actualWord = getArguments().getString(KeysValue.KEY_BUNDLE_ACTUAL_WORD);

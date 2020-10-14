@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
@@ -32,7 +33,7 @@ public class TimePickerDialogFragment extends DialogFragment implements TimePick
         calendar.clear();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int min = calendar.get(Calendar.MINUTE);
-        mTimeSharedViewModel = ViewModelProviders.of(getActivity()).get(TimeSharedViewModel.class);
+        mTimeSharedViewModel = new ViewModelProvider(getActivity()).get(TimeSharedViewModel.class);
         return new TimePickerDialog(getContext(), this, hour, min, true);
     }
 

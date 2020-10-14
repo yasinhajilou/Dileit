@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import com.example.dileit.R
@@ -47,11 +48,11 @@ class AddedReporterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val reporterViewModel = ViewModelProviders.of(requireActivity()).get(ReporterViewModel::class.java)
-        val chartsReporterViewModel = ViewModelProviders.of(this).get(ChartsReporterViewModel::class.java)
+        val reporterViewModel = ViewModelProvider(requireActivity()).get(ReporterViewModel::class.java)
+        val chartsReporterViewModel = ViewModelProvider(this).get(ChartsReporterViewModel::class.java)
         mBinding!!.barChartAdded.setScaleEnabled(false)
         mBinding!!.barChartAdded.setFitBars(true) // make the x-axis fit exactly all bars
-        reporterViewModel.selectedTimeRange.observe(viewLifecycleOwner, { times: LongArray ->
+        reporterViewModel.selectedTimeRange.observe(viewLifecycleOwner) { times: LongArray ->
             //divide on complete day (24 hour)
             val longTime = (times[1] - times[0]) / (24 * 60 * 60 * 1000)
             val time = longTime.toInt()
@@ -62,7 +63,7 @@ class AddedReporterFragment : Fragment() {
                 365 -> selectedTime = TimeReporterFilter.YEAR
             }
             chartsReporterViewModel.setTimeForAddedList(times)
-        })
+        }
         chartsReporterViewModel.liveListAdded.observe(viewLifecycleOwner, { leitnerReports: List<LeitnerReport>? ->
             mLeitnerReportList = leitnerReports
             lifecycleScope.launch(Dispatchers.Default){

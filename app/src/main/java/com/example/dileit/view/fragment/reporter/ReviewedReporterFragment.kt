@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import com.example.dileit.R
@@ -48,8 +49,8 @@ class ReviewedReporterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val reporterViewModel = ViewModelProviders.of(requireActivity()).get(ReporterViewModel::class.java)
-        val chartsReporterViewModel = ViewModelProviders.of(this).get(ChartsReporterViewModel::class.java)
+        val reporterViewModel = ViewModelProvider(requireActivity()).get(ReporterViewModel::class.java)
+        val chartsReporterViewModel = ViewModelProvider(this).get(ChartsReporterViewModel::class.java)
         mBinding!!.barChartReviewed.setScaleEnabled(false)
         mBinding!!.barChartReviewed.setFitBars(true) // make the x-axis fit exactly all bars
         reporterViewModel.selectedTimeRange.observe(viewLifecycleOwner, Observer { times: LongArray ->

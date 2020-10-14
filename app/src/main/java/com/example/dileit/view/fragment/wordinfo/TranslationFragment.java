@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -31,7 +32,7 @@ public class TranslationFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        mSharedViewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
     }
 
     @Override

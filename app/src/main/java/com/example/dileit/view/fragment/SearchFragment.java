@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -45,9 +46,9 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
-        mInternalViewModel = ViewModelProviders.of(getActivity()).get(InternalViewModel.class);
-        mExternalViewModel = ViewModelProviders.of(this).get(ExternalViewModel.class);
+        mSharedViewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
+        mInternalViewModel = new ViewModelProvider(getActivity()).get(InternalViewModel.class);
+        mExternalViewModel = new ViewModelProvider(this).get(ExternalViewModel.class);
     }
 
     @Override

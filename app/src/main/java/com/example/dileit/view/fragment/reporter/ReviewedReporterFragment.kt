@@ -184,7 +184,7 @@ class ReviewedReporterFragment : Fragment() {
         setWeek.setColors(*ColorTemplate.VORDIPLOM_COLORS)
         val dataWeek = BarData(setWeek)
         mBinding!!.barChartReviewed.data = dataWeek
-        mBinding!!.barChartReviewed.animateXY(1000, 1000)
+//        mBinding!!.barChartReviewed.animateXY(1000, 1000)
         val descriptionWeek = Description()
         descriptionWeek.text = getString(R.string.last_week)
         mBinding!!.barChartReviewed.description = descriptionWeek
@@ -248,7 +248,7 @@ class ReviewedReporterFragment : Fragment() {
         setWeek.setColors(*ColorTemplate.VORDIPLOM_COLORS)
         val dataWeek = BarData(setWeek)
         mBinding!!.barChartReviewed.data = dataWeek
-        mBinding!!.barChartReviewed.animateXY(1000, 1000)
+//        mBinding!!.barChartReviewed.animateXY(1000, 1000)
         val descriptionWeek = Description()
         descriptionWeek.text = getString(R.string.last_month)
         mBinding!!.barChartReviewed.description = descriptionWeek
@@ -290,7 +290,7 @@ class ReviewedReporterFragment : Fragment() {
         setWeek.setColors(*ColorTemplate.VORDIPLOM_COLORS)
         val dataWeek = BarData(setWeek)
         mBinding!!.barChartReviewed.data = dataWeek
-        mBinding!!.barChartReviewed.animateXY(1000, 1000)
+//        mBinding!!.barChartReviewed.animateXY(1000, 1000)
         val descriptionWeek = Description()
         descriptionWeek.text = getString(R.string.last_year)
         mBinding!!.barChartReviewed.description = descriptionWeek

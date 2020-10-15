@@ -110,6 +110,7 @@ class HomeFragment : Fragment(), WordsRecyclerViewInterface {
             R.id.menu_action_leitner -> mHomeFragmentInterface!!.onLeitnerManagerMenuTouched()
             R.id.menu_action_setting -> mHomeFragmentInterface!!.onSettingMenuTouched()
             R.id.menu_action_reporter -> mHomeFragmentInterface!!.onReporterMenuTouched()
+            R.id.menu_action_about -> mHomeFragmentInterface!!.onAboutMenuTouched()
         }
         return super.onOptionsItemSelected(item)
     }

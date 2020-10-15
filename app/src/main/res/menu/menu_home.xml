@@ -10,4 +10,8 @@
         android:id="@+id/menu_action_reporter"
         android:title="@string/reporter"/>
 
+    <item
+        android:id="@+id/menu_action_about"
+        android:title="@string/about"/>
+
 </menu>

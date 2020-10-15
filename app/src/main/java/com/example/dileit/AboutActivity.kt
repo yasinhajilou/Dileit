@@ -20,7 +20,11 @@ class AboutActivity : AppCompatActivity() {
         networkViewModel.getContributors()
 
         networkViewModel.liveContributorList.observe(this, {
-
+            val data: StringBuilder = StringBuilder()
+            for (item in it) {
+                data.append(item.username)
+            }
+            mBinding.tvNet.text = data.toString()
         })
     }
 }

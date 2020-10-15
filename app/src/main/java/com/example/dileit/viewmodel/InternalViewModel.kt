@@ -12,7 +12,7 @@ import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 
 class InternalViewModel(application: Application) : AndroidViewModel(application) {
-    private val mRepository: InternalRepository = InternalRepository(application)
+    private val mRepository: InternalRepository = InternalRepository(application.applicationContext)
     private val TAG = InternalViewModel::class.java.simpleName
 
     //observe for inserted item id

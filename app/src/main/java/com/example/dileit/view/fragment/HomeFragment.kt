@@ -47,7 +47,7 @@ class HomeFragment : Fragment(), WordsRecyclerViewInterface {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewModel = ViewModelProvider(requireActivity()).get(InternalViewModel::class.java)
+        mViewModel = ViewModelProvider(requireActivity()).get(InternalViewModel(requireActivity().application)::class.java)
         mSharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         mAdapter = WordHistoryRecyclerAdapter(this)
     }

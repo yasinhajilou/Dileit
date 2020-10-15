@@ -62,10 +62,51 @@
 
 
     <TextView
+        android:padding="20dp"
+        android:textSize="18sp"
+        android:fontFamily="@font/productsansregular"
+        android:textColor="@android:color/black"
+        android:text="@string/contact_us"
         android:id="@+id/tv_contact_us"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:padding="12dp"
+        android:weightSum="4"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+        <ImageView
+            android:id="@+id/iv_instagram"
+            android:src="@drawable/ic_instagram"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:id="@+id/iv_telegram"
+            android:src="@drawable/ic_telegram"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:id="@+id/message"
+            android:src="@drawable/ic_email"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            app:lottie_speed="0.75"
+            android:layout_weight="1"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="star.json"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 </LinearLayout>

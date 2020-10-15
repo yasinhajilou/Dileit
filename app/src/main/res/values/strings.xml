@@ -148,4 +148,5 @@ When cards of this section reviewed, they will move to "\Review"\ section, while
     <string name="english_synonyms">English Synonyms</string>
     <string name="examples">Examples</string>
     <string name="about">About</string>
+    <string name="contact_us">Contact us:</string>
 </resources>

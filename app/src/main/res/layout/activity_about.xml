@@ -102,7 +102,7 @@
             android:layout_height="match_parent"/>
 
         <com.airbnb.lottie.LottieAnimationView
-            app:lottie_speed="0.75"
+            app:lottie_speed="0.5"
             android:layout_weight="1"
             app:lottie_autoPlay="true"
             app:lottie_fileName="star.json"
@@ -132,7 +132,8 @@
         android:layout_height="100dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="8dp"
+        android:id="@+id/rv_contributor"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"/>
 </LinearLayout>

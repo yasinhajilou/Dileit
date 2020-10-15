@@ -23,6 +23,7 @@ import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
 
 public class InternalViewModel extends AndroidViewModel {
+
     private InternalRepository mRepository;
     private String TAG = InternalViewModel.class.getSimpleName();
     //observe for inserted item id

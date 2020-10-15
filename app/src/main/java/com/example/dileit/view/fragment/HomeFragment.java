@@ -68,8 +68,8 @@ public class HomeFragment extends Fragment implements WordsRecyclerViewInterface
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = new ViewModelProvider(getActivity()).get(InternalViewModel.class);
-        mSharedViewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
+//        mViewModel = new ViewModelProvider(requireActivity()).get(InternalViewModel.class);
+        mSharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         mAdapter = new WordHistoryRecyclerAdapter(this);
     }
 

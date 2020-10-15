@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 
+import com.example.dileit.AboutActivity;
 import com.example.dileit.R;
 import com.example.dileit.model.database.InternalRoomDatabase;
 import com.example.dileit.view.fragment.HomeFragment;
@@ -62,6 +63,12 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
     @Override
     public void onReporterMenuTouched() {
         Intent intent = new Intent(MainActivity.this, ReporterActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onAboutMenuTouched() {
+        Intent intent = new Intent(MainActivity.this, AboutActivity.class);
         startActivity(intent);
     }
 

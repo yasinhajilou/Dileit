@@ -36,6 +36,7 @@ class HomeFragment : Fragment(), WordsRecyclerViewInterface {
         fun onSettingMenuTouched()
         fun onLeitnerManagerMenuTouched()
         fun onReporterMenuTouched()
+        fun onAboutMenuTouched()
     }
 
     override fun onAttach(context: Context) {

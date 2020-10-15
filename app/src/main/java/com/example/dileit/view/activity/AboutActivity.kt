@@ -1,8 +1,7 @@
-package com.example.dileit
+package com.example.dileit.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.dileit.databinding.ActivityAboutBinding
 import com.example.dileit.viewmodel.NetworkViewModel

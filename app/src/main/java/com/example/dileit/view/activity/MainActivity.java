@@ -6,18 +6,9 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
-
-import com.example.dileit.AboutActivity;
 import com.example.dileit.R;
-import com.example.dileit.model.database.InternalRoomDatabase;
 import com.example.dileit.view.fragment.HomeFragment;
 import com.google.firebase.analytics.FirebaseAnalytics;
-
-import java.io.File;
-
-import ir.androidexception.roomdatabasebackupandrestore.Backup;
-import ir.androidexception.roomdatabasebackupandrestore.OnWorkFinishListener;
 
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.HomeFragmentInterface {

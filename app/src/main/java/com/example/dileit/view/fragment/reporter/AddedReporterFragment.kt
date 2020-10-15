@@ -108,7 +108,7 @@ class AddedReporterFragment : Fragment() {
         set.setColors(*ColorTemplate.VORDIPLOM_COLORS)
         val data = BarData(set)
         mBinding!!.barChartAdded.data = data
-        mBinding!!.barChartAdded.animateXY(1000, 1000)
+//        mBinding!!.barChartAdded.animateXY(1000, 1000)
         val description = Description()
         description.text = getString(R.string.last_24_h)
         mBinding!!.barChartAdded.description = description
@@ -175,7 +175,7 @@ class AddedReporterFragment : Fragment() {
         setWeek.setColors(*ColorTemplate.VORDIPLOM_COLORS)
         val dataWeek = BarData(setWeek)
         mBinding!!.barChartAdded.data = dataWeek
-        mBinding!!.barChartAdded.animateXY(1000, 1000)
+//        mBinding!!.barChartAdded.animateXY(1000, 1000)
         val descriptionWeek = Description()
         descriptionWeek.text = getString(R.string.last_week)
         mBinding!!.barChartAdded.description = descriptionWeek
@@ -239,7 +239,7 @@ class AddedReporterFragment : Fragment() {
         setWeek.setColors(*ColorTemplate.VORDIPLOM_COLORS)
         val dataWeek = BarData(setWeek)
         mBinding!!.barChartAdded.data = dataWeek
-        mBinding!!.barChartAdded.animateXY(1000, 1000)
+//        mBinding!!.barChartAdded.animateXY(1000, 1000)
         val descriptionWeek = Description()
         descriptionWeek.text = getString(R.string.last_month)
         mBinding!!.barChartAdded.description = descriptionWeek
@@ -281,7 +281,7 @@ class AddedReporterFragment : Fragment() {
         setWeek.setColors(*ColorTemplate.VORDIPLOM_COLORS)
         val dataWeek = BarData(setWeek)
         mBinding!!.barChartAdded.data = dataWeek
-        mBinding!!.barChartAdded.animateXY(1000, 1000)
+//        mBinding!!.barChartAdded.animateXY(1000, 1000)
         val descriptionWeek = Description()
         descriptionWeek.text = getString(R.string.last_year)
         mBinding!!.barChartAdded.description = descriptionWeek

@@ -1,249 +1,164 @@
-package com.example.dileit.viewmodel;
+package com.example.dileit.viewmodel
 
-import android.app.Application;
+import android.app.Application
+import androidx.lifecycle.*
+import com.example.dileit.model.entity.Leitner
+import com.example.dileit.model.entity.WordHistory
+import com.example.dileit.model.entity.WordReviewHistory
+import com.example.dileit.model.repository.InternalRepository
+import io.reactivex.CompletableObserver
+import io.reactivex.MaybeObserver
+import io.reactivex.SingleObserver
+import io.reactivex.disposables.Disposable
 
-import androidx.annotation.NonNull;
-import androidx.arch.core.util.Function;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.LiveDataReactiveStreams;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
+class InternalViewModel(application: Application) : AndroidViewModel(application) {
+    private val mRepository: InternalRepository = InternalRepository(application)
+    private val TAG = InternalViewModel::class.java.simpleName
 
-import com.example.dileit.model.entity.Leitner;
-import com.example.dileit.model.entity.WordHistory;
-import com.example.dileit.model.entity.WordReviewHistory;
-import com.example.dileit.model.repository.InternalRepository;
-
-import java.util.List;
-
-import io.reactivex.CompletableObserver;
-import io.reactivex.MaybeObserver;
-import io.reactivex.SingleObserver;
-import io.reactivex.disposables.Disposable;
-
-public class InternalViewModel extends AndroidViewModel {
-
-    private InternalRepository mRepository;
-    private String TAG = InternalViewModel.class.getSimpleName();
     //observe for inserted item id
-    private MutableLiveData<Long> mAddedLeitnerItemId = new MutableLiveData<>();
+    private val mAddedLeitnerItemId = MutableLiveData<Long>()
+
     //observe for updated item status
-    private MutableLiveData<Boolean> mUpdatedItemStatus = new MutableLiveData<>();
+    private val mUpdatedItemStatus = MutableLiveData<Boolean>()
+
     //observe for deleted item status
-    private MutableLiveData<Integer> mDeletedLeitnerItemStatus = new MutableLiveData<>();
+    private val mDeletedLeitnerItemStatus = MutableLiveData<Int>()
+
     //observe for existed item result
-    private MutableLiveData<Boolean> mExistedItem = new MutableLiveData<>();
+    private val mExistedItem = MutableLiveData<Boolean>()
 
     //observing cards by their state
-    private MutableLiveData<Integer> mBoxState = new MutableLiveData<>();
-
-    private LiveData<List<Leitner>> mLearnedCardByBox = Transformations.switchMap(mBoxState, new Function<Integer, LiveData<List<Leitner>>>() {
-        @Override
-        public LiveData<List<Leitner>> apply(Integer input) {
-            return LiveDataReactiveStreams.fromPublisher(mRepository.getCardByState(input));
-        }
-    });
-
+    private val mBoxState = MutableLiveData<Int>()
+    val learnedCardByBox = Transformations.switchMap(mBoxState) { input -> LiveDataReactiveStreams.fromPublisher(mRepository.getCardByState(input!!)) }
 
     //observing delete history res
-    private MutableLiveData<Boolean> mDeletedHistoryStatus = new MutableLiveData<>();
-
-    public InternalViewModel(@NonNull Application application) {
-        super(application);
-        mRepository = new InternalRepository(application);
-    }
-
-    public void setBoxState(int state) {
-        mBoxState.setValue(state);
+    private val mDeletedHistoryStatus = MutableLiveData<Boolean>()
+    fun setBoxState(state: Int) {
+        mBoxState.value = state
     }
 
     //insert data
-    public void insertWordReviewedHistory(WordReviewHistory wordReviewHistory) {
-        mRepository.insetWordReviewedHistory(wordReviewHistory).subscribe();
+    fun insertWordReviewedHistory(wordReviewHistory: WordReviewHistory?) {
+        mRepository.insetWordReviewedHistory(wordReviewHistory).subscribe()
     }
 
-    public void insertWordHistory(WordHistory wordHistory) {
-        mRepository.insertWordHistory(wordHistory).subscribe();
+    fun insertWordHistory(wordHistory: WordHistory?) {
+        mRepository.insertWordHistory(wordHistory).subscribe()
     }
 
-    public void insertLeitnerItem(Leitner leitner) {
+    fun insertLeitnerItem(leitner: Leitner?) {
         mRepository.insertLeitnerItem(leitner)
-                .subscribe(new SingleObserver<Long>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
+                .subscribe(object : SingleObserver<Long> {
+                    override fun onSubscribe(d: Disposable) {}
+                    override fun onSuccess(aLong: Long) {
+                        mAddedLeitnerItemId.postValue(aLong)
                     }
 
-                    @Override
-                    public void onSuccess(Long aLong) {
-                        mAddedLeitnerItemId.postValue(aLong);
+                    override fun onError(e: Throwable) {
+                        mAddedLeitnerItemId.postValue(-1L)
                     }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        mAddedLeitnerItemId.postValue(-1L);
-                    }
-                });
+                })
     }
-
 
     //update data
-    public void updateLeitnerItem(Leitner leitner) {
+    fun updateLeitnerItem(leitner: Leitner?) {
         mRepository.updateLeitnerItem(leitner)
-                .subscribe(new CompletableObserver() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
+                .subscribe(object : CompletableObserver {
+                    override fun onSubscribe(d: Disposable) {}
+                    override fun onComplete() {
+                        mUpdatedItemStatus.postValue(true)
                     }
 
-                    @Override
-                    public void onComplete() {
-                        mUpdatedItemStatus.postValue(true);
+                    override fun onError(e: Throwable) {
+                        mUpdatedItemStatus.postValue(false)
                     }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        mUpdatedItemStatus.postValue(false);
-                    }
-                });
+                })
     }
 
-    public LiveData<Long> getAddedLeitnerItemId() {
-        return mAddedLeitnerItemId;
-    }
-
+    val addedLeitnerItemId: LiveData<Long>
+        get() = mAddedLeitnerItemId
 
     //getData
+    val deletedHistoryResult: LiveData<Boolean>
+        get() = mDeletedHistoryStatus
 
-    public LiveData<Boolean> getDeletedHistoryResult() {
-        return mDeletedHistoryStatus;
-    }
-
-    public void getExistedLeitner(String word) {
+    fun getExistedLeitner(word: String?) {
         mRepository.getExistingLeitner(word)
-                .subscribe(new MaybeObserver<Leitner>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+                .subscribe(object : MaybeObserver<Leitner?> {
+                    override fun onSubscribe(d: Disposable) {}
+                    override fun onSuccess(t: Leitner) {
+                        mExistedItem.postValue(true)
                     }
 
-                    @Override
-                    public void onSuccess(Leitner leitner) {
-                        mExistedItem.postValue(true);
+                    override fun onError(e: Throwable) {}
+                    override fun onComplete() {
+                        mExistedItem.postValue(false)
                     }
-
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        mExistedItem.postValue(false);
-                    }
-                });
+                })
     }
 
-    public LiveData<Boolean> getBooleanExistedCard() {
-        return mExistedItem;
+    val booleanExistedCard: LiveData<Boolean>
+        get() = mExistedItem
+    val allWordHistory: LiveData<List<WordHistory>>
+        get() = LiveDataReactiveStreams.fromPublisher(mRepository.allWordHistory)
+    val updateItemStatus: LiveData<Boolean>
+        get() = mUpdatedItemStatus
+    val deletedLeitnerItemStatus: LiveData<Int>
+        get() = mDeletedLeitnerItemStatus
+
+    fun getLeitnerInfoByWord(word: String?): LiveData<Leitner> {
+        return LiveDataReactiveStreams.fromPublisher(mRepository.getLeitnerInfoByWord(word))
     }
 
-    public LiveData<List<WordHistory>> getAllWordHistory() {
-        return LiveDataReactiveStreams.fromPublisher(mRepository.getAllWordHistory());
+    fun getCardsByState(state: Int): LiveData<List<Leitner>> {
+        return LiveDataReactiveStreams.fromPublisher(mRepository.getCardByState(state))
     }
 
-
-    public LiveData<Boolean> getUpdateItemStatus() {
-        return mUpdatedItemStatus;
+    fun getLeitnerCardById(id: Int): LiveData<Leitner> {
+        return LiveDataReactiveStreams.fromPublisher(mRepository.getLeitnerCardById(id))
     }
 
-    public LiveData<Integer> getDeletedLeitnerItemStatus() {
-        return mDeletedLeitnerItemStatus;
-    }
-
-    public LiveData<Leitner> getLeitnerInfoByWord(String word) {
-        return LiveDataReactiveStreams.fromPublisher(mRepository.getLeitnerInfoByWord(word));
-    }
-
-    public LiveData<List<Leitner>> getLearnedCardByBox() {
-        return mLearnedCardByBox;
-    }
-
-    public LiveData<List<Leitner>> getCardsByState(int state) {
-        return LiveDataReactiveStreams.fromPublisher(mRepository.getCardByState(state));
-    }
-
-    public LiveData<Leitner> getLeitnerCardById(int id) {
-        return LiveDataReactiveStreams.fromPublisher(mRepository.getLeitnerCardById(id));
-    }
-
-    public LiveData<List<Leitner>> getAllLeitnerItems() {
-        return LiveDataReactiveStreams.fromPublisher(mRepository.getAllLeitnerItems());
-    }
-
-    public LiveData<List<Leitner>> getTodayList() {
-        return LiveDataReactiveStreams.fromPublisher(mRepository.getTodayList());
-    }
-
-    public LiveData<Integer> getTodayListSize() {
-        return LiveDataReactiveStreams.fromPublisher(mRepository.getTodayListSize());
-    }
-
-    public LiveData<Integer> getNewCardsCount() {
-        return LiveDataReactiveStreams.fromPublisher(mRepository.getNewCardsCount());
-    }
-
-    public LiveData<Integer> getLearnedCardsCount() {
-        return LiveDataReactiveStreams.fromPublisher(mRepository.getLearnedCardsCount());
-    }
-
-    public LiveData<Integer> getReviewingCardCount() {
-        return LiveDataReactiveStreams.fromPublisher(mRepository.getReviewingCardCount());
-    }
-
-    public LiveData<Integer> getAllLeitnerCardCount() {
-        return LiveDataReactiveStreams.fromPublisher(mRepository.getAllCardCount());
-    }
+    val allLeitnerItems: LiveData<List<Leitner>>
+        get() = LiveDataReactiveStreams.fromPublisher(mRepository.allLeitnerItems)
+    val todayList: LiveData<List<Leitner>>
+        get() = LiveDataReactiveStreams.fromPublisher(mRepository.todayList)
+    val todayListSize: LiveData<Int>
+        get() = LiveDataReactiveStreams.fromPublisher(mRepository.todayListSize)
+    val newCardsCount: LiveData<Int>
+        get() = LiveDataReactiveStreams.fromPublisher(mRepository.newCardsCount)
+    val learnedCardsCount: LiveData<Int>
+        get() = LiveDataReactiveStreams.fromPublisher(mRepository.learnedCardsCount)
+    val reviewingCardCount: LiveData<Int>
+        get() = LiveDataReactiveStreams.fromPublisher(mRepository.reviewingCardCount)
+    val allLeitnerCardCount: LiveData<Int>
+        get() = LiveDataReactiveStreams.fromPublisher(mRepository.allCardCount)
 
     //Delete data
-    public void deleteLeitnerItem(Leitner leitner) {
+    fun deleteLeitnerItem(leitner: Leitner?) {
         mRepository.deleteLeitnerItem(leitner)
-                .subscribe(new SingleObserver<Integer>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
+                .subscribe(object : SingleObserver<Int> {
+                    override fun onSubscribe(d: Disposable) {}
+                    override fun onSuccess(integer: Int) {
+                        mDeletedLeitnerItemStatus.postValue(integer)
                     }
 
-                    @Override
-                    public void onSuccess(Integer integer) {
-                        mDeletedLeitnerItemStatus.postValue(integer);
+                    override fun onError(e: Throwable) {
+                        mDeletedLeitnerItemStatus.postValue(-1)
                     }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        mDeletedLeitnerItemStatus.postValue(-1);
-                    }
-                });
+                })
     }
 
-
-    public void deleteAllHistory() {
-        mRepository.deleteAllHistory().subscribe(new CompletableObserver() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
+    fun deleteAllHistory() {
+        mRepository.deleteAllHistory().subscribe(object : CompletableObserver {
+            override fun onSubscribe(d: Disposable) {}
+            override fun onComplete() {
+                mDeletedHistoryStatus.postValue(true)
             }
 
-            @Override
-            public void onComplete() {
-                mDeletedHistoryStatus.postValue(true);
+            override fun onError(e: Throwable) {
+                mDeletedHistoryStatus.postValue(false)
             }
-
-            @Override
-            public void onError(Throwable e) {
-                mDeletedHistoryStatus.postValue(false);
-            }
-        });
+        })
     }
-
 
 }

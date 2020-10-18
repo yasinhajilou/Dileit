@@ -1,15 +1,18 @@
 package com.yasinhajilou.dileit.view.activity
 
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.yasinhajilou.dileit.constant.UrlsConstants
+import com.yasinhajilou.dileit.constant.URIConstants
 import com.yasinhajilou.dileit.databinding.ActivityAboutBinding
 import com.yasinhajilou.dileit.view.adapter.recycler.ContributorsRecyclerAdapter
 import com.yasinhajilou.dileit.viewmodel.NetworkViewModel
+
 
 class AboutActivity : AppCompatActivity() {
     private lateinit var networkViewModel: NetworkViewModel
@@ -37,7 +40,8 @@ class AboutActivity : AppCompatActivity() {
             shareApp()
         }
 
-        mBinding.ivGithub.setOnClickListener { openBrowser(UrlsConstants.githubUrl) }
+        mBinding.ivGithub.setOnClickListener { openBrowser(URIConstants.githubUrl) }
+        mBinding.ivInstagram.setOnClickListener { openInstagram() }
     }
 
     private fun shareApp() {
@@ -52,5 +56,25 @@ class AboutActivity : AppCompatActivity() {
     private fun openBrowser(url: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)
+    }
+
+    private fun openInstagram() {
+        val uri = Uri.parse(URIConstants.instagramURL)
+        val instaIntent = Intent(Intent.ACTION_VIEW, uri)
+        instaIntent.setPackage(URIConstants.instagramPackageURI)
+
+        if (isIntentAvailable(instaIntent)) {
+            startActivity(instaIntent)
+        } else {
+            val newURI = Uri.parse(URIConstants.instagramURL)
+            val newIntent = Intent(Intent.ACTION_VIEW, newURI)
+            startActivity(newIntent)
+        }
+    }
+
+    private fun isIntentAvailable(intent: Intent): Boolean {
+        val packageManager: PackageManager = packageManager
+        val list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+        return list.size > 0
     }
 }

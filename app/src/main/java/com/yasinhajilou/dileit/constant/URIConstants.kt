@@ -5,4 +5,5 @@ object URIConstants {
     const val instagramURL = "http://instagram.com/_u/dileit.ir"
     const val instagramPackageURI = "com.instagram.android"
     const val telegramURL = "https://t.me/dileit"
+    const val email = "dileit2019@gmail.com"
 }

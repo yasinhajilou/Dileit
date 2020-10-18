@@ -1,5 +1,6 @@
 package com.yasinhajilou.dileit.view.activity
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -44,6 +45,7 @@ class AboutActivity : AppCompatActivity() {
         mBinding.ivInstagram.setOnClickListener { openInstagram() }
         mBinding.ivTelegram.setOnClickListener { openBrowser(URIConstants.telegramURL) }
         mBinding.lottieAnimRating.setOnClickListener { rateApp() }
+        mBinding.message.setOnClickListener { sendEmail() }
     }
 
     private fun shareApp() {
@@ -80,13 +82,26 @@ class AboutActivity : AppCompatActivity() {
         return list.size > 0
     }
 
-    fun rateApp() {
+    private fun rateApp() {
         val packageManager = applicationContext.packageManager
         val intent = Intent(Intent.ACTION_EDIT)
         intent.data = Uri.parse("bazaar://details?id=" + applicationContext.packageName)
         intent.setPackage("com.farsitel.bazaar")
         if (intent.resolveActivity(packageManager) != null) startActivity(intent) else {
             Toast.makeText(this, "Didn't find appropriate application for rating!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun sendEmail() {
+        val i = Intent(Intent.ACTION_SENDTO)
+        i.type = "message/rfc822"
+        i.putExtra(Intent.EXTRA_EMAIL, arrayOf(URIConstants.email))
+        i.data = Uri.parse("mailto:");
+        i.putExtra(Intent.EXTRA_SUBJECT, "Dileit Recommendations & Critics")
+        try {
+            startActivity(Intent.createChooser(i, "Send mail..."))
+        } catch (ex: ActivityNotFoundException) {
+            Toast.makeText(this, "There are no email clients installed.", Toast.LENGTH_SHORT).show()
         }
     }
 }

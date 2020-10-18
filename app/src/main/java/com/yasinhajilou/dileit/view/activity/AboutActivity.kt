@@ -1,10 +1,10 @@
 package com.yasinhajilou.dileit.view.activity
 
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -42,6 +42,7 @@ class AboutActivity : AppCompatActivity() {
 
         mBinding.ivGithub.setOnClickListener { openBrowser(URIConstants.githubUrl) }
         mBinding.ivInstagram.setOnClickListener { openInstagram() }
+        mBinding.ivTelegram.setOnClickListener { openBrowser(URIConstants.telegramURL) }
     }
 
     private fun shareApp() {
@@ -76,5 +77,15 @@ class AboutActivity : AppCompatActivity() {
         val packageManager: PackageManager = packageManager
         val list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
         return list.size > 0
+    }
+
+    fun rateApp() {
+        val packageManager = applicationContext.packageManager
+        val intent = Intent(Intent.ACTION_EDIT)
+        intent.data = Uri.parse("bazaar://details?id=" + applicationContext.packageName)
+        intent.setPackage("com.farsitel.bazaar")
+        if (intent.resolveActivity(packageManager) != null) startActivity(intent) else {
+            Toast.makeText(this, "Didn't find appropriate application for rating!", Toast.LENGTH_SHORT).show()
+        }
     }
 }

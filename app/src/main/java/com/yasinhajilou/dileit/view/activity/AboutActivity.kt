@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.yasinhajilou.dileit.constant.UrlsConstants
 import com.yasinhajilou.dileit.databinding.ActivityAboutBinding
 import com.yasinhajilou.dileit.view.adapter.recycler.ContributorsRecyclerAdapter
 import com.yasinhajilou.dileit.viewmodel.NetworkViewModel
@@ -35,6 +36,8 @@ class AboutActivity : AppCompatActivity() {
         mBinding.ivShare.setOnClickListener {
             shareApp()
         }
+
+        mBinding.ivGithub.setOnClickListener { openBrowser(UrlsConstants.githubUrl) }
     }
 
     private fun shareApp() {

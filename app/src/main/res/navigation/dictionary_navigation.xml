@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/wordSearchFragment"
-        android:name="com.example.dileit.view.fragment.SearchFragment"
+        android:name="com.yasinhajilou.dileit.view.fragment.SearchFragment"
         android:label="fragment_word_search"
         tools:layout="@layout/fragment_word_search" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.dileit.view.fragment.HomeFragment"
+        android:name="com.yasinhajilou.dileit.view.fragment.HomeFragment"
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_wordSearchFragment"
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/wordInformationFragment"
-        android:name="com.example.dileit.view.fragment.wordinfo.WordInformationFragment"
+        android:name="com.yasinhajilou.dileit.view.fragment.wordinfo.WordInformationFragment"
         android:label="fragment_word_information"
         tools:layout="@layout/fragment_word_information" >
         <action

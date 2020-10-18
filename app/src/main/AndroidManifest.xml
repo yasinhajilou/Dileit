@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.dileit">
+    package="com.yasinhajilou.dileit">
     <!-- to be activated service on boot is completed -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,13 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.activity.AboutActivity"></activity>
+        <activity android:name="com.yasinhajilou.dileit.view.activity.AboutActivity" />
         <activity
-            android:name=".view.activity.ReporterActivity"
-            android:parentActivityName=".view.activity.MainActivity" />
+            android:name="com.yasinhajilou.dileit.view.activity.ReporterActivity"
+            android:parentActivityName="com.yasinhajilou.dileit.view.activity.MainActivity" />
 
         <receiver
-            android:name=".reciever.BootReceiver"
+            android:name="com.yasinhajilou.dileit.reciever.BootReceiver"
             android:enabled="false"
             android:exported="false">
             <intent-filter>
@@ -34,24 +34,24 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".reciever.AlarmReceiver"
+            android:name="com.yasinhajilou.dileit.reciever.AlarmReceiver"
             android:enabled="true"
             android:exported="false" />
 
         <activity
-            android:name=".view.activity.SettingActivity"
-            android:parentActivityName=".view.activity.MainActivity" />
+            android:name="com.yasinhajilou.dileit.view.activity.SettingActivity"
+            android:parentActivityName="com.yasinhajilou.dileit.view.activity.MainActivity" />
         <activity
-            android:name=".view.activity.LeitnerManagerActivity"
-            android:parentActivityName=".view.activity.MainActivity">
+            android:name="com.yasinhajilou.dileit.view.activity.LeitnerManagerActivity"
+            android:parentActivityName="com.yasinhajilou.dileit.view.activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".view.activity.MainActivity" />
+                android:value="com.yasinhajilou.dileit.view.activity.MainActivity" />
         </activity>
         <activity
-            android:name=".view.activity.ReviewLeitnerActivity"
-            android:parentActivityName=".view.activity.MainActivity" />
-        <activity android:name=".view.activity.MainActivity">
+            android:name="com.yasinhajilou.dileit.view.activity.ReviewLeitnerActivity"
+            android:parentActivityName="com.yasinhajilou.dileit.view.activity.MainActivity" />
+        <activity android:name="com.yasinhajilou.dileit.view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

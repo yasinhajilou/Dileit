@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dileit.view.fragment.leitnermanager.ReviewWordsManagerFragment">
+    tools:context="com.yasinhajilou.dileit.view.fragment.leitnermanager.ReviewWordsManagerFragment">
 
     <HorizontalScrollView
         android:id="@+id/scroll_horiz_review"

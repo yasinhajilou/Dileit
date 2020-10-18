@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dileit.view.activity.LeitnerManagerActivity">
+    tools:context="com.yasinhajilou.dileit.view.activity.LeitnerManagerActivity">
     <com.google.android.material.appbar.AppBarLayout
         app:elevation="0dp"
         android:fitsSystemWindows="true"

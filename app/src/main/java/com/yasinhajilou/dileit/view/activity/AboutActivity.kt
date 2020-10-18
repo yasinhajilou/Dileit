@@ -31,7 +31,6 @@ class AboutActivity : AppCompatActivity() {
         mBinding.rvContributor.apply {
             adapter = rvAdapter
             layoutManager = GridLayoutManager(context, 3)
-            setHasFixedSize(true)
         }
         networkViewModel.liveContributorList.observe(this, {
             rvAdapter.setData(it)

@@ -43,6 +43,7 @@ class AboutActivity : AppCompatActivity() {
         mBinding.ivGithub.setOnClickListener { openBrowser(URIConstants.githubUrl) }
         mBinding.ivInstagram.setOnClickListener { openInstagram() }
         mBinding.ivTelegram.setOnClickListener { openBrowser(URIConstants.telegramURL) }
+        mBinding.lottieAnimRating.setOnClickListener { rateApp() }
     }
 
     private fun shareApp() {

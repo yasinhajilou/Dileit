@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.chip.Chip
+    android:layout_margin="4dp"
+    android:textColor="@android:color/white"
     app:chipBackgroundColor="@color/colorContributorChipBg"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/chip_contributor"

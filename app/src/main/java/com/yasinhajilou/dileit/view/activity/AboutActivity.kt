@@ -1,6 +1,7 @@
 package com.yasinhajilou.dileit.view.activity
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -36,12 +37,17 @@ class AboutActivity : AppCompatActivity() {
         }
     }
 
-    private fun shareApp(){
+    private fun shareApp() {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.type = "text/plain"
         val shareContent = "Hey\nDileit is a dictionary app with Leitner system. you can download it from here: \nhttps://cafebazaar.ir/app/${packageName}"
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT , "Share Dileit")
-        shareIntent.putExtra(Intent.EXTRA_TEXT , shareContent)
-        startActivity(Intent.createChooser(shareIntent , "Share App Via: "))
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Share Dileit")
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareContent)
+        startActivity(Intent.createChooser(shareIntent, "Share App Via: "))
+    }
+
+    private fun openBrowser(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 }

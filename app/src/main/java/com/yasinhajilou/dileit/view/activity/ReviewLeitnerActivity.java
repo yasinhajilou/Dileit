@@ -34,12 +34,11 @@ public class ReviewLeitnerActivity extends AppCompatActivity implements Interfac
     private ActivityReviewLeitnerBinding mBinding;
     private List<Fragment> fragments;
 
+
     private boolean isStartUp = true;
     private int newWords = 0;
-
     private int currentPosIndex = 0;
     private List<Leitner> filteredList;
-
     private int cardsSize = 0;
 
     @Override

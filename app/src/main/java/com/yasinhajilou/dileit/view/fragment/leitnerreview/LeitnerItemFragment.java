@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
@@ -63,8 +64,9 @@ public class LeitnerItemFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mInternalViewModel = ViewModelProviders.of(getActivity()).get(InternalViewModel.class);
-        mReviewLeitnerSharedViewModel = ViewModelProviders.of(getActivity()).get(ReviewLeitnerSharedViewModel.class);
+        mInternalViewModel = new ViewModelProvider(requireActivity()).get(InternalViewModel.class);
+        mReviewLeitnerSharedViewModel = new ViewModelProvider(requireActivity()).get(ReviewLeitnerSharedViewModel.class);
+
         if (getArguments() != null)
             listId = getArguments().getInt(KeysValue.KEY_BUNDLE_LEITNER_ITEM_ID);
     }
@@ -123,7 +125,7 @@ public class LeitnerItemFragment extends Fragment {
                     mBinding.btnTabEnglishTrans.setVisibility(View.VISIBLE);
                 }
 
-                mBinding.viewPagerLeitnerItemTranslation.setAdapter(new LeitnerItemTranslationViewPagerAdapter(strings , getContext()) );
+                mBinding.viewPagerLeitnerItemTranslation.setAdapter(new LeitnerItemTranslationViewPagerAdapter(strings, getContext()));
             }
 
         });

@@ -46,6 +46,7 @@ class AboutActivity : AppCompatActivity() {
         mBinding.ivTelegram.setOnClickListener { openBrowser(URIConstants.telegramURL) }
         mBinding.lottieAnimRating.setOnClickListener { rateApp() }
         mBinding.message.setOnClickListener { sendEmail() }
+        mBinding.ivBackAbout.setOnClickListener { finish() }
     }
 
     private fun shareApp() {

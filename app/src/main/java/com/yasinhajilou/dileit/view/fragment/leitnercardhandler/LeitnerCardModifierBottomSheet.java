@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.yasinhajilou.dileit.R;
@@ -63,9 +64,9 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSharedViewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        mSharedViewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
         mAdapter = new AddNewLeitnerViewPagerAdapter();
-        mInternalViewModel = ViewModelProviders.of(this).get(InternalViewModel.class);
+        mInternalViewModel = new ViewModelProvider(this).get(InternalViewModel.class);
     }
 
     @Nullable
@@ -177,7 +178,6 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
             mBinding.edtTitleDialogAddLeitner.setText(leitner.getWord());
             mAdapter.addData(getResources().getString(R.string.translation), leitner.getDef());
             mAdapter.addData(getResources().getString(R.string.enf_def), leitner.getSecondDef());
-            Log.d(TAG, "setUpViewForEditing: " + leitner.getDef());
             mLeitner = leitner;
         });
     }
@@ -230,11 +230,11 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
             stringBuilder.append("*").append(englishDef.getDefinition()).append("\n");
             if (showSynonyms) {
                 showSynonymsChipFilter();
-                stringBuilder.append(englishDef.getSynonyms()).append("\n");
+                stringBuilder.append("-Synonym:").append("\n").append(englishDef.getSynonyms()).append("\n");
             }
             if (showExamples) {
                 showExamplesChipFilter();
-                stringBuilder.append(englishDef.getExamples()).append("\n");
+                stringBuilder.append("-Example:").append("\n").append(englishDef.getExamples()).append("\n");
             }
         }
         return stringBuilder.toString();

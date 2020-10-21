@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +20,7 @@ import com.yasinhajilou.dileit.viewmodel.NetworkViewModel
 class AboutActivity : AppCompatActivity() {
     private lateinit var networkViewModel: NetworkViewModel
     private lateinit var mBinding: ActivityAboutBinding
+    val TAG = AboutActivity::class.java.simpleName
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityAboutBinding.inflate(layoutInflater)
@@ -34,6 +36,7 @@ class AboutActivity : AppCompatActivity() {
             layoutManager = GridLayoutManager(context, 3)
         }
         networkViewModel.liveContributorList.observe(this, {
+            Log.d(TAG, "onCreate: ${it.toString()}")
             rvAdapter.setData(it)
         })
 
@@ -46,7 +49,7 @@ class AboutActivity : AppCompatActivity() {
         mBinding.ivTelegram.setOnClickListener { openBrowser(URIConstants.telegramURL) }
         mBinding.lottieAnimRating.setOnClickListener { rateApp() }
         mBinding.message.setOnClickListener { sendEmail() }
-        mBinding.ivBackAbout.setOnClickListener { finish() }
+        mBinding.ivBackAbout.setOnClickListener { this.finish() }
     }
 
     private fun shareApp() {

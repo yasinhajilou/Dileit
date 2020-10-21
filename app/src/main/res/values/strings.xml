@@ -147,7 +147,13 @@ When cards of this section reviewed, they will move to "\Review"\ section, while
     <string name="edit">Edit</string>
     <string name="english_synonyms">English Synonyms</string>
     <string name="examples">Examples</string>
-    <string name="about">About</string>
+    <string name="about">About Us</string>
     <string name="contact_us">Contact us:</string>
     <string name="open_source">Open Source:</string>
+    <string name="share_body">Hey\nDileit is a dictionary app with Leitner system. you can download it from here:</string>
+    <string name="share_diliet">Share Dileit</string>
+    <string name="share_via">Share App Via:</string>
+    <string name="no_app_rating">Didn't find appropriate application for rating!</string>
+    <string name="no_mail">There are no email clients installed.</string>
+
 </resources>

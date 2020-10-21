@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.yasinhajilou.dileit.R
 import com.yasinhajilou.dileit.constant.URIConstants
 import com.yasinhajilou.dileit.databinding.ActivityAboutBinding
 import com.yasinhajilou.dileit.view.adapter.recycler.ContributorsRecyclerAdapter
@@ -50,10 +51,10 @@ class AboutActivity : AppCompatActivity() {
     private fun shareApp() {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.type = "text/plain"
-        val shareContent = "Hey\nDileit is a dictionary app with Leitner system. you can download it from here: \nhttps://cafebazaar.ir/app/${packageName}"
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Share Dileit")
+        val shareContent = resources.getString(R.string.share_body) + "\nhttps://cafebazaar.ir/app/${packageName}"
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, resources.getString(R.string.share_diliet))
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareContent)
-        startActivity(Intent.createChooser(shareIntent, "Share App Via: "))
+        startActivity(Intent.createChooser(shareIntent, resources.getString(R.string.share_via)))
     }
 
     private fun openBrowser(url: String) {
@@ -87,7 +88,7 @@ class AboutActivity : AppCompatActivity() {
         intent.data = Uri.parse("bazaar://details?id=" + applicationContext.packageName)
         intent.setPackage("com.farsitel.bazaar")
         if (intent.resolveActivity(packageManager) != null) startActivity(intent) else {
-            Toast.makeText(this, "Didn't find appropriate application for rating!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, resources.getString(R.string.no_app_rating), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -100,7 +101,7 @@ class AboutActivity : AppCompatActivity() {
         try {
             startActivity(Intent.createChooser(i, "Send mail..."))
         } catch (ex: ActivityNotFoundException) {
-            Toast.makeText(this, "There are no email clients installed.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, resources.getString(R.string.no_mail), Toast.LENGTH_SHORT).show()
         }
     }
 }

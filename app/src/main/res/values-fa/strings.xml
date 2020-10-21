@@ -146,4 +146,15 @@ When cards of this section reviewed, they will move to "\Review"\ section, while
     <string name="reviewed">مرور شده</string>
     <string name="delete">حذف</string>
     <string name="edit">ویرایش</string>
+
+    <string name="english_synonyms">English Synonyms</string>
+    <string name="examples">مثال ها</string>
+    <string name="about">درباره ما</string>
+    <string name="contact_us">ارتباط با ما:</string>
+    <string name="open_source">متن باز:</string>
+    <string name="share_body">سلام، دیلایت یه اپ دیکشنری آفلاین با سیستم لایتنر هوشمنده. میتونی از اینجا دانلودش کنی:</string>
+    <string name="share_diliet">اشتراک گذاری دیلایت</string>
+    <string name="share_via">اشتراک اپ از طریق:</string>
+    <string name="no_app_rating">اپ مناسب برای امتیاز دهی یافت نشد!</string>
+    <string name="no_mail">اپی مناسب ارسال ایمیل یافت نشد.</string>
 </resources>

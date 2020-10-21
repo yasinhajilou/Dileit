@@ -229,12 +229,16 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
                 engDefList) {
             stringBuilder.append("*").append(englishDef.getDefinition()).append("\n");
             if (showSynonyms) {
-                showSynonymsChipFilter();
-                stringBuilder.append("-Synonym:").append("\n").append(englishDef.getSynonyms()).append("\n");
+                if (!englishDef.getSynonyms().equals("")) {
+                    showSynonymsChipFilter();
+                    stringBuilder.append("-Synonym:").append("\n").append(englishDef.getSynonyms()).append("\n");
+                }
             }
             if (showExamples) {
-                showExamplesChipFilter();
-                stringBuilder.append("-Example:").append("\n").append(englishDef.getExamples()).append("\n");
+                if ( !englishDef.getExamples().equals("")) {
+                    showExamplesChipFilter();
+                    stringBuilder.append("-Example:").append("\n").append(englishDef.getExamples()).append("\n");
+                }
             }
         }
         return stringBuilder.toString();

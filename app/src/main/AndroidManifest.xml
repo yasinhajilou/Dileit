@@ -50,7 +50,9 @@
         </activity>
         <activity
             android:name="com.yasinhajilou.dileit.view.activity.ReviewLeitnerActivity"
-            android:parentActivityName="com.yasinhajilou.dileit.view.activity.MainActivity" />
+            android:parentActivityName="com.yasinhajilou.dileit.view.activity.MainActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity android:name="com.yasinhajilou.dileit.view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

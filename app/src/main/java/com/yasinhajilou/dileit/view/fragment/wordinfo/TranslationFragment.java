@@ -44,9 +44,7 @@ public class TranslationFragment extends Fragment {
         mBinding.rvWordInformation.setAdapter(wordInfoParentRecyclerAdapter);
         mBinding.rvWordInformation.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        mSharedViewModel.getTranslationWord().observe(getViewLifecycleOwner(), wordInfos -> {
-            wordInfoParentRecyclerAdapter.setData(wordInfos);
-        });
+        mSharedViewModel.getTranslationWord().observe(getViewLifecycleOwner(), wordInfoParentRecyclerAdapter::setData);
     }
 
     @Override

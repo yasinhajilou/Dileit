@@ -369,5 +369,7 @@ public class WordInformationFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         mBinding = null;
+        // we should clear shared vm data for next usage
+        mSharedViewModel.clearCachedLiveData();
     }
 }

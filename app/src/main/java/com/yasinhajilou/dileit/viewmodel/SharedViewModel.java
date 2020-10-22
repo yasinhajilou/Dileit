@@ -124,6 +124,11 @@ public class SharedViewModel extends AndroidViewModel {
         return mActualWord;
     }
 
+    public void clearCachedLiveData(){
+        mTranslationWord.setValue(null);
+        mEngDefList.setValue(null);
+    }
+
 //    public MutableLiveData<String[]> getLeitnerItemData() {
 //        return mLeitnerItemData;
 //    }

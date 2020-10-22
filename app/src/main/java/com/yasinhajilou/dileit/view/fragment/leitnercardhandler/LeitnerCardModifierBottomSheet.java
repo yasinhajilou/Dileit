@@ -185,14 +185,17 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
     private void setUpViewForAdding() {
 
         mSharedViewModel.getTranslationWord().observe(getViewLifecycleOwner(), wordInformations -> {
-            mWordInformations = wordInformations;
-            mAdapter.addData(getString(R.string.translation), getTranslationData(showExamples, mWordInformations));
-
+            if (wordInformations != null) {
+                mWordInformations = wordInformations;
+                mAdapter.addData(getString(R.string.translation), getTranslationData(showExamples, mWordInformations));
+            }
         });
 
         mSharedViewModel.getEngDefList().observe(getViewLifecycleOwner(), englishDefs -> {
-            mEngDefs = englishDefs;
-            mAdapter.addData(getString(R.string.enf_def), getEngDefData(showExamples, showSynonyms, mEngDefs));
+            if(mWordInformations!=null) {
+                mEngDefs = englishDefs;
+                mAdapter.addData(getString(R.string.enf_def), getEngDefData(showExamples, showSynonyms, mEngDefs));
+            }
         });
 
         mBinding.rbCostumeBottomSheet.setOnCheckedChangeListener((compoundButton, b) -> {
@@ -235,7 +238,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
                 }
             }
             if (showExamples) {
-                if ( !englishDef.getExamples().equals("")) {
+                if (!englishDef.getExamples().equals("")) {
                     showExamplesChipFilter();
                     stringBuilder.append("-Example:").append("\n").append(englishDef.getExamples()).append("\n");
                 }
@@ -293,5 +296,10 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
     @Override
     public int getTheme() {
         return R.style.AppBottomSheetDialogTheme;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 }

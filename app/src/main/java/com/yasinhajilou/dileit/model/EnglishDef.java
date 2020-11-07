@@ -40,4 +40,16 @@ public class EnglishDef {
     public String getAntonyms() {
         return antonyms;
     }
+
+    @Override
+    public String toString() {
+        return "EnglishDef{" +
+                "cat='" + cat + '\'' +
+                ", definition='" + definition + '\'' +
+                ", synonyms='" + synonyms + '\'' +
+                ", examples='" + examples + '\'' +
+                ", similar='" + similar + '\'' +
+                ", antonyms='" + antonyms + '\'' +
+                '}';
+    }
 }

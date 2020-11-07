@@ -2,6 +2,7 @@ package com.yasinhajilou.dileit.model.repository;
 
 import android.app.Application;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.yasinhajilou.dileit.model.EnglishDef;
 import com.yasinhajilou.dileit.model.SearchDictionary;

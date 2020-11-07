@@ -13,9 +13,11 @@ import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.yasinhajilou.dileit.R;
 import com.yasinhajilou.dileit.constant.KeysValue;
@@ -112,8 +114,9 @@ public class WordInformationFragment extends Fragment {
 
         mExternalViewModel.searchForExactWord(actualWord).observe(getViewLifecycleOwner(), s -> {
             if (shouldRefreshLivesPer) {
-
-
+                if (s.equals("Error")){
+                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                }
                 JsonUtils jsonUtils = new JsonUtils();
                 if (jsonUtils.getWordDefinition(s) != null) {
                     mBinding.progressWordInfo.setVisibility(View.GONE);
@@ -138,7 +141,6 @@ public class WordInformationFragment extends Fragment {
                         mSharedViewModel.setIdiom(idioms);
                     }
                 }
-
                 shouldRefreshLivesPer = false;
             }
         });
@@ -152,6 +154,8 @@ public class WordInformationFragment extends Fragment {
                     chipEnglish.setVisibility(View.VISIBLE);
 
                     mSharedViewModel.setEngDefList(englishDefs);
+                }else {
+                    Toast.makeText(getContext(), "null", Toast.LENGTH_SHORT).show();
                 }
                 shouldRefreshLivesEng = false;
             }

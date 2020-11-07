@@ -14,8 +14,8 @@ android {
         applicationId "com.yasinhajilou.dileit"
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 3
-        versionName "v1.0-beta01"
+        versionCode 4
+        versionName "v1.0-beta02"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

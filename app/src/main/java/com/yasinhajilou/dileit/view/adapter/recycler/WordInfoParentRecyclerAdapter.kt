@@ -14,7 +14,8 @@ class WordInfoParentRecyclerAdapter() : RecyclerView.Adapter<WordInfoParentRecyc
     private var wordInfos: List<WordInformation>? = null
     private val rvPool = RecyclerView.RecycledViewPool()
     private val TAG = "WordInfoParent"
-    fun setData(wordInfos: List<WordInformation>) {
+
+    fun setData(wordInfos: List<WordInformation>?) {
         this.wordInfos = wordInfos
         notifyDataSetChanged()
     }

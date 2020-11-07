@@ -21,9 +21,8 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.takusemba.spotlight.Spotlight;
-import com.takusemba.spotlight.Target;
-import com.takusemba.spotlight.shape.Circle;
+import com.elconfidencial.bubbleshowcase.BubbleShowCase;
+import com.elconfidencial.bubbleshowcase.BubbleShowCaseBuilder;
 import com.yasinhajilou.dileit.R;
 import com.yasinhajilou.dileit.constant.KeysValue;
 import com.yasinhajilou.dileit.constant.LeitnerModifierConstants;
@@ -373,13 +372,25 @@ public class WordInformationFragment extends Fragment {
     }
 
     private void showUserGuide() {
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(requireContext());
-        sharedPreferenceUtil.setUserFirstTime(true);
-        if (sharedPreferenceUtil.isUserFirstTime()) {
 
-
-//            sharedPreferenceUtil.setUserFirstTime();
-        }
+        new BubbleShowCaseBuilder(requireActivity()) //Activity instance
+                .title("foo") //Any title for the bubble view
+                .description("bar") //More detailed description
+                .arrowPosition(BubbleShowCase.ArrowPosition.RIGHT) //You can force the position of the arrow to change the location of the bubble.
+                .backgroundColor(Color.GREEN) //Bubble background color
+                .textColor(Color.BLACK) //Bubble Text color
+                .titleTextSize(17) //Title text size in SP (default value 16sp)
+                .descriptionTextSize(15) //Subtitle text size in SP (default value 14sp)
+//                .showOnce("BUBBLE_SHOW_CASE_ID") //Id to show only once the BubbleShowCase
+                .targetView(mBinding.imgBtnAddToLeitner) //View to point out
+                .show();
+//        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(requireContext());
+//        sharedPreferenceUtil.setUserFirstTime(true);
+//        if (sharedPreferenceUtil.isUserFirstTime()) {
+//
+//
+////            sharedPreferenceUtil.setUserFirstTime();
+//        }
     }
 
     @Override

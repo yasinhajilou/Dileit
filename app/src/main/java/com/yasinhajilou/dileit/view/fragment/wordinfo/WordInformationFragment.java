@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -19,10 +20,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.elconfidencial.bubbleshowcase.BubbleShowCase;
-import com.elconfidencial.bubbleshowcase.BubbleShowCaseBuilder;
+import com.github.florent37.viewtooltip.ViewTooltip;
 import com.yasinhajilou.dileit.R;
 import com.yasinhajilou.dileit.constant.KeysValue;
 import com.yasinhajilou.dileit.constant.LeitnerModifierConstants;
@@ -372,17 +373,17 @@ public class WordInformationFragment extends Fragment {
     }
 
     private void showUserGuide() {
-
-        new BubbleShowCaseBuilder(requireActivity()) //Activity instance
-                .title("foo") //Any title for the bubble view
-                .description("bar") //More detailed description
-                .arrowPosition(BubbleShowCase.ArrowPosition.RIGHT) //You can force the position of the arrow to change the location of the bubble.
-                .backgroundColor(Color.GREEN) //Bubble background color
-                .textColor(Color.BLACK) //Bubble Text color
-                .titleTextSize(17) //Title text size in SP (default value 16sp)
-                .descriptionTextSize(15) //Subtitle text size in SP (default value 14sp)
-//                .showOnce("BUBBLE_SHOW_CASE_ID") //Id to show only once the BubbleShowCase
-                .targetView(mBinding.imgBtnAddToLeitner) //View to point out
+        ImageView imageView = mBinding.imgBtnAddToLeitner;
+        ViewTooltip
+                .on(requireActivity(),  imageView)
+                .autoHide(true, 10000)
+                .clickToHide(true)
+                .align(ViewTooltip.ALIGN.CENTER)
+                .position(ViewTooltip.Position.LEFT)
+                .text(getString(R.string.tool_tip_dec))
+                .textColor(Color.WHITE)
+                .color(ContextCompat.getColor(requireContext() , R.color.colorPrimary))
+                .corner(10)
                 .show();
 //        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(requireContext());
 //        sharedPreferenceUtil.setUserFirstTime(true);

@@ -157,4 +157,6 @@ When cards of this section reviewed, they will move to "\Review"\ section, while
     <string name="share_via">اشتراک اپ از طریق:</string>
     <string name="no_app_rating">اپ مناسب برای امتیاز دهی یافت نشد!</string>
     <string name="no_mail">اپی مناسب ارسال ایمیل یافت نشد.</string>
+    <string name="tool_tip_dec">با زدن این دکمه، همین کلمه رو به لایتنر اضافه کنید!</string>
+
 </resources>

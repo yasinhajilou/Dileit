@@ -163,6 +163,7 @@
                     tools:text="hi" />
 
                 <androidx.appcompat.widget.AppCompatImageButton
+                    android:visibility="invisible"
                     android:id="@+id/img_btn_add_to_leitner"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="0dp"

@@ -67,6 +67,10 @@ public class WordInformationFragment extends Fragment {
 
     boolean isFromHistory = false;
 
+    //after all data came from db we should show Leitner Adder Button
+    boolean engDbReceived = false;
+    boolean perDbReceived = false;
+
     private List<TranslationWord> translationList = new ArrayList<>();
 
     @Override
@@ -114,33 +118,42 @@ public class WordInformationFragment extends Fragment {
 
         mExternalViewModel.searchForExactWord(actualWord).observe(getViewLifecycleOwner(), s -> {
             if (shouldRefreshLivesPer) {
-                if (s.equals("Error")){
-                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-                }
-                JsonUtils jsonUtils = new JsonUtils();
-                if (jsonUtils.getWordDefinition(s) != null) {
-                    mBinding.progressWordInfo.setVisibility(View.GONE);
 
-                    perPagerIndex = mAdapter.addPage(new TranslationFragment());
-                    chipPersian.setVisibility(View.VISIBLE);
-                    selectPersianChip();
-                    WordInformation[] wordInformations = jsonUtils.getWordDefinition(s);
-                    List<Idiom> idioms = new ArrayList<>();
-                    for (WordInformation information : wordInformations) {
-                        translationList.addAll(information.getTranslationWords());
-                        if (information.getIdioms() != null)
-                            idioms.addAll(information.getIdioms());
+                if (s.equals("Error")) {
+                    //per-eng db search finished and find nothing
+                    //let's now focus on English chip since we have not per
+                    selectEnglishChip();
+                } else {
+                    JsonUtils jsonUtils = new JsonUtils();
+                    if (jsonUtils.getWordDefinition(s) != null) {
+                        mBinding.progressWordInfo.setVisibility(View.GONE);
+
+                        perPagerIndex = mAdapter.addPage(new TranslationFragment());
+                        chipPersian.setVisibility(View.VISIBLE);
+                        selectPersianChip();
+                        WordInformation[] wordInformations = jsonUtils.getWordDefinition(s);
+                        List<Idiom> idioms = new ArrayList<>();
+                        for (WordInformation information : wordInformations) {
+                            translationList.addAll(information.getTranslationWords());
+                            if (information.getIdioms() != null)
+                                idioms.addAll(information.getIdioms());
+                        }
+
+                        mSharedViewModel.setTranslationWord(Arrays.asList(wordInformations));
+
+
+                        if (idioms.size() > 0) {
+                            chipIdioms.setVisibility(View.VISIBLE);
+                            idiomsPagerIndex = mAdapter.addPage(new RelatedIdiomsFragment());
+                            mSharedViewModel.setIdiom(idioms);
+                        }
                     }
-
-                    mSharedViewModel.setTranslationWord(Arrays.asList(wordInformations));
-
-
-                    if (idioms.size() > 0) {
-                        chipIdioms.setVisibility(View.VISIBLE);
-                        idiomsPagerIndex = mAdapter.addPage(new RelatedIdiomsFragment());
-                        mSharedViewModel.setIdiom(idioms);
-                    }
                 }
+
+                //our  result arrived and set that to true
+                perDbReceived = true;
+                showLeitnerAdderButton(perDbReceived, engDbReceived);
+
                 shouldRefreshLivesPer = false;
             }
         });
@@ -148,15 +161,17 @@ public class WordInformationFragment extends Fragment {
         mExternalViewModel.searchEngWordById(engId).observe(getViewLifecycleOwner(), englishDefs -> {
             if (shouldRefreshLivesEng) {
                 if (englishDefs.size() > 0) {
-
                     mBinding.progressWordInfo.setVisibility(View.GONE);
                     engPagerIndex = mAdapter.addPage(new EnglishTranslatedFragment());
                     chipEnglish.setVisibility(View.VISIBLE);
 
                     mSharedViewModel.setEngDefList(englishDefs);
-                }else {
-                    Toast.makeText(getContext(), "null", Toast.LENGTH_SHORT).show();
                 }
+
+                //db search is finished
+                engDbReceived = true;
+                showLeitnerAdderButton(perDbReceived, engDbReceived);
+
                 shouldRefreshLivesEng = false;
             }
         });
@@ -341,6 +356,12 @@ public class WordInformationFragment extends Fragment {
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    private void showLeitnerAdderButton(boolean perDbState, boolean engDbState) {
+        if (perDbState && engDbState) {
+            mBinding.imgBtnAddToLeitner.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

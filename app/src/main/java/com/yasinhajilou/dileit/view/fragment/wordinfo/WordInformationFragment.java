@@ -17,8 +17,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.takusemba.spotlight.Spotlight;
+import com.takusemba.spotlight.Target;
+import com.takusemba.spotlight.shape.Circle;
 import com.yasinhajilou.dileit.R;
 import com.yasinhajilou.dileit.constant.KeysValue;
 import com.yasinhajilou.dileit.constant.LeitnerModifierConstants;
@@ -28,6 +33,7 @@ import com.yasinhajilou.dileit.model.TranslationWord;
 import com.yasinhajilou.dileit.model.WordInformation;
 import com.yasinhajilou.dileit.model.entity.Leitner;
 import com.yasinhajilou.dileit.utils.JsonUtils;
+import com.yasinhajilou.dileit.utils.SharedPreferenceUtil;
 import com.yasinhajilou.dileit.view.adapter.viewpager.WordsInformationViewPagerAdapter;
 import com.yasinhajilou.dileit.view.fragment.leitnercardhandler.LeitnerCardModifierBottomSheet;
 import com.yasinhajilou.dileit.viewmodel.ExternalViewModel;
@@ -361,6 +367,18 @@ public class WordInformationFragment extends Fragment {
     private void showLeitnerAdderButton(boolean perDbState, boolean engDbState) {
         if (perDbState && engDbState) {
             mBinding.imgBtnAddToLeitner.setVisibility(View.VISIBLE);
+        }
+
+        showUserGuide();
+    }
+
+    private void showUserGuide() {
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(requireContext());
+        sharedPreferenceUtil.setUserFirstTime(true);
+        if (sharedPreferenceUtil.isUserFirstTime()) {
+
+
+//            sharedPreferenceUtil.setUserFirstTime();
         }
     }
 

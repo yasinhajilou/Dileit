@@ -38,9 +38,9 @@ public class SharedPreferenceUtil {
         mEditor.apply();
     }
 
-    public void setUserFirstTime(){
+    public void setUserFirstTime(boolean state){
         mEditor = mSharedPreferences.edit();
-        mEditor.putBoolean(KeysValue.SP_USER_STATE , false);
+        mEditor.putBoolean(KeysValue.SP_USER_STATE , state);
         mEditor.apply();
     }
 

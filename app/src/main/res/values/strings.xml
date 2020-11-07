@@ -155,6 +155,6 @@ When cards of this section reviewed, they will move to "\Review"\ section, while
     <string name="share_via">Share App Via:</string>
     <string name="no_app_rating">Didn\'t find appropriate application for rating!</string>
     <string name="no_mail">There are no email clients installed.</string>
-    <string name="tool_tip_dec">You Can Add Current Word To Leitner Box By This Button!</string>
+    <string name="tool_tip_dec">You Can Add Current Word To Leitner By This Button!</string>
 
 </resources>

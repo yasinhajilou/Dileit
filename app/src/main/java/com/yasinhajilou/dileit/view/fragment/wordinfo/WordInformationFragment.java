@@ -367,31 +367,28 @@ public class WordInformationFragment extends Fragment {
     private void showLeitnerAdderButton(boolean perDbState, boolean engDbState) {
         if (perDbState && engDbState) {
             mBinding.imgBtnAddToLeitner.setVisibility(View.VISIBLE);
+            showUserGuide();
         }
-
-        showUserGuide();
     }
 
     private void showUserGuide() {
-        ImageView imageView = mBinding.imgBtnAddToLeitner;
-        ViewTooltip
-                .on(requireActivity(),  imageView)
-                .autoHide(true, 10000)
-                .clickToHide(true)
-                .align(ViewTooltip.ALIGN.CENTER)
-                .position(ViewTooltip.Position.LEFT)
-                .text(getString(R.string.tool_tip_dec))
-                .textColor(Color.WHITE)
-                .color(ContextCompat.getColor(requireContext() , R.color.colorPrimary))
-                .corner(10)
-                .show();
-//        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(requireContext());
-//        sharedPreferenceUtil.setUserFirstTime(true);
-//        if (sharedPreferenceUtil.isUserFirstTime()) {
-//
-//
-////            sharedPreferenceUtil.setUserFirstTime();
-//        }
+
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(requireContext());
+        if (sharedPreferenceUtil.isUserFirstTime()) {
+            ImageView imageView = mBinding.imgBtnAddToLeitner;
+            ViewTooltip
+                    .on(requireActivity(),  imageView)
+                    .autoHide(true, 10000)
+                    .clickToHide(true)
+                    .align(ViewTooltip.ALIGN.CENTER)
+                    .position(ViewTooltip.Position.LEFT)
+                    .text(getString(R.string.tool_tip_dec))
+                    .textColor(Color.WHITE)
+                    .color(ContextCompat.getColor(requireContext() , R.color.colorPrimary))
+                    .corner(10)
+                    .show();
+            sharedPreferenceUtil.setUserFirstTime(false);
+        }
     }
 
     @Override

@@ -9,6 +9,8 @@ public class KeysValue {
     public static final String KEY_BUNDLE_TRANSITION_HISTORY = "key_bundle_transition";
 
 
+
+
     public static final byte FRAGMENT_HEADER_TRANSLATION = 1;
     public static final byte FRAGMENT_HEADER_SECOND_TRANSLATION = 2;
 
@@ -21,4 +23,6 @@ public class KeysValue {
     public static final String SP_HOUR = "shared_preference_hour";
     public static final String SP_MIN = "shared_preference_minute";
     public static final String SP_ALARM_STATUS = "shared_preference_alarm_status";
+    public static final String SP_USER_STATE = "shared_preference_user_state";
+
 }

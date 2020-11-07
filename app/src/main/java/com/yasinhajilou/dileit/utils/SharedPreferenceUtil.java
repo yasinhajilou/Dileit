@@ -3,6 +3,7 @@ package com.yasinhajilou.dileit.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.android.gms.config.proto.Config;
 import com.yasinhajilou.dileit.constant.KeysValue;
 
 public class SharedPreferenceUtil {
@@ -35,5 +36,15 @@ public class SharedPreferenceUtil {
         mEditor.putInt(KeysValue.SP_HOUR, h);
         mEditor.putInt(KeysValue.SP_MIN, m);
         mEditor.apply();
+    }
+
+    public void setUserFirstTime(){
+        mEditor = mSharedPreferences.edit();
+        mEditor.putBoolean(KeysValue.SP_USER_STATE , false);
+        mEditor.apply();
+    }
+
+    public boolean isUserFirstTime(){
+        return mSharedPreferences.getBoolean(KeysValue.SP_USER_STATE , true);
     }
 }

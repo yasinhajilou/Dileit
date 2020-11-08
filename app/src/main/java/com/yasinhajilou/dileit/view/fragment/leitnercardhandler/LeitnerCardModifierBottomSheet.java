@@ -142,7 +142,11 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
                         break;
                 }
             } else {
-                Toast.makeText(getContext(), getString(R.string.pl_fill_fields), Toast.LENGTH_LONG).show();
+                if (edtTitle.equals(""))
+                    Toast.makeText(getContext(), getString(R.string.pl_fill_fields), Toast.LENGTH_LONG).show();
+                if (edtCat.equals(""))
+                    Toast.makeText(getContext(), getString(R.string.pl_fill_fields), Toast.LENGTH_LONG).show();
+
             }
         });
 

@@ -108,7 +108,8 @@ When cards of this section reviewed, they will move to "\Review"\ section, while
     <string name="phrase">Phrase</string>
     <string name="other">Other</string>
     <string name="pl_add_cat">please add cart category!</string>
-    <string name="pl_fill_fields"><![CDATA[please fill word title & definition!]]></string>
+    <string name="pl_fill_fields"><![CDATA[please fill word title or definition!]]></string>
+    <string name="pl_fill_cat"><![CDATA[please fill Card Category!]]></string>
     <string name="card_duplicated">A card with title title exist! Please change Word/Phrase.</string>
     <string name="added">Added.</string>
     <string name="error">An error occurred.</string>

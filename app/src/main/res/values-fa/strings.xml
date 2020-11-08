@@ -38,7 +38,7 @@
     <string name="week">هفته</string>
     <string name="month">ماه</string>
     <string name="year">سال</string>
-    <string name="card_content_category">دسته ی کارت</string>
+    <string name="card_content_category">دسته بندی کارت</string>
 
     <string name="leitner_guide_per">لایتنر چیه؟\n\n
 یکی از بهترین استراتژی‌های به خاطرسپردن مطالب پیرَوی از سیستم لایتنره. \"دیلایت\" اینجاست که به شما کمک کنه \"لغات دیکشنری\" ویا \"موارد دلخواه اضافه شدتون\" رو طبق این سیستم به خاطر بسپرین.\n\n
@@ -109,6 +109,8 @@ When cards of this section reviewed, they will move to "\Review"\ section, while
     <string name="other">Other</string>
     <string name="pl_add_cat">لطفا دسته کارت را مشخص کنید</string>
     <string name="pl_fill_fields"><![CDATA[لطفا عنوان یا توضیحات رو کامل پر کنید!]]></string>
+    <string name="pl_fill_cat"><![CDATA[لطفا دسته بندی کارت رو مشخص کنید!]]></string>
+
     <string name="card_duplicated">کارتی با این عنوان وجود داره، لطفا عنوان را تغییر بدید.</string>
     <string name="added">اضافه شده</string>
     <string name="error">خطایی رخ داد</string>

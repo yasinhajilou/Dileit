@@ -145,7 +145,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
                 if (edtTitle.equals(""))
                     Toast.makeText(getContext(), getString(R.string.pl_fill_fields), Toast.LENGTH_LONG).show();
                 if (edtCat.equals(""))
-                    Toast.makeText(getContext(), getString(R.string.pl_fill_fields), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), getString(R.string.pl_fill_cat), Toast.LENGTH_LONG).show();
 
             }
         });

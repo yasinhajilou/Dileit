@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -98,7 +99,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(), R.layout.drop_down_card_cat, StringUtils.dropDownItem(getContext()));
         mBinding.dropdownText.setAdapter(arrayAdapter);
 
-        //this class will call in two ways:
+        //this class is called in two ways:
         //1- when user wants to add a brand new card
         //2- when user wants to edit a card
 
@@ -192,30 +193,36 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
         });
 
         mSharedViewModel.getEngDefList().observe(getViewLifecycleOwner(), englishDefs -> {
-            if(mWordInformations!=null) {
+            if (mWordInformations != null) {
                 mEngDefs = englishDefs;
                 mAdapter.addData(getString(R.string.enf_def), getEngDefData(showExamples, showSynonyms, mEngDefs));
             }
         });
 
         mBinding.rbCostumeBottomSheet.setOnCheckedChangeListener((compoundButton, b) -> {
-            if (translationEdtText() != null)
-                translationEdtText().setEnabled(b);
-            if (engEditText() != null)
-                engEditText().setEnabled(b);
+            translationEdtText().setEnabled(b);
+            engEditText().setEnabled(b);
+
+            if (b) {
+                translationEdtText().setTextColor(ContextCompat.getColor(requireContext(), R.color.colorTextTitle));
+                engEditText().setTextColor(ContextCompat.getColor(requireContext(), R.color.colorTextTitle));
+            } else {
+                translationEdtText().setTextColor(ContextCompat.getColor(requireContext(), R.color.darkGrey));
+                engEditText().setTextColor(ContextCompat.getColor(requireContext(), R.color.darkGrey));
+            }
+
         });
 
-        if (mBinding.chipEngSynonyms != null) {
-            mBinding.chipEngSynonyms.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mBinding.chipEngSynonyms.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
-                showSynonyms = isChecked;
-                if (engEditText() != null)
-                    engEditText().setText(getEngDefData(showExamples, showSynonyms, mEngDefs));
+            showSynonyms = isChecked;
+            if (engEditText() != null)
+                engEditText().setText(getEngDefData(showExamples, showSynonyms, mEngDefs));
 
 
-            });
-        }
-        assert mBinding.chipExamples != null;
+        });
+
+
         mBinding.chipExamples.setOnCheckedChangeListener((buttonView, isChecked) -> {
             showExamples = isChecked;
             if (engEditText() != null)

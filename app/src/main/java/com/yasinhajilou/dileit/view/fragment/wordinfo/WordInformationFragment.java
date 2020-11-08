@@ -14,14 +14,10 @@ import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
 import android.speech.tts.TextToSpeech;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.github.florent37.viewtooltip.ViewTooltip;
 import com.yasinhajilou.dileit.R;

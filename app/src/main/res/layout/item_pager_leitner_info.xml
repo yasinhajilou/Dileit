@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
     <EditText
         android:id="@+id/edt_pager_leitner_info"
         android:layout_width="match_parent"
@@ -11,15 +13,5 @@
         android:background="@android:color/transparent"
         android:enabled="false"
         android:inputType="textMultiLine"
-        android:textColor="@android:color/black">
-
-        <!--    <EditText-->
-        <!--        android:inputType="textMultiLine"-->
-        <!--        android:enabled="false"-->
-        <!--        android:id="@+id/edt_pager_leitner_info"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="match_parent"-->
-        <!--        android:background="@android:color/transparent"-->
-        <!--        android:textColor="@android:color/black" />-->
-    </EditText>
-</ScrollView>
+        android:textColor="@color/darkGrey"/>
+</androidx.core.widget.NestedScrollView>

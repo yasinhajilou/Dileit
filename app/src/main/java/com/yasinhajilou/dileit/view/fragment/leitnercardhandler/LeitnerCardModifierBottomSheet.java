@@ -239,19 +239,21 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
 
     private String getEngDefData(boolean showExamples, boolean showSynonyms, List<EnglishDef> engDefList) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (EnglishDef englishDef :
-                engDefList) {
-            stringBuilder.append("*").append(englishDef.getDefinition()).append("\n");
-            if (showSynonyms) {
-                if (!englishDef.getSynonyms().equals("")) {
-                    showSynonymsChipFilter();
-                    stringBuilder.append("-Synonym:").append("\n").append(englishDef.getSynonyms()).append("\n");
+        if (engDefList != null) {
+            for (EnglishDef englishDef :
+                    engDefList) {
+                stringBuilder.append("*").append(englishDef.getDefinition()).append("\n");
+                if (showSynonyms) {
+                    if (!englishDef.getSynonyms().equals("")) {
+                        showSynonymsChipFilter();
+                        stringBuilder.append("-Synonym:").append("\n").append(englishDef.getSynonyms()).append("\n");
+                    }
                 }
-            }
-            if (showExamples) {
-                if (!englishDef.getExamples().equals("")) {
-                    showExamplesChipFilter();
-                    stringBuilder.append("-Example:").append("\n").append(englishDef.getExamples()).append("\n");
+                if (showExamples) {
+                    if (!englishDef.getExamples().equals("")) {
+                        showExamplesChipFilter();
+                        stringBuilder.append("-Example:").append("\n").append(englishDef.getExamples()).append("\n");
+                    }
                 }
             }
         }
@@ -260,19 +262,21 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
 
     private String getTranslationData(boolean showExamples, List<WordInformation> wordList) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (WordInformation wordInformation : wordList) {
-            for (TranslationWord translationWord : wordInformation.getTranslationWords()) {
-                stringBuilder.append("*").append(translationWord.getTranslatedWord()).append("\n");
-                if (translationWord.getTranslationExamples() != null) {
-                    if (showExamples) {
-                        showExamplesChipFilter();
-                        for (TranslationExample translationExample :
-                                translationWord.getTranslationExamples()) {
-                            stringBuilder.append(translationExample.getSentence()).append("\n");
+        if (wordList != null) {
+            for (WordInformation wordInformation : wordList) {
+                for (TranslationWord translationWord : wordInformation.getTranslationWords()) {
+                    stringBuilder.append("*").append(translationWord.getTranslatedWord()).append("\n");
+                    if (translationWord.getTranslationExamples() != null) {
+                        if (showExamples) {
+                            showExamplesChipFilter();
+                            for (TranslationExample translationExample :
+                                    translationWord.getTranslationExamples()) {
+                                stringBuilder.append(translationExample.getSentence()).append("\n");
+                            }
                         }
                     }
-                }
 
+                }
             }
         }
         return stringBuilder.toString();

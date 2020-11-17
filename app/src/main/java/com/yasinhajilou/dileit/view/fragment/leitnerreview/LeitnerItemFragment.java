@@ -151,11 +151,8 @@ public class LeitnerItemFragment extends Fragment {
 
             addReviewedHistory(mLeitner.getWord());
 
-            Toast.makeText(getContext(), mLeitner.getState() + "", Toast.LENGTH_SHORT).show();
-
             int nextBox = LeitnerUtils.nextBoxFinder(mLeitner.getState());
 
-            Toast.makeText(getContext(), nextBox + "", Toast.LENGTH_SHORT).show();
             mLeitner.setState(nextBox);
             mLeitner.setLastReviewTime(System.currentTimeMillis());
 

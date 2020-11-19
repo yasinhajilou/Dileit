@@ -68,7 +68,7 @@ public class SettingActivity extends AppCompatActivity {
                     mSharedPreferenceUtil.setTime(lastHour, lastMin);
                     mSharedPreferenceUtil.setAlarmManagerStatus(true);
                     initTextViews(lastHour, lastMin);
-                    Toast.makeText(this, getString(R.string.alarm_cap) + lastHour + ":" + lastMin, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, getString(R.string.alarm_cap) + " " + lastHour + ":" + lastMin, Toast.LENGTH_LONG).show();
                 }
             } else {
                 handleTimePickerEnabling(false);

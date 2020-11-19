@@ -110,7 +110,7 @@ When cards of this section reviewed, they will move to "\Review"\ section, while
     <string name="pl_add_cat">please add cart category!</string>
     <string name="pl_fill_fields"><![CDATA[please fill word title or definition!]]></string>
     <string name="pl_fill_cat"><![CDATA[please fill Card Category!]]></string>
-    <string name="card_duplicated">A card with title title exist! Please change Word/Phrase.</string>
+    <string name="card_duplicated">A card with title exist! Please change Word/Phrase.</string>
     <string name="added">Added.</string>
     <string name="error">An error occurred.</string>
     <string name="nees_speak">Need to speak</string>
@@ -123,7 +123,7 @@ When cards of this section reviewed, they will move to "\Review"\ section, while
     <string name="delete_leitner_caption">Do you want to delete this leitner card?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="alarm_cap">\"Alarm enabled for  \"</string>
+    <string name="alarm_cap">Alarm enabled for </string>
     <string name="delete_his">Delete History</string>
     <string name="delete_his_cap">Are you want to delete Search History?</string>
     <string name="deleted_successfully">Deleted Successfully</string>

@@ -76,7 +76,7 @@ class HomeFragment : Fragment(), WordsRecyclerViewInterface {
         })
         mViewModel!!.todayListSize.observe(viewLifecycleOwner, { size: Int ->
             todayCardsSize = size
-            if (todayCardsSize <= 1) mBinding!!.tvTodayWordsHome.text = size.toString() + getString(R.string.card) else mBinding!!.tvTodayWordsHome.text = size.toString() + getString(R.string.cards)
+            if (todayCardsSize <= 1) mBinding!!.tvTodayWordsHome.text = size.toString() + " " + getString(R.string.card) else mBinding!!.tvTodayWordsHome.text = size.toString() + " " + getString(R.string.cards)
         })
         mBinding!!.linearLayoutVoice.setOnClickListener { view12: View? ->
             val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)

@@ -63,7 +63,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                                     .setAutoCancel(true)
                                     .setContentIntent(PendingIntent.getActivity(
                                             context, NOTIFICATION_ID, intentLeitnerReviewing, PendingIntent.FLAG_UPDATE_CURRENT))
-                                    .setContentText(context.getString(R.string.there) +" " + safeVerb + todayCardSize + " "+context.getString(R.string.leitner)+" " + safeNoun + " "+ context.getString(R.string.for_reviwing))
+                                    .setContentText(context.getString(R.string.there) + " " + safeVerb + todayCardSize + " " +context.getString(R.string.leitner)+" " + safeNoun + " "+ context.getString(R.string.for_reviwing))
                                     .setContentTitle(context.getString(R.string.review_today_cards))
                                     .setSmallIcon(R.drawable.ic_leitner_reminder);
 

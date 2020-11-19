@@ -15,6 +15,7 @@ public class SharedPreferenceUtil {
     }
 
     public void setAlarmManagerStatus(boolean b) {
+        mEditor = mSharedPreferences.edit();
         mEditor.putBoolean(KeysValue.SP_ALARM_STATUS, b);
         mEditor.apply();
     }

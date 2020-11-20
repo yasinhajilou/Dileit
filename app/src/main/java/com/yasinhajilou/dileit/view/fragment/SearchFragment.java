@@ -16,11 +16,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.yasinhajilou.dileit.R;
 import com.yasinhajilou.dileit.constant.KeysValue;
 import com.yasinhajilou.dileit.databinding.FragmentWordSearchBinding;
 import com.yasinhajilou.dileit.model.entity.WordHistory;
+import com.yasinhajilou.dileit.utils.SharedPreferenceUtil;
 import com.yasinhajilou.dileit.view.adapter.recycler.AllWordsRecyclerAdapter;
 import com.yasinhajilou.dileit.view.viewinterface.WordsRecyclerViewInterface;
 import com.yasinhajilou.dileit.viewmodel.ExternalViewModel;
@@ -37,13 +39,14 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     private FragmentWordSearchBinding mBinding;
     private ExternalViewModel mExternalViewModel;
     private InputMethodManager inputMethodManager;
-
+    private SharedPreferenceUtil sharedPreferenceUtil;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSharedViewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
-        mInternalViewModel = new ViewModelProvider(getActivity()).get(InternalViewModel.class);
+        mSharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+        mInternalViewModel = new ViewModelProvider(requireActivity()).get(InternalViewModel.class);
         mExternalViewModel = new ViewModelProvider(this).get(ExternalViewModel.class);
+        sharedPreferenceUtil = new SharedPreferenceUtil(requireContext());
     }
 
     @Override
@@ -58,7 +61,7 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 
         mBinding.edtSearchWord.requestFocus();
 
@@ -99,6 +102,13 @@ public class SearchFragment extends Fragment implements WordsRecyclerViewInterfa
                     mExternalViewModel.getSearchEng("");
                     mExternalViewModel.getSearchPer("");
                     mAdapter.setData(null);
+                }
+
+
+                if (sharedPreferenceUtil.getUserSearchFirstTime()){
+                    Toast.makeText(requireContext(), requireActivity().getResources().getString(R.string.first_time_search_caution)
+                            , Toast.LENGTH_LONG).show();
+                    sharedPreferenceUtil.setUserSearchFirstTime(false);
                 }
                 return false;
             }

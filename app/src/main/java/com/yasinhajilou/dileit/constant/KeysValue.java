@@ -24,5 +24,6 @@ public class KeysValue {
     public static final String SP_MIN = "shared_preference_minute";
     public static final String SP_ALARM_STATUS = "shared_preference_alarm_status";
     public static final String SP_USER_STATE = "shared_preference_user_state";
+    public static final String SP_USER_SEARCH_STATE = "shared_preference_user_search_state";
 
 }

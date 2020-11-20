@@ -48,4 +48,15 @@ public class SharedPreferenceUtil {
     public boolean isUserFirstTime(){
         return mSharedPreferences.getBoolean(KeysValue.SP_USER_STATE , true);
     }
+
+
+    //in search view check for is it first time
+    public void setUserSearchFirstTime(boolean state){
+        mEditor = mSharedPreferences.edit();
+        mEditor.putBoolean(KeysValue.SP_USER_SEARCH_STATE , state);
+        mEditor.apply();
+    }
+    public boolean getUserSearchFirstTime(){
+        return mSharedPreferences.getBoolean(KeysValue.SP_USER_SEARCH_STATE , true);
+    }
 }

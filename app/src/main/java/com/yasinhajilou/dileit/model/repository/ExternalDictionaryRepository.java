@@ -67,7 +67,7 @@ public class ExternalDictionaryRepository {
                 cursor.close();
             }
             return wordsList;
-        }).debounce(1000, TimeUnit.MILLISECONDS)
+        }).debounce(1800, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io());
     }
 
@@ -95,7 +95,7 @@ public class ExternalDictionaryRepository {
                 cursor.close();
             }
             return englishDefs;
-        }).debounce(1000, TimeUnit.MILLISECONDS)
+        }).debounce(1800, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io());
     }
 

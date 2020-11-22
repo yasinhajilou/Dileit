@@ -96,12 +96,13 @@ class AboutActivity : AppCompatActivity() {
     }
 
     private fun rateApp() {
-        val packageManager = applicationContext.packageManager
-        val intent = Intent(Intent.ACTION_EDIT)
-        intent.data = Uri.parse("bazaar://details?id=" + applicationContext.packageName)
-        intent.setPackage("com.farsitel.bazaar")
-        if (intent.resolveActivity(packageManager) != null) startActivity(intent) else {
-            Toast.makeText(this, resources.getString(R.string.no_app_rating), Toast.LENGTH_SHORT).show()
+        val intent = Intent()
+        intent.action = Intent.ACTION_VIEW
+        intent.data = Uri.parse("myket://comment?id=" + applicationContext.packageName)
+        if (isIntentAvailable(intent)) {
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, resources.getString(R.string.no_app_rating), Toast.LENGTH_LONG).show()
         }
     }
 

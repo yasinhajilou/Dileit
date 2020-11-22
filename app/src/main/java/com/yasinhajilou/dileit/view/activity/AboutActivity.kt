@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -50,6 +51,14 @@ class AboutActivity : AppCompatActivity() {
         mBinding.lottieAnimRating.setOnClickListener { rateApp() }
         mBinding.message.setOnClickListener { sendEmail() }
         mBinding.ivBackAbout.setOnClickListener { this.finish() }
+
+        mBinding.ivCopyRight.setOnClickListener {
+            val alertDialogBuilder = AlertDialog.Builder(this)
+                    .setMessage(resources.getString(R.string.copy_right))
+                    .setCancelable(true)
+            val alertDialog = alertDialogBuilder.create()
+            alertDialog.show()
+        }
     }
 
     private fun shareApp() {

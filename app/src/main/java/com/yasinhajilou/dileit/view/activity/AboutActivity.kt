@@ -64,7 +64,7 @@ class AboutActivity : AppCompatActivity() {
     private fun shareApp() {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.type = "text/plain"
-        val shareContent = resources.getString(R.string.share_body) + "\nhttps://myket.ir/app/${packageName} + "
+        val shareContent = resources.getString(R.string.share_body) + "\nhttps://myket.ir/app/${packageName}"
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, resources.getString(R.string.share_diliet))
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareContent)
         startActivity(Intent.createChooser(shareIntent, resources.getString(R.string.share_via)))

@@ -64,7 +64,7 @@ class AboutActivity : AppCompatActivity() {
     private fun shareApp() {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.type = "text/plain"
-        val shareContent = resources.getString(R.string.share_body) + "\nhttps://cafebazaar.ir/app/${packageName}"
+        val shareContent = resources.getString(R.string.share_body) + "\nhttps://myket.ir/app/${packageName} + "
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, resources.getString(R.string.share_diliet))
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareContent)
         startActivity(Intent.createChooser(shareIntent, resources.getString(R.string.share_via)))
@@ -102,7 +102,14 @@ class AboutActivity : AppCompatActivity() {
         if (isIntentAvailable(intent)) {
             startActivity(intent)
         } else {
-            Toast.makeText(this, resources.getString(R.string.no_app_rating), Toast.LENGTH_LONG).show()
+            //check for Charkhoone :
+            intent.data = Uri.parse("jhoobin://comment?q=" + applicationContext.packageName)
+            if (isIntentAvailable(intent)) {
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, resources.getString(R.string.no_app_rating), Toast.LENGTH_LONG).show()
+            }
+
         }
     }
 

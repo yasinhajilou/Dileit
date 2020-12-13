@@ -177,6 +177,8 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
     private void setUpViewForEditing() {
         mInternalViewModel.getLeitnerCardById(cardId).observe(getViewLifecycleOwner(), leitner -> {
 
+
+
             mBinding.edtTitleDialogAddLeitner.setText(leitner.getWord());
             mBinding.dropdownText.setText(leitner.getWordAct(), false);
             mBinding.edtDialogGuide.setText(leitner.getGuide());
@@ -184,6 +186,11 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
             mAdapter.addData(getResources().getString(R.string.translation), leitner.getDef());
             mAdapter.addData(getResources().getString(R.string.enf_def), leitner.getSecondDef());
             mLeitner = leitner;
+
+            translationEdtText().setEnabled(true);
+            engEditText().setEnabled(true);
+
+            changeEditTextsColorByState(true);
         });
     }
 
@@ -207,13 +214,7 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
             translationEdtText().setEnabled(b);
             engEditText().setEnabled(b);
 
-            if (b) {
-                translationEdtText().setTextColor(ContextCompat.getColor(requireContext(), R.color.colorTextTitle));
-                engEditText().setTextColor(ContextCompat.getColor(requireContext(), R.color.colorTextTitle));
-            } else {
-                translationEdtText().setTextColor(ContextCompat.getColor(requireContext(), R.color.darkGrey));
-                engEditText().setTextColor(ContextCompat.getColor(requireContext(), R.color.darkGrey));
-            }
+            changeEditTextsColorByState(b);
 
         });
 
@@ -308,6 +309,15 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
             mBinding.chipExamples.setVisibility(View.VISIBLE);
     }
 
+    private void changeEditTextsColorByState(boolean state){
+        if (state) {
+            translationEdtText().setTextColor(ContextCompat.getColor(requireContext(), R.color.colorTextTitle));
+            engEditText().setTextColor(ContextCompat.getColor(requireContext(), R.color.colorTextTitle));
+        } else {
+            translationEdtText().setTextColor(ContextCompat.getColor(requireContext(), R.color.darkGrey));
+            engEditText().setTextColor(ContextCompat.getColor(requireContext(), R.color.darkGrey));
+        }
+    }
     @Override
     public int getTheme() {
         return R.style.AppBottomSheetDialogTheme;
@@ -317,4 +327,5 @@ public class LeitnerCardModifierBottomSheet extends BottomSheetDialogFragment {
     public void onDestroyView() {
         super.onDestroyView();
     }
+
 }

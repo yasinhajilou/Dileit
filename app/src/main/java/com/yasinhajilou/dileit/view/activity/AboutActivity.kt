@@ -64,7 +64,7 @@ class AboutActivity : AppCompatActivity() {
     private fun shareApp() {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.type = "text/plain"
-        val shareContent = resources.getString(R.string.share_body) + "\nhttps://myket.ir/app/${packageName}"
+        val shareContent = resources.getString(R.string.share_body)
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, resources.getString(R.string.share_diliet))
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareContent)
         startActivity(Intent.createChooser(shareIntent, resources.getString(R.string.share_via)))
@@ -96,21 +96,27 @@ class AboutActivity : AppCompatActivity() {
     }
 
     private fun rateApp() {
-        val intent = Intent()
-        intent.action = Intent.ACTION_VIEW
-        intent.data = Uri.parse("myket://comment?id=" + applicationContext.packageName)
-        if (isIntentAvailable(intent)) {
-            startActivity(intent)
-        } else {
-            //check for Charkhoone :
-            intent.data = Uri.parse("jhoobin://comment?q=" + applicationContext.packageName)
-            if (isIntentAvailable(intent)) {
-                startActivity(intent)
-            } else {
-                Toast.makeText(this, resources.getString(R.string.no_app_rating), Toast.LENGTH_LONG).show()
-            }
-
-        }
+//        val intent = Intent()
+//        intent.action = Intent.ACTION_VIEW
+//        intent.data = Uri.parse("myket://comment?id=" + applicationContext.packageName)
+//        if (isIntentAvailable(intent)) {
+//            startActivity(intent)
+//        } else {
+//            //check for Charkhoone :
+//            intent.data = Uri.parse("jhoobin://comment?q=" + applicationContext.packageName)
+//            if (isIntentAvailable(intent)) {
+//                startActivity(intent)
+//            } else {
+//                Toast.makeText(this, resources.getString(R.string.no_app_rating), Toast.LENGTH_LONG).show()
+//            }
+//
+//        }
+        val packageManager = applicationContext.packageManager
+        val intent = Intent(Intent.ACTION_EDIT)
+        intent.data = Uri.parse("bazaar://details?id=" + applicationContext.packageName)
+        intent.setPackage("com.farsitel.bazaar")
+        if (intent.resolveActivity(packageManager) != null) startActivity(intent) else {
+            Toast.makeText(this, resources.getString(R.string.no_app_rating), Toast.LENGTH_LONG).show()        }
     }
 
     private fun sendEmail() {

@@ -151,7 +151,7 @@ When cards of this section reviewed, they will move to "\Review"\ section, while
     <string name="about">About Us</string>
     <string name="contact_us">Contact us:</string>
     <string name="open_source">Open Source:</string>
-    <string name="share_body">Hey\nDileit is a dictionary app with Leitner system. you can download it from here:</string>
+    <string name="share_body">Hey \n Dileit is a dictionary app with the Leitner system. you can download it from here: \n Myket:https://myket.ir/app/com.yasinhajilou.dileit \n Cafebazzer: https://cafebazaar.ir/app/com.yasinhajilou.dileit </string>
     <string name="share_diliet">Share Dileit</string>
     <string name="share_via">Share App Via:</string>
     <string name="no_app_rating">Didn\'t find appropriate application for rating!</string>

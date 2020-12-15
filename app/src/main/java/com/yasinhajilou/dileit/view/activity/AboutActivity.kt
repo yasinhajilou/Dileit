@@ -96,27 +96,21 @@ class AboutActivity : AppCompatActivity() {
     }
 
     private fun rateApp() {
-//        val intent = Intent()
-//        intent.action = Intent.ACTION_VIEW
-//        intent.data = Uri.parse("myket://comment?id=" + applicationContext.packageName)
-//        if (isIntentAvailable(intent)) {
-//            startActivity(intent)
-//        } else {
-//            //check for Charkhoone :
-//            intent.data = Uri.parse("jhoobin://comment?q=" + applicationContext.packageName)
-//            if (isIntentAvailable(intent)) {
-//                startActivity(intent)
-//            } else {
-//                Toast.makeText(this, resources.getString(R.string.no_app_rating), Toast.LENGTH_LONG).show()
-//            }
-//
-//        }
+
         val packageManager = applicationContext.packageManager
-        val intent = Intent(Intent.ACTION_EDIT)
-        intent.data = Uri.parse("bazaar://details?id=" + applicationContext.packageName)
-        intent.setPackage("com.farsitel.bazaar")
-        if (intent.resolveActivity(packageManager) != null) startActivity(intent) else {
-            Toast.makeText(this, resources.getString(R.string.no_app_rating), Toast.LENGTH_LONG).show()        }
+        val bazzarIntetnt = Intent(Intent.ACTION_EDIT)
+        bazzarIntetnt.data = Uri.parse("bazaar://details?id=" + applicationContext.packageName)
+        bazzarIntetnt.setPackage("com.farsitel.bazaar")
+        if (bazzarIntetnt.resolveActivity(packageManager) != null) startActivity(bazzarIntetnt) else {
+            val myketIntent = Intent()
+            myketIntent.action = Intent.ACTION_VIEW
+            myketIntent.data = Uri.parse("myket://comment?id=" + applicationContext.packageName)
+            if (isIntentAvailable(myketIntent)) {
+                startActivity(myketIntent)
+            } else {
+                Toast.makeText(this, resources.getString(R.string.no_app_rating), Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun sendEmail() {

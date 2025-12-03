@@ -56,6 +56,10 @@ public class ExternalViewModel extends AndroidViewModel {
 
 
     public void getSearchEng(String word) {
+            // Remove previous source to prevent memory leaks
+            if (mGetEng != null) {
+                mSyncedSearchList.removeSource(mGetEng);
+            }
             mGetEng = LiveDataReactiveStreams.fromPublisher(mRepository.doEngSearch(word));
             mSyncedSearchList.addSource(mGetEng, searchDictionaries -> {
                 syncSearchedData(mGetPer, mGetEng);
@@ -64,6 +68,10 @@ public class ExternalViewModel extends AndroidViewModel {
     }
 
     public void getSearchPer(String word) {
+            // Remove previous source to prevent memory leaks
+            if (mGetPer != null) {
+                mSyncedSearchList.removeSource(mGetPer);
+            }
             mGetPer = LiveDataReactiveStreams.fromPublisher(mRepository.doPersianSearch(word));
             mSyncedSearchList.addSource(mGetPer, searchDictionaries -> {
                 syncSearchedData(mGetPer, mGetEng);

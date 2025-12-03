@@ -6,10 +6,10 @@ import com.google.gson.Gson;
 
 public class JsonUtils {
     private String TAG = JsonUtils.class.getSimpleName();
-    private Gson mGson;
+    // Use static Gson instance to avoid creating new instances on each call
+    private static final Gson mGson = new Gson();
 
     public JsonUtils() {
-        mGson = new Gson();
     }
 
     //Convert word data to wordDefinition class

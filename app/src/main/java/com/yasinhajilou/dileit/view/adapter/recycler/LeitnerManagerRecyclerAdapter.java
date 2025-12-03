@@ -80,11 +80,10 @@ public class LeitnerManagerRecyclerAdapter extends RecyclerView.Adapter<LeitnerM
                             .setMessage(R.string.delete_leitner_caption)
                             .setNeutralButton(R.string.yes, (dialogInterface, i) -> {
                                 int position = getAdapterPosition();
-                                if (position != RecyclerView.NO_POSITION) {
-                                    Leitner leitnerToDelete = currentLeitner;
-                                    mLeitners.remove(leitnerToDelete);
+                                if (position != RecyclerView.NO_POSITION && currentLeitner != null) {
+                                    mLeitners.remove(currentLeitner);
                                     notifyItemRemoved(position);
-                                    mInterface.onDeleteSelected(leitnerToDelete);
+                                    mInterface.onDeleteSelected(currentLeitner);
                                 }
                             })
                             .setNegativeButton(R.string.no, (dialogInterface, i) -> {

@@ -57,6 +57,7 @@ public class LeitnerManagerRecyclerAdapter extends RecyclerView.Adapter<LeitnerM
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView mTextView;
         ImageView imgEdit, imgDelete;
+        private Leitner currentLeitner;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -64,43 +65,46 @@ public class LeitnerManagerRecyclerAdapter extends RecyclerView.Adapter<LeitnerM
             imgDelete = itemView.findViewById(R.id.img_remove_leitner_manager_item);
             imgEdit = itemView.findViewById(R.id.img_edit_leitner_manager_item);
             itemView.setOnClickListener(this);
-        }
-
-        void bindData(Leitner leitner) {
-            mTextView.setText(leitner.getWord());
-
-            imgEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mInterface.onEditSelected(leitner);
+            
+            // Set click listeners once in constructor to avoid memory leaks
+            imgEdit.setOnClickListener(view -> {
+                if (currentLeitner != null) {
+                    mInterface.onEditSelected(currentLeitner);
                 }
             });
 
-
-            imgDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
+            imgDelete.setOnClickListener(view -> {
+                if (currentLeitner != null) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext())
                             .setTitle(R.string.delete_leitner_title)
                             .setMessage(R.string.delete_leitner_caption)
                             .setNeutralButton(R.string.yes, (dialogInterface, i) -> {
-                                mLeitners.remove(leitner);
-                                notifyItemRemoved(getAdapterPosition());
-                                mInterface.onDeleteSelected(leitner);
+                                int position = getAdapterPosition();
+                                if (position != RecyclerView.NO_POSITION && currentLeitner != null) {
+                                    mLeitners.remove(currentLeitner);
+                                    notifyItemRemoved(position);
+                                    mInterface.onDeleteSelected(currentLeitner);
+                                }
                             })
                             .setNegativeButton(R.string.no, (dialogInterface, i) -> {
                                 dialogInterface.dismiss();
                             });
                     builder.show();
-
                 }
             });
         }
 
+        void bindData(Leitner leitner) {
+            currentLeitner = leitner;
+            mTextView.setText(leitner.getWord());
+        }
+
         @Override
         public void onClick(View view) {
-            Toast.makeText(view.getContext(), mLeitners.get(getAdapterPosition()).getState() + "", Toast.LENGTH_SHORT).show();
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                Toast.makeText(view.getContext(), mLeitners.get(position).getState() + "", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

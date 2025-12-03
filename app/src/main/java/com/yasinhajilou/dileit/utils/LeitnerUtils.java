@@ -12,33 +12,28 @@ public class LeitnerUtils {
     //get today card that are ready for reviewing
     public static List<Leitner> getPreparedLeitnerItems(List<Leitner> leitnerList){
         List<Leitner> filteredList = new ArrayList<>();
-        for (int i = leitnerList.size() ; i > 0 ; i--) {
-
-            Leitner currentItem = leitnerList.get(i-1);
+        // Cache current time outside loop to avoid repeated system calls
+        long currentTime = System.currentTimeMillis();
+        int size = leitnerList.size();
+        
+        for (int i = size - 1; i >= 0; i--) {
+            Leitner currentItem = leitnerList.get(i);
             int currentState = currentItem.getState();
 
             if (currentState == LeitnerStateConstant.BOX_ONE || currentState == LeitnerStateConstant.STARTED){
                 filteredList.add(currentItem);
             }else{
                 long startTime = currentItem.getLastReviewTime();
-                long endTime = System.currentTimeMillis();
-                long spaceTime = TimeUtils.getDaysBetweenTimestamps(startTime , endTime);
+                long spaceTime = TimeUtils.getDaysBetweenTimestamps(startTime, currentTime);
 
                 if (currentState == LeitnerStateConstant.BOX_TWO && spaceTime>=2){
                     filteredList.add(currentItem);
-                }else {
-
-                    if (currentState == LeitnerStateConstant.BOX_THREE && spaceTime>=4){
-                        filteredList.add(currentItem);
-                    }else {
-                        if (currentState == LeitnerStateConstant.BOX_FOUR && spaceTime>=9){
-                            filteredList.add(currentItem);
-                        }else {
-                            if (currentState == LeitnerStateConstant.BOX_FIVE && spaceTime>=14){
-                                filteredList.add(currentItem);
-                            }
-                        }
-                    }
+                }else if (currentState == LeitnerStateConstant.BOX_THREE && spaceTime>=4){
+                    filteredList.add(currentItem);
+                }else if (currentState == LeitnerStateConstant.BOX_FOUR && spaceTime>=9){
+                    filteredList.add(currentItem);
+                }else if (currentState == LeitnerStateConstant.BOX_FIVE && spaceTime>=14){
+                    filteredList.add(currentItem);
                 }
             }
         }

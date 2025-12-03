@@ -37,18 +37,22 @@ class WordInfoParentRecyclerAdapter() : RecyclerView.Adapter<WordInfoParentRecyc
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val rv: RecyclerView = itemView.findViewById(R.id.rv_parent_word_info)
         val tvCat: TextView = itemView.findViewById(R.id.tv_item_information_cat)
-        fun bindData(wordInfo: WordInformation?) {
-            if (wordInfo?.type != null)
-                tvCat.text = StringUtils.decoratedString(wordInfo.type)
-
+        // Create adapter once in ViewHolder to avoid recreation on each bind
+        private val childAdapter = TranslationWordRecyclerAdapter()
+        
+        init {
             val childLayoutManager = LinearLayoutManager(itemView.context)
-            val childAdapter = TranslationWordRecyclerAdapter()
-
             rv.apply {
                 adapter = childAdapter
                 layoutManager = childLayoutManager
                 setRecycledViewPool(rvPool)
             }
+        }
+        
+        fun bindData(wordInfo: WordInformation?) {
+            if (wordInfo?.type != null)
+                tvCat.text = StringUtils.decoratedString(wordInfo.type)
+
             childAdapter.setData(wordInfo?.translationWords)
         }
     }

@@ -52,12 +52,13 @@ public class TranslationWordRecyclerAdapter extends RecyclerView.Adapter<Transla
             mRecyclerView.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
             mAdapter = new ExamplesRecyclerAdapter();
             mRecyclerView.setAdapter(mAdapter);
+            // Set recycled view pool once in constructor
+            mRecyclerView.setRecycledViewPool(mPool);
          }
 
         void bindData(TranslationWord word){
              mTextView.setText(word.getTranslatedWord());
              mAdapter.setData(word.getTranslationExamples());
-             mRecyclerView.setRecycledViewPool(mPool);
         }
     }
 }
